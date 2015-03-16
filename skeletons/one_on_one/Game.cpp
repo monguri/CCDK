@@ -14,7 +14,8 @@ using  Microsoft::WRL::ComPtr;
 // Constructor.
 Game::Game() :
     m_window(0),
-    m_featureLevel( D3D_FEATURE_LEVEL_9_1 )
+    m_featureLevel( D3D_FEATURE_LEVEL_11_1 ),
+	m_framecnt(0)
 {
 }
 
@@ -76,6 +77,7 @@ void Game::Update(DX::StepTimer const& timer)
 // Draws the scene
 void Game::Render()
 {
+	m_framecnt++;
     // Don't try to render anything before the first Update.
     if (m_timer.GetFrameCount() == 0)
         return;
@@ -84,7 +86,15 @@ void Game::Render()
 
     // TODO: Add your rendering code here
 	m_spriteBatch->Begin();
-	m_spriteFont->DrawString(m_spriteBatch, L"Helloworld!", XMFLOAT2(100,100));
+
+	TCHAR statmsg[100];
+	wsprintf(statmsg, L"Frame: %d", m_framecnt);
+	m_spriteFont->DrawString(m_spriteBatch, statmsg, XMFLOAT2(10, 10));
+
+	m_spriteFont->DrawString(m_spriteBatch, L"Skeleton code for 1:1 games", XMFLOAT2(100, 100));
+	m_spriteFont->DrawString(m_spriteBatch, L"Press P to play sound effect", XMFLOAT2(130, 140));
+	m_spriteFont->DrawString(m_spriteBatch, L"Press Q to quit", XMFLOAT2(130, 170));
+
 	m_spriteBatch->End();
 
 

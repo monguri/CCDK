@@ -70,6 +70,7 @@ private:
 
     // Game state
     DX::StepTimer                                   m_timer;
+	int m_framecnt;
 
 	// Show status logs
 	SpriteBatch* m_spriteBatch;
