@@ -23,6 +23,7 @@ void Game::Initialize(HWND window)
 {
     m_window = window;
 
+	
     CreateDevice();
 
     CreateResources();
@@ -35,6 +36,16 @@ void Game::Initialize(HWND window)
     */
 	m_spriteBatch = new SpriteBatch(m_d3dContext.Get());
 	m_spriteFont = new SpriteFont( m_d3dDevice.Get(), L"tahoma9.spritefont");
+
+	// This is only needed in Win32 desktop apps
+	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	AUDIO_ENGINE_FLAGS eflags = AudioEngine_Default;
+#ifdef _DEBUG
+	eflags = eflags | AudioEngine_Debug;
+#endif
+	m_audioEngine = new AudioEngine(eflags);
+	m_soundEffect = new SoundEffect(m_audioEngine, L"coinget.wav");
+	m_soundEffect->Play();
 }
 
 // Executes basic game loop.
@@ -55,6 +66,11 @@ void Game::Update(DX::StepTimer const& timer)
 
     // TODO: Add your game logic here
     elapsedTime;
+
+	m_audioEngine->Update();
+	if (m_audioEngine->IsCriticalError()) {
+		OutputDebugString(L"AudioEngine error!");
+	}
 }
 
 // Draws the scene
@@ -361,4 +377,13 @@ void Game::OnDeviceLost()
     CreateDevice();
 
     CreateResources();
+}
+void Game::OnKeydown(int keycode) {
+	TCHAR s[100];
+	wsprintf(s, L"Key: %d", keycode);
+
+	OutputDebugString(s);
+
+	if (keycode == 'Q' ) exit(0); 
+	if (keycode == 'P') m_soundEffect->Play();
 }

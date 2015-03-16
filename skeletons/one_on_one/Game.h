@@ -7,6 +7,7 @@
 #include "pch.h"
 #include "StepTimer.h"
 #include "SpriteFont.h"
+#include "Audio.h"
 
 using namespace DirectX;
 
@@ -36,6 +37,7 @@ public:
     void OnSuspending();
     void OnResuming();
     void OnWindowSizeChanged();
+	void OnKeydown(int keycode);
 
     // Properites
     void GetDefaultSize( size_t& width, size_t& height ) const;
@@ -73,4 +75,6 @@ private:
 	SpriteBatch* m_spriteBatch;
 	SpriteFont* m_spriteFont;
 
+	AudioEngine *m_audioEngine;
+	SoundEffect *m_soundEffect;
 };
