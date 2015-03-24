@@ -105,7 +105,11 @@ void Game::Render()
 void Game::Clear()
 {
     // Clear the views
-    m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), Colors::CornflowerBlue);
+	float d = 100.0f;
+	int m = 25;
+	float r = (rand() % m) / d, g = (rand() % m) /d, b = (rand() % m) / d;
+	float col[4] = { r,g,b,1 };
+    m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), col );
     m_d3dContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
     m_d3dContext->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
 }
