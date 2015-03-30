@@ -47,7 +47,8 @@ CCDKは、MCSをベースとして設計されています。
 以下の図では、シンラ・システムのコアシステム(商用サービス用のシステム)と、
 MCSと、シンラ・システム無しのゲームをそれぞれ比較しています。
 
-![WithoutShinra](without_shinra.png =150x)
+<img src="without_shinra.png" width=150>
+
 
 
 まず上の図は、シンラ・システム無しで、
