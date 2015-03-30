@@ -14,7 +14,7 @@ using  Microsoft::WRL::ComPtr;
 // Constructor.
 Game::Game() :
     m_window(0),
-    m_featureLevel( D3D_FEATURE_LEVEL_9_1 ),
+    m_featureLevel( D3D_FEATURE_LEVEL_11_1 ),
 	m_framecnt(0)
 {
 }
@@ -284,7 +284,7 @@ void Game::CreateResources()
     else
     {
         // First, retrieve the underlying DXGI Device from the D3D Device
-        ComPtr<IDXGIDevice> dxgiDevice;
+        ComPtr<IDXGIDevice1> dxgiDevice;
         DX::ThrowIfFailed(m_d3dDevice.As(&dxgiDevice));
 
         // Identify the physical adapter (GPU or card) this device is running on.
@@ -292,11 +292,10 @@ void Game::CreateResources()
         DX::ThrowIfFailed(dxgiDevice->GetAdapter(dxgiAdapter.GetAddressOf()));
 
         // And obtain the factory object that created it.
-        ComPtr<IDXGIFactory> dxgiFactory;
-        DX::ThrowIfFailed(dxgiAdapter->GetParent(__uuidof(IDXGIFactory), &dxgiFactory));
+        ComPtr<IDXGIFactory1> dxgiFactory;
+        DX::ThrowIfFailed(dxgiAdapter->GetParent(__uuidof(IDXGIFactory1), &dxgiFactory));
 
-/*
-		ComPtr<IDXGIFactory2> dxgiFactory2;
+        ComPtr<IDXGIFactory2> dxgiFactory2;
         HRESULT hr = dxgiFactory.As(&dxgiFactory2);
         if (SUCCEEDED(hr))
         {
@@ -327,8 +326,6 @@ void Game::CreateResources()
         }
         else
         {
-		*/
-
             DXGI_SWAP_CHAIN_DESC swapChainDesc = { 0 };
             swapChainDesc.BufferCount = 2;
             swapChainDesc.BufferDesc.Width = backBufferWidth;
@@ -341,7 +338,7 @@ void Game::CreateResources()
             swapChainDesc.Windowed = TRUE;
 
             DX::ThrowIfFailed( dxgiFactory->CreateSwapChain( m_d3dDevice.Get(), &swapChainDesc, m_swapChain.ReleaseAndGetAddressOf() ) );
-        //}
+        }
 
         // This template does not support 'full-screen' mode and prevents the ALT+ENTER shortcut from working
         dxgiFactory->MakeWindowAssociation(m_window, DXGI_MWA_NO_ALT_ENTER);
@@ -380,11 +377,11 @@ void Game::OnDeviceLost()
     m_depthStencil.Reset();
     m_depthStencilView.Reset();
     m_renderTargetView.Reset();
-//    m_swapChain1.Reset();
+    m_swapChain1.Reset();
     m_swapChain.Reset();
- //   m_d3dContext1.Reset();
+    m_d3dContext1.Reset();
     m_d3dContext.Reset();
-//m_d3dDevice1.Reset();
+    m_d3dDevice1.Reset();
     m_d3dDevice.Reset();
 
     CreateDevice();
