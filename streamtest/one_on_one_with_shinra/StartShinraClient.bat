@@ -1,9 +1,0 @@
-@ECHO OFF
-
-SET GAME_DIR=%~dp0
-SET PLATFORM=x32
-SET CONFIG=Release
-SET PLATFORM_DIR=%GAME_DIR%Shinra\%PLATFORM%\%CONFIG%\
-SET GAME_IP=127.0.0.1
-
-start "" "%PLATFORM_DIR%ShinraClient.exe" -d jpgd -t %GAME_IP%
