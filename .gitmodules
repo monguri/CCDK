@@ -1,0 +1,6 @@
+[submodule "externals/hiredis"]
+	path = externals/hiredis
+	url = https://github.com/ShinraTech/hiredis
+[submodule "externals/moyai"]
+	path = externals/moyai
+	url = https://github.com/kengonakajima/moyai

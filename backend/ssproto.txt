@@ -1,0 +1,303 @@
+Shinra backend server protocol,
+originated from Space Sweeper backend server.
+
+2015 Shinra Technologies, All rights reserved.
+
+
+=protocolname ssproto
+=serverconnection conn
+
+=version 10003
+
+#=enum AAA OK 0
+#=enum AAA NG        
+
+=idmax 256
+
+
+#=define TEST 10
+#=define TEST_STR "test"
+
+#=struct hoge { int x, int y}
+
+#=sh #include "test.h"
+#=ch #include "client.h"
+
+=c2s 1 ping ( int64 t_usec, int cmd )
+=s2c 2 pong ( int64 t_usec, int cmd )
+cmdはそのまま返される。自由に使える。
+
+=define USERID_SIZE_MAX 32
+
+=s2c 4 version_notify ( uint maj, uint min )
+サーバからバージョンをおくり、クライアントで判定して不一致だったら落とす
+
+
+##########
+
+# 返り値
+
+=define OK (0)
+=define E_FILE_NAME_INVALID (-1)
+=define E_FILE_NAME_TOO_LONG (-2)
+=define E_FILE_ACCESS (-3)
+=define E_KVS_COMMAND (-10)
+=define E_KVS_ARRAY_NOT_IMPLEMENTED (-11)
+=define E_CHANNEL_FULL (-30)
+=define E_CHANNEL_JOIN_REQUIRED (-31)
+=define E_CANT_LOCK (-40)
+=define E_CANT_UNLOCK (-41)
+=define E_IMAGE_STORE_CANNOT_ALLOCATE (-42)
+=define E_IMAGE_INVALID_SIZE (-43)
+=define E_IMAGE_NOT_FOUND (-44)
+=define E_IMAGE_CANNOT_CONVERT (-45)
+=define E_PROJECT_NOT_SHARED (-46)
+
+###########
+# コアコマンド
+
+# クライアントのID
+=c2s 10 conn_serial()
+=s2c 11 conn_serial_result( int serial )
+conn_tのserialをそのまま返すだけ。
+
+
+=c2s 12 clean_all()
+=s2c 13 clean_all_result()
+
+参加してるチャネルやロックなどを全部解放する。
+
+###########
+
+# ファイル
+
+
+=define FILE_PATH_MAX 64
+=define FILE_SIZE_MAX (128*1024)
+=define FILE_SIZE_ABS_MAX (1024*1024) # パートに分けてファイル保存するときの上限
+=c2s 20 put_file( int query_id, string filename[FILE_PATH_MAX], char data[FILE_SIZE_MAX] )
+=s2c 21 put_file_result( int query_id, int result, string filename[FILE_PATH_MAX] )
+データを保存する。
+
+=c2s 30 get_file( int query_id, string filename[FILE_PATH_MAX] )
+=s2c 31 get_file_result( int query_id, int result, string filename[FILE_PATH_MAX], char data[FILE_SIZE_MAX] )
+データを取得する。
+
+=define FILE_EXIST 1
+=define FILE_NOT_EXIST 0
+=c2s 40 check_file( int query_id, string filename[FILE_PATH_MAX] )
+=s2c 41 check_file_result( int query_id, int result, string filename[FILE_PATH_MAX] )
+存在確認。result=1ならファイルが存在する.0なら無い、負ならエラー
+
+###############
+
+# 永続化つき画像
+=define IMAGE_WIDTH_MAX (2048)
+=define IMAGE_HEIGHT_MAX (2048)
+=define IMAGE_PART_WIDTH_MAX (32)
+=define IMAGE_PART_HEIGHT_MAX (32)
+=c2s 50 ensure_image( int query_id, int image_id, int w, int h )
+=s2c 51 ensure_image_result( int query_id, int result, int image_id )
+画像ファイルがメモリ(とファイル)に無い場合それを割り当てる。
+
+=c2s 52 update_image_part( int query_id, int image_id, int x0, int y0, int w, int h, uchar r[1024], uchar g[1024], uchar b[1024] )
+=s2c 53 update_image_part_result( int query_id, int result, int image_id )
+すでにある画像を更新する。
+画像がメモリに存在しない場合はエラー。
+ファイルにはPNGで保存する。毎回保存するとは限らない（せっていによる）
+ファイルがない場合は真っ黒な画像(すべて0)で初期化する。
+
+=define PNG_SIZE_MAX (1024*1024)
+=c2s 54 get_image_png( int query_id, int image_id )
+=s2c 55 get_image_png_result( int query_id, int result, int image_id, char png_data[PNG_SIZE_MAX] )
+
+メモリに生で格納されている画像をPNGで取りだす。
+
+=define RAW_IMAGE_SIZE_MAX (512*512*4)
+=c2s 56 get_image_raw( int query_id, int image_id, int x0, int y0, int w, int h )
+=s2c 57 get_image_raw_result( int query_id, int result, int image_id, int x0, int y0, int w, int h, char raw_data[RAW_IMAGE_SIZE_MAX] )
+w,hはそれぞれ最大512
+raw_dataは RGBARGBA.....でTDLR
+
+##############
+
+# KVS
+
+
+=define GENERATE_ID_NUM_MAX 100
+=c2s 100 generate_id_32( int query_id, int num )
+=s2c 101 generate_id_32_result( int query_id, int generated_id_start, int num )
+新規にIDを生成する. 確実に1以上の値が返る。
+
+=define KVS_COMMAND_MAX 1024
+=define KVS_ELEMENT_MAX 1024
+=define KVS_ARRAYLEN_MAX 1024
+
+=define KVS_VALUE_STRING 1
+=define KVS_VALUE_ARRAY 2 
+=define KVS_VALUE_INTEGER 3
+=define KVS_VALUE_NIL 4
+=define KVS_VALUE_ERROR 6
+
+=c2s 120 kvs_command_str( int query_id, string command[KVS_COMMAND_MAX] )
+=s2c 121 kvs_command_str_result( int query_id, int retcode, int valtype, stringarray result[KVS_ARRAYLEN_MAX][KVS_ELEMENT_MAX] )
+自由な文字列のコマンドを発行する。
+
+=c2s 122 kvs_command_str_oneway( string command[KVS_COMMAND_MAX] )
+DBからの返りを求めない.
+
+=define KVS_KEY_MAX 128
+=define KVS_FIELD_MAX 128
+=define KVS_BIN_MAX (256*1024)
+
+
+=c2s 130 kvs_push_to_list( int query_id, string key[KVS_KEY_MAX], string s[KVS_BIN_MAX], int trim )
+文字列をRedisのLISTにLPUSHする。trimに0以外を指定すると、lpushした後にltrim 0 trim する。trimが3のとき、先頭から3つだけを残す。
+=s2c 131 kvs_push_to_list_result( int query_id, int retcode, string key[KVS_KEY_MAX], int updated_num )
+成功ならretcode=OK
+
+=c2s 132 kvs_get_list_range( int query_id, string key[KVS_KEY_MAX], int start_ind, int end_ind )
+=s2c 133 kvs_get_list_range_result( int query_id, int retcode, int start_ind, int end_ind, string key[KVS_KEY_MAX], stringarray result[KVS_ARRAYLEN_MAX][KVS_ELEMENT_MAX] )
+位置start_indからnum個の要素を取り出す。(RedisのLRANGE)
+
+=c2s 134 kvs_append_string_array( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], string s[KVS_ELEMENT_MAX], int trim )
+=s2c 135 kvs_append_string_array_result( int query_id, int retcode, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
+=c2s 136 kvs_get_string_array( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
+=s2c 137 kvs_get_string_array_result( int query_id, int retcode, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], stringarray result[KVS_ARRAYLEN_MAX][KVS_ELEMENT_MAX] )
+RedisのListはネストできないので、内部的にJSONで保存されている。
+
+
+=c2s 140 kvs_save_bin( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], char data[KVS_BIN_MAX] )
+=s2c 141 kvs_save_bin_result( int query_id, int retcode, int valtype, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
+バイナリデータをRedisにHSETする。
+SETではまとめて削除がやりにくいので、管理しやすさからHashを使う。
+
+=c2s 150 kvs_load_bin( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
+=s2c 151 kvs_load_bin_result( int query_id, int retcode, int has_data, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], char data[KVS_BIN_MAX] )
+バイナリデータをRedisからHGETする。
+
+############
+# 単純なカウンタ(毎回ストレージアクセスあり)
+=c2s 160 counter_add( int counter_category, int counter_id, int addvalue )
+=c2s 161 counter_get( int counter_category, int counter_id )
+=s2c 162 counter_get_result( int counter_category, int counter_id, int result, int curvalue )
+
+##################
+# プロジェクト共有(毎回ストレージアクセス無し)
+
+=define SHARE_MAX 128
+=c2s 180 share_project( int user_id, int project_id, int with[SHARE_MAX] )
+=s2c 181 share_project_result( int project_id )
+
+=c2s 182 publish_project( int user_id, int project_id )
+=s2c 183 publish_project_result( int project_id )
+全体共有
+
+
+=define SEARCH_MAX 20
+=c2s 186 search_shared_projects( int user_id )
+=s2c 187 search_shared_projects_result( int user_id, int project_ids[SEARCH_MAX] )
+自分が参加できるプロジェクトを検索する。
+
+=c2s 188 search_published_projects()
+=s2c 189 search_published_projects_result( int project_ids[SEARCH_MAX] )
+全体共有されているプロジェクトを検索する。
+
+=c2s 190 project_is_joinable( int project_id, int user_id )
+=s2c 191 project_is_joinable_result( int project_id, int user_id, int result )
+プロジェクトに参加できるか調べる。publishされたものとshareされたものの両方から探す。
+searchだと、確実には調べられない。
+
+=c2s 192 unshare_project( int project_id )
+=c2s 194 unpublish_project( int project_id )
+共有や公開を解除する。
+
+=c2s 196 is_published_project( int project_id )
+=s2c 197 is_published_project_result( int project_id, int published )
+published:0/1
+
+=c2s 198 is_shared_project( int project_id, int owner_uid )
+=s2c 199 is_shared_project_result( int project_id, int shared )
+sharedの値は以下の通り
+=define PROJECT_IS_NOT_SHARED 0
+=define PROJECT_IS_SHARED 1
+=define PROJECT_IS_PUBLISHED 2
+
+
+
+##################
+
+# プレゼンス (毎回ストレージアクセス無し)
+
+=c2s 200 update_presence( int project_id, int user_id )
+=c2s 201 delete_presence( int project_id, int user_id )
+=c2s 204 list_presence( int project_id )
+=define PRESENCE_PER_PROJECT_MAX 1024
+=s2c 205 list_presence_result( int project_id, int user_ids[PRESENCE_PER_PROJECT_MAX] )
+=c2s 206 count_presence( int project_id )
+=s2c 207 count_presence_result( int project_id, int user_num )
+
+
+#################
+
+# グリッドのオンメモリLock (ストレージアクセス無し)
+=c2s 210 lock_grid( int grid_id, int x, int y )
+=s2c 211 lock_grid_result( int grid_id, int x, int y, int retcode )
+=c2s 212 unlock_grid( int grid_id, int x, int y )
+=s2c 213 unlock_grid_result( int grid_id, int x, int y, int retcode )
+=c2s 214 lock_keep_grid( int grid_id, int x, int y )
+SSPROTO_OKだったらLock取得/解除できた。 E_ALREADY_LOCKED, E_NOT_LOCKED.
+
+Lockは、明示的にunlockされなくても一定時間たつと消える。
+また誰がlockしたかを管理して、接続が切れると、自動的にすべてのlockを解除する。
+gridのサイズは128x128 (CHUNKSZ=16のField.width=2048でとりあえず)
+
+keepはtimeoutまでの間に送り、ロックの時間を延長する。simはだいたい0.5秒から1秒以内にまわることを想定している。
+
+# プロジェクト全体のオンメモリLock
+=c2s 216 lock_project( int project_id, int category )
+=s2c 217 lock_project_result( int project_id, int category, int retcode )
+=c2s 218 unlock_project( int project_id, int category )
+=s2c 219 unlock_project_result( int project_id, int category, int retcode )
+=c2s 220 lock_keep_project( int project_id, int category )
+プロジェクト全体で1プロセスだけが処理したいもの(発電など)のためのLock.
+categoryを指定して複数種類のlockに対応。
+タイムアウトの仕組み等はgridとまったく同じ。
+
+
+
+
+#################
+
+# リアルタイムパケット送信 ( REALTIMEタイプが必要 )
+cli_idはconn_t.serialの値そのまま
+
+=define PACKET_SIZE_MAX 65536
+=c2s 230 broadcast( int type_id, char data[PACKET_SIZE_MAX] )
+=s2c 231 broadcast_notify( int type_id, int sender_cli_id, char data[PACKET_SIZE_MAX] )
+
+=c2s 232 channelcast( int channel_id, int type_id, char data[PACKET_SIZE_MAX] )
+=s2c 233 channelcast_notify( int channel_id, int sender_cli_id, int type_id, char data[PACKET_SIZE_MAX] )
+チャネルの全員に(type_id,data)を同報する
+
+=c2s 234 join_channel( int channel_id )
+=s2c 235 join_channel_result( int channel_id, int retcode )
+チャネルに参加する。同時に1個のチャネルにしか送信できない。
+サーバはコネクションの状態をつかうことで毎回チャネルIDから検索することを避ける。
+
+
+=c2s 236 leave_channel()
+=s2c 237 leave_channel_result( int retcode )
+チャネルから脱退する。
+
+=c2s 240 nearcast( int x, int y, int range, int type_id, char data[PACKET_SIZE_MAX])
+=s2c 241 nearcast_notify( int channel_id, int sender_cli_id, int x, int y, int range, int type_id, char data[PACKET_SIZE_MAX])
+=c2s 242 update_nearcast_position( int x, int y )
+何らかのチャネルに参加していることが必要。
+
+チャネル(ProjectID)と座標を指定して、範囲内の人だけに(type_id,data)を同報(notify)する。
+
+
+=c2s 244 get_channel_member_count( int channel_id )
+=s2c 245 get_channel_member_count_result( int channel_id, int maxnum, int curnum )
+チャネルの参加者数を返す

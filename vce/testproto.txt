@@ -1,0 +1,26 @@
+
+=protocolname testproto
+=serverconnection conn
+
+=version 10001
+
+
+=enum AAA OK 0
+=enum AAA NG        
+
+
+=idmax 256
+
+=recvlimit ping 10 600
+
+=define TEST 10
+=define TEST_STR "test"
+
+
+=struct hoge { int x, int y}
+
+#=sh #include "test.h"
+#=ch #include "client.h"
+
+= c2s 1 ping ( int msgid, int majorversion, int minorversion, int tick )
+= s2c 2 pong ( int msgid, int majorversion, int minorversion, int tick )

@@ -1,0 +1,6 @@
+*.o
+testcl
+testsv
+libvce.a
+testproto_sv.*
+testproto_cli.*
