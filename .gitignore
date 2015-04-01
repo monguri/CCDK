@@ -1,0 +1,7 @@
+*.sdf
+*.opensdf
+*.suo
+Debug/*
+Release/*
+packages
+

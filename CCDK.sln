@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "one_to_one", "one_to_one\one_to_one.vcxproj", "{B06DBBF6-B83B-4486-91C1-4A7DD9EEA6B5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "one_to_one", "skeletons\one_to_one\one_to_one.vcxproj", "{B06DBBF6-B83B-4486-91C1-4A7DD9EEA6B5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "many_to_many", "many_to_many\many_to_many.vcxproj", "{00F23677-1FE4-4B14-BB19-D6DAF39B8D4E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "many_to_many", "skeletons\many_to_many\many_to_many.vcxproj", "{00F23677-1FE4-4B14-BB19-D6DAF39B8D4E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vce", "vce\vce.vcxproj", "{94E0DD7F-041E-4A2E-854F-0473BB016D42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,12 @@ Global
 		{00F23677-1FE4-4B14-BB19-D6DAF39B8D4E}.Release|Win32.Build.0 = Release|Win32
 		{00F23677-1FE4-4B14-BB19-D6DAF39B8D4E}.Release|x64.ActiveCfg = Release|x64
 		{00F23677-1FE4-4B14-BB19-D6DAF39B8D4E}.Release|x64.Build.0 = Release|x64
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42}.Debug|Win32.ActiveCfg = Debug|Win32
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42}.Debug|Win32.Build.0 = Debug|Win32
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42}.Debug|x64.ActiveCfg = Debug|Win32
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42}.Release|Win32.ActiveCfg = Release|Win32
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42}.Release|Win32.Build.0 = Release|Win32
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
