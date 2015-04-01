@@ -4,6 +4,7 @@ skeletons.v12.suo
 Debug/*
 ipch/*
 one_to_one/Debug/*
+many_to_many/Debug/*
 packages
 
 
