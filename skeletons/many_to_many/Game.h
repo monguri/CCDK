@@ -6,6 +6,11 @@
 
 #include "pch.h"
 #include "StepTimer.h"
+#include "SpriteFont.h"
+#include "Audio.h"
+
+using namespace DirectX;
+
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop
@@ -32,6 +37,7 @@ public:
     void OnSuspending();
     void OnResuming();
     void OnWindowSizeChanged();
+	void OnKeydown(int keycode);
 
     // Properites
     void GetDefaultSize( size_t& width, size_t& height ) const;
@@ -64,4 +70,12 @@ private:
 
     // Game state
     DX::StepTimer                                   m_timer;
+	int m_framecnt;
+
+	// Show status logs
+	SpriteBatch* m_spriteBatch;
+	SpriteFont* m_spriteFont;
+
+	AudioEngine *m_audioEngine;
+	SoundEffect *m_soundEffect;
 };

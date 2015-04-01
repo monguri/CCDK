@@ -5,14 +5,17 @@
 #include "pch.h"
 #include "Game.h"
 
-using namespace DirectX;
 
-using Microsoft::WRL::ComPtr;
+using  Microsoft::WRL::ComPtr;
+
+
+
 
 // Constructor.
 Game::Game() :
     m_window(0),
-    m_featureLevel( D3D_FEATURE_LEVEL_9_1 )
+    m_featureLevel( D3D_FEATURE_LEVEL_11_1 ),
+	m_framecnt(0)
 {
 }
 
@@ -21,6 +24,7 @@ void Game::Initialize(HWND window)
 {
     m_window = window;
 
+	
     CreateDevice();
 
     CreateResources();
@@ -31,6 +35,18 @@ void Game::Initialize(HWND window)
     m_timer.SetFixedTimeStep(true);
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
+	m_spriteBatch = new SpriteBatch(m_d3dContext.Get());
+	m_spriteFont = new SpriteFont( m_d3dDevice.Get(), L"..\\assets\\tahoma32.spritefont");
+
+	// This is only needed in Win32 desktop apps
+	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	AUDIO_ENGINE_FLAGS eflags = AudioEngine_Default;
+#ifdef _DEBUG
+	eflags = eflags | AudioEngine_Debug;
+#endif
+	m_audioEngine = new AudioEngine(eflags);
+	m_soundEffect = new SoundEffect(m_audioEngine, L"..\\assets\\coinget.wav");
+	m_soundEffect->Play();
 }
 
 // Executes basic game loop.
@@ -51,11 +67,17 @@ void Game::Update(DX::StepTimer const& timer)
 
     // TODO: Add your game logic here
     elapsedTime;
+
+	m_audioEngine->Update();
+	if (m_audioEngine->IsCriticalError()) {
+		OutputDebugString(L"AudioEngine error!");
+	}
 }
 
 // Draws the scene
 void Game::Render()
 {
+	m_framecnt++;
     // Don't try to render anything before the first Update.
     if (m_timer.GetFrameCount() == 0)
         return;
@@ -63,6 +85,18 @@ void Game::Render()
     Clear();
 
     // TODO: Add your rendering code here
+	m_spriteBatch->Begin();
+
+	TCHAR statmsg[100];
+	wsprintf(statmsg, L"Frame: %d", m_framecnt);
+	m_spriteFont->DrawString(m_spriteBatch, statmsg, XMFLOAT2(10, 10));
+
+	m_spriteFont->DrawString(m_spriteBatch, L"Skeleton code for 1:1 games", XMFLOAT2(100, 100));
+	m_spriteFont->DrawString(m_spriteBatch, L"Press P to play sound effect", XMFLOAT2(130, 160));
+	m_spriteFont->DrawString(m_spriteBatch, L"Press Q to quit", XMFLOAT2(130, 200));
+
+	m_spriteBatch->End();
+
 
     Present();
 }
@@ -71,7 +105,11 @@ void Game::Render()
 void Game::Clear()
 {
     // Clear the views
-    m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), Colors::CornflowerBlue);
+	float d = 100.0f;
+	int m = 25;
+	float r = (rand() % m) / d, g = (rand() % m) /d, b = (rand() % m) / d;
+	float col[4] = { r,g,b,1 };
+    m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), col );
     m_d3dContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
     m_d3dContext->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
 }
@@ -353,4 +391,13 @@ void Game::OnDeviceLost()
     CreateDevice();
 
     CreateResources();
+}
+void Game::OnKeydown(int keycode) {
+	TCHAR s[100];
+	wsprintf(s, L"Key: %d", keycode);
+
+	OutputDebugString(s);
+
+	if (keycode == 'Q' ) exit(0); 
+	if (keycode == 'P') m_soundEffect->Play();
 }
