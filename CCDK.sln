@@ -7,12 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "one_to_one", "skeletons\one
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vce", "vce\vce.vcxproj", "{94E0DD7F-041E-4A2E-854F-0473BB016D42}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7A88C195-57CA-40EE-BA8D-7C9D6B38AA7E}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "many_to_many", "skeletons\many_to_many\many_to_many.vcxproj", "{00F23677-1FE4-4B14-BB19-D6DAF39B8D4E}"
 EndProject
 Global
