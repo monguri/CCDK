@@ -1,7 +1,12 @@
+#include <time.h>
+
+#include "hiredis/hiredis.h"
+
+
 #include "vce.h"
 #include "moyai/cumino.h"
 #include "moyai/common.h"
-#include "hiredis/hiredis.h"
+
 #include "picojson/picojson.h" 
 
 #include <stdio.h>
@@ -425,10 +430,10 @@ int main( int argc, char **argv ) {
         g_redis = redisConnectWithTimeout( g_redis_addr, 6379, timeout );
         if(g_redis==NULL||g_redis->err) {
             if(g_redis) {
-                printf("Redis connection error: %s\n", g_redis->errstr);
+                print("Redis connection error: %s\n", g_redis->errstr);
                 redisFree(g_redis);
             } else {
-                printf("Redis connection error: can't allocate redis context\n");
+                print("Redis connection error: can't allocate redis context\n");
             }
             return 1;
         }
@@ -436,10 +441,10 @@ int main( int argc, char **argv ) {
         {
             redisReply *reply = (redisReply*)redisCommand( g_redis,"PING");
             if( strcmp( reply->str, "PONG" ) != 0 ) {
-                printf( "Redis PING failed\n" );
+                print( "Redis PING failed\n" );
                 return 1;
             } else {
-                printf( "Redis PING OK\n" );
+                print( "Redis PING OK\n" );
             }
             freeReplyObject(reply);
         }
@@ -580,8 +585,12 @@ int makeFullPath( char *out, size_t outlen, const char *filename ) {
 }
 void emulateSlowDisk() {
     if( g_emulate_slow_disk_ms > 0 ) {
-        usleep( g_emulate_slow_disk_ms * 1000 );
-    }
+#ifndef WIN32
+		usleep(g_emulate_slow_disk_ms * 1000);
+#else
+		print("emulateSlowDisk: high resolution sleep on windows is not implemented yet");
+#endif
+	}
 }
 int ssproto_put_file_recv( conn_t _c, int query_id, const char *filename, const char *data, int data_len ) {
     CHECK_DATABASE("put_file");
