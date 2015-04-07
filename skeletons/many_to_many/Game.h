@@ -5,9 +5,11 @@
 #pragma once
 
 #include "pch.h"
+
 #include "StepTimer.h"
 #include "SpriteFont.h"
 #include "Audio.h"
+#include "vce.h"
 
 using namespace DirectX;
 
@@ -78,4 +80,8 @@ private:
 
 	AudioEngine *m_audioEngine;
 	SoundEffect *m_soundEffect;
+
+    // network
+    conn_t m_rtConn;
+    
 };
