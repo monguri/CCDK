@@ -11,6 +11,9 @@
 
 using  Microsoft::WRL::ComPtr;
 
+#define REALTIME_BACKEND_HOST "localhost"
+#define REALTIME_BACKEND_PORT 22223
+
 tcpcontext_t g_rtTcp;
 
 int conn_closewatcher( conn_t c, CLOSE_REASON reason ) {
@@ -82,7 +85,8 @@ void globalInitNetwork() {
 Game::Game() :
     m_window(0),
     m_featureLevel( D3D_FEATURE_LEVEL_11_1 ),
-	m_framecnt(0)
+	m_framecnt(0),
+    pong_recv_count(0)
 {
 }
 
@@ -118,10 +122,14 @@ void Game::Initialize(HWND window)
 
 	globalInitNetwork();
 
+    m_rtConn = vce_tcpcontext_connect( g_rtTcp, REALTIME_BACKEND_HOST, REALTIME_BACKEND_PORT );
 
-                                     
-                                     
-                                     
+    if( !vce_conn_is_valid( m_rtConn)) {
+        OutputDebugString( L"can't connect to backend");
+    }
+    OutputDebugString( L"connected to backend server" );
+    
+    ssproto_conn_serial_send( m_rtConn );
                                      
 }
 
@@ -146,8 +154,15 @@ void Game::Update(DX::StepTimer const& timer)
 
 	m_audioEngine->Update();
 	if (m_audioEngine->IsCriticalError()) {
-		OutputDebugString(L"AudioEngine error!");
+		OutputDebugString(L"AudioEngine error!\n");
 	}
+
+    // networking
+    if( vce_conn_is_valid( m_rtConn) ) {
+		OutputDebugString(L"sending ping\n");
+        ssproto_ping_send( m_rtConn, (VCEI64) elapsedTime*1000, 0 );
+    }
+    vce_heartbeat();
 }
 
 // Draws the scene
@@ -164,7 +179,7 @@ void Game::Render()
 	m_spriteBatch->Begin();
 
 	TCHAR statmsg[100];
-	wsprintf(statmsg, L"Frame: %d", m_framecnt);
+	wsprintf(statmsg, L"Frame:%d  Backend ping:%d", m_framecnt, pong_recv_count );
 	m_spriteFont->DrawString(m_spriteBatch, statmsg, XMFLOAT2(10, 10));
 
 	m_spriteFont->DrawString(m_spriteBatch, L"Skeleton code for 1:1 games", XMFLOAT2(100, 100));
@@ -480,10 +495,19 @@ void Game::OnKeydown(int keycode) {
 
 
 // RPC receiver functions
-
-int ssproto_pong_recv(conn_t _c, VCEI64 t_usec, int cmd) { return 0;  }
+int ssproto_conn_serial_result_recv(conn_t _c, int serial){
+    TCHAR msg[100];
+    wsprintf( msg, L"ssproto_conn_serial_result_recv: %d\n", serial );
+    OutputDebugString( msg );
+    return 0;
+}
+void receivePong();
+int ssproto_pong_recv(conn_t _c, VCEI64 t_usec, int cmd) {
+    receivePong();
+    return 0;
+}
 int ssproto_version_notify_recv(conn_t _c, unsigned int maj, unsigned int min){ return 0; }
-int ssproto_conn_serial_result_recv(conn_t _c, int serial){ return 0; }
+
 int ssproto_clean_all_result_recv(conn_t _c){ return 0; }
 int ssproto_put_file_result_recv(conn_t _c, int query_id, int result, const char *filename) { return 0; }
 int ssproto_get_file_result_recv(conn_t _c, int query_id, int result, const char *filename, const char *data, int data_len) { return 0; }

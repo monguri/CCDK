@@ -44,6 +44,9 @@ public:
     // Properites
     void GetDefaultSize( size_t& width, size_t& height ) const;
 
+    // networking
+    void incrementPong() { pong_recv_count++; };
+    
 private:
 
     void Update(DX::StepTimer const& timer);
@@ -83,5 +86,5 @@ private:
 
     // network
     conn_t m_rtConn;
-    
+    int pong_recv_count;    
 };
