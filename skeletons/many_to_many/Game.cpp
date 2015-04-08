@@ -86,7 +86,9 @@ Game::Game() :
     m_window(0),
     m_featureLevel( D3D_FEATURE_LEVEL_11_1 ),
 	m_framecnt(0),
-    pong_recv_count(0)
+    m_pong_recv_count(0),
+    m_channel_joined(false),
+    m_channelcast_notify_count(0)
 {
 }
 
@@ -130,7 +132,7 @@ void Game::Initialize(HWND window)
     OutputDebugString( L"connected to backend server" );
     
     ssproto_conn_serial_send( m_rtConn );
-                                     
+    ssproto_join_channel_send( m_rtConn, CHANNEL_ID );
 }
 
 // Executes basic game loop.
@@ -159,8 +161,15 @@ void Game::Update(DX::StepTimer const& timer)
 
     // networking
     if( vce_conn_is_valid( m_rtConn) ) {
-		OutputDebugString(L"sending ping\n");
-        ssproto_ping_send( m_rtConn, (VCEI64) elapsedTime*1000, 0 );
+        if( m_timer.GetFrameCount()%100 == 0 ) {
+            OutputDebugString(L"sending ping\n");
+            ssproto_ping_send( m_rtConn, (VCEI64) elapsedTime*1000, 0 );            
+        }
+        if( m_channel_joined ) {
+            OutputDebugString(L"sending channelcast\n");
+            char data[8] = { 0x10, 0x20, 0x30, 0x00, 0x12, 0x34, 0x56, 0x78 };               
+            ssproto_channelcast_send( m_rtConn, CHANNEL_ID, PACKET_TYPE, data, sizeof(data) );
+        }
     }
     vce_heartbeat();
 }
@@ -179,7 +188,7 @@ void Game::Render()
 	m_spriteBatch->Begin();
 
 	TCHAR statmsg[100];
-	wsprintf(statmsg, L"Frame:%d  Backend ping:%d", m_framecnt, pong_recv_count );
+	wsprintf(statmsg, L"Frame:%d  Ping:%d Channelcast:%d", m_framecnt, m_pong_recv_count, m_channelcast_notify_count );
 	m_spriteFont->DrawString(m_spriteBatch, statmsg, XMFLOAT2(10, 10));
 
 	m_spriteFont->DrawString(m_spriteBatch, L"Skeleton code for 1:1 games", XMFLOAT2(100, 100));
@@ -506,6 +515,21 @@ int ssproto_pong_recv(conn_t _c, VCEI64 t_usec, int cmd) {
     receivePong();
     return 0;
 }
+void receiveJoinChannelOK();
+int ssproto_join_channel_result_recv(conn_t _c, int channel_id, int retcode){
+    assert( retcode == SSPROTO_OK );
+    assert( channel_id == Game::CHANNEL_ID );
+    receiveJoinChannelOK();
+    return 0;
+}
+void receiveChannelcastNotify();
+int ssproto_channelcast_notify_recv(conn_t _c, int channel_id, int sender_cli_id, int type_id, const char *data, int data_len){
+    assert( type_id == Game::PACKET_TYPE );
+    receiveChannelcastNotify();
+    return 0;
+}
+
+int ssproto_broadcast_notify_recv(conn_t _c, int type_id, int sender_cli_id, const char *data, int data_len){return 0;}
 int ssproto_version_notify_recv(conn_t _c, unsigned int maj, unsigned int min){ return 0; }
 
 int ssproto_clean_all_result_recv(conn_t _c){ return 0; }
@@ -538,9 +562,8 @@ int ssproto_lock_grid_result_recv(conn_t _c, int grid_id, int x, int y, int retc
 int ssproto_unlock_grid_result_recv(conn_t _c, int grid_id, int x, int y, int retcode){ return 0; }
 int ssproto_lock_project_result_recv(conn_t _c, int project_id, int category, int retcode){ return 0; }
 int ssproto_unlock_project_result_recv(conn_t _c, int project_id, int category, int retcode){ return 0; }
-int ssproto_broadcast_notify_recv(conn_t _c, int type_id, int sender_cli_id, const char *data, int data_len){ return 0; }
-int ssproto_channelcast_notify_recv(conn_t _c, int channel_id, int sender_cli_id, int type_id, const char *data, int data_len){ return 0; }
-int ssproto_join_channel_result_recv(conn_t _c, int channel_id, int retcode){ return 0; }
+
+
 int ssproto_leave_channel_result_recv(conn_t _c, int retcode){ return 0; }
 int ssproto_nearcast_notify_recv(conn_t _c, int channel_id, int sender_cli_id, int x, int y, int range, int type_id, const char *data, int data_len){ return 0; }
 int ssproto_get_channel_member_count_result_recv(conn_t _c, int channel_id, int maxnum, int curnum){ return 0; }

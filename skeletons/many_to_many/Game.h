@@ -45,7 +45,11 @@ public:
     void GetDefaultSize( size_t& width, size_t& height ) const;
 
     // networking
-    void incrementPong() { pong_recv_count++; };
+    static const int CHANNEL_ID = 12345;
+    void incrementPong() { m_pong_recv_count++; };
+    static const int PACKET_TYPE = 3456;
+    void channelJoined() { m_channel_joined = true; }
+    void incrementChannelcastNotify() { m_channelcast_notify_count++; }
     
 private:
 
@@ -86,5 +90,8 @@ private:
 
     // network
     conn_t m_rtConn;
-    int pong_recv_count;    
+    int m_pong_recv_count;
+    bool m_channel_joined;
+    int m_channelcast_notify_count;
+    
 };
