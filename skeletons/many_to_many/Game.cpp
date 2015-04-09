@@ -4,18 +4,91 @@
 
 #include "pch.h"
 #include "Game.h"
-
+#include "winsock2.h"
+#include "ws2tcpip.h"
+#include "vce.h"
+#include "ssproto_cli.h"
 
 using  Microsoft::WRL::ComPtr;
 
+#define REALTIME_BACKEND_HOST "localhost"
+#define REALTIME_BACKEND_PORT 22223
+
+tcpcontext_t g_rtTcp;
+
+int conn_closewatcher( conn_t c, CLOSE_REASON reason ) {
+    bool fatal = false;
+    OutputDebugString(L"closewatcher!" );    
+    switch(reason) {
+    case CLOSE_REASON_REMOTE:  // network error
+    case CLOSE_REASON_TIMEOUT:
+        fatal = true;
+        break;
+    case CLOSE_REASON_APPLICATION: // OK
+        break;
+    case CLOSE_REASON_UNKNOWN: // program error
+    case CLOSE_REASON_DECODER:
+    case CLOSE_REASON_ENCODER:
+    case CLOSE_REASON_PARSER:
+    case CLOSE_REASON_INTERNAL:
+    default:
+        fatal = true;
+        break;        
+    }
+
+    if(fatal) {
+		OutputDebugString(L"network fatal error");
+
+	}
+    return 0;
+}
+int ssproto_cli_sender( conn_t c, char *data, int len ) {
+    //    print("ssproto_cli_sender: len:%d",len);
+    int r = vce_protocol_unparser_bin32( c, data, len );
+    if( r < 0 ) {
+		if (vce_conn_is_valid(c))  OutputDebugString(L"ssproto_cli_sender: unparser_bin32 failed!");
+    }
+    return r;
+}
+int ssproto_cli_recv_error_callback( conn_t c, int e ) {
+    OutputDebugString( L"ssproto_cli_recv_error_callback!" );
+    return -1;
+}
 
 
+void globalInitNetwork() {
+    static bool initialized = false;
+    if(initialized==false) {
+        vce_initialize();
+        vce_set_verbose_mode(1);
+        vce_set_heartbeat_wait_flag(0);
+        g_rtTcp = vce_tcpcontext_create( 0, // client
+                                         NULL, 0, // client socket doesn't need address
+                                         1, // maxcon. need only 1 connection concurrent
+                                         1024*1024, 1024*1024, // buffer size
+                                         60, // timeout in seconds
+                                         0,
+                                         1, // nodelay
+                                         0 );
+        if( !g_rtTcp ) {
+            OutputDebugString( L"can't initialize realtime Connection" );
+        }
+        vce_tcpcontext_set_conn_call_parser_per_heartbeat( g_rtTcp, 1000 );
+        vce_tcpcontext_set_conn_parser( g_rtTcp, vce_protocol_parser_bin32, ssproto_cli_pcallback );
+        vce_tcpcontext_set_conn_closewatcher( g_rtTcp, conn_closewatcher );
+        
+        initialized = true;
+    }
+}
 
 // Constructor.
 Game::Game() :
     m_window(0),
     m_featureLevel( D3D_FEATURE_LEVEL_11_1 ),
-	m_framecnt(0)
+	m_framecnt(0),
+    m_pong_recv_count(0),
+    m_channel_joined(false),
+    m_channelcast_notify_count(0)
 {
 }
 
@@ -47,6 +120,19 @@ void Game::Initialize(HWND window)
 	m_audioEngine = new AudioEngine(eflags);
 	m_soundEffect = new SoundEffect(m_audioEngine, L"..\\assets\\coinget.wav");
 	m_soundEffect->Play();
+
+
+	globalInitNetwork();
+
+    m_rtConn = vce_tcpcontext_connect( g_rtTcp, REALTIME_BACKEND_HOST, REALTIME_BACKEND_PORT );
+
+    if( !vce_conn_is_valid( m_rtConn)) {
+        OutputDebugString( L"can't connect to backend");
+    }
+    OutputDebugString( L"connected to backend server" );
+    
+    ssproto_conn_serial_send( m_rtConn );
+    ssproto_join_channel_send( m_rtConn, CHANNEL_ID );
 }
 
 // Executes basic game loop.
@@ -70,8 +156,22 @@ void Game::Update(DX::StepTimer const& timer)
 
 	m_audioEngine->Update();
 	if (m_audioEngine->IsCriticalError()) {
-		OutputDebugString(L"AudioEngine error!");
+		OutputDebugString(L"AudioEngine error!\n");
 	}
+
+    // networking
+    if( vce_conn_is_valid( m_rtConn) ) {
+        if( m_timer.GetFrameCount()%100 == 0 ) {
+            OutputDebugString(L"sending ping\n");
+            ssproto_ping_send( m_rtConn, (VCEI64) elapsedTime*1000, 0 );            
+        }
+        if( m_channel_joined ) {
+            OutputDebugString(L"sending channelcast\n");
+            char data[8] = { 0x10, 0x20, 0x30, 0x00, 0x12, 0x34, 0x56, 0x78 };               
+            ssproto_channelcast_send( m_rtConn, CHANNEL_ID, PACKET_TYPE, data, sizeof(data) );
+        }
+    }
+    vce_heartbeat();
 }
 
 // Draws the scene
@@ -88,7 +188,7 @@ void Game::Render()
 	m_spriteBatch->Begin();
 
 	TCHAR statmsg[100];
-	wsprintf(statmsg, L"Frame: %d", m_framecnt);
+	wsprintf(statmsg, L"Frame:%d  Ping:%d Channelcast:%d", m_framecnt, m_pong_recv_count, m_channelcast_notify_count );
 	m_spriteFont->DrawString(m_spriteBatch, statmsg, XMFLOAT2(10, 10));
 
 	m_spriteFont->DrawString(m_spriteBatch, L"Skeleton code for 1:1 games", XMFLOAT2(100, 100));
@@ -401,3 +501,70 @@ void Game::OnKeydown(int keycode) {
 	if (keycode == 'Q' ) exit(0); 
 	if (keycode == 'P') m_soundEffect->Play();
 }
+
+
+// RPC receiver functions
+int ssproto_conn_serial_result_recv(conn_t _c, int serial){
+    TCHAR msg[100];
+    wsprintf( msg, L"ssproto_conn_serial_result_recv: %d\n", serial );
+    OutputDebugString( msg );
+    return 0;
+}
+void receivePong();
+int ssproto_pong_recv(conn_t _c, VCEI64 t_usec, int cmd) {
+    receivePong();
+    return 0;
+}
+void receiveJoinChannelOK();
+int ssproto_join_channel_result_recv(conn_t _c, int channel_id, int retcode){
+    assert( retcode == SSPROTO_OK );
+    assert( channel_id == Game::CHANNEL_ID );
+    receiveJoinChannelOK();
+    return 0;
+}
+void receiveChannelcastNotify();
+int ssproto_channelcast_notify_recv(conn_t _c, int channel_id, int sender_cli_id, int type_id, const char *data, int data_len){
+    assert( type_id == Game::PACKET_TYPE );
+    receiveChannelcastNotify();
+    return 0;
+}
+
+int ssproto_broadcast_notify_recv(conn_t _c, int type_id, int sender_cli_id, const char *data, int data_len){return 0;}
+int ssproto_version_notify_recv(conn_t _c, unsigned int maj, unsigned int min){ return 0; }
+
+int ssproto_clean_all_result_recv(conn_t _c){ return 0; }
+int ssproto_put_file_result_recv(conn_t _c, int query_id, int result, const char *filename) { return 0; }
+int ssproto_get_file_result_recv(conn_t _c, int query_id, int result, const char *filename, const char *data, int data_len) { return 0; }
+int ssproto_check_file_result_recv(conn_t _c, int query_id, int result, const char *filename){ return 0; }
+int ssproto_ensure_image_result_recv(conn_t _c, int query_id, int result, int image_id){ return 0; }
+int ssproto_update_image_part_result_recv(conn_t _c, int query_id, int result, int image_id){ return 0; }
+int ssproto_get_image_png_result_recv(conn_t _c, int query_id, int result, int image_id, const char *png_data, int png_data_len){ return 0; }
+int ssproto_get_image_raw_result_recv(conn_t _c, int query_id, int result, int image_id, int x0, int y0, int w, int h, const char *raw_data, int raw_data_len){ return 0; }
+int ssproto_generate_id_32_result_recv(conn_t _c, int query_id, int generated_id_start, int num){ return 0; }
+int ssproto_kvs_command_str_result_recv(conn_t _c, int query_id, int retcode, int valtype, const char * const *result, int result_len){ return 0; }
+int ssproto_kvs_push_to_list_result_recv(conn_t _c, int query_id, int retcode, const char *key, int updated_num){ return 0; }
+int ssproto_kvs_get_list_range_result_recv(conn_t _c, int query_id, int retcode, int start_ind, int end_ind, const char *key, const char * const *result, int result_len){ return 0; }
+int ssproto_kvs_append_string_array_result_recv(conn_t _c, int query_id, int retcode, const char *key, const char *field){ return 0; }
+int ssproto_kvs_get_string_array_result_recv(conn_t _c, int query_id, int retcode, const char *key, const char *field, const char * const *result, int result_len){ return 0; }
+int ssproto_kvs_save_bin_result_recv(conn_t _c, int query_id, int retcode, int valtype, const char *key, const char *field){ return 0; }
+int ssproto_kvs_load_bin_result_recv(conn_t _c, int query_id, int retcode, int has_data, const char *key, const char *field, const char *data, int data_len){ return 0; }
+int ssproto_counter_get_result_recv(conn_t _c, int counter_category, int counter_id, int result, int curvalue){ return 0; }
+int ssproto_share_project_result_recv(conn_t _c, int project_id){ return 0; }
+int ssproto_publish_project_result_recv(conn_t _c, int project_id){ return 0; }
+int ssproto_search_shared_projects_result_recv(conn_t _c, int user_id, const int *project_ids, int project_ids_len){ return 0; }
+int ssproto_search_published_projects_result_recv(conn_t _c, const int *project_ids, int project_ids_len){ return 0; }
+int ssproto_project_is_joinable_result_recv(conn_t _c, int project_id, int user_id, int result){ return 0; }
+int ssproto_is_published_project_result_recv(conn_t _c, int project_id, int published){ return 0; }
+int ssproto_is_shared_project_result_recv(conn_t _c, int project_id, int shared){ return 0; }
+int ssproto_list_presence_result_recv(conn_t _c, int project_id, const int *user_ids, int user_ids_len){ return 0; }
+int ssproto_count_presence_result_recv(conn_t _c, int project_id, int user_num){ return 0; }
+int ssproto_lock_grid_result_recv(conn_t _c, int grid_id, int x, int y, int retcode){ return 0; }
+int ssproto_unlock_grid_result_recv(conn_t _c, int grid_id, int x, int y, int retcode){ return 0; }
+int ssproto_lock_project_result_recv(conn_t _c, int project_id, int category, int retcode){ return 0; }
+int ssproto_unlock_project_result_recv(conn_t _c, int project_id, int category, int retcode){ return 0; }
+
+
+int ssproto_leave_channel_result_recv(conn_t _c, int retcode){ return 0; }
+int ssproto_nearcast_notify_recv(conn_t _c, int channel_id, int sender_cli_id, int x, int y, int range, int type_id, const char *data, int data_len){ return 0; }
+int ssproto_get_channel_member_count_result_recv(conn_t _c, int channel_id, int maxnum, int curnum){ return 0; }
+

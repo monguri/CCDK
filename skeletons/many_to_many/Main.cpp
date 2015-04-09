@@ -188,3 +188,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
+
+
+void receivePong() {
+    g_game->incrementPong();
+}
+void receiveJoinChannelOK() {
+    g_game->channelJoined();
+}
+void receiveChannelcastNotify() {
+    g_game->incrementChannelcastNotify();
+}

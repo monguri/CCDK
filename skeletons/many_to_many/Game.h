@@ -5,9 +5,11 @@
 #pragma once
 
 #include "pch.h"
+
 #include "StepTimer.h"
 #include "SpriteFont.h"
 #include "Audio.h"
+#include "vce.h"
 
 using namespace DirectX;
 
@@ -42,6 +44,13 @@ public:
     // Properites
     void GetDefaultSize( size_t& width, size_t& height ) const;
 
+    // networking
+    static const int CHANNEL_ID = 12345;
+    void incrementPong() { m_pong_recv_count++; };
+    static const int PACKET_TYPE = 3456;
+    void channelJoined() { m_channel_joined = true; }
+    void incrementChannelcastNotify() { m_channelcast_notify_count++; }
+    
 private:
 
     void Update(DX::StepTimer const& timer);
@@ -78,4 +87,11 @@ private:
 
 	AudioEngine *m_audioEngine;
 	SoundEffect *m_soundEffect;
+
+    // network
+    conn_t m_rtConn;
+    int m_pong_recv_count;
+    bool m_channel_joined;
+    int m_channelcast_notify_count;
+    
 };

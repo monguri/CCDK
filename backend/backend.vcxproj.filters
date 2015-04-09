@@ -15,8 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\Debug\vce.lib" />
-    <Library Include="..\externals\moyai\demowin\DebugD3D\moyai.lib" />
     <Library Include="..\..\redis\msvs\Debug\hiredis.lib" />
-    <Library Include="..\..\redis\msvs\Debug\Win32_Interop.lib" />
   </ItemGroup>
 </Project>
