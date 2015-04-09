@@ -13,8 +13,4 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ssproto_sv.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\Debug\vce.lib" />
-    <Library Include="..\..\redis\msvs\Debug\hiredis.lib" />
-  </ItemGroup>
 </Project>

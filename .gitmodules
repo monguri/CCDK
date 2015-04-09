@@ -1,3 +1,6 @@
 [submodule "externals/moyai"]
 	path = externals/moyai
 	url = https://github.com/kengonakajima/moyai
+[submodule "externals/redis"]
+	path = externals/redis
+	url = https://github.com/MSOpenTech/redis
