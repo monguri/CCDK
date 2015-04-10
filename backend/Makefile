@@ -3,14 +3,12 @@
 #
 
 EXTERNALS=../externals
-REDIS=$(EXTERNALS)/hiredis
-REDISLIB=$(REDIS)/libhiredis.a
 MOYAISRCS=$(EXTERNALS)/moyai/common.cpp $(EXTERNALS)/moyai/lodepng.cpp
 COMMONSRCS=$(EXTERNALS)/moyai/cumino.cpp $(MOYAISRCS)
 SVSRCS=ssproto_sv.cpp main.cpp $(COMMONSRCS)
 BENCHSRCS=bench.cpp ssproto_cli.cpp $(COMMONSRCS) 
 VCELIB=../vce/libvce.a 
-LIBS=-lev $(EXTERNALS)/moyai/libsnappy.a $(EXTERNALS)/moyai/zlib-1.2.7/libz.a $(REDISLIB) $(VCELIB)
+LIBS=-lhiredis -lev $(EXTERNALS)/moyai/libsnappy.a $(EXTERNALS)/moyai/zlib-1.2.7/libz.a $(VCELIB)
 GEN=../vce/gen/gen.rb
 CFLAGS= -O3 -g -Wall -I$(EXTERNALS) -I../vce -DGEN_DEBUG_LEN_PRINT
 
@@ -22,7 +20,7 @@ BENCHOUT=ssbench
 
 all : $(SVOUT) $(BENCHOUT)
 
-$(SVOUT) : $(SVOBJS) $(REDISLIB) $(VCELIB)
+$(SVOUT) : $(SVOBJS) $(VCELIB)
 	g++ $(CFLAGS) $(SVOBJS) $(LIBS) -o $(SVOUT) 
 
 $(BENCHOUT) : $(BENCHOBJS) $(VCELIB)
@@ -34,8 +32,6 @@ $(BENCHOUT) : $(BENCHOBJS) $(VCELIB)
 ssproto_sv.cpp ssproto_cli.cpp: ssproto.txt
 	ruby -Ku $(GEN) ssproto.txt 
 
-$(REDISLIB) :
-	cd ../hiredis; make static
 
 clean:
 	rm -f *.o deps.make ssproto_sv.* ssproto_cli.* $(SVOUT) $(BENCHOUT)
