@@ -1,10 +1,6 @@
 /*
 
-  バイナリpack/unpackルーチン。
-
-  PACK された状態： [ ] は1個のデータ。1か2か4バイト。
-  Ruby では組みこみの String::pack を使う。
-  対応するようにせよ
+  Binary pack/unpacking.
 
   SINGLE_CHAR : [char]
   SINGLE_SHORT : [nb-short]
@@ -31,7 +27,7 @@
 #include "vce.h"
 #include "vcecommon.h"
 
-/* 32ビット長配列のときに、この要素を越えたらエラーとする */
+/* 32bit packer can support this long at most  */
 #define MAXUNITLEN (1024*1024*16)
 
 
@@ -268,7 +264,6 @@ int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len ) {
 				strcount = 0;
 				((char**)(bi[i].p))[0] = &inp[so_far];
 				for(scanner=0;(scanner+1)<rest;scanner++){
-					/* データの1文字目から順に見ていくスキャナ */
 					if( rest < (scanner + 1) ){
 						return SET_LAST_ERROR(VCE_EDATASHORT);
 					}
@@ -483,13 +478,12 @@ int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len ) {
 		  case STRARRAY_8:
 			if( bi[i].n >255 ) return SET_LAST_ERROR(VCE_EINVAL);
 			if( rest < 1 + bi[i].n ){
-				/* char と、個数分のnull文字は最低必要やね */
 				return SET_LAST_ERROR(VCE_EFULL);
 			} else {
 				unsigned int strtotal;
 				SET_8BIT_INT( &outp[so_far], bi[i].n );
 				so_far += 1;
-				strtotal = 1; /* 先頭の1バイト、個数ね */
+				strtotal = 1; /* how many string do we have, in 8bit (max 255) */
 				for(j=0;j<(int)bi[i].n;j++){
 					int l = vce_strlenmax( ((char**)(bi[i].p))[j],
 										   rest - so_far );
@@ -509,7 +503,7 @@ int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len ) {
 				unsigned int strtotal;
 				SET_16BIT_INT(&outp[so_far], bi[i].n );
 				so_far += 2;
-				strtotal = 2; /* 個数がshortだから */
+				strtotal = 2; /* how many string do we have, in 16bit (max 65535) */
 				for(j=0;j<(int)bi[i].n;j++){
 					int l = vce_strlenmax( ((char**)(bi[i].p))[j],
 										   rest - so_far );
@@ -532,18 +526,20 @@ int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len ) {
 }
 
 /*
-  可変長長さ指定子を初期化する。
+  Initialize packet length specifier
 
-  仕様
+  spec:
   
-	  0x00 - 0xfc : うしろは0バイト。そのまま長さをあらわす
-	  0xfd : うしろは4バイト。その4バイトで長さをあらわす(network-order)
-	  0xfe : うしろは8バイト。その8バイト(network-order)で長さをあらわす
-	  0xff : 帯域外データ(予約)
+	  0x00 - 0xfc : No additional data following. Simply specifies length(0~0xfc bytes)
+	  0xfd : 4 bytes following. The 4 bytes int value specifies length (network byte order, 32bit)
+	  0xfe : 8 bytes following. The 8 bytes long-long value specifies length ( net byte order, 64bit)
+	  0xff : out-of-bandwidth data (reserved)
 
-  この関数は非公開
-  out に 0 を指定すると、長さだけ取れる
+  This function is not exposed.
+  By setting out=0, you can get length only.
  */
+
+/* set */
 int vce_set_variable_length_specifier( char *out, int outmax, unsigned int len_upper, unsigned int len_lower ) {
 	if( len_upper == 0 ){
 		if( len_lower <= 0xfc ){
@@ -572,7 +568,8 @@ int vce_set_variable_length_specifier( char *out, int outmax, unsigned int len_u
 	/* not reached */
 	return SET_LAST_ERROR(VCE_EBUG);
 }
-/* とりだす   この関数は非公開  */
+
+/* get */
 int vce_get_variable_length_specifier( const char *src, int srcmax, unsigned int *len_upper, unsigned int *len_lower ) {
 	unsigned char top;
 	if( srcmax < 1 ) return SET_LAST_ERROR(VCE_ETOOSHORT);
@@ -698,15 +695,15 @@ int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, const void *ia, int 
 }
 
 /*
-  フォーマット:
+  String array.
+  Format:
   [VARLEN(string num)][ STRING ][ STRING ]...
 
   STRING : [VARLEN][data]
 
-  eachmax : 各文字列の最大長。
-  この長さ以上の文字列があると失敗する。勝手に truncate しない。
-  ヌル文字なし。
-
+  eachmax : Max length of each strings.
+  If you have longer strings than this, it gives error. This function doesn't truncate string.
+  No null terminator.
  */
 int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, const char * const *stra, int num, int eachmax ) {
 	int headlen,i,total_l;
