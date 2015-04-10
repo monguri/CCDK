@@ -21,7 +21,7 @@ BENCHOUT=ssbench
 all : $(SVOUT) $(BENCHOUT)
 
 $(SVOUT) : $(SVOBJS) $(VCELIB)
-	g++ $(CFLAGS) $(SVOBJS) $(LIBS) -o $(SVOUT) 
+	g++ $(CFLAGS) -static $(SVOBJS) $(LIBS) -o $(SVOUT) 
 
 $(BENCHOUT) : $(BENCHOBJS) $(VCELIB)
 	g++ $(CFLAGS) $(BENCHOBJS) $(LIBS) -o $(BENCHOUT)
