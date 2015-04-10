@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+</head>
+
+<body>
+<h1>VCE パッケージの内容</h1>
+
+<p>
+本パッケージは以下のディレクトリ/ファイル構成を持つ。
+</p>
+
+<ul id="lib">
+  <LI>admin/
+	  <p>VCE-admin のバイナリや Windows用クライアントのアーカイブが含まれる。
+         詳細は、<a href="admin/about.html">VCE-admin ドキュメント</a>を参照のこと。
+      </p></li>
+
+  <LI>experimental/
+      <p>VCEの実験プログラムが含まれる。</p></li>
+      
+  <LI>include/
+	  <p>Linux,Win32,PlayStation2 で利用可能なC言語ヘッダファイルが含まれる。</p></li>
+
+  <LI>linuxlib/
+	  <p>Linux用ライブラリのバイナリ、Linux用各種実行ファイル群(bin/)、Rubyスクリプト群(bin/)、サンプルプログラムをコンパイルしたもの(bin/)、テストプログラム(autotest/)、パフォーマンス計測ツール(performance/) が含まれる。
+      autotest はVCEの開発用に使われている一連のテストプログラムである。
+      環境に対する要求が厳しいことや、
+      開発用のため実験的なコードが含まれていることから、
+	  多くのテストはユーザの環境では動かない。
+	  サンプル/参考用コードとして利用可能である。<br>
+      各ツール、ファイルの詳細は、
+      <a href="vce-tool.html">VCE附属ツールリファレンス</a>、
+      <a href="vce-files.html">VCE関連ファイルリファレンス</a>
+      パフォーマンス計測ツールの詳細は、
+      <a href="vceprof.html">パフォーマンス計測ツール</a>
+      を参照のこと。</p>
+  </li>
+
+  <LI>samplecode/
+	  <p>VCEのサンプルコードが含まれる。
+      サンプルコードはほとんどがLinuxでテストされている。
+	  windows用のプロジェクトファイルが無いものでも
+      わずかの変更(#includeなど)でwindowsでも動作する。
+      サンプルの使用方法等については、ソースのヘッダを参照</p>
+      <pre>
+swproxy.c         バイナリでも配布している swp のソースコード。
+swpadm.c          バイナリでも配布している swpadm のソースコード。VCEのモニタリング機能を用いた実際の例である。
+p2pchattest       P2Pでチャットするサンプル。
+mini              最小サーバ、クライアントのサンプル。詳細は、<a href="minitest.html">こちら</a>を参照のこと。
+wingen            Windowsでgenを使用した最小サーバ、クライアントのサンプル。</pre>
+      <p>
+      この他にlinuxlib/autotest/内にも minimumsv、minimumcl、
+      array、search などVCEの基本的な使いかたのサンプルがある。
+      </p>
+  </li>
+
+  <LI>winlib/
+	  <p>Windows用ライブラリのバイナリ、Windows用各種実行ファイル群(bin/) が含まれる。<br>
+      各ツール、ファイルの詳細は、
+      <a href="vce-tool.html">VCE附属ツールリファレンス</a>、
+      <a href="vce-files.html">VCE関連ファイルリファレンス</a>
+      を参照のこと。</p></li>
+</ul>
+
+<p><br>
+  <a href="index.html">index に戻る</a>
+  <br>
+    
+
+</p>
+<div id="footer">#COPYRIGHT#</div>
+
+</body> </html>

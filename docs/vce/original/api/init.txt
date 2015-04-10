@@ -1,0 +1,327 @@
+#
+# document for VCE auto-generated reference [init.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: init.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+<func>
+<name>vce_initialize
+<prototype>int vce_initialize( void )
+<cat>core
+<arch>linux,win32,ps2,darwin
+<sum ja>VCEを初期化する。
+<sum en>Initialize VCE.
+<return ja>
+正常に初期化できた場合は0、そうでない場合は負のエラーコード(vce.h)。
+</return>
+<return en>
+Returns 0 if successful. Otherwise minus error indicator (see vce.h).
+</return>
+<desc ja>
+VCEの関数を呼びだす前に必ず呼びださなければならない初期化関数である。
+VCEの内部用メモリはこの関数で確保される．
+またWindows環境においては、Winsockの初期化も同時に行なう。
+UNIX 用では SIGPIPE をブロックする。
+PS2 用VCEの場合は、アプリケーションでネットワークの初期化をする前に
+本関数を呼びだしてから、
+ソケットライブラリが初期化された時点で vce_set_socket_library_ok(1) を
+呼びだすこと(サンプルを参照)
+</desc>
+<desc en>
+You have to call this function before calling VCE functions.
+Required memory will be allocated inside this function.
+This initializes Winsock in Windows environment.
+For UNIX, it blocks SIGPIPE.
+With regard to VCE for “PlayStation(R)2” ,
+invoke this function before initialization of a network by an application,
+then invoke ce_set_socket_library_ok(1) at the point the socket library
+is initialized. (refer to samples)
+</desc>
+<sample ja>
+<pre>
+// PS2 など、OS がソケットライブラリを提供していない場合のコード
+int main()
+{
+    vce_initialize();
+
+    // load inet libraries
+    // load device dependent modules ..
+    // Dialing ...
+
+    while( wait_for_socket_init() );
+
+    vce_set_socket_library_ok(1);
+
+    t = vce_tcpcontext_create( ... );
+    while(1){
+        vce_heartbeat();
+    }
+}
+</pre>
+</sample>
+<sample en>
+// In case of PS2 : No socket library is provided by operating system
+int main()
+{
+    vce_initialize();
+
+    // load inet libraries
+    // load device dependent modules ..
+    // Dialing ...
+
+    while( wait_for_socket_init() );
+ 
+    vce_set_socket_library_ok(1);
+
+    t = vce_tcpcontext_create( ... );
+    while(1){
+        vce_heartbeat();
+    }
+}
+</sample>
+<also>vce_finalize,vce_set_socket_library_ok
+</func>
+
+<func>
+<name>vce_limit_clear
+<prototype>void vce_limit_clear( vce_limit_t *t )
+<cat>core
+<arch>linux,win32,ps2,darwin
+<sum ja>vce_limit_t型の構造体の初期化をする(-1のデフォルト値で初期化)
+<sum en>Initialize vce_limit_t structure (Clear with default value -1 )
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+vce_initialize_limited 関数の引数として与えられるvce_limit_t型の
+構造体の全部のメンバーに対して、デフォルト値である -1 を設定する。
+この関数を使って vce_limit_t 型を初期化して vce_initialize_limited 関数を
+呼び出すと、完全にデフォルトの設定が採用される。
+
+</desc>
+<desc en>
+This function initializes all member of vce_limit_t structre  with
+default value -1. By calling vce_initialize_limited function with
+vce_limit_t structure initialized by vce_limit_clear,
+vce uses default settings in every configuration.
+</desc>
+<also>vce_initialize_limited
+</func>
+
+<func>
+<name>vce_initialize_limited
+<prototype>int vce_initialize_limited( vce_limit_t *lim )
+<cat>core
+<arch>linux,win32,ps2,darwin
+<sum ja>限られたメモリ使用量で VCE を初期化する
+<sum en>Initialize VCE with limited memory configuration
+<return ja>
+正常に初期化できた場合は0、そうでない場合は負のエラーコード(vce.h)。
+</return>
+<return en>
+Returns 0 if successful. Otherwise minus error indicator value (vce.h).
+</return>
+<arg>vce_limit_t *lim
+<argdef ja>
+設定情報を含んだ vce_limit_t 構造体へのポインタ．
+</argdef>
+<argdef en>
+Pointer to vce_limit_t containing limit information.
+</argdef>
+<desc ja>
+vce_initialize と同じだが、 vce_limit_t 構造体を用いて、
+メモリ使用量をチューニングできる。特にメモリ容量を限界までチューニング
+したい環境において使用される。
+vce_limit_t の各メンバはそれぞれ
+<pre>
+int max_tcpcontext : tcpcontext_t の最大個数
+int max_taskgroup : taskgroup_t の最大個数
+int max_conn : 全体の conn_t の最大個数
+int max_search : 全体の検索エンジンの最大個数
+int max_array : 全体の配列エンジンの最大個数
+</pre>
+となっていて、0以上の値を指定することで設定可能。
+-1 を指定するとデフォルト値を使用する。
+すべての値をデフォルト値に設定するために
+vce_init_limit_t 関数が用意されているのでそれを使用すること。
+<BR>
+max_array の最低値に関しては，VCE内部でも配列エンジンを使っているので
+注意が必要である．VCEは内部で以下のように配列エンジンを使用する．
+<ul>
+<LI>conn,task処理用に2個，常時使用
+<LI>tcpcontext は1個あたり4〜5個
+<LI>switchcontext1個あたり3個
+<LI>モニタリングクライアントは2個
+<LI>モニタリングサーバーは5個 (うちtcpcontextが4個)
+<LI>検索エンジンは1個あたり1個
+<LI>taskgroup は1個
+</ul>
+これらのVCEのサービスは，配列が足りなくなると VCE_EARRAYを返す．
+したがってVCEの各サービスの初期化関数が VCE_EARRAY を返したときは，
+max_array の上限に注目してみるとよい．
+また， max_array を1増やすごとに72バイトのメモリが確保される．
+Linux/Win32環境では， max_array にデフォルト値の -1 を設定したときは
+256が設定され， PS2環境では32が設定される．
+<BR>
+メモリを節約するという目的とは別に、デフォルトの最大値をもっと大きな値に
+したいという場合にも本関数を使用できる。
+典型的なのが、デフォルトの最大同時接続数1000 を、
+もっと大きな値に変更する場合である。
+その目的のためにも本関数を使用することができる。
+ただし、ほとんどの linux/freeBSD  OS において、
+カーネルの設定やユーザープロセス空間の limit によって最大接続数が
+1024 以下に抑えられていることに注意が必要である。
+この限界値を越えるには、カーネルの設定変更や
+再コンパイル，シェルの設定変更が必要である。
+Linux のチューニングについては <a href="linuxtune.html">こちら</a>を参照．
+</desc>
+<desc en>
+This is the same as vce_initialize,
+though it allows tuning of memory consumption using
+vce_limit_t structure.
+You have to use vce_init_limit_t function to initialize
+vce_limit_t structure with default values before passing it to
+vce_initialize_limited function.
+In particular, this is used in some situation where ultimate
+tuning of memory capacity is demanded.
+<PRE>
+int max_tcpcontext     Max number of tcpcontext_t
+int max_taskgroup      Max number of taskgroup_t
+int max_conn           Max number of entire conn_t
+int max_search  Max number of the entire search engine
+int max_array   Max number of VCE arrays
+int sendbuf_work_size  Size of work memory for sending
+int recvbuf_work_size  Size of work memory for receiving
+</pre>
+
+They can be set with values 0 or larger.
+Set -1 to use default value.
+<BR>
+Please note that you will have to pay attention to minimum
+value of max_array. That is because VCE uses array engine inside it:
+<ul>
+<LI>Always 2 arrays are occupied by VCE itself for conn,task
+<LI>tcpcontext uses 4 or 5 per 1
+<LI>switchcontext uses 3 per 1
+<LI>monitoring client uses 2 per 1
+<LI>monitoring server uses 5 (4 of them are for tcpcontext ) per 1
+<LI>search engine uses 1 per 1
+<LI>taskgroup uses 1 per 1
+</ul>
+These VCE services will return VCE_EARRAY if array is not enough.
+So, you may increase max_array if you meet VCE_EARRAY error code.
+In addition, when you increase max_array for 1,
+it requires 72 bytes of memory accordingly.
+In Linux/win32 environment, max_array defaults to 256,
+but in PS2 envoronment, it defaults to 32.
+<BR>
+<BR>
+This function can also be used for the purpose of enlarging the
+maximum default value, as well as saving memory
+for larger scale applications.
+A typical case may change default maximum number of simultaneous
+connections of 1000 to larger value.
+This function can be used for such purpose, provided that,
+attention must be paid to keeping the maximum number of connections
+below 1024 by the kernel settings or the limit of the
+user process space among most of linux/freeBSD OS's.
+To exceed this limit, in most of the cases,
+modification of the kernel settings or recompilation is required.
+Please look at <a href="linuxtune.html>here</a> for detail tuning of Linux.
+</desc>
+<sample ja>
+<pre>
+int main(){
+    // ゲームクライアント向けに共有メモリや検索エンジンを使わなくする
+    vce_limit_t lim;
+    lim.max_tcpcontext = 1;
+    lim.max_taskgroup = -1;
+    lim.max_conn = 1;
+    lim.max_search = 0;
+    lim.max_array = 0;
+    lim.sendbuf_work_size = -1;
+    lim.recvbuf_work_size = -1;
+    vce_initialize_limited( &lim );
+    vce_finalize();
+}
+</pre>
+</sample>
+<sample en>
+<pre>
+int main(){
+    // Don't use shared memory and search engine for game clients
+    vce_limit_t lim;
+    lim.max_tcpcontext = 1;
+    lim.max_taskgroup = -1;
+    lim.max_conn = 1;
+    lim.max_search = 0;
+    lim.max_array = 0;
+    lim.sendbuf_work_size = -1;
+    lim.recvbuf_work_size = -1;
+    vce_initialize_limited( &lim );
+    vce_finalize();
+}
+</pre>
+</sample>
+<also>vce_initialize,vce_init_limit_t
+</func>
+
+<func>
+<name>vce_init_limit_t
+<prototype> void vce_init_limit_t( vce_limit_t *t )
+<cat>core
+<arch>linux,win32,ps2.darwin
+<sum ja>vce_limit_t 構造体をデフォルト値に初期化する
+<sum en>Initialize vce_limit_t structure with default value.
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+vce_initialize_limited 関数に与える構造体引数である vce_limit_t を
+正式に初期化する関数である。この構造体を使う場合はかならず
+この関数を使って初期化しなければならない。
+</desc>
+<desc en>
+It's always correct way to use vce_init_limit_t function when
+you use vce_initialize_limited function.
+</desc>
+<also>vce_initialize_limited
+</func>
+
+<func>
+<name>vce_finalize
+<prototype>int vce_finalize( void )
+<cat>core
+<arch>linux,win32,ps2,darwin
+<sum ja>VCEの解放を行なう。
+<sum en>Release all resources used by VCE.
+<return ja>
+正常に終了できた場合は0、異常な場合は負のエラーコードを返す。
+</return>
+<return en>
+Returns 0 if successful. Otherwise minus error indicator value.
+</return>
+<desc ja>
+VCEが使用していたすべての資源を解放する。
+vce_errout* を除いて，
+この関数を呼びだした後のVCE関数の呼びだしはすべて未定義の動作となる。
+</desc>
+<desc en>
+This releases all the resources used by VCE.
+All VCE function invocation after calling this function will be an
+undefined action except vce_errout*.
+</desc>
+</func>
+

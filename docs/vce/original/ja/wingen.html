@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+</head>
+
+        <body>
+        <h1>Visual&nbsp;Studioでのgen.rbの使い方</h1>
+
+            <p>gen.rbをVisual&nbsp;Studioでどのように使用するかを記述しました。</p>
+
+            <h2>もくじ</h2>
+                <p>windows版rubyのインストール</p>
+
+                <p>gen.rbの作成</p>
+
+                <p>genをプロジェクトに組み込む</p>
+
+
+            <h2>windows版rubyのインストール</h2>
+                <h3>windows版rubyの入手方法</h3>
+		    <p><a href="http://www.ruby-lang.org/ja/">公式サイト</a>より<b>mswin32</b>版を入手してください。最新(1.8以上)のものを入手してください。</p>
+                <h3>rubyのインストール</h3>
+                    <p>インストーラーはないので、任意のディレクトリに解凍してください。環境変数に[ruby_install_dir]/binにパスを追加してください。
+                <h3>racc.batの設定</h3>
+                    <a href="../text/racc.bat">racc.bat</a>を右クリックで保存したください。[ruby_install_dir]/binにインストールします。
+                <h3>rubyパスの設定</h3>
+                    <p>Visual&nbsp;Studioでメニューから[ツール]-[オプション]を選択する。オプションメニューの左側[プロジェクト]-[VC++ディレクトリ]に合わせる<font color=red><b>(図1参照)</b></font>。実行可能ファイルを選んで(ruby)/binを追加する。
+                    <p><img src="../images/ruby1.jpg">図１</p>
+                <h3>VCEGENの設定</h3>
+                    <p>windowsの[コントロールパネル]から環境変数VCEGENを追加してください。</p>
+                    <p><img src="../images/ruby2.jpg">図２</p>
+
+
+            <h2>gen.rbの作成</h2>
+                コマンドプロンプトを開き、[vce_install_dir]/genに移動して、nmakeにwingen.makを渡します。
+<pre>
+[vce_install_dir]/gen&gt;namke -f wingen.mak
+</pre>
+                gen.rbを削除するcleanも実行できます。
+<pre>
+[vce_install_dir]/gen&gt;namke -f wingen.mak clean
+</pre>
+                これでgen.rbを使用する準備が整いました。
+
+
+            <h2>genをプロジェクトに組み込む</h2>
+                <p>
+                    <ol>
+                        <li>プロトコル定義ファイルをソースとしてプロジェクトに追加</li><br>
+                        図１のtestproto.txtです。
+                        <p><img src="../images/wingen1.jpg">図１</p>
+                        <li>追加したプロトコル定義ファイルをプロパティでカスタムビルドステップ設定をする</li><br>
+                        図２→図３参照
+                        <p><img src="../images/wingen2.jpg">図２<img src="../images/wingen3.jpg">図３</p>
+                        <li>カスタムビルドステップのコマンドにruby&nbsp;gen.rbを追加する</li><br>
+                        図３参照、パスが通っていないので、ruby.exe,&nbsp;gen.rbをフルパスで指定します。カスタムビルドは出力を指定しないと何も実行しないので出力ファイルを指定します。図のサンプルの場合はtestproto_sv.c;testproto_sv.hです。
+                        <li>出力ファイルをプロジェクトに追加</li>
+                        図４参照、gen.rbで出力されるファイルをプロジェクトに追加します。ファイル名は直接入力します(図５)。ソース、ヘッダに対してそれぞれファイルを追加します。図１の<b>testproto_sv.c,testproto_sv.h</b>が追加した出力ファイルです。
+                        <p><img src="../images/wingen4.jpg">図４<img src="../images/wingen5.jpg">図５</p>
+                        <li>VCEの設定を行いビルドする</li>
+                        通常のサンプルと同様にVCEのlib,vce.hのパス設定を行い、ビルドします。
+                    </ol>
+                </p>
+                    以上が基本的な手順となります。サンプルは[vce_install_dir]/lib/test/wingenにありますので参照してください。
+
+
+            <br><br>
+            <p><a href="index.html">index に戻る</a></p>
+            <div id="footer">#COPYRIGHT#</div>
+
+        </body>
+</html>

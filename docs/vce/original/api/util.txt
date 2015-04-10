@@ -1,0 +1,837 @@
+#
+# document for VCE auto-generated reference [util.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: util.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_make_binary_array_from_hex
+<prototype>void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>16進数文字列を変換して、バイナリデータを含む配列を作る。
+<sum en>Convert hex text into binary data array.
+<arg>char *out
+<argdef ja>
+バイナリデータ出力先の先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer. Binary data will be filled
+to this buffer.
+</argdef>
+<arg>int outlen
+<argdef ja>
+入力データの長さ(偶数でない場合は、0をうしろに単に足したものを出力する)
+</argdef>
+<argdef en>
+Length of input string.
+If this is not even number, it adds 0 value at the end of input string,
+and keep processesing going.
+</argdef>
+<arg>char *hex
+<argdef ja>
+入力データ。
+</argdef>
+<argdef en>
+Input data string.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+"788ab0d8ce8df6" のような文字列から、バイナリデータの配列を作る。
+2文字で1バイトを生成するため、奇数の文字数のデータが指定されたときには、
+最後に0を単純に足したものを生成して出力する。
+通常は、偶数文字数のテキストを指定して呼びだすこと。
+vce_make_hex_from_binary_array の逆関数．
+</desc>
+<desc en>
+This creates an array of binary data from a string
+such as "788ab0d8ce8df6".
+Since one byte is created by two letters,
+when data of an odd-numbered characters is designated,
+it generates binary data having simply added 0 at the end,
+then outputs.
+In general, designate even-numbered characters for outputting.
+An inverse function is vce_make_hex_from_binary_array
+</desc>
+<also>vce_make_hex_from_binary_array
+</func>
+
+<func>
+<name>vce_make_binary_array_from_line
+<prototype>void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>ASCIIテキストの1行からバイナリデータの配列を出力する
+<sum en>Convert 1 line of ASCII text into a binary data array.
+<arg>char *line
+<argdef ja>
+入力行
+</argdef>
+<argdef en>
+Top address of input line
+</argdef>
+<arg>int linelen
+<argdef ja>
+入力行の長さ。
+</argdef>
+<argdef en>
+Length of input line
+</argdef>
+<arg>char *out
+<argdef ja>
+出力バッファ
+</argdef>
+<argdef en>
+Output buffer
+</argdef>
+<arg>int *outlen
+<argdef ja>
+出力バッファの長さ。値結果引数で、まず 最大長さを与えて呼びだし、
+関数が返る時には、実際に使用した長さを代入して返す。
+</argdef>
+<argdef en>
+Length of output buffer. This is value-result parameter.
+Firstly it have to contain max length of output buffer,
+and then this function fills this parameter with
+how many bytes are used actually.
+</argdef>
+<arg>int *uselen
+<argdef ja>
+実際にテキストの行を読んだ長さを返す。
+</argdef>
+<argdef en>
+Returns how many bytes actually read from input text.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+"\r\n" と "\n" のどちらでおわってるかわからない行から
+バイナリ配列をつくる。
+成功した場合は、実際に配列を埋めた長さを outlen で返し、
+入力行を実際に読んだ長さを uselen で返す。
+</desc>
+<desc en>
+This creates a binary array from a text line.
+You can specify a text line in some loose format,
+for example it can be terminated by "\r\n" or "\n".
+When successful, it returns actual embedded length of the array
+stored in "outlen", and actual read length of input
+line is stored in "uselen" argument.
+</desc>
+</func>
+
+<func>
+<name>vce_dump_buffer
+<prototype>void vce_dump_buffer( char *buf, int len )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>バイナリ配列をvce_erroutを用いてダンプする。
+<sum en>Dump binary data array using vce_errout.
+<arg>char *buf
+<argdef ja>
+ダンプしたいデータの先頭アドレス
+</argdef>
+<argdef en>
+Top address of data being dumped
+</argdef>
+<arg>int len
+<argdef ja>
+ダンプしたいデータの長さ
+</argdef>
+<argdef en>
+Length of data being dumped
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+vce_errout 関数を用いて、バイナリデータを含む配列の内容をすべてログする。
+8バイトごとに区切って表示する非常に単純なものである。
+</desc>
+<desc en>
+This logs all the array contents including binary data using
+the vce_errout function.
+This is so simple that displays dividing every 8 bytes in the buffer.
+</desc>
+<also>vce_errout
+</func>
+
+<func>
+<name>vce_make_hex_from_binary_array
+<prototype>int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>バイナリデータ配列から，単一のhex の文字列を作る
+<sum en>Make a hex string from a binary array
+<arg>char *out
+<argdef ja>
+出力先バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output string buffer.
+</argdef>
+<arg>int outlen
+<argdef ja>
+出力先バッファの長さ
+</argdef>
+<argdef en>
+Length of output string buffer.
+</argdef>
+<arg>char *buf
+<argdef ja>
+入力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input binary data.
+</argdef>
+<arg>int len
+<argdef ja>
+入力バッファの長さ
+</argdef>
+<argdef en>
+Length of input binary data.
+</argdef>
+<arg>int folding
+<argdef ja>
+32文字(入力の16バイト)ごとに折りかえすかどうかのフラグ．
+折りかえすなら1，そうでないなら0．
+折りかえさない場合は，どんなに入力が長くても1個の，
+改行を含まない文字列になる．
+また folding が 1 のときは，文字列の末尾に改行記号が UNIX 方式で入る．
+</argdef>
+<argdef en>
+A flag to decide whether folding every 32 characters
+(16 bytes of input) or net. Set 1 for folding, otherwise 0.
+In case of folding=0, output string will become a single line without
+any carriage return, even though the input length comes to be
+particularly long. When fold=1, a "\n" code is added
+to the end of output string according to the UNIX way.
+</argdef>
+<return ja>
+出力先がいっぱいになった場合は、 VCE_EFULLを返す。
+そうでない場合は出力の文字数を返す(ヌル文字は含まない)
+</return>
+<return en>
+Returns VCE_EFULL if output buffer is filled up.
+Otherwise returns how many bytes are filled.
+(null terminator character is not included)
+</return>
+<desc ja>
+変換結果は、1バイトが2文字になるので，成功した場合は，
+出力は常に入力の2倍の文字数になる．
+たとえば "abc" は "616263" となる．
+この関数は vce_make_hex_text_from_buffer 関数のベース関数である．
+</desc>
+<desc en>
+Since one byte becomes two characters after conversion,
+successful results will always lead the output to have
+twice as many characters as input characters do.
+For instance, "abc" will become "616263". This function is
+used by vce_make_hex_text_from_buffer internally.
+</desc>
+<also>hextext,vce_make_hex_text_from_buffer
+</func>
+
+<func>
+<name>vce_make_hex_text_from_buffer
+<prototype>int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>バイナリデータ配列から、 hextext 形式のASCIIテキストを出力する。
+<sum en>Make hextext format ASCII text from a binary data array.
+<arg>char *buf
+<argdef ja>
+入力となるバイナリデータの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input binary data.
+</argdef>
+<arg>int len
+<argdef ja>
+入力データの長さ
+</argdef>
+<argdef en>
+Length of input binary data.
+</argdef>
+<arg>char *out
+<argdef ja>
+出力先の先頭アドレス
+</argdef>
+<argdef en>
+Top address of output string buffer.
+</argdef>
+<arg>int outlen
+<argdef ja>
+出力する最大長さ(バイト数)
+</argdef>
+<argdef en>
+Size of output string buffer.
+</argdef>
+<return ja>
+出力先がいっぱいになった場合は、 VCE_EFULLを返す。
+そうでない場合は出力した文字数を返す(ヌル文字は含まない)
+</return>
+<return en>
+Returns VCE_EFULL if outout buffer is filled up.
+Otherwise returns how many bytes are filled. ( null terminator
+character is not included).
+</return>
+<desc ja>
+変換結果は、1バイトが2文字になる。
+先頭のヘッダは、そのバッファをデコードするために必要な情報が記述されている。
+中身の正当性をチェックするために、SHA-1によるチェックサムの値と、
+長さが含まれている。読みこみルーチンではこれらすべての値が正しいことを
+確認する。
+変換した文字列は，
+vce_make_binary_array_from_hex 関数で元に戻すことができる．
+</desc>
+<desc en>
+One byte becomes two characters after conversion.
+Necessary information to decode its buffer is described in
+leading data header.
+For proving its contents, a check-sum value by SHA-1 and
+length of content are contained.
+When reading, this function checks all these information
+is correct.
+Converted string can be restored with
+vce_make_binary_array_from_hex function.
+</desc>
+<also>hextext,vce_extract_data_from_hex_text,vce_make_binary_array_from_hex
+</func>
+
+<func>
+<name>vce_extract_data_from_hex_text
+<prototype>int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>hextext 形式のASCIIテキストを、バイナリデータ配列に戻す
+<sum en>Convert hextext format ASCII text into a binary data array.
+<arg>char *buf
+<argdef ja>
+入力となるASCIIテキストの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input ASCII text string.
+</argdef>
+<arg>int len
+<argdef ja>
+入力テキストの長さ(バイト数)
+</argdef>
+<argdef en>
+Length of input text string ( in bytes )
+</argdef>
+<arg>char *out
+<argdef ja>
+出力バイナリ配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination binary data buffer.
+</argdef>
+<arg>int outlen
+<argdef ja>
+出力する最大のバイト数
+</argdef>
+<argdef en>
+Size of destination binary data buffer.
+</argdef>
+<return ja>
+テキストの中身が正当でない場合は VCE_EFORMAT を、
+それ以外の何らかのエラー(バッファが足りないなど)の場合はそれに応じた
+負のエラーコードを、完全に成功した場合は正の数(バイナリのバイト数)を返す。
+</return>
+<return en>
+This returns VCE_EFORMAT if source text is not well formatted.
+This also returns  negative error code when other errors.
+Positive number (binary bytes) for complete success.
+</return>
+<desc ja>
+hextext 形式のバッファを読みこみ、データの中身の正当性をチェックした上で、
+バイナリ配列に読みこむ。
+</desc>
+<desc en>
+This reads hextext format buffer into a binary array
+after checking validity of contents of "buf".
+</desc>
+<also>vce_make_hex_text_from_buffer
+</func>
+
+<func>
+<name>vce_read_simple_config_file
+<prototype>int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>単純なテキスト設定ファイルをコールバック関数を使って読みこむ
+<sum en>Read simple text configuration file by callback function
+<arg>char *filename
+<argdef ja>
+読みこむファイル名
+</argdef>
+<argdef en>
+Filename of configuration file being read.
+</argdef>
+<arg>int (*callback) (char *filename,int lineno,char *param, char *value)
+<argdef ja>
+ファイルの中身を処理するためのコールバック関数
+</argdef>
+<argdef en>
+Callback function for parsing content of file.
+</argdef>
+<return ja>
+ファイルが読みこめない場合 VCE_EACCESSFILE を返す。
+成功したら0を返す。またコールバック関数が負を返したら、
+その値をそのまま返す。
+</return>
+<return en>
+Returns VCE_EACCESSFILE if the file is not readable.
+Returns zero if successful.
+If callback function returned minus value,
+this function quits read-loop and returns the value
+which is returned by the callback function.
+</return>
+<desc ja>
+vce_read_simple_config_file は入力ファイルを1行づつ読みこみ、
+各行に
+<pre>
+PARAMNAME=VALUE
+</pre>
+という形式(イコール'='でパラメータと値を並べたもの)を発見するごとに
+指定されたコールバック関数を呼びだす。
+イコールの前後では空白文字は存在できない．
+またPARAMNAME は必ず行頭からはじまらなければならない．
+文字列のエスケープには対応していないので，
+改行をデータ中に入れることはできない．
+コールバック関数のプロトタイプは
+<pre>
+int (*callback)(char *filename, int lineno, char *param, char *value )
+</pre>
+であり、 filename は設定ファイル名、 lineno は入力ファイルの中の行番号、
+char *param はパラメータ名、 char *value は設定値である。
+value に改行記号は含まれない。
+また、 "\r\n" で終わる行も "\n" で終わる行も同じように読みこむことができる。
+<BR>
+1行の長さを最大32キロバイトと仮定している。
+それを越える長さの行があった場合は、
+越える分については読みこまれない。
+また、コールバック関数が負を返すと、
+本関数も負を返す。返り値は、コールバック関数が返した値と同じである。
+本関数は，標準入出力(stdioのFILE構造体)をそのまま使用するので，
+標準入出力が使用できない環境では動作しない．
+</desc>
+<desc en>
+</desc>
+<also>vce_copy_cstring_upto,vp,swp
+</func>
+
+<func>
+<name>vce_read_plain_text_file
+<prototype>int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>プレインテキストファイルを読みこむ
+<sum en>Read plain text file by callback function
+<arg>char *filename
+<argdef ja>
+読みこむファイル名
+</argdef>
+<argdef en>
+Filename of configuration file.
+</argdef>
+<arg>int (*callback) (char *filename,int lineno,char *line )
+<argdef ja>
+引数処理のためのコールバック関数
+</argdef>
+<argdef en>
+Callback function for processing content of file.
+</argdef>
+<return ja>
+ファイルが読みこめない場合 VCE_EACCESSFILE を返す。
+成功したら0を返す。またコールバック関数が負を返したら、
+その値をそのまま返す。
+</return>
+<return en>
+Returns VCE_EACCESSFILE if the file is not readable.
+Returns zero if successful.
+If callback function returned minus value,
+this function quits read-loop and returns the value
+which is returned by the callback function.
+</return>
+<desc ja>
+入力テキストファイルの各行を読みこむごとにコールバック関数を呼びだし、
+実際の入力データの処理はそのコールバック関数で実行する。
+本関数は行番号などデバッグに役立つ情報を付加してコールバック関数を呼びだし、
+コールバック関数が負を返したら処理を中断する。
+vce_read_simple_config_file 関数をさらに単純にしたものである。
+なお、空行は読みとばされる。
+</desc>
+<desc en>
+</desc>
+<also>vce_read_simple_config_file
+</func>
+
+<func>
+<name>vce_sha1_file_checksum
+<prototype>void vce_sha1_file_checksum( const char *path , char *out , int len )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>ファイルのSHA-1チェックサムを求める。
+<sum en>Calcurate SHA-1 checksum of a file.
+<arg>char *path
+<argdef ja>
+ファイルの位置を示すpath
+</argdef>
+<argdef en>
+Filename.
+</argdef>
+<arg>char *out
+<argdef ja>
+チェックサムの出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer.
+Calcurated checksum will be filled in this buffer.
+</argdef>
+<arg>int len
+<argdef ja>
+出力の最大長さ(バイト数)。
+</argdef>
+<argdef en>
+Size of destination buffer (in bytes)
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+ファイルのSHA-1チェックサムを求める。SHA-1 は Secure Hash Algorithm の略で、
+堅牢なハッシュアルゴリズムとされる。
+ファイルの中身が壊れていないかどうかを効果的に調べることができる。
+</desc>
+<desc en>
+</desc>
+<also>hextext,vce_sha1_buffer_checksum
+</func>
+
+<func>
+<name>vce_sha1_buffer_checksum
+<prototype>void vce_sha1_buffer_checksum( const char *buf , int len , char *out , int outlen )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>バイナリデータ配列のSHA-1チェックサムを求める。
+<sum en>Calcurate SHA-1 checksum of a binary data array.
+<arg>char *buf
+<argdef ja>
+チェックサムを計算するデータを含むバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input data. Calcurate checksum against this buffer.
+</argdef>
+<arg>int len
+<argdef ja>
+チェックサムを計算するデータの長さ。
+</argdef>
+<argdef en>
+Length of intput data being processed.
+</argdef>
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer.
+</argdef>
+<arg>int outlen
+<argdef ja>
+出力バッファの最大長さ(バイト数)
+</argdef>
+<argdef en>
+Size of destination buffer ( in bytes)
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+あるメモリ領域のチェックサムを求めるために使用する。
+出力は40桁のASCII 16進数文字列である。
+"0a4479cd9f99dd9384482fffffcfe923884491af"
+という感じの文字列が出力される。
+</desc>
+<desc en>
+</desc>
+<also>vce_sha1_file_checksum,hextext
+</func>
+
+<func>
+<name>MALLOC
+<prototype>void *MALLOC( size_t size )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>malloc の wrapper. Cライブラリのmallocのラッパー
+<sum en>A wrapper function for C library malloc().
+<arg>size_t size
+<argdef ja>
+割りあてるメモリのサイズ(バイト数)
+</argdef>
+<argdef en>
+Size of allocated memory ( in bytes)
+</argdef>
+<return ja>
+割りあてられたメモリ領域の先頭アドレス
+</return>
+<return en>
+Top address of allocated memory block.
+</return>
+<desc ja>
+標準Cライブラリのmalloc()関数を呼びだし、mallocの返り値をそのまま
+返す。
+VCEでは、 malloc 関数はプログラム起動時に1回だけ呼びだして
+大きなメモリ領域を割りあて、起動後は一切mallocせず、
+cleanup時にすべてをfree()するという戦略を取っている。
+これはmalloc関数の動作が遅いことや、
+malloc関数の実装方法の違いによる挙動の変化を最小に抑えるためである。
+MALLOC関数は、FREE関数と対で使用される。
+vce_set_verbose_mode を1に設定すると、ログを出力するようになる。
+</desc>
+<desc en>
+This calls the malloc() function of the standard C library,
+and returns a returned value of malloc as is.
+VCE invokes the malloc function only once upon a startup of a program
+to allocate a large memory space as possible as it can,
+afterwards, it free()s everything upon a cleanup,
+not using malloc funcs at all, according to its strategy.
+This is because the malloc function is too slow,
+or for minimizing variation of behavior due to the
+difference in implementation method of the malloc function.
+The MALLOC function is used pairing up with the FREE function.
+It prints log message when vce_set_verbose_mode 1.
+</desc>
+<also>FREE,vce_set_verbose_mode
+</func>
+
+<func>
+<name>FREE
+<prototype>void FREE( void *p )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>MALLOC関数で割りあてたメモリ領域を解放する。
+<sum en>Release a memory block allocated with MALLOC function.
+<arg>void *p
+<argdef ja>
+解放するメモリ領域の先頭アドレス
+</argdef>
+<argdef en>
+Top address of a memry block which will be freed.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+標準C言語のfree関数をwrapする関数である。
+単純に、free呼びだし記録をログするだけである。
+vce_set_verbose_mode を1に設定すると、ログを出力するようになる。
+</desc>
+<desc en>
+This function wrap the standard C free function.
+It simply logs invocation records of free.
+It prints log message when vce_set_verbose_mode 1.
+</desc>
+<also>MALLOC,vce_set_verbose_mode
+</func>
+
+<func>
+<name>vce_get_current_utime
+<prototype>VCEI64 vce_get_current_utime( void )
+<arch>linux,win32,darwin
+<cat>util
+<sum ja>現在時刻を VCEI64型で得る
+<sum en>Get current time by VCEI64 data type
+<return ja>
+現在時刻。
+UNIX環境においては、 gettimeofday  関数により得られた
+timeval 構造体の値を VCEI64 に変換した値を返す。
+Win32環境においては、 GetSystemTime 関数により得られた
+SYSTEMTIME 構造体の値を VCEI64 に変換した値を返す。
+</return>
+<return en>
+The current time.
+In UNIX environment, this function will convert "timeval" structure
+into VCEI64 type.
+In this case, "timeval" is got by gettimeofday function.
+In Win32 environment, this function will convert "SYSTEMTIME"
+into VCEI64 type.
+In this case, "SYSTEMTIME" is got by GetSystemTime function.
+</return>
+<desc ja>
+VCEI64に変換される元になるtimevalの値は、 gettimeofday() が返す値を
+変換して得られるものである。
+VCEはこの関数が返す値を、vce_heartbeat が呼びだされるごとに更新する。
+</desc>
+<desc en>
+The source value of timeval
+is a value obtained by converting returned value from
+gettimeofday().
+VCE renews the return value each time vce_heartbeat is invoked.
+</desc>
+<also>vce_set_internal_timer
+</func>
+
+<func>
+<name>vce_atoi
+<prototype>int vce_atoi( char *p )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列を整数(int)に変換する。簡単な計算機能つき。
+<sum en>Convert C string into a int value with simple calcuration.
+<arg>char *p
+<argdef ja>
+変換する文字列。
+</argdef>
+<argdef en>
+Top address of string being converted.
+</argdef>
+<return ja>
+変換後の値。不正な入力の場合は一律に0を返す。
+</return>
+<return en>
+Converted value. If bad input, returns 0 in any case.
+</return>
+<desc ja>
+単純な計算機能つきatoiルーチンである。
+以下のような入力を受けつける。
+<pre>
+"12345"    →  12345
+"-12345"   → -12345
+"123+123"  →  246
+"123-123"  →  0
+"123+-123"  →  0
+"-123-123" →  -246
+"123*3"    →  369
+"-123*3"   → -369
+"-123*-3"  →  369
+"123+2*2"  →  250  先に + が計算されていることに注意
+"1+1+1+1+1"  →  5  いくつでもつなげることができる
+"1+1+  1+1  +1"  →  5  空白文字(TAB,SPACE)は読みとばされる
+</pre>
+電卓の操作のように、演算子の結合強度とは無関係に、前の演算子から順に
+計算していくことに注意。
+内部ではlibcの atoi を使用している。
+<BR>
+入力が変換不可能な場合は、一律に0を返すが、そういう仕様だと0という値が
+エラーなのか正しい値なのか判別できないため、変換できなかった場合は、
+vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
+0が正しい出力なのかエラーなのかを判別することができるようになっている。
+10進数専用である。
+</desc>
+<desc en>
+The atoi routine with the simple computation function.
+The following inputs are accepted:
+<pre>
+"12345"    →  12345
+"-12345"   → -12345
+"123+123"  →  246
+"123-123"  →  0
+"123+-123"  →  0
+"-123-123" →  -246
+"123*3"    →  369
+"-123*3"   → -369
+"-123*-3"  →  369
+"123+2*2"  →  250  Note that "+" is determined first.
+"1+1+1+1+1"  →  5  Any number of linking is allowed.
+"1+1+  1+1  +1"  →  5  Blank characters (TAB, SPACE) are skipped in reading.
+</pre>
+Dedicated to decimal numbers.
+Note that operators are determined from left to right regardless of
+connection weight of operators, like an operation of calculators.
+atoi of libc is used internally.
+If it returns "0" across the board when the conversion of an input
+is not possible, the figure "0" cannot be determined whether
+an error or valid value.
+Therefore, in case of conversion failure,
+it is enabled to use the vce_get_last_error function to detect
+VCE_EFORMAT, in order to determine such "0".
+</desc>
+<bugs ja>
+現在，この関数はまだ実験段階なため，
+不安定(結果がおかしくなる場合がある)である．
+</bugs>
+<bugs en>
+This function is still at the experimental stage,
+so it may be not performing stably-sometimes: results make no sense.
+</bugs>
+</func>
+
+<func>
+<name>vce_replace_malloc_funcs
+<prototype>void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE が使うmalloc関数を置きかえる
+<sum en>Replace malloc function used inside VCE.
+<arg>void * (*a)(size_t)
+<argdef ja>
+メモリ割りあて関数へのポインタ。NULLを指定すると置きかえない。
+</argdef>
+<argdef en>
+Pointer to memory allocator function.
+Ignore if this parameter is set NULL.
+</argdef>
+<arg>void*(*a)(void*,size_t)
+<argdef ja>
+メモリ再割りあて関数へのポインタ。NULLを指定すると置きかえない。
+</argdef>
+<argdef en>
+Pointer to memory re-allocator function.
+Ignore if this parameter is set NULL.
+</argdef>
+<arg>void (*f)(void*)
+<argdef ja>
+メモリ解放関数へのポインタ。NULLを指定すると置きかえない。
+</argdef>
+<argdef en>
+Pointer to memory free function.
+Ignore if this parameter is set NULL.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+VCEがメモリ割りあて/解放に使う関数を置きかえる。
+アプリケーションによっては、メモリ管理を一元化したい場合や、
+メモリ関係の性能監視のために malloc/free 関数を再定義したい場合がある。
+本関数ではそのような場合に関数ポインタを指定することで
+置きかえることができる。
+デフォルトでは、 割りあて関数は malloc, 解放関数は free となっている。
+本関数は、 vce_initialize 関数より前に呼びだすことが可能である。
+</desc>
+<desc en>
+</desc>
+</func>
+

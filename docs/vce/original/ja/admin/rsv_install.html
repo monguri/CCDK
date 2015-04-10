@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../vce.css" type="text/css">
+<title>VCE #VER# official document</title> 
+</head>
+
+<body>
+
+<h1>rsv インストール</h1>
+<p>
+  rsv のインストールのために提供しているファイルおよび 手順は下記に示す動作環境におけるサンプルである。起動スクリプトや設定の内容を理解し環境に合っているか確認した上で使用すること。確認ができない場合は、従来通り一般ユーザで rsvプロセスを手動起動すること。
+<p>
+<p>インストールによって以下の設定が行われる。
+<ul>
+  <li>サービスによる rsv の起動</li>
+  <li>自動起動</li>
+</ul>      
+</p>
+
+<h2>動作環境</h2>
+<p>rsv は VCE Linux版 と同様、カーネルのバージョンが 2.4 移行の Linux マシン上で
+動作するが、
+以下のインストール手順は、次のディストリビューション、バージョン用に準備されている。
+その他ディストリビューションについては、<a href="#others">その他の Linux ディストリビューションでのインストール</a> を参照しサービス。
+<ul>
+  <li>Fedora Core release 3</li>
+  <li>Fedora Core release 4</li>
+  <li>Red Hat Enterprise Linux ES v.3</li>
+  <li>Red Hat Enterprise Linux ES v.4</li>    
+</ul>
+</p>
+
+<h2>使用するファイル</h2>
+<ul>
+  <li>vce-x_y_z/admin/rsv/rsv
+    <p>rsv実行ファイル</p></li>
+  <li>vce-x_y_z/admin/rsv/rsv.conf
+    <p>rsv設定ファイル</p></li>
+  <li>vce-x_y_z/admin/rsv/configure
+    <p>configureファイル。makefileと起動スクリプトを作成する。</p></li>
+  <li>vce-x_y_z/admin/rsv/configure.dat
+    <p>起動スクリプトの雛型</p></li>    
+</ul>      
+
+
+<h2>インストール</h2>
+<h3>インストールの前に</h3>
+<p>インストールを行う前に、rsv の設定ファイル rsv.conf を環境に合せて書換えておく。</p>
+
+<h3>configureを実行する</h3>
+<pre>shell$ cd vce-x_y_z/admin/rsv
+shell$ ./configure [rsv起動ユーザ] [インストールパス]</pre>
+
+<pre>例：(pwd=/home/user1/vce-x_y_z/admin/rsv)
+shell$ ./configure rsvuser /home/rsvuser
+USER=rsvuser
+RSVDIR=/home/rsvuser/rsv
+RSVEXEC=/home/rsvuser/rsv/rsv /home/rsvuser/rsv/rsv.conf
+configure: creating /home/user1/vce-x_y_z/admin/rsv/.makeinst.dat ...OK
+configure: creating /home/user1/vce-x_y_z/admin/rsv/makefile ...OK</pre>
+
+<p>[オプション]
+<ul>
+  <li>rsv起動ユーザ
+      <p>rsvの実行ユーザを指定する。省略するとconfigureの実行ユーザが指定される。root以外のユーザを指定すること。<br>
+        rsvは、内部でUNIXのコマンドを実行、サーバプロセスを起動する必要があるので、必要な権限をもった ユーザーを指定する必要がある(ゲーム用のサーバを起動しているユーザーの権限がいいであろう)。</p></li>
+  <li>インストールパス
+      <p>rsvインストールディレクトリ(コピー先)を指定する。最後に / つけないこと。省略すると、configureを実行したディレクトリが設定される。インストール時にこのパスの下に rsv というディレクトリが作成され、その中に rsv, rsv.conf がコピーされる。</li></ul></p>
+      
+<p>[注意事項]
+  <ul>
+    <li>rsv起動ユーザ名を省略して、インストールパスのみをオプションで指定することはできない。
+        <pre>OK $ ./configure rsvuser /opt/admin
+OK $ ./configure rsvuser
+OK $ ./configure         
+NG $ ./configure /opt/admin</pre>
+     <p>   
+  </ul>
+</p>  
+
+<p>configure が成功すると、インストール、アンインストールするための makefile が生成される。  </p>
+<p>configure 実行時のエラーは、<a href="#err_config">エラー</a> を
+  参照のこと。  </p>
+
+
+  
+<h3>インストールを行う</h3>
+<pre>shell$ su
+shell# make install</pre>
+
+<pre>例：
+shell$ su
+shell# make install
+cp .makeinst.dat /etc/rc.d/init.d/rsv
+chmod +x /etc/rc.d/init.d/rsv
+/sbin/chkconfig --add rsv
+/sbin/chkconfig --list rsv
+rsv            0:off   1:off   2:off   3:on   4:off   5:on   6:off</pre>  
+  
+<p>make install によって、以下の設定が行われる。
+  <ul>
+    <li>configure で指定されたパスに rsv というディレクトリが作成され、rsv と rsv.conf がコピーされる。rsv がすでにある場合は上書きされる。rsv.conf がすでにある場合は確認メッセージがでるので、選択する。</li>
+    <li>rsvの起動スクリプトを /etc/rc.d/init.d に設置する。    
+    <li>自動起動スクリプトが設置され、ランレベル 3 と 5 のときに rsv が自動起動するように設定される。</li>
+  </ul>
+</p>
+<p>        
+  このとき、実際には cofigure で指定したユーザの権限で、インストールパスにコピーされた rsv が実行される。また、 rsv.conf もインストールパスのものが使用されることに注意すること。</p>
+
+<p>インストール時のエラーは、<a href="#err_install">エラー</a> を
+  参照のこと。  </p>
+  
+
+      
+<h2>rsv の起動 停止</h2>
+<h3>起動</h3>
+<pre>shell% su
+shell# /sbin/service rsv start
+  or
+shell# /etc/rc.d/init.d/rsv start</pre>
+<p>  起動後、ps auxw|grep rsv などで rsv が起動していることを確認する。<br>
+  rsv のサービス起動中は、以下の場合に sesh 、initlog も起動されます。
+  
+  <ul>
+    <li>sesh : SELinux が有効になっている場合(sudoを実行しているため)</li>
+    <li>initlog : Fedora Core 1,2,3 の場合(システムログ出力のため)</li>
+  </ul>      
+</p>
+  
+<h3>停止</h3>
+<pre>shell% su
+shell# /sbin/service rsv stop
+  or
+shell# /etc/rc.d/init.d/rsv stop</pre>
+  
+  
+
+<h2>rsv のアンインストール</h2>
+<pre>shell% cd vce-x_y_z/admin/rsv
+shell% su  
+shell# make uninstall</pre>
+<p>make uninstall によって、以下の処理が行われる。
+<ul>
+  <li>rsv 自動起動の停止。(rsvの停止は行いません)</li>
+  <li>自動起動スクリプトを削除</li>    
+  <li>インストールパスにコピーした rsv, rsv.conf を削除</li>
+</ul></p>      
+      
+
+
+<h2>エラー</h2>
+<a name="err_config"></a>
+<h3>configure実行時のエラー</h3>
+<ul>
+  <li>Error: You may have to be a general user or set a general user to the first parameter to configure rsv
+      <p>rootをrsvの実行ユーザに指定することはできません。[rsv起動ユーザ] に root 以外の一般ユーザを指定してください。root で configureを実行している場合は [rsv起動ユーザ] の指定を行ってください。</p></li>
+  <li>Error: unknown user 'xxx'.
+      <p>指定された ユーザは存在しません。存在する一般ユーザを指定してください。</li>
+</ul>      
+
+<a name="err_install"></a>
+<h3>make install/uninstall 実行時のエラー</h3>
+<ul>
+  <li>cp: cannot create regular file `/etc/rc.d/init.d/rsv`: Permission denied
+  <p>make install を root で実行してください。</p></li>
+  <li>rm: cannot remove `/etc/rc.d/init.d/rsv`: Permission denied
+      <p>make uninstall を root で実行してください。</p></li>
+</ul>      
+
+<a name="err_start"></a>
+<h3>rsv 起動時のエラー</h3>
+<ul>
+  <li>Error: You may have to be a super user to start rsv.
+      <p>rsv の起動、停止は root で行ってください。</p></li>
+  <li>sudo: /xxx/xxx/xxx/rsv: command not found [FAILED]
+      <p>rsv実行ファイルがなんらかの理由で削除されています。再度、configureと
+      インストールを行ってください。</p></li>
+</ul>      
+
+
+<a name="others"></a>
+<h2>その他の Linux ディストリビューションでのインストール</h2>
+<p>rsv は以下のコマンドで実行することができます。</p>
+<pre>shell$ ./rsv rsv.conf</pre>
+<p>各ディストリビューションにあった起動スクリプトを作成し、所定の場所に設置し、
+自動起動を設定してください。</p>
+
+
+
+
+
+
+
+
+<p>
+<br>
+<a href="../index.html">index に戻る</a>
+<br></p>
+
+<div id="footer">#COPYRIGHT#</div>
+
+
+</body>
+</html>

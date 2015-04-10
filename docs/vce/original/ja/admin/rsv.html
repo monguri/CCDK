@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+</head>
+
+<body>
+
+<h1>Remote Serverについて</h1>
+<p>Remote Server(rsv)は、各ホストとそのマシンで動いているプロセスを
+管理するためのプログラムである。
+主に、ホスト・プロセスの情報(load average、ネットワーク負荷等)の収集、
+ホスト内でのUNIXコマンドの実行、ファイルの送受信(未実装)を行う。<br>
+  (限定的なtelnet、ftpという位置付けである) </p>
+<p>rsvの機能はadmsvを通して使われるため、通常、ユーザーはrsvを直接扱うことは
+ない(起動のみを行えばよい)。 </p>
+<p>rsvでは監視するプロセスのログを採取するが、送られてきたログは、/tmp/rsvlog/[ポート番号].[ログタイプ]という形で保存される(保存先は、rsv.conf の log_dir で変更することができる)。
+また、rsvから実行されたプロセスは、/tmp/rsvexec/[UNIX PID].log に起動コマンドと
+起動ログが保存される(保存先は、rsv.conf の exec_log_dir で変更が可能である)。admcli.exeからのプロセス起動が上手くいかない場合は、
+このログを調べるとよい。</p>
+
+<p>パッケージ内では、admin/rsv/ 内にバイナリと設定ファイルのサンプルが
+含まれている。
+
+
+<h2>rsvの使用方法</h2>
+<ol>
+  <li>設定ファイルを記述する。
+    <p><a href="#rsv.conf">rsv.conf</a>に必要な情報を書き込む。</p></li> 
+  <li>rsvを起動する。
+    <pre>$ ./rsv rsv.conf</pre></li>
+</ol>
+<p>rsvは、内部でUNIXのコマンドを実行する必要があるので、必要な権限をもった ユーザーで起動する必要がある
+(ゲーム用のサーバを起動しているユーザーの権限がいいであろう)。
+
+
+<a name="unix_command"></a>
+<h2>rsvからUNIXコマンドを使用する</h2>
+<p>admcli.exeからHost Window上の右クリックメニュー[コマンド実行]を選択することでコマンドを実行することが可能である。
+UNIXコマンドは、"/bin/sh -c [コマンド]"という形で実行され、標準出力＋エラー出力が結果として返される。まず、"ls"などでコマンドが実行可能か調べるとよい。</p> 
+<p>admcli.exeから実行できるコマンドは１行のコマンドに限定されている。より高度な コマンドについては、shell scriptなどをrsvを実行させているホスト上に用意して、それを起動するようにするのがよい。<br>
+  その際には以下のことに注意すること。</p>
+<ul>
+  <li>UNIXコマンドは、rsvを実行しているユーザーの権限で実行される</li> 
+  <li>UNIXコマンドは、rsvを実行したworking directoryで実行される</li> 
+</ul>
+
+<p>よって、使用したいスクリプトをrsvのあるディレクトリか
+PATHの通ったディレクトリに用意し、 chmod +x するのがよいであろう。<br>
+また、起動する前にcdをする必要があれば、"cd hoge ; ./start_hoge"の用に、まずcdを行う。<br>
+"ls -l | grep hoge"のように、パイプも使用できる。<br> 
+終了しないコマンド(top, tailなど)を使用するとrsvがブロックされてしまう
+ので注意する。</p>
+
+
+
+
+
+
+<h2>設定ファイルについて</h2>
+<a name="rsv.conf"></a>
+<h3>rsv.conf</h3>
+<p>設定を記述したファイルである(vce_read_simple_config_file形式)。
+各項目については、サンプルのrsv.confのコメントを参照のこと。
+rsvは、デフォルトでは、33333番ポートを使用する。 </p>
+
+
+
+
+
+<p>
+<br>
+<a href="../index.html">index に戻る</a>
+<br></p>
+
+<div id="footer">#COPYRIGHT#</div>
+
+
+</body>
+</html>

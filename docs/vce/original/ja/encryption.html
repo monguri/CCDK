@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+</head>
+
+<body>
+<h1>VCE における暗号強度と速度</h1>
+
+<p>
+VCEでは、ストリーム暗号化方式として、Blowfish,Twofish,Rijndael のアルゴリズムを使えるが、通常は、「何も考えず Rijndaelを使う」という発想で問題はない。
+このページでは、これらの暗号化アルゴリズムの特性と使用上の注意を記述する。
+</p>
+
+
+<h2>Rijndaelを使いましょう</h2>
+<p>
+  それぞれのアルゴリズムは異なる特性を持っている。
+VCEでは Blowfishが最も高速(Rijndaelより20%速い)だが古い。
+RIJNDAEL は新しく暗号強度が強い。
+20%のロスならば「とりあえずRIJNDAEL」という発想で問題ない。
+ちなみに、VCEにおいてRijndaelを使う場合は、800MHz のPentiumIII の場合、20Mbit/s
+程度の速度で通信も含めた暗号化が可能だった(全二重ではないので注意)。
+詳細は <a href="bench.html">bench.html</a> を参照。
+AESで公開されているベンチマークは、K6/400MHzで 40Mbit/s であるが、通信処理をせず純粋に暗号化だけの結果なので、VCEにおけるこの記録は、特に異常な値ではない。
+</p>
+
+
+
+<h2>鍵交換は重い</h2>
+<p>
+  VCEでは、OpenSSL等と同様、ストリーム暗号アルゴリズムの種類にかかわらず、TCPセッションをクライアントからサーバに最初に張るときには、DiffieHellman手順で鍵交換を行なう。
+この鍵交換では、300桁の数値計算を行なうのでCPUにかなり負荷をかける。
+800MHzの PentiumIII でテストした場合は、通信処理を含めて秒間50回の鍵交換をすることができた。
+ゲームアプリケーション等では通常状態では問題がないが、アプリケーションに問題が発生し、いわゆる輻輳状態(repeated retry)
+になると、急に鍵交換の負荷が無視できなくなることがあるので
+注意が必要である。
+</p>
+
+<h2>特殊機能</h2>
+<p>
+  あまり推奨しないが、VCEでは、
+送信と受信の「どちらかだけ」を暗号化することができる。
+VCE_BLOCK_CIPHER_BLOWFISH | VCE_BLOCK_CIPHER_ONLY_RECV 等とすることによって、
+受信だけ暗号化することが可能である。 VCE_BLOCK_CIPHER_ONLY_SEND
+を使用すると送信だけが暗号化される。
+この機能の目的は、負荷が集中するサーバの負担をできるだけ軽くすることと、
+コンシューマゲーム機のような貧弱なクライアントのCPU使用率を下げることである。
+当然セキュリティは弱くなるが、多くのコンテンツにおいて、
+クライアントからの送信だけを守ればいいことが多いので
+この機能が用意されている。
+実際、オンラインゲームのサーバでは、1の受信に対して10から20の送信が発生するが、それを暗号化せずに送れると、かなりのコストダウンが計れる。
+ただしセキュリティ上の不安が残るので、あまりおすすめはしない。
+以下にクライアントからの送信だけが暗号化される場合の
+tcpcontext の設定例を示す。
+</p>
+
+<pre>
+  // サーバ側
+  tcpcontext svt = vce_tcpcontext_create( 1, NULL, port,
+                                          1,
+                                          8192,8192,
+                                          100,
+                                          VCE_BLOCK_CIPHER_BLOWFISH
+                                          | VCE_BLOCK_CIPHER_ONLY_RECV,
+                                          8,
+                                          0,0,0 );
+  // クライアント側                                          
+  tcpcontext clt = vce_tcpcontext_create( 0, NULL, 0,
+                                          1,
+                                          8192,8192,
+                                          100,
+                                          VCE_BLOCK_CIPHER_BLOWFISH
+                                          | VCE_BLOCK_CIPHER_ONLY_SEND,
+                                          8,
+                                          1,0,0 );           
+  </pre>
+
+
+
+<h2>結論</h2>
+<P>
+  Pentium4 2GHz以降のプロセッサを使う場合は、何も考えずに
+Rijndaelを送受信の両方に使うのがよい。
+</p>
+
+
+<br><br>
+<a href="index.html">index に戻る</a>
+<br>
+
+
+<div id="footer">#COPYRIGHT#</div>
+
+</body> </html>

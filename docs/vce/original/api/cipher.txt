@@ -1,0 +1,245 @@
+#
+# document for VCE auto-generated reference [cipher.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: cipher.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_encode_buffer_by_blowfish
+<prototype>int vce_encode_buffer_by_blowfish( char *buf , int len , char *k, int kl )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>メモリ領域をBlowfishアルゴリズムを使って暗号化する
+<sum en>Encrypt binary data array using Blowfish algorithm
+<arg>char *buf
+<argdef ja>
+暗号化したいバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer, which will be encrypted.
+</argdef>
+<arg>int len
+<argdef ja>
+暗号化したいバッファの長さ
+</argdef>
+<argdef en>
+Length of input buffer
+</argdef>
+<arg>char *k
+<argdef ja>
+暗号化キーの先頭アドレス
+</argdef>
+<argdef en>
+Top address of encryption key data
+</argdef>
+<arg>int kl
+<argdef ja>
+暗号化キーの長さ
+</argdef>
+<argdef en>
+Length of encryption key
+</argdef>
+<return ja>
+引数が異常である場合は負のエラーコード。
+それ以外の場合は成功で0を返す。
+</return>
+<return en>
+Return minus return code when invalid arguments are given.
+Otherwise returns 0.
+</return>
+<desc ja>
+Blowfishアルゴリズムは8バイト単位のブロック暗号なので、
+vce_encode_buffer_by_blowfish では、
+余計な処理を介入させないために、入力バッファは8バイトの倍数の長さで
+なければ入力を受けつけないようにしている(VCE_EODDBUFSIZE)。
+またキーの長さは Blowfishでは32ビットから448ビットまでなので、
+kl には4から56までの値を指定すること。
+VCEに附属のbf プログラムは、 vce_encode_buffer_by_blowfish を使用して
+ファイルを暗号化するユーティリティである。
+</desc>
+<desc en>
+Since the Blowfish algorithm is the block code in units of 8 bytes,
+input other than length of multiples of 8 bytes are
+not allowed to be entered within vce_encode_buffer_by_blowfish,
+for avoiding unnecessary processing(VCE_EODDBUFSIZE).
+Give 4 to 56 as argument "kl",
+because the key length for Blowfish can range from 32 to 448 bits.
+The "bf" program attached to VCE is the utility to encode files using
+vce_encode_buffer_by_blowfish.
+</desc>
+<also>vce_decode_buffer_by_blowfish,bf
+</func>
+
+<func>
+<name>vce_decode_buffer_by_blowfish
+<prototype>int vce_decode_buffer_by_blowfish( char *buf , int len , char *k, int kl )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>メモリ領域をBlowfishアルゴリズムを使って復号化する
+<sum en>Decrypt binary data array using Blowfish algorithm
+<arg>char *buf
+<argdef ja>
+復号化したいバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer, which will be decrypted.
+</argdef>
+<arg>int len
+<argdef ja>
+復号化したいバッファの長さ
+</argdef>
+<argdef en>
+Length of input data
+</argdef>
+<arg>char *k
+<argdef ja>
+復号化キーの先頭アドレス
+</argdef>
+<argdef en>
+Top address of decryption key data
+</argdef>
+<arg>int kl
+<argdef ja>
+復号化キーの長さ
+</argdef>
+<argdef en>
+Length of decryption key
+</argdef>
+<return ja>
+引数が異常である場合は VCE_EINVAL, それ以外の場合は成功で0を返す。
+</return>
+<return en>
+Returns VCE_EINVAL, when invalid arguments are given.
+Otherwise returns 0.
+</return>
+<desc ja>
+引数の意味は vce_encode_buffer_by_blowfish 関数を参照。
+本関数は、 まったく逆の変換をするだけである。
+</desc>
+<desc en>
+Please check description of
+vce_encode_buffer_by_blowfish function.
+This function is a reverse function of vce_encode_buffer_by_blowfish.
+</desc>
+<also>vce_encode_buffer_by_blowfish,bf
+</func>
+
+<func>
+<name>vce_encode_buffer_by_rijndael
+<prototype>int vce_encode_buffer_by_rijndael( char *buf , int len , char *k, int kl )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>メモリ領域をRijndaelアルゴリズムを使って暗号化する
+<sum en>Encrypt binary data array using Rijndael algorithm
+<arg>char *buf
+<argdef ja>
+暗号化したいバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer, which will be encrypted.
+</argdef>
+<arg>int len
+<argdef ja>
+暗号化したいバッファの長さ
+</argdef>
+<argdef en>
+Length of input data
+</argdef>
+<arg>char *k
+<argdef ja>
+暗号化キーの先頭アドレス
+</argdef>
+<argdef en>
+Top address of encryption key
+</argdef>
+<arg>int kl
+<argdef ja>
+暗号化キーの長さ
+</argdef>
+<argdef en>
+Length of encryption key
+</argdef>
+<return ja>
+引数が異常である場合は負のエラーコード。
+それ以外の場合は成功で0を返す。
+</return>
+<return en>
+Returns minus error code when invalid arguments are given.
+Otherwise returns 0.
+</return>
+<desc ja>
+Rijndael アルゴリズムは16/32バイト単位のブロック暗号なので、
+vce_encode_buffer_by_rijndael も同様に、
+入力バッファの長さが16バイトで割りきれない場合は VCE_EODDBUFSIZE を
+返すようにしている。
+キーの長さは、16/24/32 バイトのいずれかである。
+</desc>
+<desc en>
+The Rijndael algorithm is a block encryption algorithm
+using 16/32 bytes unit.
+vce_encode_buffer_by_rijndael also returns VCE_EODDBUFSIZE
+when length of input buffer is not multiples of 16 bytes.
+The key length can only be 16, 24 or 32 bytes.
+</desc>
+<also>vce_decode_buffer_by_rijndael
+</func>
+
+<func>
+<name>vce_decode_buffer_by_rijndael
+<prototype>int vce_decode_buffer_by_rijndael( char *buf , int len , char *k, int kl )
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>メモリ領域をRijndaelアルゴリズムを使って復号化する
+<sum en>Decrypt binary data array using Rijndael algorithm
+<arg>char *buf
+<argdef ja>
+復号化したいバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer, which will be decrypted.
+</argdef>
+<arg>int len
+<argdef ja>
+復号化したいバッファの長さ
+</argdef>
+<argdef en>
+Length of input data
+</argdef>
+<arg>char *k
+<argdef ja>
+復号化キーの先頭アドレス
+</argdef>
+<argdef en>
+Top address of decryption key data
+</argdef>
+<arg>int kl
+<argdef ja>
+復号化キーの長さ
+</argdef>
+<argdef en>
+Length of decryption key
+</argdef>
+<return ja>
+引数が異常である場合は VCE_EINVAL, それ以外の場合は成功で0を返す。
+</return>
+<return en>
+Returns VCE_EINVAL when invalid arguments are given.
+Otherwise returns 0.
+</return>
+<desc ja>
+引数の意味は vce_encode_buffer_by_rijndael 関数を参照。
+本関数は、 まったく逆の変換をするだけである。
+</desc>
+<desc en>
+Please check description of vce_encode_buffer_by_rijndael function.
+This function is a reverse function of vce_encode_buffer_by_rijndael.
+</desc>
+<also>vce_encode_buffer_by_rijndael
+</func>
+

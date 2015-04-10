@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+<style>
+table {
+	width: 750px; 
+	border-collapse: collapse; 
+	border: 1px solid #40494d;
+}
+th {
+    width: 75px;
+	background-color: #7889ae;
+	text-align: center;
+	border: 1px solid #40494d;
+}
+td {
+	text-align: left;
+	border: 1px solid #40494d;
+}
+td#l {
+	background-color: #b4c1d4;
+	white-space: nowrap;
+}
+</style>
+</head>
+
+<body>
+
+<h1>debug_print.cについて (VCE-admin対応手順)</h1>
+
+<h2>debug_print.cとは</h2>
+<p>debug_print.cは、<b>VCE-AdminToolに対応するためのスケルトンコードである。</b>  従来、これらに対応するためには毎回同じようなコードを書く必要があったが、このファイルを使うことにより、その手間を軽減することができる。
+デメリットは、カスタマイズの自由度が減ることだがライブラリではなくスケルトンコードと することでそれもなるべく軽減している。<br>
+
+<h2>debug_print.cによって実現される機能</h2>
+<p>以下の機能がdebug_print.cによって追加される。 
+<ul>
+  <li>VCE-Monitorの初期化 </li>
+  <li>VCE-Monitorに標準的なモニターコマンド(netstat, netinfo, ping, suicide, prof, get_conn, get_port, get_pid)、管理に必要なモニターコマンド(get_name, get_login, shutdown)、VCE-Log用コマンド(set_logmask, get_log_types)の追加 </li>
+  <li><b>VCE-Logに対応したログの出力</b>(printd関数) </li>
+  <li><b>ログのVCE-AdminToold(rsv)</b>への転送 </li>
+</ul>
+
+<h2>debug_print.cの使い方</h2>
+<p>具体的には、サンプルを参照のこと。</p>
+<p>導入手順：</p> 
+<ol>
+  <li>debug_print.c, debug_print.h をソースのディレクトリにコピーする。</li> 
+  <li>debug_print.c の <b>CUSTOMIZE HERE</b>と書かれた部分を 各アプリケーションごとにカスタマイズする。
+    詳しくは、debug_print.cのコメントの中を参照のこと。</li> 
+  <li>VCEの初期化、TCPコンテキストの初期化 が済んだ後に、init_monitor(), init_log()の呼び出しを記述する</li>
+  <li>vce_heartbeat関数を呼ぶメインループ内で vce_logwriter_poll関数の呼び出しを記述する</li>
+  <li>printd()を使用するファイルに対して、debug_print.hをincludeする</li>
+
+</ol>
+
+<p>以上で、printd()によるログの出力が可能になる。 </p>
+
+<p>printd()は、以下のように使用する。</p>
+<pre>printd( [ログの種類(_ERROR, _TRACE など )], [フォーマット文字列]  , ...[可変引数リスト] );</pre>
+<p>例：</p>
+<pre>printd( _ERROR, "file error( %d )", err ); </pre>
+
+
+<h2>ログの種類について</h2>
+<p>ログの種類は、debug_print.h内の"_"で始まるマクロで定義されている。
+これは各アプリケーションごとにカスタマイズすることが可能であり、
+カスタマイズする場合は、init_log()内のログの種類を追加するコードを書き足せば
+よい。</p>
+<p><b>ログの種類は、サービスのセキュリティポリシー、運用ポリシーなどによって、
+適切に設計される必要がある。</b>
+ユーザーのパスワードなどをログに出す場合は、そのログを見れる人間を制限する
+必要があるだろう。</p>
+<p>デフォルトで用意されているログの種類については、下を参照のこと。
+<table border="1">
+  <tr> 
+    <th>マクロ名</td>
+    <th>説明</td>
+  </tr>
+  <tr> 
+    <td id="l"><b>_TRACE</b></td>
+    <td><b>もっとも細かいレベルのログ</b><br>
+      デバッグレベルでは使用されるが、<b>普段の運用時には出力しないもの</b>である。<br>
+      <br>
+      例：デバッグ用の情報出力、すべてのプロトコルの送受信表示<br>
+      <br>
+    </td>
+  </tr>
+  <tr> 
+    <td id="l"><b>_INFO</b></td>
+    <td><b>運用時出力されるものの中では、最も細かいレベルのログ。</b><br>
+      <br>
+      例：設定ファイルの読み込んだ項目の表示、定期的に表示される負荷情報、ユーザーのログイン・ログアウト、アイテムの受け渡し<br>
+      <br>
+    </td>
+  </tr>
+  <tr> 
+    <td id="l"><b>_WARN</b></td>
+    <td> 
+      <dl> <b>無視可能なのエラー、注意のログ。</b><br>
+        エラー処理ルーチンなどに記述する。<br>
+        <br>
+        例：設定の数をこえたオブジェクト（キャラクタや物）を作ろうとして失敗した場合、ログファイルがオープン出来なかった場合、接続しなくても続行可能なバックエンドサーバーに接続できなかった場合、ユーザーが回線を切断した場合<br>
+        <br>
+      </dl>
+    </td>
+  </tr>
+  <tr> 
+    <td id="l"><b>_ERROR</b></td>
+    <td> 
+      <b>無視できないエラーのログ。</b><br>
+      バグではないがバグに近い場所や、本当は通ってはいけない場所などにも使用する。（assert的な使用）<br>
+          _WARNと同じような状況でも、見落としたくない場合も_ERRORとする。<br>
+          運用時に、このレベルのログは開発者に伝わるようにする。<br>
+          <br>
+    </td>
+  </tr>
+  <tr> 
+    <td id="l"><b>_FATAL</b></td>
+    <td>
+      <p><b>回復不能なレベルのエラーのログ。</b><br>
+        もっとも重要性が高いログになる。<br>
+        運用時に、このレベルのログは開発者に伝わるようにする。</p>
+      <p>例：落ちてはいけないバックエンドとの接続が切れた、設定ファイルが読めない<br>
+        <br>
+      </p>
+    </td>
+  </tr>
+  <tr> 
+    <td id="l"><b>_GM</b></td>
+    <td><b>ゲームマスター向けのログ。</b><br>
+      一般的にゲームマスターは技術者ではないため、技術的な情報を省いて伝える際に使用する。<br>
+      ゲームロジック関連の情報は_GMを使用するとよいであろう。<br>
+      また、セキュリティ上、ユーザー情報などはゲームマスターには閲覧させたくない場合にも使用する。<br>
+      <br>
+      例：レベルアップ、チャット<br>
+      <br>
+    </td>
+  </tr>
+  <tr> 
+    <td id="l"><b>_ADMIN</b></td>
+    <td>
+      <p><b>ゲームサーバー管理者(もしくは、上級ゲームマスターなど)むけのログ。</b><br>
+        <br>
+        例：他のサーバーからの接続、サーバーの起動・停止<br>
+        <br>
+      </p>
+      </td>
+  </tr>
+</table>
+
+
+<p>
+<br>
+<a href="../index.html">index に戻る</a>
+<br></p>
+
+<div id="footer">#COPYRIGHT#</div>
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="../vce.css" type="text/css">
+        <title>VCE #VER# official document</title>
+    </head>
+
+    <body>
+        <h1>パフォーマンス計測ツール</h1>
+<p>vceprof.rb は
+topコマンドの出力をrubyで取り出して画像化することによりパフォーマンスを計測するツールである。</p>
+
+        <h2>使用するファイル</h2>
+<p>vce/linuxlib/bin/performance/vceprof.rb<br>
+vce/linuxlib/bin/performance/vceprof.gcm<br></p>
+
+        <h2>計測に必要な環境</h2>
+<p>ruby1.8.0以上<br>
+gnuplot3.5以上<br></p>
+
+        <h2>計測手順</h2>
+          <ol>
+            <li>監視したいサーバーをlinux上で実行する</li>
+            <li>ps&nbsp;-a(またはtop)を実行してサーバーのPIDを取得</li>
+            <li>topで統計をファイルに取っておく
+<pre>
+[linux]$ top -b -n(回数) -d(間隔、1か2秒) -p(サーバーのPID) > vceprof.txt
+※回数は-d1で240(4分)から300(5分)くらい-d2ならその半分</pre>
+<pre>
+例：
+[linux]$ top -b -n240 -d1 -p15578 > vceprof.txt
+</pre>
+            </li>
+            <li>vceprof でグラフ化する
+<pre>
+[サーバーマシン]$&nbsp;ruby&nbsp;vceprof.rb&nbsp;[サーバープログラム名]
+</pre>
+<pre>
+例：
+[linux]$ ruby vceprof.rb gmsv
+</pre>
+                <p>img-vceprof.png が生成される。</p></li>
+          </ol>
+
+  
+
+<h2>結果例</h2>
+<p>2GHzのsempronでのテストサーバの負荷を測定した場合の結果である。<br>
+テストサーバには、圧縮暗号化なしで16kbyteのデータを送信した。接続数は100。</p>
+	<p><img src="../images/img-vceprof.png"></p>
+
+<p><br><br>
+  <a href="index.html">index に戻る</a></p>
+<div id="footer">#COPYRIGHT#</div>
+    </body>
+</html>

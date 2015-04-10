@@ -1,0 +1,104 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+</head>
+
+<body>
+
+<h1>Admin Client について</h1>
+<p>Admin client(admcli.exe)は、admsv(監視サーバー)に接続して使う、Windows用GUIプログラムである。<br>
+パッケージ内では、admin/wincli/ にadmcli一式のzipファイルが含まれている。</p>
+
+
+
+
+<h2>スクリーンショット</h2>
+<p><img src="screenshot.png"></p>
+
+
+<a name="install"></a>
+<h2>インストール</h2>
+<ol>
+  <li>admcli.zip を適切なディレクトリに解凍する</li>
+  <li>展開したディレクトリにある、setup.bat を実行する
+    <p>実行出来ない場合は、<a href="http://www.innovasys.net">http://www.innovasys.net</a>にあるDockStudioXPをインストールする事によってうまくいった例がある。</p></li>
+</ol>      
+<p>これで起動が可能になる。実行ファイルは admcli.exe である。</p>
+
+
+<a name="first"></a>
+<h2>起動までの手順</h2>
+<p>はじめて admcli.exe を実行した時、いくつか設定が必要である。</p>
+
+<a name="startup"></a> 
+<h3>起動の前にすること</h3>
+<p>
+admsvの起動と監視するサーバーマシン上でのrsvの起動をしておかなければならない。
+また、監視するサーバーマシン(admsv,rsvが実行されている)のIPアドレス(またはマシン名)を入手しておく。
+ユーザ名、 パスワードは、admsv.userに記載されているものを使用する。
+(デフォルトではユーザ名admin,&nbsp;パスワードはadminである)
+</p>
+
+<a name="network"></a> 
+<h3>ネットワーク設定</h3>
+<ul>
+  <li>[ツール]-[設定] メニューを選択し、 表示された設定ダイアログボックスの、 ツリービューの「ネットワーク」を選択する。</li>
+  <li>ユーザ名、パスワードを入力する。</li>
+  <li>[ツール]-[設定] メニューを選択し、表示された設定ダイアログボックスの、ツリービューの「ネットワーク」を選択する。</li>
+  <li>admsv サーバー名、ポートを入力する。</li>
+</ul>      
+<p>
+  これらの設定が終了したら、OKボタンを押し、設定ダイアログボックスを終了する。
+  その後、[ファイル]-[Login] にて admsv サーバーに接続する事が出来る。</p>
+<p>[参考:デフォルトの設定例]</p>
+<pre>ユーザーID:admin&nbsp;&nbsp;ニックネーム:(設定なし)
+パスワード:admin
+admsv&nbsp;サーバーアドレス:(admsvを実行しているlinuxのIPアドレス[例:192.168.1.20])</br>
+その他は変更しない
+</pre>      
+<p><img src="network_setting.png"></p>
+      
+<p>ログインに成功すれば、ホストウインドウにマシン名とIPアドレス、プロセスウインドウにadmsv(他にもいくつかの監視プロセス)が表示される。</p>
+<p>パスワードが間違っているなどでログインが失敗した場合は、システムログウィンドウに以下のログが表示されるので確認する。</p>
+<pre>
+  hh:mm:ss Connect!
+  hh:mm:ss send login
+  hh:mm:ss recv login_r result: -1
+</pre>
+
+<br><br><br>
+      
+<h2>既知の問題</h2>
+<p>admcli では以下の問題が起ることが確認されている。今後のバージョンアップで
+修正されていく予定である。</p>
+
+<ul>
+  <li>ログ検索結果ウィンドウのスクロールバーをマウスでドラッグしてもスクロールしない</li>
+  <li>ログ検索ウィンドウにスクロールバーがでない</li>
+  <li>MFC スタティックリンク版が無い</li>
+  <li>ツールの設定ダイアログを表示した場合、admcli終了時に以下のエラーダイアログが表示されることがあります。<br>
+    <img src="err_0.png"></li>
+  <li>admsvに接続(Login)後にALIVEになったプロセスは、検索タイプが表示されないことがある。</li>
+  <li>プロセスのセッション数、ログイン数が 994 までしか確認できない。</li>
+  <li>メニューのウィンドウ→レイアウト→初期状態に戻す が機能しない。</li>
+  <li>メニューの[設定]→アラートの設定変更が保存されない。</li>
+  <li>起動ログの表示が文字化けする。</li>    
+</ul>
+  
+
+
+
+
+<p>
+<br>
+<a href="../index.html">index に戻る</a>
+<br></p>
+
+<div id="footer">#COPYRIGHT#</div>
+
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../vce.css" type="text/css">
+    <title>VCE #VER# official document</title>
+</head>
+
+<body>
+
+<h1>P2Pchattest</h1>
+  <p>P2P接続でチャットするサンプルコードである。</p>
+
+<h2>使用するファイル</h2>
+  <p>vce/samplecode/p2pchattest/pptest.cpp<br>
+  vce/samplecode/p2pchattest/Makefile<br>
+  vce/samplecode/p2pchattest/pptest.vcproj</p>
+
+<h2>ビルド手順</h2>
+<h3>UNIX</h3>
+<p>make を実行する。</p>
+<pre>
+% cd vce/samplecode/p2pchattest
+% make
+</pre>
+<p>pptest ができる。</p>
+
+<h3>Windows</h3>
+<p>Microsoft Visual Studio .NET 2003 用のプロジェクトファイルが含まれているので
+それを用いてビルドする。</p>
+<ol>
+  <li>p2pchattest ディレクトリに vce.h、vcewin.lib を準備する。
+      vcewin.lib は VCEパッケージに含まれている 32bit Windows用mt版
+      vcewin32-x_y_zmt.lib を vcewin.lib とリネームして置く。</li>
+  <li>pptest.cpp 61行目のライブラリのパスを調整する。
+<pre>#pragma comment(lib,"../../../win/output/vcewin.lib")
+↓
+#pragma comment(lib,"vcewin.lib")</pre></li>
+      
+  <li>pptest.vcproj を開きReleaseビルドする。</li>
+  <li>pptest.exe ができる。</li>
+</ol>
+
+<h2>起動方法</h2>
+<h3>UNIX</h3>
+<pre>% ./pptest [LOCAL_PORT] [TARGET_HOST] [TARGET_PORT]</pre>
+<ul>
+  <li>LOCAL_PORT
+      <p>接続を受け付けるポート</p></li>
+  <li>TARGET_HOST
+      <p>接続先のホスト</p></li>
+  <li>TARGET_PORT
+      <p>接続先のポート</p></li>
+</ul>
+<p>引数なしで起動すると、localport、target host、target port を聞かれるので
+入力する</p>
+
+<h3>Windows</h3>
+<ol>
+  <li>pptest.exe を起動</li>
+  <li>local port、target host、target port を指定する。</li>    
+</ol>  
+
+
+<p><br><br>
+  <a href="index.html">index に戻る</a></p>
+<div id="footer">#COPYRIGHT#</div>
+    </body>
+</html>

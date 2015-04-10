@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../vce.css" type="text/css">
+    <title>VCE #VER# official document</title>
+</head>
+
+<body>
+<h1>minitest (最小サーバ、クライアントのサンプル）</h1>
+<p>minitest は VCEの送受信テストを行う最小のサーバ(ptsv)、クライアント(ptcl)
+サンプルコードである。Unix/Windows用サーバ(ptsv)、
+Unix/Windows用サーバSWP対応版(ptsv_swp)、Unix/Windows用クライアント(ptcl) 
+が含まれる。
+サーバ、クライアント共に、起動時のオプションで暗号化、圧縮の
+ON/OFFの切替えができる。
+また、ptsv、ptsv_swp は大量接続ツール hugeconn からの接続も可能である。UNIXでは大量接続テスト用にhgclを用意しました。
+</p>
+
+<h2>使用するファイル</h2>
+<ul>
+  <li>vce/samplecode/minitest 内のファイル</li>
+  <li>vce/linuxlib/libvce.a</li>
+  <li>vce/winlib/vcewin32_x_y_z.lib</li>
+  <li>vce/include/vce.h</li>    
+  <li>(windows環境)vce/winlib/bin/swp.exe(unix環境)vce/lib/swp</li>
+</ul>
+
+
+<h2>ビルド手順</h2>
+<h3>UNIX</h3>
+<p>make を実行する。</p>
+<pre>
+% cd vce/samplecode/mini
+% make
+</pre>
+ptsv_swp,ptsv,ptcl,hgclができる。
+
+<h3>Windows</h3>
+<p>Microsoft Visual Studio .NET 2003 用のプロジェクトファイルが含まれて
+いるので、それを用いてビルドする。
+<ol>
+  <li>mini ディレクトリに vce.h、vcewin.lib を準備する。vcewin.lib は VCEパッケージに含まれている 32bit Windows用ライブラリ vcewin32-x_y_z.lib を vcewin.lib と
+  リネームして置く。</li>
+  <li>ptsv.vcproj、ptcl.vcproj、ptsv_swp.vcproj をそれぞれ開いてビルドする。</li
+  <li>Releaseフォルダに ptsv.exe、ptcl.exe、ptsv_swp.exe ができる。</li>
+</ol>
+
+<h2>起動方法</h2>
+<h3>ptsv、ptsv_swp</h3>
+<pre>
+(exename) [p=...] [c=...] [t=...] [-e(type)] [-c]
+</pre>
+<ul>
+  <li>p=(portnum)
+      <p>ソケットをbindするポートを指定する。省略すると 23456になる。
+      </p></li>
+  <li>c=(conn)
+      <p>最大同時接続数を指定する。省略すると 1000になる。
+      </p></li>
+  <li>t=(time)
+      <p>
+      サーバーの起動時間。これを指定すると、一定時間で実行し、その結果をptsv_out.txt(ptsv_out_swp.txt)に出力する。0を指定すると無限に実行(終了はctrl-C)する。0を指定したときのみ、vceprofが使用できる(それ以外の値で指定すると常に99%以上になる)。省略すると 、300(秒)。上限は１時間(=3600秒)
+      </p></li>
+  <li>-e(type)
+      <p>暗号化を有効にする。-eb とすれば blowfish、-er とすれば rijndael になる。
+      有効にして起動した場合、クライアント側(ptcl,hgcl)も同じ指定が必要になる。
+      </p></li>
+  <li>-c
+      <p>圧縮機能を有効にする。有効にして起動した場合、クライアント側(ptcl,hgcl)も
+      同じ指定が必要。
+      </p></li>
+</ul>
+<pre>
+例： ptsv p=1234 c=500 -eb -c
+ポート 1234、最大同時接続数500、データを暗号化(blowfish)・圧縮して通信するサーバが起動する。
+</pre>
+
+<p>デフォルト状態では、bin16プロトコルを使用している。
+bin32プロトコルにする場合は、#define PARSRE16 をコメントアウトし、ビルドしなおす。
+</p>
+<p>
+ptsv_swp.conf、swtable.conf は ptsv_swp 用のSWP設定ファイル・Switch Tableファイルのサンプルである。
+</p>
+
+
+<h3>ptcl</h3>
+<pre>
+ptcl [h=...] [p=...] [s=...] [t=...] [-e(type)] [-c] [-rt1,-rt2,-rt3] [-rs1,-rs2,-rs3] [-rd1,-rd2,-rd3]
+</pre>
+<ul>
+  <li>h=(hostname)
+      <p>接続先サーバのホスト名を指定する。省略すると h=localhost になる。</p></li>
+  <li>p=(portnum)
+      <p>接続先サーバのポートを指定する。省略すると23456になる。</p></li>
+  <li>s=(trans size)
+      <p>1回あたりにおくるデータサイズ。0x100000まで指定できる。
+      省略すると 4096 になる。 </p></li>
+  <li>t=trans(trans avg)
+      <p>1秒あたりの送信回数。200まで指定できる。省略すると 32 になる。</p></li>
+  <li>-e(type)
+      <p>暗号化の指定。接続先サーバと同じ指定をする。キーの長さは 16 固定である。省略すると暗号化なしで起動。</p></li>
+  <li>-c
+      <p>圧縮機能を有効にする。省略するとデータ圧縮しない。</p></li>
+  <li>-rs1..-rs3
+      <p>送信データのサイズをランダムにする。-rs3 が一番ランダム幅が大きい。
+      省略するとランダムなしになる。</p></li>
+  <li>-rt1..-rt3
+      <p>送信する間隔をランダムにする。省略するとランダムなしになる。</p></li>
+  <li>-rd1..-rd3
+      <p>データの内容をランダムにする。圧縮ができないようなデータも送信
+      されるようになる。省略するとランダムなしの固定データになる。</p></li>
+</ul>
+<pre>
+例： ptcl h=192.168.1.33 p=1234 -eb -c -rs3 -rd2
+192.168.1.33、ポート1234で起動しているサーバに接続し、ランダムなサイズ(4096+α)のデータ
+を暗号化(blowfish)・圧縮して通信するクライアントが起動。
+</pre>
+
+<p>size*transの最大は16MB{=0x1000000(=0x100000*16)}以内にすること。</p>
+
+<h3>hgcl(UINX用)</h3>
+<pre>
+hgcl [h=...] [p=...] [c=...] [w=...] [s=...] [m=...] [-e(type)]
+</pre>
+
+<ul>
+  <li>h=(hostname)
+      <p>接続先サーバのホスト名を指定する。省略すると h=localhost になる。</p></li>
+  <li>p=(portnum)
+      <p>接続先サーバのポートを指定する。省略すると9001になる。</p></li>
+  <li>c=(conn)
+      <p>同時接続数を指定する。
+      省略すると 1000 になる。 </p></li>
+  <li>w=(wait time)
+      <p>送信間隔。省略すると 2(秒) になる。</p></li>
+  <li>s=(test count)
+      <p>送信回数。省略すると 10 になる。</p></li>
+  <li>m=(message)
+      <p>送信文書。省略すると "hellow&nbsp;world" になる。</p></li>
+  <li>-e(type)
+      <p>暗号化の指定。接続先サーバと同じ指定をする。キーの長さは 16 固定である。省略すると暗号化なしで起動。</p></li</ul>
+  接続すると、please&nbsp;press&nbsp;return&nbsp;key&nbsp;to&nbsp;send&nbsp;message.と表示されるのでリターンキーを押してから、送信させます。
+
+<pre>
+例： hgcl h=192.168.1.33 p=1234 c=500 m=test -eb
+192.168.1.33、ポート1234で起動しているサーバに接続し、500接続で、"test"という文字列を
+を暗号化(blowfish)して10回通信するクライアントが起動。
+</pre>
+
+
+<h2>使用例</h2>
+minitest、hugeconn(<a href=""></a>)、SWPを使って、さまざまなタイプの接続テスト
+ができる。
+<pre>
+例：
+ptsv(Unix) - ptcl(Unix)
+ptsv(Windows) - ptcl(Windows)
+ptsv(Unix) - hugeconn(Windows)
+ptsv(Windows) - hugeconn(Windows)
+ptsv_swp(Unix) - swp(Windows) - ptcl(Windows)
+ptsv_swp(Windows) - swp(Unix) - ptcl(Windows)
+:
+:
+</pre>
+<p>ここでは、実際に以下の様なテストをしてみる。</p>
+<pre>
+ptsv_swp         host:192.168.1.58 port:デフォルト(8001)
+swp              host:192.168.1.192 port:9001 
+ptcl
+  ptsv_swp - swp 間は暗号化・圧縮OFF
+  ptcl-swp間は暗号化 ON(blowfish)、圧縮 ON
+</pre>
+<h3>起動手順</h3>
+<ol>
+  <li>ptsv_swp を起動
+      <pre>ptsv_swp p=8001</pre></li>
+  <li>swp を起動
+      <p>デフォルトの ptsv_swp.conf、swtable.conf を調整</p>
+        <pre>-- ptsv_swp.conf
+:      
+frontend_cipher=blowfish
+frontend_cipher_key_length=16
+:      
+compress=1 </pre>
+        <pre>-- swtable.conf
+server=192.168.1.58,8001</pre>      
+      <p>起動</p>
+      <pre>swp ptsv_swp.conf swtable.conf</pre></li>
+  <li>ptclから接続
+      <pre>ptcl h=192.168.1.192 p=9001 -eb -c</pre></li>      
+</ol>
+
+<h3>ログの見方</h3>
+<p>それぞれのログは以下のようになる。</p>
+<ul>
+  <li>ptsv_swp
+<pre>% ptsv_swp p=8001
+<font color="red">vce_tcpcontext bound to local port 8001&nbsp;&nbsp;<b>←ポートは8001であることがわかる</b></font>
+vce_set_so_sndbuf: SO_SNDBUF is set 65536. desired:32768
+Note:10220 malloc(12) returns 0x9b3bd40
+Note:10220 malloc(48) returns 0x9b3bd50
+:
+Note:10340 vec: reallocated state buffer size:1000
+<font color="red">start loop | use swp | cipher NONE&nbsp;&nbsp;<b>←swp版であること、swpとの暗号化はOFFであることがわかる。</b></font>
+Note:10200 new connection fd:4 I:0 sbuflen:524288
+cannot setsockopt(SO_SNDLOWAT):Protocol not available
+try_accept: cannot set sndlowat. ignoring.
+<font color="red">Accepted&nbsp;&nbsp;<b>←SWPから接続してきたことがわかる</b></font>
+<font color="red">vce_circ_alloc: c->statebuf_mi is 3
+Note:10303 vec ACCEPT OK on 3a01a8c0:16264&nbsp;&nbsp;<b>←ptclとcircで接続</b></font>
+callback len:4098 count:0
+callback len:4098 count:1
+callback len:4098 count:2
+callback len:4098 count:3
+:
+:
+callback len:4098 count:14
+callback len:4098 count:15
+<font color="red">swsv: CLOSED: reason:1&nbsp;&nbsp;<b>←ptclとの接続が切れた</b></font>
+Note:10349: vec: freed state buffer for a circ
+Note:10304 vec CLOSE OK on 3a01a8c0:16264
+</pre></li>
+      
+  <li>swp
+<pre>
+% ../../linuxlib/bin/swp ptsv_swp.conf swtable.conf  
+<font color="red">entry 0 ipv4=192.168.1.58 port=8001&nbsp;&nbsp;<b>←192.168.1.58:8001 のサーバ</b></font>
+swp: start mainloop
+swp: [1 loop in 10 seconds. time_t=1141377843]
+<font color="red">sw.c: Server online (server:8001)&nbsp;&nbsp;<b>←サーバがONLINEになっている</b></font>
+swp: [3901 loop in 10 seconds. time_t=1141377853]
+swp: [1866 loop in 10 seconds. time_t=1141377863]
+:
+:
+</pre></li>
+
+  <li>ptcl
+<pre>
+% ptcl h=192.168.1.192 p=9001 -eb -c
+Size: 4096, Trans: 32
+vce_tcpcontext bound to local port 0
+vce_set_so_sndbuf: SO_SNDBUF is set 65536. desired:32768
+Note:10220 malloc(262144) returns 0xf5c93008
+:
+:      
+<font color="red">used zlib.&nbsp;&nbsp;<b>←圧縮がONになっていることがわかる</b></font>
+:      
+Note:10220 malloc(262144) returns 0xf5b4a008
+<font color="red">Note:10202 connect ok on 4&nbsp;&nbsp;<b>←接続</b></font>
+vce_set_so_sndbuf: SO_SNDBUF is set 65536. desired:32768
+cannot setsockopt(SO_SNDLOWAT):Protocol not available
+tcpcontext_connect: cannot set so_sndlowat. ignoring.
+<font color="red">Note:10332 key exchange: encryption negotiation is done on fd 4&nbsp;&nbsp;<b>←暗号化鍵交換が成功</b></font>
+<font color="red">send data. size(4096 byte)&nbsp;&nbsp;<b>←データを送信</b></font>
+Note:10011 init blowfish encoder on fd:4
+Note:10010 init blowfish decoder on fd:4
+<font color="red">received data. count(0)&nbsp;&nbsp;<b>←データを受信</b>
+send data. size(4096 byte)
+received data. count(1)
+send data. size(4096 byte)
+received data. count(2)
+send data. size(4096 byte)
+received data. count(3)
+send data. size(4096 byte)
+received data. count(4)</font>
+:
+:
+</pre></li>      
+</ul>
+
+<a name="ptsv_out"></a>
+<h3>ptsv_out(_swp).txtの見方</h3>
+<p>１秒間のループ回数から、接続にどの程度のCPUが使われているかを見ることができます。</p>
+<ul>
+  <li>ptsv_out.txt
+<pre>
+0 149437
+1 156006
+2 151795
+3 150813
+4 151580
+5 160802
+6 155644
+7 150681
+8 150746      <b>←まだ接続していない</b>
+:
+:
+31 156802
+32 136446
+<font color="red">33&nbsp;15905&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>←接続開始</b>
+34 7446
+35 4723
+36 3125
+37 1777
+38 925
+39 654
+40 486&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>←送信開始</b>
+41 404
+42 343</font>
+:
+:
+190 432
+191 376
+192 22231      <b>←接続終了(画面に接続終了表示)</b>
+193 158462     <b>←接続していない状態に戻っている</b>
+194 155536
+195 153584
+196 155658
+:
+:
+</pre>
+    数字が１行に２つあり、左は経過時間(秒)、右は１秒間のループの回数を意味します。重要なのは右のループ回数であり、そのループ回数が１になればCPU使用率100%、400であれば１秒間に400ループ、つまり0.25%のCPU使用率を意味します。接続していない時のループ回数が多ければ、接続処理以外の計算処理により多くのCPUリソースを振り分けることができます。<br>
+参考:<a href="per_compere.html">linuxとwindowsの処理速度検証結果</a>
+    </li>
+</ul>
+
+
+<h3>エラー</h3>
+<p>ptclのログで以下のエラーが表示された場合は、swp-ptcl間の暗号化の設定が異っている可能性があるので確認する。</p>
+<ul>
+  <li>鍵の長さが異っている場合
+<pre>Note:10323 conn_t detected encryption negotiation error on fd 4 error code:-19</pre>
+    <p>ptclのデフォルトの鍵の長さは16なので、ptsv_swp.confの frontend_cipher_key_length が 16 になっているかどうかを確認する。</p>
+  </li>
+
+  <li>暗号化ルーチンの指定がことなる場合    
+<pre>send data. size(4096 byte)
+received data. count(0)
+received data. count(1)
+bad data!!</pre>
+    <p>ptclの引数と frontend_cipher が同じ暗号化ルーチンを指定しているかどうかを確認する。</p></li>
+</ul>      
+
+
+
+
+
+<p><br><br>
+  <a href="index.html">index に戻る</a></p>
+<div id="footer">#COPYRIGHT#</div>
+    </body>
+</html>

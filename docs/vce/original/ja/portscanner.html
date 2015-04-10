@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../vce.css" type="text/css">
+    <title>VCE #VER# official document</title>
+</head>
+
+<body>
+<h1>Portscanner</h1>
+<h2>Portscanner とは？</h2>
+<p>Portscanner は、ルータによるポート変換を予測する。メインポート、サブポート二つのポートに対してきた UDPパケット から送信元ポートをチェックし、予測する。Portscanner がセットされたアプリケーションは、vce_udp_connect で指定されたアドレスとポートでP2P接続できないときに、予測結果のポートを指定して接続を試す。</p>
+<h3>Portscanner で予想可能なタイプ</h3>
+<ul>
+  <li><p>送信元IP/Port、送信先IP/Portごとにすべて違うセッションとし、連番でポート変換するルータ</p></li>
+</ul>      
+
+
+<h2>Portscanner の使いかた</h2>
+<pre>% ./portscanner portscanner.conf</pre>
+<p>portscanner.conf には、メインポート、サブポート、ログファイル名を記述しておく。メインポート、サブポートには、異なる1024以降を指定する。</p>
+<p>例：</p>
+<pre>mainport=20101
+subport=20202
+logfile=portscanner.log</pre>
+
+
+
+<h2>Portscanner への対応</h2>
+  <p>P2Pのアプリケーションで Portscanner に対応するためには、UDP用の tcpcontext_t に対して、Portscanner をセットするだけである。後は VCE の内部で Portscnner のメインポート、サブポートに UDP パケットをおくり、Portscanner から知らされる予想ポートに接続を試みる。アプリケーション側では、セットした後、接続が完了したかどうかを vce_conn_writable で確認すればよい。</p>
+<pre>int vce_tcpcontext_set_portscanner(tcpcontext_t t,const char *host,unsigned short mainport,unsigned short subport);
+        tcpcontext_t t          : UDP用の tcpcontext_t
+        const char *host        : Portscanner のアドレス
+        unsigned short mainport : Portscanner のメインポート
+        unsigned short subport  : Portscanner のサブポート</pre>
+     <p>例：(p2pchattestより抜粋)</p>   
+<pre>tp = vce_tcpcontext_create( 0, 0, 0, 10, 65536, 65536, 60*10,
+                                 VCE_BLOCK_CIPHER_RIJNDAEL, 16, 1, 0, 0);       // UDP用の tcpcontext_t の作成
+vce_tcpcontext_setup_p2p( tp, 256, 4096*8 );    // UDP用にメモリを確保
+vce_tcpcontext_set_portscanner( tp, scan_host, 20101, 20202 );  // Portscanner をセット
+:
+pp = vce_udp_connect( tp, hostaddr, targetport, localport );    // 接続    
+:
+while(!vce_conn_writable(pp))
+{
+    vce_heartbeat();
+    vsleep(1);    
+}
+:</pre></li>
+  </ol>      
+
+
+
+  
+
+
+<p><br><br>
+  <a href="index.html">index に戻る</a></p>
+<div id="footer">#COPYRIGHT#</div>
+    </body>
+</html>

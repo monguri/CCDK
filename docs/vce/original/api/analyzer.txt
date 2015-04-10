@@ -1,0 +1,157 @@
+#
+# document for VCE auto-generated reference [analyzer.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: analyzer.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_analyzer_init
+<prototype>void vce_analyzer_init( analyzer_t *a, int protocol_max )
+<cat>analyzer
+<arch>linux,win32,ps2,darwin
+<sum ja>アナライザ構造体をを初期化する
+<sum en>initialize analyzer structure.
+<arg>analyzer_t *a
+<argdef ja>
+初期化するanalyzer_t構造体のアドレス
+</argdef>
+<argdef en>
+A address of an analyzer_t structure
+</argdef>
+<arg>int protocol_max
+<argdef ja>
+プロトコルの種類の数。256より多いかどうかのみが重要。
+</argdef>
+<argdef en>
+Number of protocols. It is important that more than 256 or not.
+</argdef>
+<desc ja>
+analyzer_t構造体を初期化する。使用するanalyzer_t構造体は、かならずこの関数で初期化されなくては
+ならない。<br>
+vce_analyzer_***()関数群を使って解析できることは、vce_analyzer_clearが呼ばれてから、
+送られた各プロトコルの数、総バイト数、送信に失敗した数、送信に失敗した総バイト数、
+よく送信に失敗したプロトコルの種類である。<br>
+これらは、サーバーの設定のチューニングや、バグの解明に有用である。<br>
+とくに、サーバーが送信に失敗した場合コネクションを切断するという構造になっていた場合、
+接続ユーザーが増えた場合バッファが溢れたため、送信に失敗して切断ということが多くなる。<br>
+その際にanalyzerで解析してあれば、プロトコルの送信失敗が原因でコネクションを切断
+していることがすぐに判明する。<br>
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_analyzer_analyze, vce_analyzer_clear, vce_analyzer_get_state_string
+</func>
+
+<func>
+<name>vce_analyzer_analyze
+<prototype>int vce_analyzer_analyze( analyzer_t *a, char *data, int data_len, int is_fail )
+<cat>analyzer
+<arch>linux,win32,ps2,darwin
+<sum ja>プロトコルの解析を行う
+<sum en>Analyze a protocol.
+<arg>analyzer_t *a
+<argdef ja>
+解析した結果を格納するanalyzer_t構造体のアドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>char *data
+<argdef ja>
+解析するプロトコルのバイナリ。vce_protocol_unparser_bin**()に渡されるdata引数と同じもの。
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int data_len
+<argdef ja>
+dataの長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int is_fail
+<argdef ja>
+送信に失敗したかどうか。送信に失敗した場合、非０の値を渡す。
+基本的には、vce_protocol_unparser_bin**()の返り値を渡せばよい。
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>
+プロトコルの解析を行う。
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_analyzer_init, vce_analyzer_clear, vce_analyzer_get_state_string
+</func>
+
+<func>
+<name>vce_analyzer_clear
+<prototype>void vce_analyzer_clear( analyzer_t *a )
+<cat>analyzer
+<arch>linux,win32,ps2,darwin
+<sum ja>analyzerをクリアする
+<sum en>Clear an analyzer.
+<arg>analyzer_t *a
+<argdef ja>
+状態をクリアするanalyzer_t構造体のアドレス
+</argdef>
+<argdef en>
+</argdef>
+<desc ja>
+analyzrerのクリアを行う。
+定期的にこの関数を呼ぶことで、一定期間内のプロトコルの解析を行うことができる。
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_analyzer_init, vce_analyzer_analyze, vce_analyzer_get_state_string
+</func>
+
+<func>
+<name>vce_analyzer_get_state_string
+<prototype>int vce_analyzer_get_state_string( analyzer_t *a, char *buf, int buf_len )
+<cat>analyzer
+<arch>linux,win32,ps2,darwin
+<sum ja>analyzerをクリアする
+<sum en>Clear an analyzer.
+<arg>analyzer_t *a
+<argdef ja>
+状態を取得するanalyzer_t構造体のアドレス
+</argdef>
+<argdef en>
+</argdef>
+<arg>char *buf
+<argdef ja>
+結果を格納する文字列のアドレス
+</argdef>
+<argdef en>
+</argdef>
+<arg>int buf_len
+<argdef ja>
+bufのサイズ
+</argdef>
+<argdef en>
+</argdef>
+<desc ja>
+analyzerにより解析された結果を文字列で取得する。
+文字列は以下のような形で返される。
+total = **** bytes( **** times ), fail = **** bytes( **** times ), ill protocols: [***] ***bytes ***times ...
+これは、それぞれ送信された総バイト数、回数、送信に失敗したバイト数、回数。ill protocolsには、
+送信に失敗した割合の多いプロトコルの番号とバイト数、回数が表示される。
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_analyzer_init, vce_analyzer_analyze, vce_analyzer_get_state_string
+</func>
+

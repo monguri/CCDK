@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+<style>
+table {
+	width: 600px; 
+	border-collapse: collapse; 
+	border: 1px solid #40494d;
+}
+th {
+	background-color: #7889ae;
+	text-align: center;
+	border: 1px solid #40494d;
+}
+td {
+	text-align: center;
+	border: 1px solid #40494d;
+}
+td#l {
+	background-color: #b4c1d4;
+	white-space: nowrap;
+}
+</style>
+</head>
+
+
+<body>
+
+<h1>
+minitestにおけるlinuxとwindowsのサーバー性能
+</h1>
+
+<h2>はじめに</h2>
+<p>
+linux用に作られたVCEのサーバーアプリケーションがwindowsでどのくらいの性能になるかを検証したのである。それぞれの結果をもとにした考察も用意しています。<br>
+各計測結果の見方は、<a href="minitest.html#ptsv_out">こちら</a>をご参照ください。
+</p>
+
+<h2>テスト環境</h2>
+
+<ul>
+<li>CPU&nbsp;Pentium4&nbsp;2.8Ghz</li>
+<li>メモリ&nbsp;2GB</li>
+<li>OS&nbsp;Windows&nbsp;Server&nbsp;2003&nbsp;SP1,&nbsp;&nbsp;red&nbsp;hat&nbsp;enterprise&nbsp;linux&nbsp;4</li>
+<li>テストプログラム&nbsp;ptsv,ptsv_swp</li>
+<li>SWPとhgclはそれぞれ別マシンから実行</li>
+<li>hgclは1000指定、暗号はRIJNDAELを使用、送ったデータは12バイト文字列</li>
+</ul>
+
+<h2>結果(リンクをクリックしてください)</h2>
+<table border=1>
+    <tr><th></th><th colspan=2>ptsv未接続２分</th><th colspan=2>ptsv暗号なし</th><th colspan=2>ptsv暗号あり</th><th colspan=2>ptsv_swp</th></tr>
+    <tr><th>1回目</th><td><a href="../text/lin_loop.txt">linux</a></td><td><a href="../text/win_loop.txt">windows</a></td><td><a href="../text/lin_1.txt">linux</a></td><td><a href="../text/win_1.txt">windows</a></td><td><a href="../text/lin_en1.txt">linux</a></td><td><a href="../text/win_en1.txt">windows</a></td><td><a href="../text/lin_swp.txt">linux</a></td><td><a href="../text/win_swp.txt">windows</a></td></tr>
+    <tr><th>2回目</th><td></td><td></td><td><a href="../text/lin_2.txt">linux</a></td><td><a href="../text/win_2.txt">windows</a></td><td><a href="../text/lin_en2.txt">linux</a></td><td><a href="../text/win_en2.txt">windows</a></td><td></td></td></tr>
+    <tr><th>3回目</th><td></td><td><td><a href="../text/lin_3.txt">linux</a></td><td><a href="../text/win_3.txt">windows</a></td><td></td></td><td></td><td></td></tr>
+</table>
+vceprofと数値が違うのは、計測状態ではほぼ全てのCPUパフォーマンスを計測に用いるためと考えられる。
+
+<h2>考察</h2>
+<p>
+この結果だけなら、socket処理はwindowsの方に分があるように見える。実際には時間帯などの問題もあり一概には言えないが、どちらにしろ問題ない程度(0.25%以下)のCPUパフォーマンスを出した。実際のゲームサーバーなどにはVCE以外の処理があるので鵜呑みにはできないが、実用に耐えうるパフォーマンス結果ではないかと結論する。カーネル部分の速度やコンパイラが出力する最適化性能差も考慮したほうがいいことになる。今回の結果だとlinuxの方が良いように見える。しかしfedoraとの比較だと結果も異なっていた。この結果の優劣よりも、むしろプログラムのメンテナンスコストを重視したほうが良いだろう。使いやすいOSを選択するべきであろう。<br>
+暗号化した結果が良いのは、パケットをまとめられた結果だろう。またswpを介した接続の場合ほとんど差がつかなかった。
+</p>
+<p>
+参考に別の時間帯とOSで行ったテスト(暗号なし、swp未使用)も掲載する
+</p>
+<li>CPU&nbsp;Pentium4&nbsp;3Ghz</li>
+<li>メモリ&nbsp;2GB</li>
+<li>OS&nbsp;Windows&nbsp;XP&nbsp;SP2,&nbsp;&nbsp;fedora&nbsp;core&nbsp;3</li>
+<table border=1>
+<tr><th></th><th colspan=2>ptsv暗号なし</th>
+    <tr><th>1回目</th><td><a href="../text/lin_4.txt">linux</a></td><td><a href="../text/win_4.txt">windows</a></td></tr>
+    <tr><th>2回目</th><td><a href="../text/lin_5.txt">linux</a></td><td><a href="../text/win_5.txt">windows</a></td></tr>
+</table>
+<br><br>
+<p><br>
+<a href="index.html">index に戻る</a><br></p>
+
+<div id="footer">#COPYRIGHT#</div>
+
+</body>
+</html>

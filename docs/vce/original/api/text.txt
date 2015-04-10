@@ -1,0 +1,922 @@
+#
+# document for VCE auto-generated reference [text.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: text.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+<func>
+<name>vce_httptext_divide_header_and_content
+<prototype>int vce_httptext_divide_header_and_content( char *in , int inlen, char **head, int *headlen, char **body, int *bodylen )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>HTTPの入力において、データ本体とヘッダを分離する。
+<sum en>Divide message body and request header in HTTP input data.
+<arg>char *in
+<argdef ja>
+入力データの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input data buffer.
+</argdef>
+<arg>int inlen
+<argdef ja>
+入力データの長さ
+</argdef>
+<argdef en>
+Length of input data
+</argdef>
+<arg>char **head
+<argdef ja>
+ヘッダの各行へのポインタの配列(返り値用)
+</argdef>
+<argdef en>
+Array of pointer to each header lines
+</argdef>
+<arg>int *headlen
+<argdef ja>
+ヘッダの各行の長さを格納する配列のアドレス(返り値用)
+</argdef>
+<argdef en>
+Array of int which contains length of each header lines.
+Pointer result parameter.
+</argdef>
+<arg>char **body
+<argdef ja>
+メッセージ本体の先頭アドレスへのポインタ(返り値用)
+</argdef>
+<argdef en>
+Pointer to pointer to message body.
+</argdef>
+<arg>int *bodylen
+<argdef ja>
+メッセージ本体の長さへのポインタ(返り値用)
+</argdef>
+<argdef en>
+Pointer to length of message body.
+</argdef>
+<return ja>
+ヘッダが存在しない場合(デリミタがない場合)は headlen = 0 となり、
+戻り値は 0である。<BR>
+メッセージ本体が存在しない場合は、 body=NULL, bodylen = 0 となり、
+戻り値は0である。<BR>
+両方存在しない場合はheadlen=0,body=NULL,bodylen=0となり、
+VCE_EFORMAT を返す。
+</return>
+<return en>
+In case a header is not existing (no delimiters),
+headlen = 0 and the returned value will be 0.
+In case the message body is not existing,
+body=NULL, bodylen = 0, and the returned value will be 0.
+If neither is existing, headlen=0, body=NULL, bodylen=0,
+and VCE_EFORMAT is returned.
+</return>
+<desc ja>
+HTTPにおけるリクエストヘッダとメッセージ本体とを分離する。
+すべてオンメモリで処理する。
+ヘッダのわかれ目としては、"\r\n\r\n" を見るが、"\n\n" にも対応する。<BR>
+本関数は、VCEを使って高速なプログラムドHTTPサーバを実装する場合に必須となる。
+ヘッダとデータ本体の分離を、 HTTP の「空行」デリミタだけを基準に
+分離するので、実際のHTTP method が適切かどうかなどの判定は、
+アプリケーションにまかされている。
+</desc>
+<desc en>
+This separates request headers and message body in HTTP incoming data.
+Everything is processed on memory.
+"\r\n\r\n" is deemed as a turning point, though it corresponds with
+"\n\n".
+This function is compulsory as implementing the high-speed programmed
+HTTP server using VCE.
+A judgment whether the actual HTTP method is appropriate or
+not is left to an application, because separation of a header and
+data body is done based only on a blank delimiter of HTTP.
+</desc>
+<also>hextext
+</func>
+
+<func>
+<name>vce_text_cmpnocase
+<prototype>int vce_text_cmpnocase( char *s1, char *s2, int n )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>大文字と小文字を区別しないC言語文字列の比較
+<sum en>Case-insensitive C string comparison
+<arg>char *s1
+<argdef ja>
+比較する文字列の先頭アドレス、ひとつ目
+</argdef>
+<argdef en>
+Pointer to a string being compared. First one.
+</argdef>
+<arg>char *s2
+<argdef ja>
+比較する文字列の先頭アドレス、ふたつ目
+</argdef>
+<argdef en>
+Pointer to a string being compared. Second one.
+</argdef>
+<arg>int n
+<argdef ja>
+何文字目まで比較するのか(バイト数)
+</argdef>
+<argdef en>
+How many characters from the beginning are compared.
+</argdef>
+<return ja>
+n文字目まで一致している場合は0、異なるなら1を返す。
+辞書式の比較には使えない。
+</return>
+<return en>
+</return>
+<desc ja>
+HTTP では、多くの処理が Case insensitive で行なわれる必要がある。
+したがって普通の strcmp は使えない。
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_httptext_get_header_info
+<prototype>int vce_httptext_get_header_info( char *h, int hlen , char *item , char *out, int outlen )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>HTTP ヘッダ全体の中から、指定したリクエストヘッダの値を取りだす
+<sum en>Extract value from whole HTTP request header
+<arg>char *h
+<argdef ja>
+HTTP ヘッダ全体を含む文字列の先頭アドレス
+</argdef>
+<argdef en>
+Pointer to a data buffer which contains whole HTTP header.
+</argdef>
+<arg>int hlen
+<argdef ja>
+ヘッダ全体の長さ
+</argdef>
+<argdef en>
+Length of whole HTTP header.
+</argdef>
+<arg>char *item
+<argdef ja>
+取りだしたいリクエストヘッダの名前。 例："Content-Length"
+</argdef>
+<argdef en>
+Name of request header to get. For example, "Content-Length".
+</argdef>
+<arg>char *out
+<argdef ja>
+出力を格納するバッファの先頭アドレス。デリミタの改行記号は含まれない。
+</argdef>
+<argdef en>
+Top address of output buffer. Delimiter newline character will not
+included in output buffer.
+</argdef>
+<arg>int outlen
+<argdef ja>
+出力の最大長さ(バイト数)
+</argdef>
+<argdef en>
+Length of output data in bytes.
+</argdef>
+<return ja>
+文字列をコピーした長さを返す。
+項目が見つからない場合は空文字列を返し、戻り値は0となる。
+</return>
+<return en>
+Returns number of copied characters.
+Returns zero and empty string if no entry is found.
+</return>
+<desc ja>
+ヌル終端する。ヘッダに含まれる文字列に0というバイナリデータは含まれない
+からである。
+</desc>
+<desc en>
+Return length of copied string.
+When an item is not found, return an empty character string,
+and the return value is 0.
+</desc>
+</func>
+
+<func>
+<name>vce_text_split_index
+<prototype>char * vce_text_split_index( char *src, char c, int index )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列をデリミタで切りとり、n番目のトークンの先頭アドレスを得る
+<sum en>Get address of the Nth token included in long string.
+<arg>char *src
+<argdef ja>
+元の文字列の先頭アドレス。一切書きこみされない。
+</argdef>
+<argdef en>
+Top address of source string. This string will not overwritten
+by this function.
+</argdef>
+<arg>char c
+<argdef ja>
+デリミタとなる文字 例：':'
+</argdef>
+<argdef en>
+Delimiter character. For example, ':'
+</argdef>
+<arg>int index
+<argdef ja>
+何番目のトークンを取りだすか。0なら最初、1なら2個目
+</argdef>
+<argdef en>
+Index of token that will be split. First item is specified by index 0,
+Second one will be 1.
+</argdef>
+<return ja>
+indexが0のときsrcをそのまま返す。
+デリミタがひとつもみつからない場合、srcをそのまま返す。
+デリミタはあるが、トークンが足りない場合は、VCE_ENOTFOUNDエラーをセットし、
+NULLを返す。
+デリミタが見つかったときはその次の文字の先頭アドレスを返す
+</return>
+<return en>
+</return>
+<desc ja>
+先頭アドレスを返すだけであることに注意。
+文字列の終端は変更されず、そのまま使用すると入力文字列の最後までが
+出力に含まれることになる。これは、内部ワーキングバッフを一切使用せず、
+vce_copy_cstring_upto関数と併用するのを前提としてデザインされている
+ためである。
+本関数はvce_text_split_index_get_string(int) 関数を作成するために
+使われる。アプリケーションでは vce_text_split_index_get_string(int)
+関数を使用することが推奨される。
+</desc>
+<desc en>
+</desc>
+<also>vce_text_split_index_get_string
+</func>
+
+<func>
+<name>vce_text_split_index_get_string
+<prototype>int vce_text_split_index_get_string( char *src, char c, int index, char *out, int outlen )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列をデリミタで区切り、n番目のトークンを文字列で返す
+<sum en>Cut a string into tokens and return a token by string
+<arg>char *src
+<argdef ja>
+元の文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of source string.
+</argdef>
+<arg>char c
+<argdef ja>
+デリミタの文字
+</argdef>
+<argdef en>
+Delimiter character.
+</argdef>
+<arg>int index
+<argdef ja>
+何番目のトークンかをしめす番号。0なら最初
+</argdef>
+<argdef en>
+Index number of the token which will be split out.
+First item will be got by specifying 0.
+</argdef>
+<arg>char *out
+<argdef ja>
+出力バッファ
+</argdef>
+<argdef en>
+Output buffer.
+</argdef>
+<arg>int outlen
+<argdef ja>
+出力の最大バイト数
+</argdef>
+<argdef en>
+Size of max output.
+</argdef>
+<return ja>
+トークンがみつからない場合は VCE_ENOTFOUNDを返す。
+成功した場合は0以上の出力文字列の長さをかえす。
+出力文字列は、 ヌル終端された、 C言語の文字列である。
+</return>
+<return en>
+</return>
+<desc ja>
+1文字の同じデリミタで区切られたトークン列を分解し、文字列を取りだす。
+以下に示すのは、CSV形式のデータファイルからの読みだしである。
+デリミタ文字を文字列データ中に含むような場合はエスケーピングが必要だが、
+本関数はそのような機能は持っていない。
+また，長さがゼロの文字列が切りだされることもある．
+たとえば "a,b," という src 文字列があったとして， 0番目は "a",
+1番目は "b" 2番目は ""， となる．この場合も out には書きこまれる．
+3番目は VCE_ENOTFOUND が返され， out には書きこまれない．
+</desc>
+<desc en>
+</desc>
+<sample ja>
+<pre>
+  char src[] = "My name is ringo.";
+  for (i=0;;i++) {
+      int r;
+      char out[100];
+      r = vce_text_split_index_get_string( src, ' ', i, out,sizeof(out));
+      if ( r == VCE_ENOTFOUND ) break;
+  }
+</pre>
+</sample>
+<also>vce_text_split_index,vce_text_split_index_get_string
+</func>
+
+<func>
+<name>vce_text_split_index_get_int
+<prototype>int vce_text_split_index_get_int( char *src, char c, int index, int *v )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列をデリミタで区切り、n番目の整数トークンを返す
+<sum en>Cut a string into tokens and return a integer
+<arg>char *src
+<argdef ja>
+処理対象となる文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of a string processed.
+</argdef>
+<arg>char c
+<argdef ja>
+デリミタとなる文字
+</argdef>
+<argdef en>
+Delimiter character.
+</argdef>
+<arg>int index
+<argdef ja>
+何番目のトークンかを指定する番号。0なら最初のトークンである
+</argdef>
+<argdef en>
+Index number of token which will be got. First token will be got
+by specifying index 0.
+</argdef>
+<arg>int *v
+<argdef ja>
+出力の整数値。
+</argdef>
+<argdef en>
+Output integer.
+</argdef>
+<return ja>
+vce_text_split_index_get_string 関数と同様、トークンが見つからない場合は
+VCE_ENOTFOUND を返す。
+</return>
+<return en>
+</return>
+<desc ja>
+1文字の同じデリミタで区切られたトークン列を分解し、int の値を取りだす。
+CSV形式の数値データファイルから値を読みだすという例が最も典型的である。
+</desc>
+<desc en>
+</desc>
+<also>vce_text_split_index_get_string
+</func>
+
+<func>
+<name>vce_copy_cstring
+<prototype>int vce_copy_cstring( char *dest , int destlen , char *src )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>C文字列のコピー。バッファあふれチェック機能あり。
+<sum en>Copy C string to a buffer. Notify buffer overflow.
+<arg>char *dest
+<argdef ja>
+コピー先バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output string buffer.
+</argdef>
+<arg>int destlen
+<argdef ja>
+コピーする長さ
+</argdef>
+<argdef en>
+How many bytes will be copied.
+</argdef>
+<arg>char *src
+<argdef ja>
+コピー元の文字列
+</argdef>
+<argdef en>
+Source string.
+</argdef>
+<return ja>
+バッファあふれを検出したら1、そうでないなら0を返す。
+</return>
+<return en>
+Returns 1 if buffer is full, otherwise returns 0.
+</return>
+<desc ja>
+コピー元のC言語文字列('\0'で終了しているもの)をコピー先にコピーする。
+元の文字列が長すぎてコピー先のバッファが足りなかったら1を、
+そうでないなら0を返す。コピー先のバッファがたとえば10バイトだったとすると、
+10文字+1ヌル文字のバッファを与えると1が返される．
+vce_copy_cstring は、かならずコピー先のバッファは0で終了することを保証する。
+</desc>
+<desc en>
+This copies a C language string (terminated by '\0') to other buffer.
+This returns 1 if the source character string is too long and
+the copy destination buffer is too short, otherwise 0.
+When the copy destination buffer is 10 bytes and 10
+letters plus 1 null character is given as source, for instance, it returns 1.
+vce_copy_cstring warrants that the copy destination
+buffer terminates with 0.
+</desc>
+</func>
+
+<func>
+<name>vce_copy_cstring_upto
+<prototype>int vce_copy_cstring_upto( char *dest, char *src, char c, int destlen  )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>C言語文字列を、ある文字がみつかるまでコピーする
+<sum en>Copy C string to another buffer till finding a character.
+<arg>char *dest
+<argdef ja>
+コピーする先の文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination string buffer.
+</argdef>
+<arg>char *src
+<argdef ja>
+コピーする元の文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of source string buffer.
+</argdef>
+<arg>char c
+<argdef ja>
+コピー中止の判定に使う文字
+</argdef>
+<argdef en>
+Stop copying if this character is found.
+</argdef>
+<arg>int destlen
+<argdef ja>
+コピー先の最大長さ(バイト数)
+</argdef>
+<argdef en>
+Size of destination string buffer in bytes.
+</argdef>
+<return ja>
+正常にコピーできた場合はコピーした文字列の長さ(正の値)を返す。
+他の関数と同じくコピーした文字列が含むヌル終端文字を含む長さである。
+</return>
+<return en>
+This returns length of the string copied (positive value)
+as successfully copied.
+This is length of copied string including a null character,
+as for other functions.
+</return>
+<desc ja>
+VCE附属のツールでは、
+テキストの設定ファイルを読みこんだりするときに使用される。
+通常アプリケーションから使うことはない。
+</desc>
+<desc en>
+</desc>
+<also>vce_copy_cstring
+</func>
+
+<func>
+<name>vce_strcmptail
+<prototype>int vce_strcmptail( char *s1, char *s2 )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列の末尾を比較する。
+<sum en>Compare tail characters of 2 strings,
+<arg>char *s1
+<argdef ja>
+ひとつめの文字列
+</argdef>
+<argdef en>
+Pointer to first string
+</argdef>
+<arg>char *s2
+<argdef ja>
+ふたつめの文字列
+</argdef>
+<argdef en>
+pointer to second string
+</argdef>
+<return ja>
+一致しているなら0、一致していないなら非0を返す
+</return>
+<return en>
+Returns 0 if two strings are completely same.
+If not, returns non-zero value.
+</return>
+<desc ja>
+文字列の末尾を比較する。
+</desc>
+<desc en>
+Compare end of two strings.
+</desc>
+</func>
+
+<func>
+<name>vce_text_hashpjw
+<prototype>int vce_text_hashpjw( char *s )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列を32ビット整数値にハッシュする。
+<sum en>Hash a string into 32bit integer value
+<arg>char *s
+<argdef ja>
+ハッシュする文字列
+</argdef>
+<argdef en>
+Pointer to a string being hashed.
+</argdef>
+<return ja>
+ハッシュ値
+</return>
+<return en>
+Hash value
+</return>
+<desc ja>
+PJW方式でハッシュする。文字数が少ないと値も小さい。
+</desc>
+<desc en>
+Calcurate hash code of the string.
+Returned value will be smaller if the string is shorter.
+</desc>
+</func>
+
+<func>
+<name>vce_makecstr
+<prototype>char * vce_makecstr( char *out, int outlen, char *in, int inlen )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>ヌル終端されていないバッファからC言語の文字列を作る
+<sum en>Initialize C string from non-null-terminated buffer
+<arg>char *out
+<argdef ja>
+出力のC言語文字列が格納されるバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer which will contain C string.
+</argdef>
+<arg>int outlen
+<argdef ja>
+出力の最大長さ。終端のヌル文字も含む長さ。
+つまり10を指定すると9文字プラスヌル文字が格納され得る。
+</argdef>
+<argdef en>
+Max length of output string. This includes terminator null character.
+So, if you specify 10 to this parameter, you will get upto 9 characters
+in this output buffer, and 1 terminator character.
+</argdef>
+<arg>char *in
+<argdef ja>
+入力のバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer.
+</argdef>
+<arg>int inlen
+<argdef ja>
+入力の長さ。ヌル終端されていないのでこの値が10なら10文字が格納されている。
+</argdef>
+<argdef en>
+Length of input data.
+This data is not terminated by C's null character,
+so you have 10 characters if you specify 10 this parameter.
+</argdef>
+<return ja>
+out の値をそのまま返す
+</return>
+<return en>
+Return parameter "out" as it is.
+</return>
+<desc ja>
+プロトコルの処理などでは「長さ+中身」というデータの持ちかたを
+する時が多いが、 printf などで出力したい場合にはどうしてもC言語方式の
+文字列に変換する必要がある。本関数では、「長さ+中身」からヌル終端の
+C文字列への変換を行なう。
+</desc>
+<desc en>
+In many cases such as protocol processing,
+data usually consists of "length and content",
+however for outputting with printf, data should be converted to
+a string in C format.
+This function converts "length and content" data to
+C format string with NULL termination.
+</desc>
+</func>
+
+<func>
+<name>vce_chop_string_destroy
+<prototype>char * vce_chop_string_destroy( char *s )
+<cat>text
+<sum ja>文字列の終端の改行記号を消す
+<sum en>Delete the last newline character of a string
+<arg>char *s
+<argdef ja>
+文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of a string being processed.
+</argdef>
+<return ja>
+文字列の先頭アドレスをそのまま返す
+</return>
+<return en>
+Return parameter "s" as it is.
+</return>
+<desc ja>
+strlen を用いて最後の文字を調べ、最後の文字が改行記号(LF)であれば
+それを取りのぞいて返す。文字列の末尾が CRLF である場合は CRLFを取りのぞく。
+</desc>
+<desc en>
+This examines the last letter of a string using serlen() function,
+and if it is a carriage return (LN), it will be removed then the
+string is returned.
+When the end of the string is CRLF, it removes such CRLF.
+</desc>
+</func>
+
+<func>
+<name>vce_strlenmax
+<prototype>int vce_strlenmax( char *s, int max )
+<arch>linux,win32,ps2,darwin
+<sum ja>最大値指定つき strlen
+<sum en>strlen with max length
+<cat>text
+<arg>char *s
+<argdef ja>
+長さを調べる文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of string.
+</argdef>
+<arg>int max
+<argdef ja>
+長さの最大値
+</argdef>
+<argdef en>
+Max length of string.
+</argdef>
+<return ja>
+max バイト以内にヌル終端文字が見つかった場合は、
+そのヌル文字を含まない文字列の長さを返す。
+ヌル終端文字が見つからない場合は、 -1 を返す(あふれている)。
+</return>
+<return en>
+</return>
+<desc ja>
+C ライブラリが提供している strlen 関数は、
+ヌル終端されていないバッファに対して使うと、
+バッファをオーバーランして、SIGSEGV を引きおこす。
+本関数ではその問題に対処するために、
+バッファをスキャンする最大バイト数を指定できる。
+バイナリプロトコルを定義するときに文字列データを使う必要があるときには、
+strlen を使用せず本関数を使用するべきである。
+なお、 gen.rb が出力するコードでは、本関数を使用している。
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_strncat
+<prototype>int vce_strncat( char *out, int outlen, char *append )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列を文字列に付けたす。
+<sum en>Append a C string to another C string
+<arg>char *out
+<argdef ja>
+伸ばされる文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of string which will be expanded.
+</argdef>
+<arg>int outlen
+<argdef ja>
+伸ばされる文字列の最大長さ(最後のヌル文字の分を含む)
+</argdef>
+<argdef en>
+Max length of expanded string ( including last null character).
+</argdef>
+<arg>char *append
+<argdef ja>
+付けたす文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of string which will be appended to parameter "out".
+</argdef>
+<return ja>
+成功したら付けたされた後の文字列の長さ(0以上)を、
+付けたすことができなかった場合は負(VCE_EFULL)を返す。
+</return>
+<return en>
+</return>
+<desc ja>
+結果は All or nothing の原則にしたがい、
+勝手にデータを壊して中途半端な文字列を生成することはない。
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_strncpy
+<prototype>void vce_strncpy( char *to, int to_len, const char *from, int from_len )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>C言語文字列をコピーする
+<sum en>copies C string
+<arg>char *to
+<argdef ja>
+文字列のコピー先の先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination string.
+</argdef>
+<arg>int to_len
+<argdef ja>
+文字列のコピー先のバッファの長さ
+</argdef>
+<argdef en>
+Size of destination string buffer.
+</argdef>
+<arg>const char *from
+<argdef ja>
+文字列のコピー元の先頭アドレス
+</argdef>
+<argdef en>
+Top address of copy source string.
+</argdef>
+<arg>int from_len
+<argdef ja>
+コピーする文字数
+</argdef>
+<argdef en>
+How many bytes are copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+UNIX のlibc(glibc) に含まれている strncpy は、
+出力先バッファの長さ制限を持たないため，
+セグメンテーション違反をひきおこす原因となる．
+VCE ではこの問題に対処するために，出力先バッファの長さを指定できる
+文字列コピールーチンとして， vce_strncpy 関数を用意した．
+vce_strncpy は from の長さ，from_len, (to_len-1)のうち，短いほうの長さ分だけ
+fromからtoへコピーし，最後にヌル終端を付け加える仕様となっている．
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_escape_string
+<prototype>int vce_escape_string( char *to, int tolen, char *from, int fromlen )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列をエスケープする．
+<sum en>Escape a string
+<arg>char *to
+<argdef ja>
+出力先文字列の先頭アドレス．エスケープした文字列が出力される．
+</argdef>
+<argdef en>
+Top address of destination string.
+Escaped string will be written in this buffer.
+</argdef>
+<arg>int tolen
+<argdef ja>
+出力先文字列の最大長さ． (fromlen*2+1) を確保しておくと，
+足りなくなることはない．
+</argdef>
+<argdef en>
+Size of destination size. It's safe choosing (fromlen*2+1) for
+this buffer.
+</argdef>
+<arg>char *from
+<argdef ja>
+エスケープする元の文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of source(plain) string.
+</argdef>
+<arg>int fromlen
+<argdef ja>
+エスケープする元の文字列の長さ
+この文字列はバイナリとして扱われるので途中にヌル文字があってもよい．
+</argdef>
+<argdef en>
+Length of source data.
+This data is treated as binary data, so you can include '\0'
+inside this data.
+</argdef>
+<return ja>
+出力先バッファが足りないと，壊れた文字列を返すのではなく，
+エラー(VCE_ETOOSHORT)を返す．出力先文字列は，ヌル文字で終端される．
+バッファが足りていたら，出力文字列の長さを返す．
+</return>
+<return en>
+When the output destination buffer is too short,
+this returns an error (VCE_ETOOSHORT), instead of a broken string.
+Destination string terminates with a null character.
+If the buffer is sufficient, it returns length of string output.
+</return>
+<desc ja>
+'\0', '\n', '\\', '\r', '\"', '\'', '\032' をエスケープして，
+出力先の文字列にこれらの文字が直接含まれないようにする．
+基本的なロジックは MySQL の mysql_escape_string と同等だが，
+エラーチェックが厳しくなっている．
+この関数でエスケープした文字は， vce_descape_string で元に戻せる．
+</desc>
+<desc en>
+This escapes '\0', '\n', '\\', '\r', '\"', '\'', '\032'
+to have these letter not be included directly in output string.
+Basic logic is equivalent to mysql_escape_string of MySQL,
+but error check is stricter.
+The letters escaped with this function can be restored
+with vce_descape_string.
+</desc>
+<bugs ja>
+バグではないが，本関数を使って日本語など多バイト文字を変換するときには
+注意が必要である．本関数は多バイトの特別な処理をしていないため，
+日本語の場合，
+Shift-JIS と EUC を使う場合は問題ないが，
+JIS の文字列を変換するときにはエスケープされる文字が日本語文字列の中に
+含まれる場合があるため，出力された文字列が腐って表示されることがある．
+vce_descape_string を使えば完全に元に戻るが，
+変換後の文字列の可読性が著しく損なわれる結果となる．
+</bugs>
+<bugs en>
+</bugs>
+<also>vce_descape_string
+</func>
+
+<func>
+<name>vce_descape_string
+<prototype>int vce_descape_string( char *to, int tolen, char *from )
+<arch>linux,win32,ps2,darwin
+<sum ja>エスケープされた文字列を元に戻す
+<sum en>Convert an aescaped string to original string
+<arg>char *to
+<argdef ja>
+元にもどった文字列の出力先文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination string, which will contain
+de-escaped(decoded) data.
+</argdef>
+<arg>int tolen
+<argdef ja>
+出力先文字列の最大長さ
+</argdef>
+<argdef en>
+Size of destination string.
+</argdef>
+<arg>char *from
+<argdef ja>
+変換元文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of escaped source string.
+</argdef>
+<return ja>
+出力先バッファが足りていたら出力された文字列の長さを返す．
+</return>
+<return en>
+This returns length of the string outputted,
+if the output destination buffer is adequate.
+</return>
+<desc ja>
+vce_escape_string 関数を使ってエスケープされた文字列を元に戻す．
+出力先バッファが不足していたら出力を壊すのではなくエラーを返す．
+ただし，
+引数 to で指定されたバッファの内容は上書きされるので注意が必要である．
+</desc>
+<desc en>
+This restores the escaped string using vce_escape_string function.
+If output destination buffer is too short,
+this returns an error instead of destroying output.
+However, note that contents of given buffer designated by "to"
+argument will be overwritten.
+</desc>
+<also>vce_escape_string
+</func>
+

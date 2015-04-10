@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+</head>
+
+<body>
+
+<h1>VCE admin tool について</h1>
+<h2>VCE admin toolの目的</h2>
+<p> VCE admin tool の目的は， VCEを利用したサーバーアプリケーションおよび， システム全体の管理を簡単にすることである。</p>
+
+
+<h2>VCE admin toolの構成要素</h2>
+VCE admin tool は以下の部分から成りたっています． 
+<ul>
+  <li><a href="admcli.html">admcli</a><br>
+    InnovaDSXP.OCX というDLLを使って作られた GUI インターフェイスである。
+    admsvに接続し、マシンやプロセスの最新情報の表示や操作ができる。</li>
+  <li><a href="admsv.html">admsv</a><br>
+    管理用サーバープログラムである。サーバーサイトのどこかに設置し、
+    常時起動することによって、各サーバとrsvに接続して情報を収集する。
+    admcliにおけるチャット機能はここで実現される。</li>
+  <li><a href="rsv.html">rsv</a><br>
+    管理したい各マシンに1個づつこのプロセスを走らせる。
+    専用のSSHサーバーのようなもので、アプリケーションの外側、マシン自体を
+    監視する。プロセスを起動したりマシン全体の負荷を測定するのは
+    rsvが行っている。</li>
+  <li><a href="../monitor.html">VCE monitor API</a><br>
+    各サーバーアプリケーションのプログラムではこのAPIを使ってモニターされる
+    側として機能を実装し、登録する。
+    コマンドの実装方法については、
+    <a href="monitor_command.html">モニターコマンドについて</a><br> を参照のこと。
+    </li>  
+  <li><a href="vcelog.html">VCE Log API</a><br>
+    ログを統一的なフォーマットで出力するAPIである。
+    また、ログをadmsvで検索できるようにrsvに転送するLog WriterAPIも含まれる。
+    </li>  
+  <li><a href="debug_print.html">debug_print.c</a><br>
+    VCE-Monitorで監視できるようアプリケーションサーバに実装するための
+    スケルトンコードです。
+    このコードを使用しなくても、VCE-Monitorは利用可能ですが、
+    使用することを推奨する。</li>
+</ul>
+<img alt="監視ツールのネットワーク構造" src="admin_arch.gif"> 
+
+
+<h2>マシン構成について</h2>
+<p>rsvは監視したいプロセスが起動するマシンに1つ起動することが必要である。
+admsvは他のアプリケーションサーバ(gmsvやswpなど)と同じマシンに同居させることも、
+信頼性のために別のマシンに設置することも可能である。
+上の図で説明したような構成が典型的である。</p>
+
+
+
+<h2>機能</h2>
+<P> 現在 VCE admin tool には以下の機能が実装されている。</p>
+<ul>
+  <li>各ホスト、プロセスの情報の取得</li> 
+  <li>各ホスト、プロセスのdead/aliveの確認</li> 
+  <li>各プロセスの起動、停止 </li>
+  <li>ユーザーによる権限の制限 </li>
+  <li>各プロセスのログを統一的に取得 </li>
+  <li>各プロセスのログのリアルタイム監視(grep likeな検索)</li>
+  <li>各ホスト、プロセスへのコマンド実行    </li>
+</ul>
+
+<p>
+<br>
+<a href="../index.html">index に戻る</a>
+<br></p>
+
+<div id="footer">#COPYRIGHT#</div>
+
+
+</body>
+</html>

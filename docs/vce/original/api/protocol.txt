@@ -1,0 +1,669 @@
+#
+# document for VCE auto-generated reference [protocol.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: protocol.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+<func>
+<name>vce_get_tcp_packet_write_size
+<prototype>void vce_get_tcp_packet_write_size(int *original, int *processing)
+<cat>tcp
+<arch>linux,win32
+<sum ja>書きこみデータの圧縮時のサイズと展開時のサイズを取得する
+<sum en>PENDING
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>int *original
+<argdef ja>
+展開したデータサイズを返すためのバッファの先頭アドレス。
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int *processing
+<argdef ja>
+圧縮したデータサイズを返すためのバッファの先頭アドレス。
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>
+書きこみデータの圧縮時、展開時のデータサイズを取得できる。コールバック関数で
+参照する。コールバック関数以外で使用するとたえず0になる。
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_get_tcp_packet_read_size
+</func>
+
+<func>
+<name>vce_get_tcp_packet_read_size
+<prototype>void vce_get_tcp_packet_read_size(int *original, int *processing)
+<cat>tcp
+<arch>linux,win32
+<sum ja>読み込みデータの圧縮時のサイズと展開時のサイズを取得する
+<sum en>PENDING
+<return ja>
+なし
+</return>
+<return en>
+PENDING
+</return>
+<arg>int *original
+<argdef ja>
+展開したデータサイズを返すためのバッファの先頭アドレス。
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int *processing
+<argdef ja>
+圧縮したデータサイズを返すためのバッファの先頭アドレス。
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>
+読み込みデータの圧縮時、展開時のデータサイズを取得できる。コールバック関数で
+参照する。コールバック関数以外で使用するとたえず0になる。
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_get_tcp_packet_read_size
+</func>
+
+<func>
+<name>vce_protocol_parser_bin16
+<prototype>int vce_protocol_parser_bin16( conn_t c )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>bin16 プロトコルのレコードを取りだしてコールバック関数を呼びだす
+<sum en>Get a bin16 record and call callback function.
+<return ja>
+データがまだ足りない場合は0、レコードがみつかってコールバックを
+呼びだせたら、コールバックの返り値をそのまま返す。
+</return>
+<return en>
+Returns zero if received data is not enough.
+Returns return value of callback function as it is,
+if data record is complete and could call protocol callback function.
+</return>
+<arg>conn_t ct
+<argdef ja>
+レコードがきているかどうか検査する対象のコネクション構造体。
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<desc ja>
+vce_protocol_parser_bin16 関数は、conn_t (circ_tではない) 用の
+レコード検出関数である。
+bin16 と呼ばれるプロトコルのレコードを取りだす。
+レコードを検出するたびに、
+vce_tcpcontext_create 関数の呼びだし時に指定しているコールバック関数を
+呼びだす。
+VCEのアプリケーションにおいては、アプリケーションの特性上、
+<B>小さいパケットを多く処理する</b>ことが多いので，
+bin16プロトコルを使うことが多くなるだろう．
+<BR><BR>
+<B>bin16プロトコルの内容</B><BR>
+bin16プロトコルを使う場合、
+ソケットを流れる1レコードは以下のようなフォーマットになっている。
+C言語風に書けば以下のようなコードになる．
+<pre>
+struct packet
+{
+unsigned short content_length;
+char buf[content_length];
+}
+</pre>
+となる。つまり10バイトのデータを送ると、(10 + sizeof(unsigned short)) で
+12バイトのデータが送信されることになる。
+<BR><BR>
+<B>コールバック関数の定義</B><BR>
+コールバック関数の定義は
+<pre>
+int callback( conn_t *c, char *data, int len )
+</pre>
+である。<code>char *data</code>にレコードの内容
+<code>buf[content_length]</code>
+へのポインタが、<code>int len</code>
+に <code>content_length </code>が代入される。
+<code>conn_t *c </code>には、入力元を特定できるコネクションが代入される。
+<BR><BR>
+
+</desc>
+<desc en>
+vce_protocol_parser_bin16 function detects and fetches data record
+from raw data sent to a conn_t (not a circ_t).
+It fetches a protocol record that is named bin16.
+Each time a record is detected, a callback function is called.
+The callback function is set when vce_tcpcontext_create.
+
+<BR>
+In VCE application, you may want to use bin16 protocol
+in almost all cases, because VCE is very good at processing
+"many small packets".
+<BR>
+<BR>
+<B> Content of bin16 protocol</B><BR>
+One record passed through a socket is formatted as follows.
+Here you will see C-like virtual code:
+<pre>
+struct packet
+{
+unsigned short content_length;
+char buf[content_length];
+}
+</pre>
+
+This means that 10-byte data brings about 12-byte of
+actual data sent (10 + sizeof(unsigned short)).
+<BR><BR>
+<B>Callback function definition</B><BR>
+Definition of a callback function is:
+<PRE>
+int callback( conn_t *c, char *data, int len )
+</pRE>
+<code>conn_t *c</code> is for target connection,
+and <code>char *data</code> is for pointer to the buffer,
+<code>int len</code> is length of the input buffer.
+
+</desc>
+<also>vce_protocol_unparser_bin16,vce_tcpcontext_create,vce_vecprotocol_parser_bin16,vce_protocol_parser_text,vce_protocol_parser_bin32
+</func>
+
+<func>
+<name>vce_protocol_parser_bin32
+<prototype>int vce_protocol_parser_bin32( conn_t c )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>bin32プロトコルのレコードを取りだしてコールバック関数を呼びだす
+<sum en>Get a bin32 record and call callback function
+<return ja>
+データがまだ足りない場合は0、レコードがみつかってコールバックを呼びだせ
+たら、コールバックの返り値をそのまま返す。
+</return>
+<return en>
+Returns zero if received data is not completed.
+Returns return value of protocol callback function
+if data record is completed, and could call protocol callback function.
+</return>
+<arg>conn_t ct
+<argdef ja>
+レコード検査をする対象となるコネクション構造体(conn_t)
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<desc ja>
+本関数は、 conn_t 用のレコード検出関数であり、32ビットまでのレコード長に
+対応している。実際にはそれほど長いデータレコードを使用することは
+性能上問題の原因にしかならないので、
+BIN32DATA_MAX までの長さしか検出できない。
+それより長いレコードが入力されようとした場合、
+それはサーバーに対するクラッキング行為であるとして
+プロトコルエラーを返す(VCEはその場合コネクションを切断する)
+BIN32DATA_MAX は vce.h で定義されている。
+</desc>
+<desc en>
+This function is designed for finding a record from received data
+by a conn_t, and is applicable up to the 32-bit(4G) record length.
+Since such long data record would just become the cause of quality
+problem actually, detection is possible up to the length of
+BIN32DATA_MAX.
+When input record is longer than BIN32DATA_MAX,
+that record is judged as a server-cracking, and
+protocol error will be returned.
+VCE shuts down the connection in this case.
+BIN32DATA_MAX is defined within vce.h.
+</desc>
+<also>vce_protocol_unparser_bin32,vce_protocol_parser_bin16
+</func>
+
+<func>
+<name>vce_protocol_parser_text
+<prototype>int vce_protocol_parser_text( conn_t c )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>プロトコルを1行単位で取りだしてコールバック関数を呼びだす
+<sum en>Get each line from stream and call protocol callback function
+<arg>conn_t c
+<argdef ja>
+レコード取りだし対象となるコネクション
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<return ja>
+データがまだ足りない場合は0、レコードがみつかってコールバックを
+呼びだせたら、コールバックの返り値をそのまま返す。
+</return>
+<return en>
+Returns zero if received data is not completed.
+Returns return value of protocol callback function
+if data record is completed, and could call protocol callback function.
+</return>
+<desc ja>
+行単位のレコードをテキスト行解析により取りだす。
+テキストプロトコルの場合は、暗号化をしない場合、tcpdump などのプログラム
+により、
+悪意がなくてもプロトコルの中身が解析されてしまうので注意が必要である。
+改行のデリミタとなる文字列は "\n" と "\r\n" の2種である。
+また、 コールバックに入力されるデータはヌル終端されている C 言語の文字列
+* ではない * 。 そのため、 vce_makecstr 関数などを用いて、
+C言語の文字列に変換する必要がある。
+</desc>
+<desc en>
+This function fetches a line from received data by a conn_t,
+by text parsing.
+You should note that third person between your server and
+clients will probably/accidentaly see content of the packets if you don't
+use encryption. Text protocol is the most easy protocol to be
+inspected by some sniffering program like "tcpdump".
+<BR>
+There are two types of delimiter characters for breaking line,
+which are "\n" and "\r\n".
+Also, input data to protocol callback function is NOT a C character
+string with NULL-termination.
+Therefore, data must be converted to the C string by using
+vce_makecstr function.
+</desc>
+<also>vce_protocol_parser_bin16
+</func>
+
+<func>
+<name>vce_protocol_unparser_bin16
+<prototype>int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>bin16 プロトコルのレコードを、コネクションに対して書きこむ
+<sum en>Format data into bin16 protocol and write it to a connection.
+<return ja>
+成功したら書きこめたバイト数を返し、
+失敗したら負のエラーコードを返す。
+レコードに必要な情報を同時に送信するので、書きこめたバイト数は、
+書きこもうとしたバイト数より2バイト多い。
+レコードの内容については、 vce_protocol_parser_bin16 を参照。
+</return>
+<return en>
+Returns number of bytes which is written into the conn_t.
+Returns minus error code when any error.
+Because this function sends a small data header at the same time,
+so number of bytes will be 2 bytes larger than written data itself.
+You can consult vce_protocol_parser_bin16 function for detail
+content of each records.
+</return>
+<arg>conn_t ct
+<argdef ja>
+書きこみ対象のコネクション
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>char *data
+<argdef ja>
+処理すべきデータへのポインタ
+</argdef>
+<argdef en>
+Pointer to input data, which will be transmitted after processing.
+</argdef>
+<arg>int len
+<argdef ja>
+処理すべきデータの長さ
+</argdef>
+<argdef en>
+Length of input data.
+</argdef>
+<desc ja>
+本関数は、 conn_t に対して，
+bin16プロトコルのレコードを送りだすためのフォーマッタ関数である．
+つまり，データに常に2バイトのヘッダをくっつけて書きだす．
+<B>送信バイト数</B><BR><BR>
+bin16プロトコルは、All or Nothing な送信をする。つまり、
+20バイト送ろうとして、送信バッファに残り10バイトしかなかったので
+10バイトしか送れなかったということはなく、負のエラーコードか22か、
+どちらかの返り値しかない。
+これは、不完全なレコードを送ることをしない、
+というVCEのポリシーの現れである。
+</desc>
+<desc en>
+This function is a formatter function for bin16 protocol.
+This function sends a data record into a conn_t.
+The record is formatted like [header + data].
+The header part is always 2 bytes.
+<B>Length of sent data</B><BR>
+bin16 protocol does not corrupt outgoing data, just it chooses
+from two choices: send it completely, or do not send.
+For example when you want to send 20 bytes of data,
+this funciton will return 22 (20 + 2 )  or minus error code.
+</desc>
+<sample ja>
+<pre>
+  // エコーサーバを実装するコールバック関数の例
+  int callback( conn_t ct, char *data, int len )
+  {
+      return vce_protocol_unparser_bin16( ct,data,len );
+  }
+</pre>
+</sample>
+<sample en>
+<pre>
+  // Example of protocol callback function for echoing server
+  int callback( conn_t ct, char *data, int len )
+  {
+      return vce_protocol_unparser_bin16( ct,data,len );
+  }
+</pre>  
+</sample>
+<also>vce_protocol_parser_bin16,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_unparser_bin32
+<prototype>int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>BIN32プロトコルのレコードをひとつ、コネクション(conn_t)に書きこむ
+<sum en>Write a BIN32 record to a conn_t instance
+<return ja>
+成功したら書きこめたバイト数を返し、
+失敗したら負のエラーコードを返す。
+レコードに必要な情報を同時に送信するので、書きこめたバイト数は、
+書きこもうとしたバイト数より4バイト多い。
+</return>
+<return en>
+Returns number of bytes which is put out.
+Returns minus error code if any errors.
+SUccessful return value is always 4 bytes larger than input
+data length.
+</return>
+<arg>conn_t ct
+<argdef ja>
+書きこみ対象のコネクション
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>char *data
+<argdef ja>
+書きこむデータレコードの内容をさすポインタ
+</argdef>
+<argdef en>
+Pointer to input data which will be transmitted after processing.
+</argdef>
+<arg>int len
+<argdef ja>
+書きこむデータレコードの長さ(バイト)
+</argdef>
+<argdef en>
+Length(byets) of input data.
+</argdef>
+<desc ja>
+BIN32プロトコルは、BIN16の限界である64キロバイトより大きいデータレコードを
+送りたいときに使用されるアンパーサである。
+BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX で規定されている
+データ長よりも長いデータは送信できない。
+</desc>
+<desc en>
+bin32 protocol is used when you want to send larger packets than
+64kb size, which is the maximum size of bin16 protocol.
+You can send larger size packets, but at most BIN32DATA_MAX bytes.
+</desc>
+<also>vce_protocol_unparser_bin16,vce_protocol_parser_bin32
+</func>
+
+<func>
+<name>vce_protocol_unparser_text
+<prototype>int vce_protocol_unparser_text( conn_t ct, char *data, int len )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>テキストプロトコルのレコード(1行)をコネクションに書きこむ
+<sum en>write a text protocol line into conn_t
+<arg>conn_t ct
+<argdef ja>
+書きこむ対象となるコネクション
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>char *data
+<argdef ja>
+書きこむデータへのポインタ
+</argdef>
+<argdef en>
+Pointer to input data which will be transmitted after processing.
+</argdef>
+<arg>int len
+<argdef ja>
+書きこむデータの長さ
+</argdef>
+<argdef en>
+Length(bytes) of input data
+</argdef>
+<return ja>
+成功したらデータの長さプラス1，失敗したら負のエラーコード．
+</return>
+<return en>
+Returns number of bytes which is put out.
+Returns minus error code when any errors.
+Successful return value is always 1 bytes larger than
+original input data.
+</return>
+<desc ja>
+改行記号である"\n" や "\r"もエスケープなどの処理を一切せずに
+そのまま書きこむので注意が必要である。
+また、データの末尾に "\n" を追加して送信するので、
+送信バイト数は、成功の場合 len よりも1多い値となる。
+</desc>
+<desc en>
+This function will write input data without any escaping,
+or any processing.
+This function will add "\n" at the tail of input data,
+so length of outgoing data is always 1 byte larger than original data.
+</desc>
+<also>vce_protocol_unparser_bin16,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_parser_through
+<prototype>int vce_protocol_parser_through( conn_t ct )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>レコード境界を切らずにコールバックを呼びだすプロトコルパーサ
+<sum en>A protocol parser for calling callback without reading records.
+<arg>conn_t ct
+<argdef ja>
+データを受けとるTCPコネクション(conn_t)
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<return ja>
+コールバック関数の返り値をそのまま返す。
+したがって、コールバック関数が負の値を返した場合はVCEによって自動的に
+接続が切断される。
+</return>
+<return en>
+It returns callback function's reeturn value as it is.
+Therefore the connection is shut down automatically when the callback
+function returns negative value.
+</return>
+<desc ja>
+各種プロトコルの中には、
+レコードという考えかたがないものもある。
+そのようなプロトコルのために、データ処理を一切せずに、
+ソケットからの入力データをそのままコールバック関数に渡すパーサが必要である。
+vce_protocol_parser_through はまさにそのために使用される。
+</desc>
+<desc en>
+Some protocols do not have a concept of record.
+This parser function is designed for use of these cases.
+This function does not perform any processing before
+passing the input data to protocol callback function.
+</desc>
+<also>vce_protocol_parser_bin16,vce_protocol_unparser_through,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_unparser_through
+<prototype>int vce_protocol_unparser_through( conn_t ct, char *data, int len)
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションにデータをそのまま書き出す
+<sum en>Write data directly into a TCP connection.
+<arg>conn_t ct
+<argdef ja>
+データを出力するコネクション
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>char *data
+<argdef ja>
+出力するデータの先頭アドレス
+</argdef>
+<argdef en>
+Pointer to input data which will be transmitted after processing.
+</argdef>
+<arg>int len
+<argdef ja>
+出力するデータの長さ(バイト数)
+</argdef>
+<argdef en>
+Length(bytes) of input data.
+</argdef>
+<return ja>
+書きこめたデータの長さ。エラーの場合は負のエラーコード
+</return>
+<return en>
+Length of transmitted data(in bytes).
+Returns minus error indicator value if any error occured.
+</return>
+<desc ja>
+本関数は，何の処理もせずにデータをconn_tに書きこむ．
+</desc>
+<desc en>
+This function will write input data into conn_t.
+</desc>
+<also>vce_protocol_parser_through,vce_protocol_unparser_bin16,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_acceptwatcher_noop
+<prototype>int vce_protocol_acceptwatcher_noop( conn_t c )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>すべてのコネクションを受けいれる TCP(conn_t)のaccept 監視関数
+<sum en>accept() watcher for TCP conn_t which accepts all connection.
+<arg>conn_t c
+<argdef ja>
+サーバの tcpcontext が新規に accept した(受けいれた)コネクションを
+あらわす conn_t
+</argdef>
+<argdef en>
+An instance of conn_t, which is newly accepted by a server tcpcontext_t.
+</argdef>
+<return ja>
+この関数は常に0を返すので、すべてのコネクションを受けいれる。
+</return>
+<return en>
+Always returns zero, so automatically all new connections are
+accepted without any limitation.
+</return>
+<desc ja>
+この関数は vce_tcpcontext_create の引数に指定される。
+0を返すとデフォルトの動作と同じであるため、
+NULL を指定したのと同じことになる。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_protocol_acceptwatcher_deny
+</func>
+
+<func>
+<name>vce_protocol_acceptwatcher_deny
+<prototype>int vce_protocol_acceptwatcher_deny( conn_t c )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>すべてのコネクションを拒否するTCP(conn_t)のaccept監視関数
+<sum en>accept watcher for TCP conn_t which denies all connection.
+<arg>conn_t c
+<argdef ja>
+サーバの tcpcontext が新規に accept した(受けいれた)コネクションを
+あらわす conn_t
+</argdef>
+<argdef en>
+An instance of conn_t, which is newly accepted by a server tcpcontext_t.
+</argdef>
+<return ja>
+この関数は常に-1を返す。
+</return>
+<return en>
+This function always returns -1, so no new connections are accepted.
+</return>
+<desc ja>
+この関数は vce_tcpcontext_create の引数に指定される。
+この関数を指定すると、すべてのコネクションを拒否するため
+クライアントが接続できなくなる。
+したがってデバッグ用と言える。
+</desc>
+<desc en>
+This function is passed to vce_tcpcontext_create function
+as its argument.
+When this function is set in a TCPcontext, all connections
+are rejected and any client cannot connect to the server.
+This function is for debugging.
+</desc>
+<also>vce_protocol_acceptwatcher_noop,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_closewatcher_noop
+<prototype>int vce_protocol_closewatcher_noop( conn_t c )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>何もしない、コネクション close 監視関数
+<sum en>TCP connection close watcher which does nothing
+<arg>conn_t c
+<argdef ja>
+閉じられようとしているコネクション(閉じる直前)
+</argdef>
+<argdef en>
+An instance of conn_t which will be closed by this function call.
+</argdef>
+<return ja>
+この関数は常に0を返す。
+</return>
+<return en>
+This function always returns zero.
+</return>
+<desc ja>
+vce_tcpcontext_create の引数に指定される close監視関数のひとつである。
+実際には何の処理もしないため、NULL を指定するのと同じ結果になる。
+ただし、
+明示的に指定することによって、プログラムソースが読みやすくなるという利点が
+ある。
+</desc>
+<desc en>
+This callback function can be set in TCPcontext.
+This function do not perform anything, so all request for new
+TCP connection from clients are accepted.
+You can use "NULL" instead of this function, but you'd better
+use this function because your source code will be more cleaner.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+

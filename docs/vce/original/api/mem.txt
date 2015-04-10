@@ -1,0 +1,760 @@
+#
+# document for VCE auto-generated reference [mem.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: mem.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+<func>
+<name>vce_init_array
+<prototype>int vce_init_array ( size_t size , int num , char *nm )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>新規にVCEの配列を初期化する。
+<sum en>Initialize a new VCE array.
+<arg>size_t size
+<argdef ja>
+配列の要素のサイズ(バイト数)
+</argdef>
+<argdef en>
+Size of each elements in the array. Byte count.
+</argdef>
+<arg>int num
+<argdef ja>
+配列の要素の個数
+</argdef>
+<argdef en>
+Number of lements of the array.
+</argdef>
+<arg>char *nm
+<argdef ja>
+配列の名前。名前を指定しておくと、VCE内で問題が生じたときに
+ログに名前が出力されるのでデバッグの助けとなる。
+</argdef>
+<argdef en>
+Name of the array. This name will help your debugging
+because VCE will print out this name when any problem is occured.
+</argdef>
+<return ja>
+返り値： 成功したら0以上の配列ID。
+このIDは今後のアクセスに使用する。この値をUNIXのファイルにならって、
+配列デスクリプタと呼ぶ。失敗したらvce.h に定義されている負の値を返す。
+</return>
+<desc ja>
+配列に必要なメモリを割りあてて配列をゼロクリアし、
+使用中リストも同時に初期化する。
+VCEの配列は、配列の初期化、空き要素の検索、解放を、
+空きリストを実装することによって高速に実現できるように実装されている。
+vce_init_array は、
+概算で(要素のサイズ+20)×要素の個数 バイトのメモリを消費する。<BR>
+vce_init_array が返すint値は、UNIXファイルの file descriptor のような
+もので、今後の配列へのアクセスに使用する。<BR><BR>
+VCE配列はVCEの処理の基盤ルーチンとして使用されている。<BR>
+また、 vce_init_array 関数は内部で MALLOC 関数を使用している.
+</desc>
+<desc en>
+This zero-clears an array through allocating necessary memory for the array,
+and initializes the in-use list at the same time.
+VCE arrays are implemented for realizing high-speed array initialization,
+searching freelist and releasing buffer through implementing the empty list.
+vce_init_array consumes memory roughly estimated as (element size plus 20)
+times (number of elements) in bytes.
+The int value returned by vce_init_array is like UNIX files' file descriptor,
+that is used for later access to arrays.
+The VCE array is used as a basic routine of VCE processing.
+vce_init_array function uses the MALLOC function internally.
+</desc>
+<also>vce_end_array,vce_alloc_array_object,vce_free_array_object,ARRAY_SCAN,MALLOC,vce_free_array_object_all
+</func>
+
+<func>
+<name>vce_end_array
+<prototype>int vce_end_array( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列を解放する。
+<sum en>Release a VCE array.
+<arg>int index
+<argdef ja>
+配列を特定する配列デスクリプタ。
+vce_init_array の返り値である。
+</argdef>
+<argdef en>
+Array descriptor, which is formerly returned by vce_init_array.
+</argdef>
+<return ja>
+成功の場合は0、エラーだったら負のエラーコードを返す(vce.h)
+</return>
+<desc ja>
+配列の要素ではなく、配列自体を解放することに注意。
+また，すべて配列の要素は解放される．
+vce_end_array を呼びだした後は、
+その配列に関してはすべての操作が不可能となる。
+vce_end_array 関数は内部で FREE 関数を呼びだしているので、
+FREE 関数の呼びだし状況がログ出力される。
+</desc>
+<desc en>
+Note that this releases an array itself, and not its elements.
+All elements in the array will be released.
+After invocation of vce_end_array, all the operations
+concerning the array become unavailable.
+vce_end_array function calls the FREE function inside it.
+</desc>
+<also>vce_init_array,FREE
+</func>
+
+<func>
+<name>vce_alloc_array_object
+<prototype>void * vce_alloc_array_object( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の未使用要素を1個わりあてる
+<sum en>Allocate an unused element of a VCE array.
+<arg>int index
+<argdef ja>
+VCE配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE array.
+</argdef>
+<return ja>
+割りあてられた配列要素の先頭アドレス。
+配列の最大要素数まで要素を使いきっている場合(空きリストに何もない場合)は、
+ヌルポインタを返す。
+それ以外にもエラーの内容は vce_get_last_error で得ることができる。
+</return>
+<return en>
+The top address of an allocated array element.
+The null pointer is returned in case that all the element is
+already used.
+Error code can be obtained in vce_get_last_error function.
+</return>
+<desc ja>
+VCE配列の空きリストを検索し、未使用要素がある場合はそのポインタを返す。
+この関数は，あたらしく割りあてるバッファの中身に対して
+何らかのデータを書きこむこと(ゼロ初期化等)は一切しない．
+</desc>
+<desc en>
+Search through empty list of VCE array and
+then return a pointer if there is any available element.
+This function never write data onto the contents of a newly allocated
+memory.
+</desc>
+<also>vce_init_array,vce_free_array_object,vce_free_array_object_all
+</func>
+
+<func>
+<name>vce_free_array_object
+<prototype>int vce_free_array_object( int index , void *p )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の要素を解放する
+<sum en>Free an element of a VCE array.
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE array.
+</argdef>
+<arg>void *p
+<argdef ja>
+解放したい配列の要素の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an element in the array.
+</argdef>
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns 0 if successful. Otherwise negative error code.
+</return>
+<desc ja>
+vce_free_array_object 関数は、 ARRAY_SCAN マクロ内で使用することができる。
+この関数は，解放されるバッファの中身に対して何か書きこむことは一切しない．
+</desc>
+<desc en>
+vce_free_array_object function can be used within the ARRAY_SCAN macro.
+This function never write anything onto the contents of the buffer
+being released.
+</desc>
+<also>vce_init_array,vce_alloc_array_object,vce_free_array_object_all
+</func>
+
+<func>
+<name>vce_get_array_object_top
+<prototype>void * vce_get_array_object_top( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>
+<sum en>
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array.
+</argdef>
+<return ja>
+使用中の要素をさすポインタ。
+使用中の要素がない場合はヌルポインタを返す
+</return>
+<return en>
+Pointer to an element in the array.
+Null pointer if there is no allocated element in the array.
+</return>
+<desc ja>
+vce_get_array_object_top は、 ARRAY_SCAN マクロの内部で使用される。
+
+ARRAY_SCAN マクロは、配列の要素のうち使用中のものすべてをスキャンする
+ために実装されているが、本関数はそのうち先頭のものを取りだす。
+通常のアプリケーションは、 ARRAY_SCAN マクロを直接使用するほうが便利な
+場合が多い。
+</desc>
+<desc en>
+vce_get_array_object_top is used inside the ARRAY_SCAN macro.
+The ARRAY_SCAN macro is implemented for scanning all the array
+elements in use, and this function fetches the head of those elements.
+It is often useful for normal
+applications to directly use the ARRAY_SCAN macro, not this function.
+</desc>
+<also>vce_get_array_object_next,ARRAY_SCAN
+</func>
+
+<func>
+<name>vce_get_array_object_next
+<prototype>void * vce_get_array_object_next( int index , void *p )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の使用中要素の次の要素を取りだす
+<sum en>Get an VCE array element succeedinng given elemnt
+<arg>int index
+<argdef ja>
+配列を特定する配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor of the VCE's array.
+</argdef>
+<arg>void *p
+<argdef ja>
+vce_get_array_object_next は、
+この引数で与えられたポインタの差す要素の次の使用中要素を返す。
+</argdef>
+<argdef en>
+vce_get_array_object_next returns an element in the array
+next to the element specified by parameter "p".
+</argdef>
+<return ja>
+次の要素のポインタ
+</return>
+<return en>
+Pointer to next element.
+Null pointer if next element is not found.
+</return>
+<desc ja>
+vce_get_array_object_next は、 ARRAY_SCAN マクロ中で使用されている。
+通常のアプリケーションは、本関数を直接に使用するべきではない。
+ARRAY_SCAN マクロを使用したほうが安全確実である。
+</desc>
+<desc en>
+vce_get_array_object_next is used within the ARRAY_SCAN macro.
+Regular applications should not use this function directly.
+The ARRAY_SCAN macro is safer and sure to use.
+</desc>
+<also>vce_get_array_object_top,ARRAY_SCAN
+</func>
+
+<func>
+<name>vce_get_array_object_last
+<prototype>void * vce_get_array_object_last( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の最後の要素を取りだす。
+<sum en>Get last element of VCE array.
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array.
+</argdef>
+<return ja>
+最後の要素へのポインタ。要素がひとつも存在しない場合はNULLを返す
+</return>
+<return en>
+Pointer to the last element of the array.
+Returns NULL if no element is available.
+</return>
+<desc ja>
+VCE配列の使用中のもののうち最後の要素へのポインタを得る。
+vce_alloc_array_object は、常に使用中リンクの先頭に追加されるため、
+vce_alloc_array_object と本関数をつかえば、 FIFOのようなことができる。
+つまり、
+先頭にのみ追加され、末尾からのみ取りだされるという配列を作ることができる。
+</desc>
+<desc en>
+This obtains the pointer to the last element among the VCE arrays in use.
+Since vce_alloc_array_object is always added to the head of the link in use,
+FIFO-like processing can be done by using vce_alloc_array_object and this
+function, in other words, the array that only allows addition to the head
+and extraction from the tail.
+</desc>
+<also>vce_get_array_object_top,vce_get_array_object_next,vce_alloc_array_object
+</func>
+
+<func>
+<name>vce_get_array_usenum
+<prototype>int vce_get_array_usenum( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の要素のうちいくつが使用中になっているかを数える
+<sum en>Count how many
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array.
+</argdef>
+<return ja>
+使用中の要素の数。
+</return>
+<return en>
+Number of currently used elements in an array.
+</return>
+<desc ja>
+配列全体をスキャンして数えることなく、使用中の数を返す。
+スキャンしないので非常に高速である。
+</desc>
+<desc en>
+Get number of elements currently in-use, without scanning
+through the array.
+This function is really fast because it does not scan the array.
+</desc>
+<also>vce_init_array,ARRAY_SCAN
+</func>
+
+<func>
+<name>vce_get_array_object_index
+<prototype>int vce_get_array_object_index( int index , void *p )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列要素が配列の何番目に位置しているかを得る
+<sum en>Get index number of an element in an VCE array.
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array.
+</argdef>
+<arg>void *p
+<argdef ja>
+インデックスを得たい要素の先頭アドレス
+</argdef>
+<argdef en>
+Pointer to an element in the array.
+</argdef>
+<return ja>
+引数が不正な場合はVCE_EINVALを、ポインタが適切な値でない場合は
+VCE_EALIGNMENT を返す。
+正常終了の場合は、0以上のインデックスを返す
+</return>
+<return en>
+Return VCE_EINVAL, if an argument is invalid.
+If a pointer is not a suitable value, return VCE_EALIGNMENT.
+Return 0 or more as index, in case of success.
+</return>
+<desc ja>
+vce_get_array_object_index 関数は、指定されたポインタが配列の
+どの位置にあるか、ポインタの減算により計算し、インデックスを求める。
+</desc>
+<desc en>
+The vce_get_array_object_index function determines an index through
+subtracting the designated pointer from an array's top pointer.
+</desc>
+</func>
+
+<func>
+<name>vce_if_included_in_array
+<prototype>int vce_if_included_in_array( int index, void *p )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>配列のある要素が、正しく配列に含まれてるかどうかしらべる
+<sum en>Test if given element is correctly included in a VCE array.
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array.
+</argdef>
+<arg>void *p
+<argdef ja>
+調べたい要素をさすポインタ
+</argdef>
+<argdef en>
+Pointer to an element in the array.
+</argdef>
+<return ja>
+指定した配列に含まれているなら1、そうでないなら0を返す
+引数が不正な場合は負のエラーコードを返す。
+</return>
+<return en>
+Return 1, if it is included in the specified array.
+If not,return 0. In case of invalid argument, return error code.
+</return>
+<desc ja>
+void *p で指定される要素が、 index で指定される配列に含まれている
+かどうかを調べる。<BR>
+配列要素が正しく配列に含まれているかどうかを調べるには、
+まず p から配列の先頭アドレスを引き、その結果を配列要素のサイズ
+で割った余りを得る。その余りが0でない場合は、要素が正しく配置されて
+いないことがわかる。
+さらに、わりきれる場合でも、
+商が0以上配列の要素数-1 の範囲を越えていたら、
+範囲外に配置されているためエラーとなる。
+</desc>
+<desc en>
+This checks if the element designated by void *p is included
+in the array.
+To check if array elements are included in an array properly,
+subtract the head address from p first, then divide the
+difference by the size of array elements to obtain the remainder.
+When the remainder is not 0, the elements are not
+arranged properly.
+Even if the remainder is 0, as the quotient is not in the range from 0
+to the number of array
+elements negative 1, the elements are arranged outside the range-an error.
+</desc>
+<also>vce_init_array,ARRAY_SCAN,vce_get_array_object_index
+</func>
+
+<func>
+<name>vce_array_object_inuse
+<prototype>int vce_array_object_inuse( int index, void *p )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の要素が使用中かどうかを調べる
+<sum en>Know a VCE array object is currently used or not
+<arg>int index
+<argdef ja>
+配列ディスクリプタ
+</argdef>
+<argdef en>
+Integer discriptor value to specify VCE array
+</argdef>
+<arg>void *p
+<argdef ja>
+配列要素をさすポインタ
+</argdef>
+<argdef en>
+Pointer to an VCE array object
+</argdef>
+<return ja>
+使用中なら1，そうでないなら0，
+範囲外のポインタやindexの値が不正なときは負のエラーコード．
+</return>
+<return en>
+Returns 1 if the object is currently used,
+otherwize zero. Returns minus error code if given arguments
+are invalid ( for example index is inefficient, or pointer is
+out of range )
+</return>
+<desc ja>
+この関数を使うと，あるポインタが，
+配列の中で使用中かどうかの状態を知ることができる．
+</desc>
+<desc en>
+You know if an array object is used(not freed) in an VCE array.
+</desc>
+<also>vce_alloc_array_object,vce_free_array_object
+</func>
+
+<func>
+<name>vce_get_array_object_pointer_by_index
+<prototype>void *vce_get_array_object_pointer_by_index( int index, int objindex )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の要素をインデクスを指定して得る
+<sum en>Get a VCE array element by index number
+<arg>int index
+<argdef ja>
+VCE配列を特定するための配列ディスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array
+</argdef>
+<arg>int objindex
+<argdef ja>
+取りだしたい要素の配列中のindex
+</argdef>
+<argdef en>
+Index of the element which you want to get.
+</argdef>
+<return ja>
+取りだした要素を指すポインタ。
+</return>
+<return en>
+Pointer to the element.
+</return>
+<desc ja>
+通常、VCE配列の要素は ARRAY_SCAN もしくは、ポインタによってアクセスされるが、
+本関数を使えばインデックスを使って要素にアクセスすることもできる．
+NULLポインタを返す場合は、 vce_get_last_error を使ってエラーの内容を知る
+ことができる。
+</desc>
+<desc en>
+Normally, VCE elements are accessed with ARRAY_SCAN or a pointer;
+but you can also access the element by specifying index of it
+by this function.
+As returning a NULL pointer,
+the contents of an error may be known by using vce_get_last_error.
+</desc>
+<sample ja>
+  // 使用中、未使用にかかわらず配列の全要素を初期化する
+  for(int i=0;;i++){
+      sometype *t = vce_get_array_object_pointer_by_index( memind, i );
+      if( t == NULL )break;
+      t->someparam = somevalue;
+  }
+</sample>
+<sample en>
+  // Initialize all elements of array without checking if they're used
+  for(int i=0;;i++){
+      sometype *t = vce_get_array_object_pointer_by_index( memind, i );
+      if( t == NULL )break;
+      t->someparam = somevalue;
+  }
+</sample>
+<also>vce_init_array,vce_get_array_object_pointer_by_index_only_used
+</func>
+
+<func>
+<name>vce_get_array_object_pointer_by_index_only_used
+<prototype>void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の指定したインデクスを持つ要素を得る(使用中の要素のみ)
+<sum en>Get a VCE array element by index number, which are being used
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array
+</argdef>
+<arg>int objindex
+<argdef ja>
+取りだしたい要素の配列中のインデックス。
+</argdef>
+<argdef en>
+Index number of the element which you want to get.
+</argdef>
+<return ja>
+取りだした要素をさすポインタ。要素が使用中でない場合はNULLポインタを返す
+</return>
+<return en>
+Pointer to the element. Returns NULL pointer if the element is not used
+currently.
+</return>
+<desc ja>
+vce_get_array_object_pointer_by_index 関数とほぼ同じだが、
+現在使用のものだけを返す。
+</desc>
+<desc en>
+Almost same as vce_get_array_object_pointer_by_index,
+but you can select used elements using this function.
+</desc>
+<also>vce_init_array,vce_get_array_object_pointer_by_index
+</func>
+
+<func>
+<name>vce_show_array_usage
+<prototype>int vce_show_array_usage( int index , int show_all )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE配列の状態をすべて出力する。
+<sum en>Print all information about a VCE array.
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE's array.
+</argdef>
+<arg>int show_all
+<argdef ja>
+各要素についても情報を表示するなら1、そうでないなら0。
+0のほうが出力される文字数はかなり少ない。
+</argdef>
+<argdef en>
+Set 1 if you want description about all elements in VCE array,
+otherwise set zero.
+You will get huge amount of output string by setting 1.
+</argdef>
+<return ja>
+現在使用中の要素数を返す
+</return>
+<return en>
+Return number of elements which are currently used.
+</return>
+<desc ja>
+デバッグ用の関数。配列を指定し、その配列の管理している要素についての
+情報をログに対して出力する。
+<BR>
+注意： エラー出力を抑える設定でビルドされている VCE ライブラリを
+リンクしている場合は，本関数は VCE_ESUPPORT を返して何も出力しない．
+</desc>
+<desc en>
+This function is created for debugging.
+It designates an array, and information about the elements controlled by the
+array will be output to a log.
+NOTE: If the VCE library that is built with the setting
+to suppress an error output is linked, this function will output
+nothing even when VCE_ESUPPORT is returned.
+</desc>
+<bugs ja>
+本関数は、標準エラー出力を使用して出力するため、
+標準エラー出力の利用できないWin32GUI環境の場合、
+本関数の呼びだしは無意味となる。
+</bugs>
+<bugs en>
+Since this function uses the standard error output for outputting,
+calling of this function becomes invalid when the
+work environment is Win32GUI where the standard error output is not usable.
+</bugs>
+<also>vce_init_array
+</func>
+
+<func>
+<name>vce_end_all_array
+<prototype>void vce_end_all_array( void )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>全てのVCE配列を解放する
+<sum en>Release all VCE array.
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+すべてのVCE配列に対して vce_end_array を呼びだす。
+</desc>
+<desc en>
+Call vce_end_array against all VCE arrays maintained by VCE.
+</desc>
+<also>vce_init_array
+</func>
+
+<func>
+<name>vce_free_array_object_all
+<prototype>void vce_free_array_object_all( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>配列の全要素を解放する(配列自体は解放しない)
+<sum en>Free all elements in an array
+<arg>int index
+<argdef ja>
+配列を特定するための配列デスクリプタ
+</argdef>
+<argdef en>
+Array descriptor to specify VCE array.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+NOne
+</return>
+<desc ja>
+1つの配列の中で使用中になっているすべての要素を解放する。
+</desc>
+<desc en>
+Free all used elements in an array.
+</desc>
+<bugs ja>
+現在は1個1個解放しているため比較的遅い。
+全体を一気に初期化することによって高速化する予定である(バージョン1以降)。
+</bugs>
+<bugs en>
+This is comparatively slow, because it releases one by one at the moment.
+Speeding up through simultaneous entire
+initialization is planned (version 1 and later).
+</bugs>
+<also>vce_free_array_object,vce_init_array
+</func>
+
+<func>
+<name>vce_get_array_member_size
+<prototype>int vce_get_array_member_size( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>配列の各メンバのサイズを返す
+<sum en>Get size of each members of an array
+<arg>int index
+<argdef ja>
+情報を取得したい配列の index
+</argdef>
+<argdef en>
+Array descriptor of target VCE array
+</argdef>
+<return ja>
+配列のメンバのサイズ(vce_init_array の第一引数の値)．
+引数が異常の場合は負のエラーコードを返す．
+</return>
+<return en>
+Array member size (the first argument value of vce_init_array)．
+Return a negative error code, in case of invalid argument.
+</return>
+<desc ja>
+VCE の配列管理ルーチンが管理している配列のメンバのサイズを得る
+vce_init_array の size 引数の値．
+</desc>
+<desc en>
+This is the value of the size argument of vce_init_array
+function that gets the size of the array controlled by the VCE array
+control routine.
+</desc>
+<also>vce_init_array,vce_get_array_maxnum
+</func>
+
+<func>
+<name>vce_get_array_maxnum
+<prototype>int vce_get_array_maxnum( int index )
+<cat>array
+<arch>linux,win32,ps2,darwin
+<sum ja>配列の最大要素数を返す
+<sum en>Get max number of array elements
+<arg>int index
+<argdef ja>
+情報を取得したい配列のindex
+</argdef>
+<argdef en>
+Array descriptor of target VCE array
+</argdef>
+<return ja>
+配列のメンバの最大数．
+</return>
+<return en>
+Max number of elements in the array.
+</return>
+<desc jay>
+VCE の配列管理ルーチンが管理している配列の要素の最大数を返す．
+vce_init_array の num 引数の値．
+</desc>
+<desc en>
+This function returns max number of elemnts in the array.
+Same as vce_init_array's "num" parameter.
+</desc>
+<also>vce_init_array,vce_get_array_member_size
+</func>
+

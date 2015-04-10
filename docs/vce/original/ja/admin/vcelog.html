@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../vce.css" type="text/css">
+<title>VCE #VER# official document</title>
+</head>
+
+<body>
+
+<h1>VCE Log API</h1>
+<h2>VCE Log APIとは</h2>
+<p>VCE Logging APIは、後述する<a href="#logformat">VCE ログフォーマット</a>に 基づいたログを出力するためのAPIである。
+それらのログのフォーマット出力機能と、それらをログサーバ(VCE-adminではrsv)に転送する機能を持つ。</p>
+
+<!--<h2>簡単な使いかた</h2>
+<p>sample/log_sample.c にサンプルがありますので御覧下さい。 PENDING -->
+
+<h2>API</h2>
+<h3>Log API</h3>
+<ul>
+  <li><b>void vce_log_init( printf_func_t printf_func )</b>
+    <p>vcelogを初期化します。printf_funcには、ログ表示をするための関数を
+      指定する。プロトタイプはprintfと同じなので、vce_erroutを指定する場合には、
+      (printf_func_t)vce_errout というように、キャストをする必要がある。
+      </p></li>
+  <li><b>int vce_log_add_type( int type, char *tag )</b>
+    <p>ログタイプを追加する。</p></li>
+  <li><b>void vce_log_set_type_mask( unsigned int type )</b>
+    <p>ログマスクを指定する。マスクは、表示させたいタイプのビットを立てた
+      数値を設定する。 指定されたログ以外は、う表示されなくなる。</p></li>
+  <li><b>void vce_log_set_type_mask_by_name( char *name, int on_off )</b>
+    <p>ログマスクを名前で指定する。vce_log_add_type()で指定したtagが
+      名前になる。</p></li>
+  <li><b>void vce_log_print( int type, char *id, char *char_name, char *format, ... )</b>
+    <p>VCEログフォーマットでログを出力する。</p></li>
+  <li><b>void vce_log_vprint( int type, char *id, char *char_name, char *format, va_list va )</b>
+    <p>vce_log_printのva_listバージョンである。</p></li>
+  <li><b>int vce_log_add_monitor_command()</b>
+    <p>VCE-Monitor用のコマンドを追加する。現在、追加されるコマンドは、
+      set_logmask, get_log_typesである。</p></li>
+</ul>
+      
+<h3>Log Writer API</h3>
+<p>ログをログサーバ(VCE-adminではrsv)に転送するためのAPIである。</p>
+<ul>
+  <li><b>int vce_logwriter_init( int num )</b>
+      <p>ログライターを初期化する。numには、ログライターの数を指定する。
+      通常は、一つで十分であろう。</p></li>
+  <li><b>logwriter_t *vce_logwriter_connect( char *addr, int port, int id )</b>
+      <p>ログライターをログサーバ(VCE-adminではrsv)に接続する。
+      この関数を呼んだあとに、vce_logwriter_poll()を繰り返すことにより、
+      ログライターがログサーバに ログを書き込めるようになる。
+      ただし、それまでのログも一部はバッファにため込まれ、
+      接続した瞬間に書き出される。<br>
+      <b>admsvの検索機能と連係させるには、IDには、
+      サービスポート(admcli.exeのプロセスWindowの Portの項目にでる数値)を
+      指定しる。</b>この値をもとに、admsvはバインディングを行います。</p></li>
+  <li><b>int vce_logwriter_poll()</b>
+      <p>vce_logwriter_connect()を呼んだ後に、この関数を定期的に呼ぶことで
+      接続や、 切断された際の再接続を行う。５秒に１回程度呼ぶようにしるとよい。</p></li>
+  <li><b>int vce_logwriter_printf( logwriter_t *w, const char *format, ... )</b>
+      <p>文字列をログサーバに書き出す。接続されていない場合は、
+      バッファリングされる。</p></li>
+  <li><b>int vce_logwriter_vprintf( logwriter_t *w, const char *format, va_list va )</b>
+      <p>vce_log_writer_printfのva_list版である。</p></li>
+</ul>
+
+<a name="logformat"></a>      
+<h2>VCE ログフォーマット</h2>
+<p>VCEログフォーマットは、VCE Log API でログを扱う場合のフォーマットである。
+各アプリケーションから流れてくるログを統括的に扱うためには、 ある程度フォーマット化されたログが必須である。VCEログフォーマットは、ネットワークゲームに特殊化されたログの解析を するためのフォーマットであり、以下のような、特徴を持つ。</p>
+<ul>
+  <li>高速である</li> 
+  <li>２次元位置データ、IPアドレス、ユーザーIDなどゲームに特殊化された検索</li> 
+  <li>人間にそのまま読めるフォーマットである(テキスト形式で、不用意に長くなったりしない) </li>
+  <li>アプリケーション側のプログラム負担が少ない</li> 
+</ul>
+
+<h3>フォーマット</h3>
+<pre>[day],[time],[type],[id],[name],[text]\n</pre>
+<ul>
+  <li>time: 時間を示す'YYYY/MM/DD hh:mm:ss.sss'という形式の文字列</li> 
+  <li>type: INFO, WARN などの種別を表す文字列(使える文字は[A-Za-z0-9_])</li> 
+  <li>id: IDを表す文字列(使える文字はスペース,",",改行以外の文字)</li> 
+  <li>name: キャラクター名前など表す文字列(使える文字はスペース,",",改行以外の文字)</li> 
+  <li>text: 自由な文字列</li> 
+</ul>
+<p>各項目は","で区切られ、
+0x1F以下のコード、および0x80以上のコードは、 \x** でエスケープされる。 </p>
+
+<h3>検索用キーフォーマット</h3>
+<p>また、検索用にtext部分には以下のような情報を出力する。出力は各アプリケーションが自分で行い、検索プログラムでそれを扱うようにする。 
+これは、従来のgrep等では、これらの検索はできない。もしくは、正規表現での表記に手間がかかるためである。</p> 
+<p>IPアドレスは、[192.168.0.1]または、[192.168.0.1:9999]のような形で表記する。<br>
+  rubyの正規表現表記は、/\[\d+\.\d+\.\d+\.\d+(:\d+)?\]/ <br>
+座標は、(xxx,yyy)または(xxx,yyy,zzz)のような形で表記する。</p>
+<!--  rubyの正規表現表記は、/\(\d+.,\d+\)/ -->
+
+<p>
+<br>
+<a href="../index.html">index に戻る</a>
+<br></p>
+
+<div id="footer">#COPYRIGHT#</div>
+
+</body>
+</html>
