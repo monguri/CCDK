@@ -347,7 +347,15 @@ int getCurrentConnNum() {
     if( g_enable_realtime ) vce_tcpcontext_get_stat( g_rtctx, &rtst );
     return dbst.current_conn + rtst.current_conn;
 }
-
+bool checkDataTopDir( const char *dirname ) {
+    Format f( "%s/00/00/_startup_test", dirname );
+    char data[4] = "abc";
+    if( writeFile(f.buf, data, sizeof(data), true ) == false ) {
+        print("checkDataTopDir: can't write data in '%s'", f.buf );
+        return false;
+    }
+    return true;
+}
 void printUsage() {
     print("Usage:");
     print("ssv realtime [OPTIONS]" );
@@ -406,6 +414,10 @@ int main( int argc, char **argv ) {
     vce_set_heartbeat_wait_flag(1);
     
     if( g_enable_database ) {
+        if(!checkDataTopDir( g_topdir )) {
+            print("Data directory not found: '%s'. Please make correct directories, use datadir/mkdir.rb.", g_topdir );
+            return 1;
+        }
         g_dbctx = vce_tcpcontext_create( 1, // server
                                          NULL, DBPORT, // addr, port
                                          g_maxcon, // maxcon
