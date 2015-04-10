@@ -8,15 +8,14 @@
 #include "util.h"
 #include "core.h"
 
-// 現在アクティブな接続の数 
+// Number of active connections
 int vce_conn_active_num =0 ;
-int vce_conn_mi = -1;   // miとなっているのは、array 用index
+int vce_conn_mi = -1;   // VCE's array index for connections
 
 
 
-static int to_break_heartbeat; // vce_conn_break_heartbeat用フラグ 
+static int to_break_heartbeat; // used in vce_conn_break_heartbeat, thread unsafe!
 
-//   1回だけやる初期化,解放
 int vce_conn_init_world( void ) {
     if( vce_limit.max_conn > 0 ){
         vce_conn_mi = vce_init_array( sizeof( conn ) , vce_limit.max_conn,"conn" );
@@ -75,18 +74,16 @@ void vce_conn_free3( conn *c) {
 
 }
 void vce_conn_free2( conn *c) {
-    /* conn_t 用ファイナライザを呼びだす */
     if( ((tcpcontext*)c->tcpc)->conn_finalizer ){
         conn_t tmpc;
         tmpc.p = c;
         tmpc.serial = c->serial;
-        VCE_ERROUT_V1( "vce_conn_free: calling finalizer serial: %d\n",
-                       c->serial );
+        VCE_ERROUT_V1( "vce_conn_free: calling finalizer serial: %d\n", c->serial );
         ((tcpcontext*)c->tcpc)->conn_finalizer( tmpc );
     }
     vce_conn_free3( c);
 }
-//  ユーザーに公開しない、コネクション解放関数
+/* not exposed to user */
 void vce_conn_free( conn *c, int closewatcher, CLOSE_REASON reason ) {
     if(c==0||c->serial==0)
         return;
@@ -95,11 +92,7 @@ void vce_conn_free( conn *c, int closewatcher, CLOSE_REASON reason ) {
         return;
     }
 
-    /* 最初に、 closewatcher を呼びだす。
-       closewatcher は、アプリケーションが connect()に成功したり、
-       accept() に成功したりして正しい conn_t が発生した場合だけ、
-       呼びだされるのだ。conn_free は使用される脈絡によって正しい場合と
-       正しくない場合があるから、こういう風にフラグをみるのだ。 */
+    /* closewatcher is called only after succeeding connect() or accept() and get valid connection */
     if( closewatcher && c->protocol_closewatcher ){
         conn_t ct;
         ct.p = c;
@@ -125,8 +118,7 @@ void vce_conn_close( conn_t ct ) {
         return;
     }
     if( c->closed_flag ){
-        VCE_ERROUT_V1( "vce_conn_close: already closed serial: %d\n",
-                       ct.serial );
+        VCE_ERROUT_V1( "vce_conn_close: already closed serial: %d\n", ct.serial );
         SET_LAST_ERROR(VCE_EALREADY);
         return;
     }
@@ -138,15 +130,13 @@ void vce_conn_close( conn_t ct ) {
 
 void vce_conn_userdata_set_pointer(conn_t ct,void *p) {
     conn *c = (conn*) ct.p;
-	if( !vce_conn_is_valid(ct))
-		return;
+	if( !vce_conn_is_valid(ct)) return;
 	c->userdata=p;
 }
 
 void*vce_conn_userdata_get_pointer(conn_t ct) {
     conn *c = (conn*) ct.p;
-	if( !vce_conn_is_valid(ct))
-		return NULL;
+	if( !vce_conn_is_valid(ct)) return NULL;
 	return c->userdata;
 }
 
@@ -257,13 +247,11 @@ write_phase:
         if(((tcpcontext*)(c->tcpc))->nonblock_connect &&
             c->nonblock_connect_ok == 0 ){
             c->nonblock_connect_ok = 1;
-			/* NODELAY をセット */
 			if( ((tcpcontext*)(c->tcpc))->nodelay ){
 				if( vce_socket_set_nodelay( c->fd ) < 0 ){
 					VCE_ERROUT1( FATAL_TCP_SETSOCKOPT_S, vce_get_os_errstr());
 				}
 			}
-            /* ここで，ローカルIPを保存する */
             c->local_addr_len = sizeof( c->local_addr);
             vce_socket_getsockname( c->fd,
                                     c->local_addr,
@@ -282,8 +270,6 @@ write_phase:
         if( writeret > 0 ){
             if( c->readwrite_callback ) c->readwrite_callback( ct, 1, writebuf, writeret );            
             vce_sbuf_shrink( &c->wb , NULL , writeret );
-            /* 書きこみ成功したときにタイムアウトを初期化するのは、
-               設定によるのだ。 */
             if(((tcpcontext*)c->tcpc)->send_reset_timeout ){
                 c->last_access = vce_global_time;
             }
@@ -313,10 +299,9 @@ write_phase:
 
 
   callback_phase:
-    /* こうやって1ループに1個しか処理させないのは平等のため。 */
+    /* To balance load between all connections */
     if( vce_sbuf_get_use( &c->rb ) > 0 ){
         if( !c->protocol_parser ){
-            /* parser がないぞう */
             VCE_ERROUT_V0( WARN_CONN_DOES_NOT_HAVE_PARSER );
         } else if( call_protoparser ){
             int pret, k;
@@ -350,8 +335,7 @@ int vce_conn_write( conn_t ct, char *b, size_t len ) {
 
     vce_usage_increment_conn_write(c);
     if( vce_log_read_write ){
-        VCE_ERROUT_V2("\nconn_write(serial:%d len:%d)\n",
-                      ct.serial, (int)len );
+        VCE_ERROUT_V2("\nconn_write(serial:%d len:%d)\n", ct.serial, (int)len );
     }
     return vce_sbuf_push( &c->wb, b, len );
 }
@@ -548,7 +532,6 @@ void vce_conn_close_tcpcontext_all( tcpcontext_t t ) {
     conn *cur;
     int count = 0;
     ARRAY_SCAN( vce_conn_mi, cur ){
-        /* ポインタの値が同じであれば十分 */
         if( (void*)cur->tcpc == (void*)t ){
             conn_t cont;
             cont.p = cur;
