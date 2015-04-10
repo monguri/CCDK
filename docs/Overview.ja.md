@@ -153,7 +153,7 @@ CCDKは、圧縮ファイルではなく、GitHubのgitレポジトリで配布�
 
 クローンするためのコマンドラインは
 <pre>
-git clone git@github.com/ShinraTech/CCDK
+git clone git@github.com:ShinraTech/CCDK
 </pre>
 
 です。クローンするだけでなく、自由にForkして活用することもできます。
