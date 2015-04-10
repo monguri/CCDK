@@ -7,4 +7,3 @@ setup:
 	cd externals/moyai; make server
 	cd backend; make
 	cd backend/datadir; ruby mkdir.rb
-	backend/ssv  # should print help
