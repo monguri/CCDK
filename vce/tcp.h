@@ -11,46 +11,46 @@
 
 /*************************************************************************
 
-  tcpcontext\‘¢‘ÌB ƒNƒ‰ƒCƒAƒ“ƒg‚ÆƒT[ƒo‚Ì—¼•û‚É‹¤’Ê‚ÌÅ¬Œö”{”İ’èB
+  tcpcontextæ§‹é€ ä½“ã€‚ ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã¨ã‚µãƒ¼ãƒã®ä¸¡æ–¹ã«å…±é€šã®æœ€å°å…¬å€æ•°è¨­å®šã€‚
 
  *************************************************************************/
 
 typedef struct _tcpcontext
 {
     int is_server;
-    int timeout_sec; // ƒfƒtƒHƒ‹ƒgƒ^ƒCƒ€ƒAƒEƒg 
-    int max_conn;  // ‚±‚ÌƒT[ƒo[‚ÌÅ‘åÚ‘±” 
+    int timeout_sec; // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆ 
+    int max_conn;  // ã“ã®ã‚µãƒ¼ãƒãƒ¼ã®æœ€å¤§æ¥ç¶šæ•° 
 	int conn_in_use;
 
-    /* r/w buffer ‚Ì’·‚³(per conn)B–¢‰ğ“Ç/ˆÃ†‰»Ï‚İ‚Ìƒf[ƒ^—p‚à‚Ü‚Á‚½‚­“¯‚¶ƒTƒCƒY‚ğ—pˆÓ‚·‚éB */
+    /* r/w buffer ã®é•·ã•(per conn)ã€‚æœªè§£èª­/æš—å·åŒ–æ¸ˆã¿ã®ãƒ‡ãƒ¼ã‚¿ç”¨ã‚‚ã¾ã£ãŸãåŒã˜ã‚µã‚¤ã‚ºã‚’ç”¨æ„ã™ã‚‹ã€‚ */
     size_t rblen,erblen;
     size_t wblen,ewblen;
 
-	/* ó‘ÔŠÇ——pƒoƒbƒtƒ@BVEC‚Élinkage ‚³‚ê‚½‚çA”‚ª•Ï‰»‚·‚é‚Ì‚ÅA
-	   ˆê’U‰ğ•ú‚µ‚ÄA‚Ü‚½Š„‚è‚ ‚Ä‚È‚¨‚·B(ƒgƒŠƒbƒL[‚¾‚ª‚Ë) */
+	/* çŠ¶æ…‹ç®¡ç†ç”¨ãƒãƒƒãƒ•ã‚¡ã€‚VECã«linkage ã•ã‚ŒãŸã‚‰ã€æ•°ãŒå¤‰åŒ–ã™ã‚‹ã®ã§ã€
+	   ä¸€æ—¦è§£æ”¾ã—ã¦ã€ã¾ãŸå‰²ã‚Šã‚ã¦ãªãŠã™ã€‚(ãƒˆãƒªãƒƒã‚­ãƒ¼ã ãŒã­) */
 	size_t statebuf_size;
-	int statebuf_mi;     /* ”z—ñ */
-	int statebuf_num;    /* ŒÂ” */
+	int statebuf_mi;     /* é…åˆ— */
+	int statebuf_num;    /* å€‹æ•° */
 
 
 	int rbmaster_mi, wbmaster_mi, erbmaster_mi, ewbmaster_mi;
 
 
-	/* ƒg[ƒ^ƒ‹‚Ì“Ç‚İ/‘‚«/accept ‚È‚Ç‚Ì‰ñ” */
+	/* ãƒˆãƒ¼ã‚¿ãƒ«ã®èª­ã¿/æ›¸ã/accept ãªã©ã®å›æ•° */
 	VCEI64 recv_byte,send_byte,keyex_count;
-	/* ƒVƒXƒeƒ€ƒR[ƒ‹‚Ì‰ñ” */
+	/* ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒ¼ãƒ«ã®å›æ•° */
 	VCEI64 recv_syscall, recv_syscall_e;
 	VCEI64 send_syscall, send_syscall_e;
 	VCEI64 accept_syscall, accept_syscall_e;
 	VCEI64 connect_syscall, connect_syscall_e;
 
-    /* VCE‚ÌƒCƒxƒ“ƒg‰ñ” */
+    /* VCEã®ã‚¤ãƒ™ãƒ³ãƒˆå›æ•° */
 	VCEI64 conn_write,conn_timeout,tcpcontext_connect;
 
-    /* bind ‚·‚éƒAƒhƒŒƒXAƒT[ƒo‚Ìê‡‚Ì‚İ */
+    /* bind ã™ã‚‹ã‚¢ãƒ‰ãƒ¬ã‚¹ã€ã‚µãƒ¼ãƒã®å ´åˆã®ã¿ */
     struct sockaddr_in sa;
 
-	/* ˆê•ª‚ ‚½‚è‚Ìaccept‹–—e—Ê */
+	/* ä¸€åˆ†ã‚ãŸã‚Šã®acceptè¨±å®¹é‡ */
 	int accept_count,accept_max;
 	VCEI64 accept_lasttime;
 	int (*accept_warning)(tcpcontext_t t);
@@ -62,40 +62,40 @@ typedef struct _tcpcontext
 	unsigned short ps_mainport;
 	unsigned short ps_subport;
     
-    int accept_more; // ¡Œãaccept‚·‚é‚©‚Ç‚¤‚©BƒT[ƒo‚Ìê‡‚Ì‚İ
-    int mainsock; // bind—psocket(ƒT[ƒo‚Ìê‡) 
-    int index;    // tcpcontext ‚Ì’†‚Ìindex
-    int nonblock_connect;    // client connect‚ªƒuƒƒbƒN‚·‚é‚©
-	int nodelay; // ƒ\ƒPƒbƒg‚ğNODELAY‚É‚·‚é
+    int accept_more; // ä»Šå¾Œacceptã™ã‚‹ã‹ã©ã†ã‹ã€‚ã‚µãƒ¼ãƒã®å ´åˆã®ã¿
+    int mainsock; // bindç”¨socket(ã‚µãƒ¼ãƒã®å ´åˆ) 
+    int index;    // tcpcontext ã®ä¸­ã®index
+    int nonblock_connect;    // client connectãŒãƒ–ãƒ­ãƒƒã‚¯ã™ã‚‹ã‹
+	int nodelay; // ã‚½ã‚±ãƒƒãƒˆã‚’NODELAYã«ã™ã‚‹
 
     int ( *protocol_parser ) ( conn_t );
 
-	int ( *protocol_acceptwatcher ) ( conn_t ); /* accept ‚µ‚½‚Æ‚«‚Ì”½‰ */
+	int ( *protocol_acceptwatcher ) ( conn_t ); /* accept ã—ãŸã¨ãã®åå¿œ */
     int ( *protocol_hiwater_acceptwatcher ) (conn_t,int);
-	int ( *protocol_closewatcher ) ( conn_t,CLOSE_REASON r );/*close‚µ‚½‚Æ‚« */
+	int ( *protocol_closewatcher ) ( conn_t,CLOSE_REASON r );/*closeã—ãŸã¨ã */
     
-	int ( *pcallback)(conn_t,char*, int);  // ƒp[ƒT‚ªŒÄ‚Ñ‚¾‚·‚±[‚é‚Î‚Á‚­ŠÖ” 
+	int ( *pcallback)(conn_t,char*, int);  // ãƒ‘ãƒ¼ã‚µãŒå‘¼ã³ã ã™ã“ãƒ¼ã‚‹ã°ã£ãé–¢æ•° 
 
 	void (*conn_finalizer)(conn_t);
 
 
-    /* Ú‘±”‚Ì hiwater ‚ğf’f‚·‚é‚½‚ß‚Ì‚µ‚«‚¢’l */
+    /* æ¥ç¶šæ•°ã® hiwater ã‚’è¨ºæ–­ã™ã‚‹ãŸã‚ã®ã—ãã„å€¤ */
     int conn_hiwater_thres;
 
-    /* exploit‘ÎôAbin16ƒp[ƒT‚Å‚ÌÅ‘å’lİ’è*/
-	/* tcpcontext‚©‚çó‚¯æ‚é */
+    /* exploitå¯¾ç­–ã€bin16ãƒ‘ãƒ¼ã‚µã§ã®æœ€å¤§å€¤è¨­å®š*/
+	/* tcpcontextã‹ã‚‰å—ã‘å–ã‚‹ */
 	int (*maxlen_warning)(conn_t ct);
 	int maxlen_record;
 
-	/* conn ‚ÌƒVƒŠƒAƒ‹”Ô†‚ÌÅ‘åBƒ[ƒ‚¾‚Á‚½‚çA
-       serial ‚ÌÅ‘å’l‚ÌƒRƒ“ƒgƒ[ƒ‹‚Í‚µ‚È‚¢(Default) */
+	/* conn ã®ã‚·ãƒªã‚¢ãƒ«ç•ªå·ã®æœ€å¤§ã€‚ã‚¼ãƒ­ã ã£ãŸã‚‰ã€
+       serial ã®æœ€å¤§å€¤ã®ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã¯ã—ãªã„(Default) */
     unsigned int conn_serial_max;
 
-    /* 1 heartbeat ‚É‰½‰ñ parser ‚ğŒÄ‚Ô‚©BƒfƒtƒHƒ‹ƒg‚Í 1 */
+    /* 1 heartbeat ã«ä½•å› parser ã‚’å‘¼ã¶ã‹ã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ 1 */
     int call_parser_per_loop;
 
-	/* ‘‚«‚±‚İ¬Œ÷‚Å‚àƒ^ƒCƒ€ƒAƒEƒgƒJƒEƒ“ƒ^‚ğ‰Šú‰»‚·‚é‚È‚çA
-       ‚±‚Ìƒtƒ‰ƒO‚ğ1‚É‚·‚éB’Êí‚Í0‚Å‚¢‚¢ */
+	/* æ›¸ãã“ã¿æˆåŠŸã§ã‚‚ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã‚«ã‚¦ãƒ³ã‚¿ã‚’åˆæœŸåŒ–ã™ã‚‹ãªã‚‰ã€
+       ã“ã®ãƒ•ãƒ©ã‚°ã‚’1ã«ã™ã‚‹ã€‚é€šå¸¸ã¯0ã§ã„ã„ */
     int recv_reset_timeout, send_reset_timeout;
 
 } tcpcontext;

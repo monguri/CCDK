@@ -8,15 +8,15 @@
 #include "util.h"
 #include "core.h"
 
-// Œ»ÝƒAƒNƒeƒBƒu‚ÈÚ‘±‚Ì” 
+// ç¾åœ¨ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªæŽ¥ç¶šã®æ•° 
 int vce_conn_active_num =0 ;
-int vce_conn_mi = -1;   // mi‚Æ‚È‚Á‚Ä‚¢‚é‚Ì‚ÍAarray —pindex
+int vce_conn_mi = -1;   // miã¨ãªã£ã¦ã„ã‚‹ã®ã¯ã€array ç”¨index
 
 
 
-static int to_break_heartbeat; // vce_conn_break_heartbeat—pƒtƒ‰ƒO 
+static int to_break_heartbeat; // vce_conn_break_heartbeatç”¨ãƒ•ãƒ©ã‚° 
 
-//   1‰ñ‚¾‚¯‚â‚é‰Šú‰»,‰ð•ú
+//   1å›žã ã‘ã‚„ã‚‹åˆæœŸåŒ–,è§£æ”¾
 int vce_conn_init_world( void ) {
     if( vce_limit.max_conn > 0 ){
         vce_conn_mi = vce_init_array( sizeof( conn ) , vce_limit.max_conn,"conn" );
@@ -75,7 +75,7 @@ void vce_conn_free3( conn *c) {
 
 }
 void vce_conn_free2( conn *c) {
-    /* conn_t —pƒtƒ@ƒCƒiƒ‰ƒCƒU‚ðŒÄ‚Ñ‚¾‚· */
+    /* conn_t ç”¨ãƒ•ã‚¡ã‚¤ãƒŠãƒ©ã‚¤ã‚¶ã‚’å‘¼ã³ã ã™ */
     if( ((tcpcontext*)c->tcpc)->conn_finalizer ){
         conn_t tmpc;
         tmpc.p = c;
@@ -86,7 +86,7 @@ void vce_conn_free2( conn *c) {
     }
     vce_conn_free3( c);
 }
-//  ƒ†[ƒU[‚ÉŒöŠJ‚µ‚È‚¢AƒRƒlƒNƒVƒ‡ƒ“‰ð•úŠÖ”
+//  ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«å…¬é–‹ã—ãªã„ã€ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³è§£æ”¾é–¢æ•°
 void vce_conn_free( conn *c, int closewatcher, CLOSE_REASON reason ) {
     if(c==0||c->serial==0)
         return;
@@ -95,11 +95,11 @@ void vce_conn_free( conn *c, int closewatcher, CLOSE_REASON reason ) {
         return;
     }
 
-    /* Å‰‚ÉA closewatcher ‚ðŒÄ‚Ñ‚¾‚·B
-       closewatcher ‚ÍAƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª connect()‚É¬Œ÷‚µ‚½‚èA
-       accept() ‚É¬Œ÷‚µ‚½‚è‚µ‚Ä³‚µ‚¢ conn_t ‚ª”­¶‚µ‚½ê‡‚¾‚¯A
-       ŒÄ‚Ñ‚¾‚³‚ê‚é‚Ì‚¾Bconn_free ‚ÍŽg—p‚³‚ê‚é–¬—‚É‚æ‚Á‚Ä³‚µ‚¢ê‡‚Æ
-       ³‚µ‚­‚È‚¢ê‡‚ª‚ ‚é‚©‚çA‚±‚¤‚¢‚¤•—‚Éƒtƒ‰ƒO‚ð‚Ý‚é‚Ì‚¾B */
+    /* æœ€åˆã«ã€ closewatcher ã‚’å‘¼ã³ã ã™ã€‚
+       closewatcher ã¯ã€ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒ connect()ã«æˆåŠŸã—ãŸã‚Šã€
+       accept() ã«æˆåŠŸã—ãŸã‚Šã—ã¦æ­£ã—ã„ conn_t ãŒç™ºç”Ÿã—ãŸå ´åˆã ã‘ã€
+       å‘¼ã³ã ã•ã‚Œã‚‹ã®ã ã€‚conn_free ã¯ä½¿ç”¨ã•ã‚Œã‚‹è„ˆçµ¡ã«ã‚ˆã£ã¦æ­£ã—ã„å ´åˆã¨
+       æ­£ã—ããªã„å ´åˆãŒã‚ã‚‹ã‹ã‚‰ã€ã“ã†ã„ã†é¢¨ã«ãƒ•ãƒ©ã‚°ã‚’ã¿ã‚‹ã®ã ã€‚ */
     if( closewatcher && c->protocol_closewatcher ){
         conn_t ct;
         ct.p = c;
@@ -257,13 +257,13 @@ write_phase:
         if(((tcpcontext*)(c->tcpc))->nonblock_connect &&
             c->nonblock_connect_ok == 0 ){
             c->nonblock_connect_ok = 1;
-			/* NODELAY ‚ðƒZƒbƒg */
+			/* NODELAY ã‚’ã‚»ãƒƒãƒˆ */
 			if( ((tcpcontext*)(c->tcpc))->nodelay ){
 				if( vce_socket_set_nodelay( c->fd ) < 0 ){
 					VCE_ERROUT1( FATAL_TCP_SETSOCKOPT_S, vce_get_os_errstr());
 				}
 			}
-            /* ‚±‚±‚ÅCƒ[ƒJƒ‹IP‚ð•Û‘¶‚·‚é */
+            /* ã“ã“ã§ï¼Œãƒ­ãƒ¼ã‚«ãƒ«IPã‚’ä¿å­˜ã™ã‚‹ */
             c->local_addr_len = sizeof( c->local_addr);
             vce_socket_getsockname( c->fd,
                                     c->local_addr,
@@ -282,8 +282,8 @@ write_phase:
         if( writeret > 0 ){
             if( c->readwrite_callback ) c->readwrite_callback( ct, 1, writebuf, writeret );            
             vce_sbuf_shrink( &c->wb , NULL , writeret );
-            /* ‘‚«‚±‚Ý¬Œ÷‚µ‚½‚Æ‚«‚Éƒ^ƒCƒ€ƒAƒEƒg‚ð‰Šú‰»‚·‚é‚Ì‚ÍA
-               Ý’è‚É‚æ‚é‚Ì‚¾B */
+            /* æ›¸ãã“ã¿æˆåŠŸã—ãŸã¨ãã«ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹ã®ã¯ã€
+               è¨­å®šã«ã‚ˆã‚‹ã®ã ã€‚ */
             if(((tcpcontext*)c->tcpc)->send_reset_timeout ){
                 c->last_access = vce_global_time;
             }
@@ -313,10 +313,10 @@ write_phase:
 
 
   callback_phase:
-    /* ‚±‚¤‚â‚Á‚Ä1ƒ‹[ƒv‚É1ŒÂ‚µ‚©ˆ—‚³‚¹‚È‚¢‚Ì‚Í•½“™‚Ì‚½‚ßB */
+    /* ã“ã†ã‚„ã£ã¦1ãƒ«ãƒ¼ãƒ—ã«1å€‹ã—ã‹å‡¦ç†ã•ã›ãªã„ã®ã¯å¹³ç­‰ã®ãŸã‚ã€‚ */
     if( vce_sbuf_get_use( &c->rb ) > 0 ){
         if( !c->protocol_parser ){
-            /* parser ‚ª‚È‚¢‚¼‚¤ */
+            /* parser ãŒãªã„ãžã† */
             VCE_ERROUT_V0( WARN_CONN_DOES_NOT_HAVE_PARSER );
         } else if( call_protoparser ){
             int pret, k;
@@ -548,7 +548,7 @@ void vce_conn_close_tcpcontext_all( tcpcontext_t t ) {
     conn *cur;
     int count = 0;
     ARRAY_SCAN( vce_conn_mi, cur ){
-        /* ƒ|ƒCƒ“ƒ^‚Ì’l‚ª“¯‚¶‚Å‚ ‚ê‚Î\•ª */
+        /* ãƒã‚¤ãƒ³ã‚¿ã®å€¤ãŒåŒã˜ã§ã‚ã‚Œã°ååˆ† */
         if( (void*)cur->tcpc == (void*)t ){
             conn_t cont;
             cont.p = cur;

@@ -25,18 +25,18 @@ int vce_sbuf_is_valid( sbuf *s ) {
 }
 
 /*
-  sbuf ‚Épush‚·‚éB
-  append‚Å‚«‚½’·‚³‚ğ•Ô‚·B
+  sbuf ã«pushã™ã‚‹ã€‚
+  appendã§ããŸé•·ã•ã‚’è¿”ã™ã€‚
 
-  ƒoƒO‚Á‚Ä‚¢‚éê‡‚Í—‚¿‚Ä‚Ù‚µ‚¢‚Ì‚ÅAƒoƒOƒ`ƒFƒbƒN‚Í‚µ‚È‚¢‚¼
+  ãƒã‚°ã£ã¦ã„ã‚‹å ´åˆã¯è½ã¡ã¦ã»ã—ã„ã®ã§ã€ãƒã‚°ãƒã‚§ãƒƒã‚¯ã¯ã—ãªã„ã
 
-  VCE‚É“Á’¥“I‚È‹@”\‚Æ‚µ‚ÄAw’è‚³‚ê‚½—Ê‚Ìƒf[ƒ^‚ğ append ‚Å‚«‚È‚©‚Á‚½ê‡‚ÍA
-  ’†“r”¼’[‚Èƒf[ƒ^‚ğ‘‚«‚±‚Ü‚¸ƒGƒ‰[‚ğ•Ô‚·B
-  ‚±‚ê‚ÍŠî–{“I‚ÈƒXƒ^ƒ“ƒX‚Å‚ ‚éB
+  VCEã«ç‰¹å¾´çš„ãªæ©Ÿèƒ½ã¨ã—ã¦ã€æŒ‡å®šã•ã‚ŒãŸé‡ã®ãƒ‡ãƒ¼ã‚¿ã‚’ append ã§ããªã‹ã£ãŸå ´åˆã¯ã€
+  ä¸­é€”åŠç«¯ãªãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãã“ã¾ãšã‚¨ãƒ©ãƒ¼ã‚’è¿”ã™ã€‚
+  ã“ã‚Œã¯åŸºæœ¬çš„ãªã‚¹ã‚¿ãƒ³ã‚¹ã§ã‚ã‚‹ã€‚
   
  */
 int vce_sbuf_push( sbuf *s, char *p , size_t pl ) {
-    /* ‚±‚Ìrest‚ÍAŒã”¼‚É‚ ‚éc‚è‚ËB‘S‘Ì‚Ìc‚è‚Å‚Í‚È‚¢‚æ */
+    /* ã“ã®restã¯ã€å¾ŒåŠã«ã‚ã‚‹æ®‹ã‚Šã­ã€‚å…¨ä½“ã®æ®‹ã‚Šã§ã¯ãªã„ã‚ˆ */
     int rest =(int)s->len - s->end;
 	if(pl==0)
 		return 0;
@@ -46,7 +46,7 @@ int vce_sbuf_push( sbuf *s, char *p , size_t pl ) {
 		SET_LAST_ERROR(0);
         return (int)pl;
     }
-    /* c‚è‚Ì•”•ª‚É‚»‚Ì‚Ü‚Ü‘«‚¹‚È‚¢ê‡‚Í‚¸‚ç‚µ‚Ä‚à‚¤‚¢‚¿‚Ç‚µ‚ç‚×‚é */
+    /* æ®‹ã‚Šã®éƒ¨åˆ†ã«ãã®ã¾ã¾è¶³ã›ãªã„å ´åˆã¯ãšã‚‰ã—ã¦ã‚‚ã†ã„ã¡ã©ã—ã‚‰ã¹ã‚‹ */
     memmove( s->buf, s->buf + s->start , s->end - s->start );
     s->end -= s->start;
     s->start = 0;
@@ -63,13 +63,13 @@ int vce_sbuf_push( sbuf *s, char *p , size_t pl ) {
 }
 
 /*
-  sbuf ‚Ì‘O‚ğí‚è‚¾‚·(shrink)
+  sbuf ã®å‰ã‚’å‰Šã‚Šã ã™(shrink)
 
-  char *out: o—Íƒoƒbƒtƒ@
-  size_t outl : ‚»‚Ì‚³‚¢‚¸
+  char *out: å‡ºåŠ›ãƒãƒƒãƒ•ã‚¡
+  size_t outl : ãã®ã•ã„ãš
 
-  ƒRƒs[‚Å‚«‚½’·‚³‚ğ‚©‚¦‚·B
-  out ‚ÉNULL‚ğ‚¢‚ê‚é‚ÆAƒRƒs[‚µ‚È‚¢
+  ã‚³ãƒ”ãƒ¼ã§ããŸé•·ã•ã‚’ã‹ãˆã™ã€‚
+  out ã«NULLã‚’ã„ã‚Œã‚‹ã¨ã€ã‚³ãƒ”ãƒ¼ã—ãªã„
  */
 int vce_sbuf_shrink( sbuf *s, char *out, size_t outl ) {
     int cplen;
@@ -85,15 +85,15 @@ int vce_sbuf_shrink( sbuf *s, char *out, size_t outl ) {
 	SET_LAST_ERROR(0);
     return cplen;
 }
-/* c‚èƒoƒbƒtƒ@’·‚ğ‚©‚¦‚· */
+/* æ®‹ã‚Šãƒãƒƒãƒ•ã‚¡é•·ã‚’ã‹ãˆã™ */
 int vce_sbuf_get_rest( sbuf *s ) {
 	int r;
-    /* ‘O‚ÆŒã‚É‹ó‚«‚ª‚ ‚è‚¤‚é‚©‚çBpush‚Ì‚Æ‚«‚É‹l‚Ü‚é‚Ë */
+    /* å‰ã¨å¾Œã«ç©ºããŒã‚ã‚Šã†ã‚‹ã‹ã‚‰ã€‚pushã®ã¨ãã«è©°ã¾ã‚‹ã­ */
 	SET_LAST_ERROR(0);
     r =  ( (int)s->len - s->end ) + ( s->start - 0 ) ;
 	return r;
 }
-/* g—p’†‚Ìƒf[ƒ^’·‚ğ•Ô‚· */
+/* ä½¿ç”¨ä¸­ã®ãƒ‡ãƒ¼ã‚¿é•·ã‚’è¿”ã™ */
 int vce_sbuf_get_use( sbuf *s ) {
 	SET_LAST_ERROR(0);
     return s->end - s->start;

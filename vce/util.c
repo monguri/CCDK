@@ -8,7 +8,7 @@ static void * (*vce_internal_malloc_func)(size_t) = malloc;
 static void * (*vce_internal_realloc_func)(void*,size_t) = realloc;
 void (*vce_internal_free_func)(void*) = free;
 
-//  ƒAƒ‹ƒtƒ@ƒxƒbƒg‚©‚ç”’l‚É‚·‚é
+//  ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆã‹ã‚‰æ•°å€¤ã«ã™ã‚‹
 static int getbinhex( int c ) {
     switch(c){
     case '0': return 0;
@@ -114,7 +114,7 @@ int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int l
     }
 	for( i = 0; i < len; i++ ){
 		if( (so_far + 2) >= outlen ) return SET_LAST_ERROR( VCE_EFULL );
-        /* ‚‘¬‰»‚Å‚«‚é PENDING */
+        /* é«˜é€ŸåŒ–ã§ãã‚‹ PENDING */
 		vce_snprintf( out + so_far ,3, "%02x" , buf[i] & 0xff );
 		so_far += 2;
         if( folding ){
@@ -220,7 +220,7 @@ void VCEFREE( void *p ) {
 
 
 
-// ipv4 ‚Ì•¶š—ñ 192.168.1.2 ‚İ‚½‚¢‚Ì‚ğNBƒoƒCƒg—ñ‚©‚çì‚é
+// ipv4 ã®æ–‡å­—åˆ— 192.168.1.2 ã¿ãŸã„ã®ã‚’NBãƒã‚¤ãƒˆåˆ—ã‹ã‚‰ä½œã‚‹
 char * vce_make_ipv4_dot_notation( const char *b, int len, char *work, int worklen ) {
 	if( len != 4 ){
 		vce_snprintf(work,worklen,"ERROR");
@@ -232,7 +232,7 @@ char * vce_make_ipv4_dot_notation( const char *b, int len, char *work, int workl
 	return work;
 }
 
-// ipv6 ‚Ì•¶š—ñ 0:0:0:134:143:8a:.. ‚İ‚½‚¢‚Ì‚ğ16ƒoƒCƒg‚Ì NB ƒoƒCƒg—ñ‚©‚ç‚Â‚­‚é
+// ipv6 ã®æ–‡å­—åˆ— 0:0:0:134:143:8a:.. ã¿ãŸã„ã®ã‚’16ãƒã‚¤ãƒˆã® NB ãƒã‚¤ãƒˆåˆ—ã‹ã‚‰ã¤ãã‚‹
 char * vce_make_ipv6_dot_notation( const char *b, int len, char *work, int worklen ) {
 	if( len != 16 ){
 		vce_snprintf( work, worklen, "ERROR" );
@@ -272,8 +272,8 @@ void vce_replace_malloc_funcs( void* (*a)(size_t), void* (*r)(void*,size_t), voi
 }
 
 /*
-  Locale ‚Ìˆ—‚È‚Ç‚ğˆêØ‚µ‚È‚¢ tolower. locale‚È‚Ç‚Ìˆ—‚Í–Ú“Iã
-  ‚Ü‚Á‚½‚­—v‚ç‚È‚¢B
+  Locale ã®å‡¦ç†ãªã©ã‚’ä¸€åˆ‡ã—ãªã„ tolower. localeãªã©ã®å‡¦ç†ã¯ç›®çš„ä¸Š
+  ã¾ã£ãŸãè¦ã‚‰ãªã„ã€‚
   
 */
 int tolower_direct( int c ) {

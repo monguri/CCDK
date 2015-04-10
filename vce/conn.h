@@ -6,43 +6,43 @@
 #include "osdep.h"
 
 
-//  TCPƒRƒlƒNƒVƒ‡ƒ“1–{‚ğ•\Œ»‚·‚é 
+//  TCPã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³1æœ¬ã‚’è¡¨ç¾ã™ã‚‹ 
 typedef struct _conn {
     int fd;
 
-	/* closed flagB close ‚ğŒÄ‚Ñ‚¾‚µ‚½‚ç‚±‚Ìƒtƒ‰ƒO‚ª1‚É‚È‚èA
-	   ƒ`ƒFƒbƒN‚Ì‚Æ‚«‚É‚±‚Ìƒtƒ‰ƒO‚ª1‚¾‚Á‚½‚çÀÛ‚É close ‚³‚ê‚éB
-       ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª”\“®“I‚É close ‚ğŒÄ‚Ñ‚¾‚µ‚½‚Æ‚«‚¾‚¯A
-       ‚±‚Ìƒtƒ‰ƒO‚ªg‚í‚êAó“®“I‚É•Â‚¶‚ç‚ê‚éê‡‚Í’¼Ú conn_free ‚ªg‚í‚ê‚éB
+	/* closed flagã€‚ close ã‚’å‘¼ã³ã ã—ãŸã‚‰ã“ã®ãƒ•ãƒ©ã‚°ãŒ1ã«ãªã‚Šã€
+	   ãƒã‚§ãƒƒã‚¯ã®ã¨ãã«ã“ã®ãƒ•ãƒ©ã‚°ãŒ1ã ã£ãŸã‚‰å®Ÿéš›ã« close ã•ã‚Œã‚‹ã€‚
+       ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒèƒ½å‹•çš„ã« close ã‚’å‘¼ã³ã ã—ãŸã¨ãã ã‘ã€
+       ã“ã®ãƒ•ãƒ©ã‚°ãŒä½¿ã‚ã‚Œã€å—å‹•çš„ã«é–‰ã˜ã‚‰ã‚Œã‚‹å ´åˆã¯ç›´æ¥ conn_free ãŒä½¿ã‚ã‚Œã‚‹ã€‚
     */
 	int closed_flag;
 
-	/* ƒmƒ“ƒuƒƒbƒLƒ“ƒO connect ‚Ì connect ‚ªI—¹‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒOB
-	   tcpcontext ‚Ì nonblock_connect ‚ª 1 ‚Å‚È‚¢‚Æ‚«‚Í‚±‚Ì•Ï”‚Íg‚í‚ê‚È‚¢ */
+	/* ãƒãƒ³ãƒ–ãƒ­ãƒƒã‚­ãƒ³ã‚° connect ã® connect ãŒçµ‚äº†ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã€‚
+	   tcpcontext ã® nonblock_connect ãŒ 1 ã§ãªã„ã¨ãã¯ã“ã®å¤‰æ•°ã¯ä½¿ã‚ã‚Œãªã„ */
 	int nonblock_connect_ok;
 
-    // accept/connect ‚µ‚½‚Æ‚«‚É‚í‚©‚éƒAƒhƒŒƒX 
-	char remote_addr[16]; // ipv4 ‚Ìê‡‚Íæ“ª‚Ì4ƒoƒCƒg‚É NBOrder ‚ÅB ipv6 ‚Ìê‡‚Í‘S‘Ì‚É NBOrder 
-	int remote_addr_len; // ipv4 ‚È‚ç4A ipv6 ‚È‚ç 16 
+    // accept/connect ã—ãŸã¨ãã«ã‚ã‹ã‚‹ã‚¢ãƒ‰ãƒ¬ã‚¹ 
+	char remote_addr[16]; // ipv4 ã®å ´åˆã¯å…ˆé ­ã®4ãƒã‚¤ãƒˆã« NBOrder ã§ã€‚ ipv6 ã®å ´åˆã¯å…¨ä½“ã« NBOrder 
+	int remote_addr_len; // ipv4 ãªã‚‰4ã€ ipv6 ãªã‚‰ 16 
 	unsigned short remote_port; // network byte order
 	char local_addr[16];
 	int local_addr_len;
 	unsigned short local_port;
     
-    time_t last_access; // ÅŒã‚ÉƒAƒNƒZƒX‚ª‚ ‚Á‚½
-    int timeout_sec;  // ƒ^ƒCƒ€ƒAƒEƒg‚Ìİ’è
+    time_t last_access; // æœ€å¾Œã«ã‚¢ã‚¯ã‚»ã‚¹ãŒã‚ã£ãŸæ™‚åˆ»
+    int timeout_sec;  // ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã®è¨­å®š
 
 	sbuf rb,wb;
 
-    void *tcpc; // tcpcontext‚Ö‚Ìptr
+    void *tcpc; // tcpcontextã¸ã®ptr
 
     int is_server;
     
-    int index; // conn”z—ñ‚Ì’†‚Ì index 
+    int index; // conné…åˆ—ã®ä¸­ã® index 
 	void *userdata; // additional userdata pointer 
-	char *statebuf; // ó‘ÔŠÇ—ƒoƒbƒtƒ@(tcpcontext‚Ìmi‚©‚ç‚Æ‚éƒ|ƒCƒ“ƒ^
-	size_t statebuf_size; // tcpcontext‚ÌƒRƒs[ 
-	int statebuf_mi; // tcpcontext‚ÌƒRƒs[ 
+	char *statebuf; // çŠ¶æ…‹ç®¡ç†ãƒãƒƒãƒ•ã‚¡(tcpcontextã®miã‹ã‚‰ã¨ã‚‹ãƒã‚¤ãƒ³ã‚¿
+	size_t statebuf_size; // tcpcontextã®ã‚³ãƒ”ãƒ¼ 
+	int statebuf_mi; // tcpcontextã®ã‚³ãƒ”ãƒ¼ 
 
     int ( *protocol_parser ) ( conn_t );
 
@@ -50,18 +50,18 @@ typedef struct _conn {
     int ( *protocol_hiwater_acceptwatcher ) (conn_t, int);
 	int ( *protocol_closewatcher ) ( conn_t, CLOSE_REASON r );
 
-	int ( *pcallback)(conn_t,char*,int);	// ƒvƒƒgƒRƒ‹ƒR[ƒ‹ƒoƒbƒNŠÖ” 
+	int ( *pcallback)(conn_t,char*,int);	// ãƒ—ãƒ­ãƒˆã‚³ãƒ«ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•° 
 	
-	unsigned int serial;  // ©•ª©g‚ÌƒVƒŠƒAƒ‹”Ô† 
+	unsigned int serial;  // è‡ªåˆ†è‡ªèº«ã®ã‚·ãƒªã‚¢ãƒ«ç•ªå· 
 
 
-    /* exploit‘ÎôAbin16ƒp[ƒT‚Å‚ÌÅ‘å’lİ’è */
-	/* tcpcontext‚©‚çó‚¯æ‚é */
+    /* exploitå¯¾ç­–ã€bin16ãƒ‘ãƒ¼ã‚µã§ã®æœ€å¤§å€¤è¨­å®š */
+	/* tcpcontextã‹ã‚‰å—ã‘å–ã‚‹ */
 	int (*maxlen_warning)(conn_t ct);
 	int maxlen_record;
 
 
-	/* “Œvî•ñ */
+	/* çµ±è¨ˆæƒ…å ± */
     VCEI64 recv_byte, send_byte, conn_write;
     VCEI64 recv_syscall, send_syscall;
 

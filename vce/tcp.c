@@ -14,10 +14,10 @@
 int vce_tcpcontext_mi = -1;
 
 
-// select ‚Ìƒ^ƒCƒ€ƒAƒEƒg’²® 
+// select ã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆèª¿æ•´ 
 int vce_select_timeout_us = 0;
 int vce_fdwrap_select_nfds = -1;
-int vce_select_timeout_flag = 0; // 1:select ‚Ìƒ^ƒCƒ€ƒAƒEƒg‚ð‚·‚é
+int vce_select_timeout_flag = 0; // 1:select ã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã‚’ã™ã‚‹
 
 int vce_tcpcontext_init_world( void ) {
     if( vce_limit.max_tcpcontext > 0 ){
@@ -33,8 +33,8 @@ int vce_tcpcontext_fin_world(void) {
     return 0;
 }
 
-//   ‚ ‚½‚ç‚µ‚¢conn‚ÌƒVƒŠƒAƒ‹”Ô†‚ð“¾‚é
-static unsigned int vce_conn_serial = 0; //serial‚ÌƒCƒ“ƒNƒŠƒƒ“ƒg—p
+//   ã‚ãŸã‚‰ã—ã„connã®ã‚·ãƒªã‚¢ãƒ«ç•ªå·ã‚’å¾—ã‚‹
+static unsigned int vce_conn_serial = 0; //serialã®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆç”¨
 int vce_tcpcontext_get_next_conn_serial() {
     vce_conn_serial++;
     if( vce_conn_serial == 0 ){
@@ -123,7 +123,7 @@ tcpcontext_t  vce_tcpcontext_create(
             return NULL;
         }
 
-        /* reuseaddr ‚ðÝ’è‚·‚é */
+        /* reuseaddr ã‚’è¨­å®šã™ã‚‹ */
         if( vce_socket_set_reuseaddr( t->mainsock ) < 0 ){
             VCE_ERROUT1( FATAL_TCP_SETSOCKOPT_REUSE_S , vce_get_os_errstr());
             vce_free_array_object( vce_tcpcontext_mi, t );
@@ -158,12 +158,12 @@ tcpcontext_t  vce_tcpcontext_create(
         }
     }
 
-    /* ó‘ÔŠÇ——pƒoƒbƒtƒ@‰Šú‰»B */
+    /* çŠ¶æ…‹ç®¡ç†ç”¨ãƒãƒƒãƒ•ã‚¡åˆæœŸåŒ–ã€‚ */
     if( statebuf_size > 0 ){
         t->statebuf_size = statebuf_size;
         t->statebuf_num = t->max_conn;
         vce_snprintf( aname, sizeof(aname),
-                      "stateb%d" , port); /* sizeof‚Í 32 ‚¾‚æ */
+                      "stateb%d" , port); /* sizeofã¯ 32 ã ã‚ˆ */
         t->statebuf_mi = vce_init_array( t->statebuf_size,
                                          t->statebuf_num, aname);
         if( t->statebuf_mi < 0){
@@ -176,7 +176,7 @@ tcpcontext_t  vce_tcpcontext_create(
         t->statebuf_mi = -1;
     }
 
-    /* “Ç‚Ý‚±‚Ýbuffer‚È‚Ç‚ð‰Šú‰» */
+    /* èª­ã¿ã“ã¿bufferãªã©ã‚’åˆæœŸåŒ– */
     vce_snprintf( aname,sizeof(aname),"rb%d", port);
     t->rbmaster_mi = vce_init_array( rblen, t->max_conn, aname );
     if( t->rbmaster_mi < 0 ){
@@ -184,8 +184,8 @@ tcpcontext_t  vce_tcpcontext_create(
         goto return_error;
     }
     vce_snprintf( aname,sizeof(aname),"erb%d", port);
-    /* ‚±‚±‚Ì +8 ‚ÍAˆÃ†‚Ìƒwƒbƒ_ */
-    /* ‚³‚ç‚Éˆ³k—p‚Ìƒwƒbƒ_ */
+    /* ã“ã“ã® +8 ã¯ã€æš—å·ã®ãƒ˜ãƒƒãƒ€ */
+    /* ã•ã‚‰ã«åœ§ç¸®ç”¨ã®ãƒ˜ãƒƒãƒ€ */
     t->erbmaster_mi = vce_init_array( rblen+8+8, t->max_conn, aname );
     if( t->erbmaster_mi < 0 ){
         ret_e = VCE_EARRAY;
@@ -197,8 +197,8 @@ tcpcontext_t  vce_tcpcontext_create(
         ret_e = VCE_EARRAY;
         goto return_error;
     }
-    /* ‚±‚±‚Ì +8 ‚ÍAˆÃ†‚Ìƒwƒbƒ_ */
-    /* ‚³‚ç‚Éˆ³k—p‚Ìƒwƒbƒ_ */
+    /* ã“ã“ã® +8 ã¯ã€æš—å·ã®ãƒ˜ãƒƒãƒ€ */
+    /* ã•ã‚‰ã«åœ§ç¸®ç”¨ã®ãƒ˜ãƒƒãƒ€ */
     vce_snprintf( aname,sizeof(aname),"ewb%d", port);
     t->ewbmaster_mi = vce_init_array( wblen+8+8, t->max_conn, aname );
     if( t->ewbmaster_mi < 0 ){
@@ -257,7 +257,7 @@ void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t, CL
 void vce_tcpcontext_cleanup( tcpcontext_t tp ) {
     tcpcontext *t = ( tcpcontext * ) tp;
 
-    vce_conn_close_tcpcontext_all( (tcpcontext_t) tp ); // ‚·‚×‚Ä‚ÌƒRƒlƒNƒVƒ‡ƒ“‚ð•Â‚¶‚é
+    vce_conn_close_tcpcontext_all( (tcpcontext_t) tp ); // ã™ã¹ã¦ã®ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã‚’é–‰ã˜ã‚‹
 
     if( t->is_server ) vce_socket_close( t->mainsock );
 
@@ -306,15 +306,15 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
                             (tcpcontext_t) t );
     if( ns < 0 ) return;
 
-    // accept”ƒ`ƒFƒbƒN 
+    // acceptæ•°ãƒã‚§ãƒƒã‚¯ 
     if(t->accept_max) {
-        // ŽžŠÔŒo‰ß•ª‹–‰ÂƒJƒEƒ“ƒg‘‰Á
+        // æ™‚é–“çµŒéŽåˆ†è¨±å¯ã‚«ã‚¦ãƒ³ãƒˆå¢—åŠ 
         while(t->accept_lasttime<vce_mainloop_utime_store) {
             t->accept_lasttime+=60*1000*1000/t->accept_max;
             if(t->accept_count<t->accept_max) {
                 t->accept_count++;
 
-                // –³‘Ê‚Èƒ‹[ƒv‚ð”ð‚¯‚é‚½‚ß“K“–‚É”²‚¯‚Ä‚µ‚Ü‚¤ 
+                // ç„¡é§„ãªãƒ«ãƒ¼ãƒ—ã‚’é¿ã‘ã‚‹ãŸã‚é©å½“ã«æŠœã‘ã¦ã—ã¾ã† 
                 if(t->accept_count==t->accept_max) {
                     t->accept_lasttime=vce_mainloop_utime_store+60*1000*1000/t->accept_max;
                     break;
@@ -324,7 +324,7 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
         if(t->accept_count>=0) {
             t->accept_count--;
         } else {
-            // ‹–—e”ƒI[ƒo[ 
+            // è¨±å®¹æ•°ã‚ªãƒ¼ãƒãƒ¼ 
             int ret=-1;
             if(t->accept_warning) ret=t->accept_warning((tcpcontext_t)t);
             if(ret<0) {
@@ -335,29 +335,29 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
         }
     }
 
-    // ‚±‚êˆÈã accept‚µ‚È‚¢Ý’è‚É‚È‚Á‚Ä‚½‚ç‚¾‚ß‚¾‚æ 
+    // ã“ã‚Œä»¥ä¸Š acceptã—ãªã„è¨­å®šã«ãªã£ã¦ãŸã‚‰ã ã‚ã ã‚ˆ 
     if( t->accept_more == 0 ){
         VCE_ERROUT_V0( WARN_TCP_NO_MORE_ACCEPT );
         vce_socket_close(ns);
         return;
     }
 
-    // ‚à‚µ‚àAŽg—p’†ƒRƒlƒNƒVƒ‡ƒ“‚ÌƒJƒEƒ“ƒ^‚ªAÅ‘å‚¾‚Á‚½‚ç‚±‚êˆÈãƒRƒlƒNƒVƒ‡ƒ“‚Í‚ê‚È‚¢‚æ 
+    // ã‚‚ã—ã‚‚ã€ä½¿ç”¨ä¸­ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã®ã‚«ã‚¦ãƒ³ã‚¿ãŒã€æœ€å¤§ã ã£ãŸã‚‰ã“ã‚Œä»¥ä¸Šã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã¯ã‚Œãªã„ã‚ˆ 
     if( t->conn_in_use == t->max_conn ) {
         VCE_ERROUT_V1( WARN_TCP_MAX_CONN_IN_USE_D, t->max_conn );
         vce_socket_close(ns );
         return;
     }
 
-    // conn‚ð1ŒÂ‚í‚è‚Â‚¯‚é 
+    // connã‚’1å€‹ã‚ã‚Šã¤ã‘ã‚‹ 
     if( !( newc = vce_conn_alloc()) ){
         VCE_ERROUT_V2( WARN_TCP_MAXCON_D_D,
                        t->max_conn, htons(t->sa.sin_port ));
         return;
     }
-    // Žg—p’†‚Ì”‚ð‘‚â‚· 
+    // ä½¿ç”¨ä¸­ã®æ•°ã‚’å¢—ã‚„ã™ 
     t->conn_in_use ++;
-    // ó‘ÔŠÇ—ƒoƒbƒtƒ@‚ð‰Šú‰» 
+    // çŠ¶æ…‹ç®¡ç†ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ– 
     if( t->statebuf_mi >= 0 ){
         newc->statebuf = vce_alloc_array_object( t->statebuf_mi );
         if( !newc->statebuf ){
@@ -415,13 +415,13 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
         }
     }
 
-    // accept ‚µ‚½‚çAó‘Ôƒoƒbƒtƒ@‚ðƒ[ƒƒNƒŠƒA
+    // accept ã—ãŸã‚‰ã€çŠ¶æ…‹ãƒãƒƒãƒ•ã‚¡ã‚’ã‚¼ãƒ­ã‚¯ãƒªã‚¢
     tmpconnt.p = newc;
     tmpconnt.serial = newc->serial;
     statebuf = vce_conn_get_state_buffer( tmpconnt, &statebuflen );
     if( statebuf )memset( statebuf,0, statebuflen );
 
-    // ‘S•”‚¤‚Ü‚­‚¢‚Á‚½‚çAacceptor ‚ðŒÄ‚Ñ‚¾‚·‚Ì‚¾Bcipher ‚ª1‚Ì‚Æ‚«‚ÍANEGO ‚ª‚¨‚í‚Á‚Ä‚©‚ç ACCEPTED ‚ðƒƒCƒ“‚É‘—‚é 
+    // å…¨éƒ¨ã†ã¾ãã„ã£ãŸã‚‰ã€acceptor ã‚’å‘¼ã³ã ã™ã®ã ã€‚cipher ãŒ1ã®ã¨ãã¯ã€NEGO ãŒãŠã‚ã£ã¦ã‹ã‚‰ ACCEPTED ã‚’ãƒ¡ã‚¤ãƒ³ã«é€ã‚‹ 
     if( newc->protocol_acceptwatcher ){
         if( t->conn_in_use >= (t->conn_hiwater_thres-1) ){
             VCE_ERROUT_V2( "try_accept: hiwater (now:%d hiw:%d)\n", t->conn_in_use, t->conn_hiwater_thres );
@@ -445,7 +445,7 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
 
 
 
-// ‚·‚×‚Ä‚ÌÚ‘±‚ðpoll‚·‚é
+// ã™ã¹ã¦ã®æŽ¥ç¶šã‚’pollã™ã‚‹
 void vce_tcp_poll( int isolate_conn_serial ) {
     conn *c;
     tcpcontext *t;
@@ -456,7 +456,7 @@ void vce_tcp_poll( int isolate_conn_serial ) {
 
 	vce_fdwrap_select_nfds=0;
     
-    // ‘S•”‚Ì mainsock 
+    // å…¨éƒ¨ã® mainsock 
     ARRAY_SCAN( vce_tcpcontext_mi , t ){
         if( !t->is_server )continue;
         vce_socket_fdwrap_set_read( t->mainsock );
@@ -464,11 +464,11 @@ void vce_tcp_poll( int isolate_conn_serial ) {
 			vce_fdwrap_select_nfds=t->mainsock;
     }
 
-    // ‘S•”‚Ìconn 
+    // å…¨éƒ¨ã®conn 
     ARRAY_SCAN( vce_conn_mi, c ){
 		if(c->fd>vce_fdwrap_select_nfds) vce_fdwrap_select_nfds=c->fd;
 
-        // •Â‚¶ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢ê‡‚ÍA’Êí‚Ì select ‚ð‚µ‚æ‚¤‚Æ‚·‚é 
+        // é–‰ã˜ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãªã„å ´åˆã¯ã€é€šå¸¸ã® select ã‚’ã—ã‚ˆã†ã¨ã™ã‚‹ 
         if( c->closed_flag == 0 ){
             if( vce_sbuf_get_use( &c->wb ) > 0 ||
                 ( ((tcpcontext*)c->tcpc)->nonblock_connect &&
@@ -482,13 +482,13 @@ void vce_tcp_poll( int isolate_conn_serial ) {
             continue;
         }
 
-        // closed‚Å‚àA‘‚«‚½‚¢ƒf[ƒ^‚ª‚Ü‚¾‚ ‚éê‡‚Í‘—‚ë‚¤‚Æ“w—Í‚·‚éB‚È‚¢ê‡‚Í‘f’¼‚É•Â‚¶‚éB
+        // closedã§ã‚‚ã€æ›¸ããŸã„ãƒ‡ãƒ¼ã‚¿ãŒã¾ã ã‚ã‚‹å ´åˆã¯é€ã‚ã†ã¨åŠªåŠ›ã™ã‚‹ã€‚ãªã„å ´åˆã¯ç´ ç›´ã«é–‰ã˜ã‚‹ã€‚
         if( vce_sbuf_get_use( &c->wb ) == 0  ){
             vce_conn_free( c, 1, CLOSE_REASON_APPLICATION );
             VCE_ERROUT_V0( "tcp.c: conn_free(c,1) and continue 1.\n");
             continue;
         }
-        // ‚½‚¾‚µAÅ‘åŽžŠÔ‚Ì§ŒÀ‚Í‚Â‚¯‚Æ‚­
+        // ãŸã ã—ã€æœ€å¤§æ™‚é–“ã®åˆ¶é™ã¯ã¤ã‘ã¨ã
         if( c->last_access < ( vce_global_time - c->timeout_sec )){
             VCE_ERROUT_V1( "tcp.c: absolute close_timeout for ser:%d! calling closewatcher 2.\n", c->serial );
             vce_conn_free(c,1, CLOSE_REASON_TIMEOUT );
@@ -496,7 +496,7 @@ void vce_tcp_poll( int isolate_conn_serial ) {
             continue;
         }
 
-        // closed ‚Å‘‚«‚±‚Ýƒf[ƒ^‚ª‚ ‚Á‚ÄA timeout ‚Å‚à‚È‚¢ê‡‚ÍAread ‚à write ‚àƒtƒ‰ƒO‚ð—§‚Ä‘±‚¯‚éB 
+        // closed ã§æ›¸ãã“ã¿ãƒ‡ãƒ¼ã‚¿ãŒã‚ã£ã¦ã€ timeout ã§ã‚‚ãªã„å ´åˆã¯ã€read ã‚‚ write ã‚‚ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ç¶šã‘ã‚‹ã€‚ 
         if( vce_sbuf_get_use( &c->wb ) > 0 ){
             any_io |= 8;
             vce_socket_fdwrap_set_write( c->fd );
@@ -504,7 +504,7 @@ void vce_tcp_poll( int isolate_conn_serial ) {
         }
     }
 
-    // select(3)‚ðŒÄ‚ÔB¡‚ÌOS‚¾‚Æepoll,kqueue‚Æ‚©‚È‚­‚Ä‚à\•ª‘¬‚¢B
+    // select(3)ã‚’å‘¼ã¶ã€‚ä»Šã®OSã ã¨epoll,kqueueã¨ã‹ãªãã¦ã‚‚ååˆ†é€Ÿã„ã€‚
     vce_socket_fdwrap_select( vce_fdwrap_select_nfds+1, &read_ret, &write_ret );
 
     // accept/read/write test 
@@ -535,14 +535,14 @@ void vce_tcp_poll( int isolate_conn_serial ) {
         ARRAY_SCAN( vce_tcpcontext_mi , t ){
             if( !t->is_server ) continue;
             if( vce_socket_fdwrap_is_readable( t->mainsock ) ){
-                any_io |= 2; // accept ‚Í‚ê‚Á‚«‚Æ‚µ‚½ I/O
+                any_io |= 2; // accept ã¯ã‚Œã£ãã¨ã—ãŸ I/O
                 tcpcontext_try_accept( t );
             }
         }
 
     }
 
-    // ‚Æ‚¢‚¤‚±‚Æ‚ÅAany_io ‚ª‚±‚±‚Å^‚¾‚Á‚½‚ç select ‚Ìƒ^ƒCƒ€ƒAƒEƒg‚ðƒJƒiƒŠ ‚Ö‚ç‚µA0‚¾‚Á‚½‚ç1  us‚Ó‚â‚· 
+    // ã¨ã„ã†ã“ã¨ã§ã€any_io ãŒã“ã“ã§çœŸã ã£ãŸã‚‰ select ã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã‚’ã‚«ãƒŠãƒª ã¸ã‚‰ã—ã€0ã ã£ãŸã‚‰1  usãµã‚„ã™ 
     if( vce_select_timeout_flag  ){
         if( any_io ){
             if( vce_select_timeout_us > 0 ) vce_select_timeout_us /= 2;
@@ -618,14 +618,14 @@ conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hname , unsigned sho
 
     VCE_ERROUT_V1( NOTE_TCP_CONNECT_OK_D , fd );
 
-    // V‚µ‚¢conn ‚ª1ŒÂ‚È‚¢‚Æ‚Í‚¶‚Ü‚ç‚ñ‚æ‚ËB 
+    // æ–°ã—ã„conn ãŒ1å€‹ãªã„ã¨ã¯ã˜ã¾ã‚‰ã‚“ã‚ˆã­ã€‚ 
     if( ( newc = vce_conn_alloc()) == NULL ){
         return_error = VCE_EFULL;
         goto error_return;
     }
     t->conn_in_use ++;
 
-    // ó‘ÔŠÇ—ƒoƒbƒtƒ@‚à‰Šú‰»
+    // çŠ¶æ…‹ç®¡ç†ãƒãƒƒãƒ•ã‚¡ã‚‚åˆæœŸåŒ–
     if( t->statebuf_mi >= 0 ){
         newc->statebuf = vce_alloc_array_object( t->statebuf_mi );
         if( !newc->statebuf ){

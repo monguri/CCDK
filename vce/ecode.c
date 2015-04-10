@@ -79,25 +79,25 @@ char *vce_strerror_close_reason(CLOSE_REASON reason)
 {
 //  static char tmp[256];
 	switch(reason) {
-	case CLOSE_REASON_NONE:             //  VCE�������I�Ɏg�p����D���ꂪ�Ԃ����̂́C VCE �̃o�O���l������D
+	case CLOSE_REASON_NONE:             //  VCEが内部的に使用する．これが返されるのは， VCE のバグが考えられる．
 		return "CLOSE_REASON_NONE";
-	case CLOSE_REASON_UNKNOWN:          //  �����s���D��{�I�ɕԂ���邱�Ƃ͂Ȃ��D �Ԃ��ꂽ�ꍇ�́CVCE�̃o�O���l������D
+	case CLOSE_REASON_UNKNOWN:          //  原因不明．基本的に返されることはない． 返された場合は，VCEのバグが考えられる．
 		return "CLOSE_REASON_UNKNOWN";
-	case CLOSE_REASON_REMOTE:           //  �����[�g�s�A�ɂ���ăR�l�N�V�������ؒf���ꂽ���߁C �������݂��ǂ݂��݂��ł��Ȃ��Ȃ����D CLOSE_REASON_REMOTE �́C�����[�g�^�̒��ŁC���ɕ��ނł��Ȃ������ꍇ�� generic �ȗ��R�̂Ƃ��ɕԂ����D
+	case CLOSE_REASON_REMOTE:           //  リモートピアによってコネクションが切断されたため， 書きこみも読みこみもできなくなった． CLOSE_REASON_REMOTE は，リモート型の中で，特に分類できなかった場合の generic な理由のときに返される．
 		return "CLOSE_REASON_REMOTE";
-	case CLOSE_REASON_APPLICATION:      //  �A�v���P�[�V�����ɂ���āC vce_conn_close �Ȃǂ��Ăт����ꂽ�D �u���[�J���^�v�̓T�^�I�ȃN���[�Y���R�ł���D
+	case CLOSE_REASON_APPLICATION:      //  アプリケーションによって， vce_conn_close などが呼びだされた． 「ローカル型」の典型的なクローズ理由である．
 		return "CLOSE_REASON_APPLICATION";
-	case CLOSE_REASON_TIMEOUT:          //  �^�C���A�E�g���ԂɂȂ�܂ŁC����M���s���Ȃ��������߁C �ؒf���ꂽ�D�^�C���A�E�g�̏ꍇ�́C�����[�g�������Ȃ̂��C ���[�J���������Ȃ̂��C���ʂ͂��Ȃ��D
+	case CLOSE_REASON_TIMEOUT:          //  タイムアウト時間になるまで，送受信が行われなかったため， 切断された．タイムアウトの場合は，リモートが原因なのか， ローカルが原因なのか，判別はつかない．
 		return "CLOSE_REASON_TIMEOUT";
-	case CLOSE_REASON_DECODER:          //  �Í��f�R�[�f�B���O�֐��̓����ŃG���[���N�����D ���肩�瑗���Ă����f�[�^�̃t�H�[�}�b�g���ُ�ł��邩�C �f�[�^���R�[�h���K�v�Ƃ��Ă��镪�̃f�[�^���͂��Ȃ��ԂɃR�l�N�V������ ���p�s�\�ɂȂ��Ă��܂����ꍇ�ɋN����D �܂�C���̃G���[�́C�u�����[�g�^�v�ł���D ���̃G���[�́C�R�l�N�V�������������̈Í��l�S�V�G�[�V�������I���C �f�[�^�̌������n�܂��Ă���N����D
+	case CLOSE_REASON_DECODER:          //  暗号デコーディング関数の内部でエラーが起きた． 相手から送られてきたデータのフォーマットが異常であるか， データレコードが必要としている分のデータが届かない間にコネクションが 利用不可能になってしまった場合に起こる． つまり，このエラーは，「リモート型」である． このエラーは，コネクション初期化時の暗号ネゴシエーションが終わり， データの交換が始まってから起こる．
 		return "CLOSE_REASON_DECODER";
-	case CLOSE_REASON_ENCODER:          //  �Í��G���R�[�f�B���O�֐��̓����ŃG���[���N�����D ���̃G���[�́C�R�l�N�V�������������̈Í��l�S�V�G�[�V�������I���C �f�[�^�̌������n�܂��Ă���N����D VCE �͈Í����p�ɓ��ʂȃ��������g��Ȃ����Ƃ�����C���̗��R�� �u�����[�g�^�v�ł���D
+	case CLOSE_REASON_ENCODER:          //  暗号エンコーディング関数の内部でエラーが起きた． このエラーは，コネクション初期化時の暗号ネゴシエーションが終わり， データの交換が始まってから起こる． VCE は暗号化用に特別なメモリを使わないこともあり，この理由は 「リモート型」である．
 		return "CLOSE_REASON_ENCODER";
-	case CLOSE_REASON_PARSER:           //  �v���g�R���p�[�T�[�֐������̒l��Ԃ����̂ŁC �R�l�N�V������ؒf�����D ����́C���[�J���^�ł���D���[�J���̃p�[�T�[�֐��̕Ԃ�l�����ł������D
+	case CLOSE_REASON_PARSER:           //  プロトコルパーサー関数が負の値を返したので， コネクションを切断した． これは，ローカル型である．ローカルのパーサー関数の返り値が負であった．
 		return "CLOSE_REASON_PARSER";
-	case CLOSE_REASON_INTERNAL:         //  VCE �̓����I�Ȗ��ɂ��C�R�l�N�V����������D VCE�̓���������������Ȃ��ꍇ��C�G���[�`�F�b�N�� ���s�����ꍇ��CVCE�̃o�O���l������D ���[�J���^�ł���D
+	case CLOSE_REASON_INTERNAL:         //  VCE の内部的な問題により，コネクションを閉じた． VCEの内部メモリが足りない場合や，エラーチェックに 失敗した場合や，VCEのバグが考えられる． ローカル型である．
 		return "CLOSE_REASON_INTERNAL";
-	case CLOSE_REASON_FULL:             //  SWP���g���Ă���ꍇ�ɁCSWP�֑��鑗�M�o�b�t�@����t�ɂȂ��Ă���ꍇ�� ���̒l�ɂȂ�DSWP�֑��鑗�M�o�b�t�@����t�Ƃ������Ƃ́C SWP�̃T�[�o�[����̎�M�o�b�t�@����t�ɂȂ��Ă���\���������D SWP�̃o�b�t�@�[�e�ʂ�傫�����邩�C ����ނ�����̗e�ʂ���t�ɂȂ��Ă��邱�Ƃ��^���ׂ��ł���D �����[�g�z�X�g�̃o�b�t�@����t�ɂȂ��Ă��邱�Ƃ���C �u�����[�g�^�v�ƌ�����D
+	case CLOSE_REASON_FULL:             //  SWPを使っている場合に，SWPへ送る送信バッファが一杯になっている場合に この値になる．SWPへ送る送信バッファが一杯ということは， SWPのサーバーからの受信バッファも一杯になっている可能性が高い． SWPのバッファー容量を大きくするか， 相手むけ回線の容量が一杯になっていることを疑うべきである． リモートホストのバッファが一杯になっていることから， 「リモート型」と言える．
 		return "CLOSE_REASON_FULL";
 	default:
 		//sprintf(tmp,"CLOSE_REASON_?",reason);

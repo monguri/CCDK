@@ -11,7 +11,7 @@ static vce_stat_t vce_usage;
 
 int vce_verbose_mode = 0; 
 int vce_last_error = 0;       
-int vce_log_read_write = 0; // read/write ‚Ì—lq‚ğ‘S•”ƒƒO‚·‚éƒtƒ‰ƒO 
+int vce_log_read_write = 0; // read/write ã®æ§˜å­ã‚’å…¨éƒ¨ãƒ­ã‚°ã™ã‚‹ãƒ•ãƒ©ã‚° 
 
 
 
@@ -49,7 +49,7 @@ void vce_errout_v( const char *format, ... ) {
 }
 
    
-// vceusage ‚Ì“à—e‚ğ‘€ì‚·‚é(ƒ†[ƒU‚É”ñŒöŠJ)
+// vceusage ã®å†…å®¹ã‚’æ“ä½œã™ã‚‹(ãƒ¦ãƒ¼ã‚¶ã«éå…¬é–‹)
 void vce_usage_set_boot_time( time_t t ) {
     vce_usage.boot_time = t;
 }
@@ -145,7 +145,7 @@ void vce_get_stat( vce_stat_t *v ) {
 }
 
 int vce_get_netstat_string( char *buf, int maxlen ) {
-    /* ‚Ü‚¸‘S•”‚Ì conn ‚ğƒŠƒXƒgƒAƒbƒv */
+    /* ã¾ãšå…¨éƒ¨ã® conn ã‚’ãƒªã‚¹ãƒˆã‚¢ãƒƒãƒ— */
     conn *co;
     char oneline[256];
     int so_far = 0;

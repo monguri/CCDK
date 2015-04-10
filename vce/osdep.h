@@ -4,14 +4,14 @@
 
 #include "vce.h"
 
-/* �ő�ڑ����Ƃ��̃f�t�H���g */
+/* 最大接続数とかのデフォルト */
 #ifdef linux
 #define OSDEP_DEFAULT_MAXTCPCONTEXT 16
 #define OSDEP_DEFAULT_MAXTASKGROUP 16
 #define OSDEP_DEFAULT_MAX_ARRAY_INDEX 16384
-#define OSDEP_DEFAULT_MAXCON 1000 /* linux �ł̕W���I�Ȓl */
+#define OSDEP_DEFAULT_MAXCON 1000 /* linux での標準的な値 */
 #define OSDEP_SEND_UNIT (1024*256)
-#define OSDEP_RECV_UNIT (1024*256*4) /* �T�[�o�Ƃ��Ďg����̂ő傫�� */
+#define OSDEP_RECV_UNIT (1024*256*4) /* サーバとして使われるので大きめ */
 #define OSDEP_FD_SETSIZE FD_SETSIZE
 #endif
 

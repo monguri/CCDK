@@ -3,40 +3,40 @@
 #include "osdep.h"
 #include "core.h"
 
-/* ”z—ñ‚Ì—v‘f‚ğ‚ ‚ç‚í‚· */
+/* é…åˆ—ã®è¦ç´ ã‚’ã‚ã‚‰ã‚ã™ */
 typedef struct _entry_t {
     int use;
-    struct _entry_t *next , *prev;   /* g—p’†ƒŠƒXƒg—p */
+    struct _entry_t *next , *prev;   /* ä½¿ç”¨ä¸­ãƒªã‚¹ãƒˆç”¨ */
     char *buf;
 } entry_t;
 
-/* ”z—ñ©‘Ì‚ğ‚ ‚ç‚í‚· */
+/* é…åˆ—è‡ªä½“ã‚’ã‚ã‚‰ã‚ã™ */
 typedef struct _array_t {
     int use;
     int num;
-    size_t size;        /* \‘¢‘Ì‚ÌƒTƒCƒY */
+    size_t size;        /* æ§‹é€ ä½“ã®ã‚µã‚¤ã‚º */
 
-    entry_t *ent;       /* À‘Ì */
+    entry_t *ent;       /* å®Ÿä½“ */
 
-    /* ‹ó‚«‚ğw‚·ƒ|ƒCƒ“ƒ^‚Ì”z—ñB‚±‚Ì”z—ñ‚Í“¯‚Ég—p’†”z—ñ‚Å‚à‚ ‚éB */
+    /* ç©ºãã‚’æŒ‡ã™ãƒã‚¤ãƒ³ã‚¿ã®é…åˆ—ã€‚ã“ã®é…åˆ—ã¯åŒæ™‚ã«ä½¿ç”¨ä¸­é…åˆ—ã§ã‚‚ã‚ã‚‹ã€‚ */
     entry_t **blank_pointer_stack;
     int blank_pointer_stack_pointer;
 
-    /* ƒ}ƒXƒ^[ƒoƒbƒtƒ@‚Ö‚Ìƒ|ƒCƒ“ƒ^ (malloc‚µ‚Ä“¾‚é‚à‚Ì)*/
+    /* ãƒã‚¹ã‚¿ãƒ¼ãƒãƒƒãƒ•ã‚¡ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (mallocã—ã¦å¾—ã‚‹ã‚‚ã®)*/
     char *master_buffer;
     size_t master_buffer_size;
 
-    /* g—p’†ƒŠƒXƒg‚Ìæ“ª‚Ö‚Ìƒ|ƒCƒ“ƒ^ NULL‚¾‚Á‚½‚çg—p’†‚Ì‚à‚Ì‚Í‚È‚¢ */
+    /* ä½¿ç”¨ä¸­ãƒªã‚¹ãƒˆã®å…ˆé ­ã¸ã®ãƒã‚¤ãƒ³ã‚¿ NULLã ã£ãŸã‚‰ä½¿ç”¨ä¸­ã®ã‚‚ã®ã¯ãªã„ */
     entry_t *inuse_top_pointer;
-    /* g—p’†ƒŠƒXƒg‚ÌÅŒã”ö‚Ö‚Ìƒ|ƒCƒ“ƒ^ NULL‚¾‚Á‚½‚çg—p’†‚Ì‚à‚Ì‚Í‚È‚¢ */
+    /* ä½¿ç”¨ä¸­ãƒªã‚¹ãƒˆã®æœ€å¾Œå°¾ã¸ã®ãƒã‚¤ãƒ³ã‚¿ NULLã ã£ãŸã‚‰ä½¿ç”¨ä¸­ã®ã‚‚ã®ã¯ãªã„ */
     entry_t *inuse_last_pointer;
 
-    /* ”z—ñ‚Ì–¼‘OB–¼‘O‚ğ‚Â‚¯‚Ä•\¦‚µ‚½‚èB’´×‚©‚¢ƒƒO‚Ì‚½‚ß */
+    /* é…åˆ—ã®åå‰ã€‚åå‰ã‚’ã¤ã‘ã¦è¡¨ç¤ºã—ãŸã‚Šã€‚è¶…ç´°ã‹ã„ãƒ­ã‚°ã®ãŸã‚ */
     char name[32];
 
 } array_t;
 
-/* array\‘¢‘Ì‚Ì”z—ñ */
+/* arrayæ§‹é€ ä½“ã®é…åˆ— */
 static array_t *array_table;
 
 
@@ -66,7 +66,7 @@ int vce_init_array( size_t size , int num , const char *nm ) {
     int i;
     int index = -1;
 
-    /* ‹ó‚«‚ğ‚³‚ª‚·B”z—ñ‰Šú‰»‚Í•p”É‚É‚Í‚µ‚È‚¢‚Ì‚Åƒ‹[ƒvŒŸõ‚Å‚æ‚¢ */
+    /* ç©ºãã‚’ã•ãŒã™ã€‚é…åˆ—åˆæœŸåŒ–ã¯é »ç¹ã«ã¯ã—ãªã„ã®ã§ãƒ«ãƒ¼ãƒ—æ¤œç´¢ã§ã‚ˆã„ */
     for(i=0;i<vce_limit.max_array; i++){
         if(array_table[i].use == 0 ){
             index = i;
@@ -78,16 +78,16 @@ int vce_init_array( size_t size , int num , const char *nm ) {
         return SET_LAST_ERROR(VCE_EFULL);
     }
 
-    /* ‘å‚«‚³‚O‚Ì”z—ñ‚Í”–î‚É‚æ‚è–³— */
+    /* å¤§ãã•ï¼ã®é…åˆ—ã¯è«¸äº‹æƒ…ã«ã‚ˆã‚Šç„¡ç† */
     if( size == 0 ) return SET_LAST_ERROR(VCE_EINVAL);
 
-    /* ƒ}ƒXƒ^[ƒoƒbƒtƒ@(‹L‰¯‚·‚éêŠ)‚ğVCEMALLOC */
+    /* ãƒã‚¹ã‚¿ãƒ¼ãƒãƒƒãƒ•ã‚¡(è¨˜æ†¶ã™ã‚‹å ´æ‰€)ã‚’VCEMALLOC */
     if( ( array_table[index].master_buffer =
           (char *) VCEMALLOC( size * num ) ) == NULL ) {
         VCE_ERROUT_V1( FATAL_ARRAY_FMALLOC_D , index );
         return SET_LAST_ERROR(VCE_EFULL);
     }
-    /* ŠÇ—”z—ñ‚ğVCEMALLOC */
+    /* ç®¡ç†é…åˆ—ã‚’VCEMALLOC */
     if( ( array_table[index].ent =
           (entry_t * ) VCEMALLOC( sizeof( entry_t ) * num ) ) == NULL ) {
         VCE_ERROUT_V1( FATAL_ARRAY_FMALLOC1_D ,index );
@@ -95,7 +95,7 @@ int vce_init_array( size_t size , int num , const char *nm ) {
         return SET_LAST_ERROR(VCE_EFULL);
     }
 
-    /* —˜—pó‹µƒXƒ^ƒbƒN‚ğMALLOC */
+    /* åˆ©ç”¨çŠ¶æ³ã‚¹ã‚¿ãƒƒã‚¯ã‚’MALLOC */
     if( (  array_table[index].blank_pointer_stack =
            (entry_t **) VCEMALLOC( sizeof( entry_t *) * num ) )== NULL ) {
         VCE_ERROUT_V1( FATAL_ARRAY_FMALLOC2_D ,index);
@@ -104,32 +104,32 @@ int vce_init_array( size_t size , int num , const char *nm ) {
         return SET_LAST_ERROR(VCE_EFULL);
     }
 
-    /* ‘S•”0‰Šú‰»Bmemset‚Íinit‚Ì’†‚É‚µ‚©‚È‚¢‚Ì‚ÅA
-     ƒ|ƒCƒ“ƒ^‚É—LŒø‚È’l‚ğ“ü‚ê‚½‚Ü‚ÜŠ„‚è‚ ‚Ä/‰ğ•ú‚ª‚Å‚«‚éB
-     ‚±‚ê‚Í•K—v‚È‚±‚Æ‚Å‚ ‚éB */
+    /* å…¨éƒ¨0åˆæœŸåŒ–ã€‚memsetã¯initã®ä¸­ã«ã—ã‹ãªã„ã®ã§ã€
+     ãƒã‚¤ãƒ³ã‚¿ã«æœ‰åŠ¹ãªå€¤ã‚’å…¥ã‚ŒãŸã¾ã¾å‰²ã‚Šã‚ã¦/è§£æ”¾ãŒã§ãã‚‹ã€‚
+     ã“ã‚Œã¯å¿…è¦ãªã“ã¨ã§ã‚ã‚‹ã€‚ */
     memset( array_table[index].master_buffer , 0 , size * num );
     memset( array_table[index].ent , 0, sizeof( entry_t ) * num );
     memset( array_table[index].blank_pointer_stack , 0 ,
             sizeof( entry_t * ) * num );
 
 
-    /* ƒoƒbƒtƒ@‚ğ×•ª‰»‚µ‚Ä‰Šú‰» */
+    /* ãƒãƒƒãƒ•ã‚¡ã‚’ç´°åˆ†åŒ–ã—ã¦åˆæœŸåŒ– */
     for( i = 0 ; i < num ; i++ ) {
         char *ptrdiv = array_table[index].master_buffer + size * i;
         array_table[index].ent[i].use = 0;
         array_table[index].ent[i].buf = ptrdiv;
 
-        /* g—p’†ƒŠƒXƒg‚Åg‚¤ƒ|ƒCƒ“ƒ^‚àNULL‰Šú‰»(•K‘R«”–‚¢) */
+        /* ä½¿ç”¨ä¸­ãƒªã‚¹ãƒˆã§ä½¿ã†ãƒã‚¤ãƒ³ã‚¿ã‚‚NULLåˆæœŸåŒ–(å¿…ç„¶æ€§è–„ã„) */
         array_table[index].ent[i].next = NULL;
         array_table[index].ent[i].prev = NULL;
 
-        /* ƒXƒ^ƒbƒN‚É•À‚×‚Ä“ü‚ê‚é */
+        /* ã‚¹ã‚¿ãƒƒã‚¯ã«ä¸¦ã¹ã¦å…¥ã‚Œã‚‹ */
         array_table[index].blank_pointer_stack[i] =
             &array_table[index].ent[i];
            
     }
 
-    /* ”z—ñŠÇ—\‘¢‘Ì©‘Ì‚Ì‰Šú‰» */
+    /* é…åˆ—ç®¡ç†æ§‹é€ ä½“è‡ªä½“ã®åˆæœŸåŒ– */
     array_table[index].use = 1;
     array_table[index].num = num;
     array_table[index].size = size;
@@ -181,18 +181,18 @@ void *vce_alloc_array_object( int index ) {
     entp->use = 1;
     retp = entp->buf;
 
-    /* g—p’†ƒŠƒ“ƒN‚ğXVBí‚Éæ“ª‚É’Ç‰Á‚·‚é     */
+    /* ä½¿ç”¨ä¸­ãƒªãƒ³ã‚¯ã‚’æ›´æ–°ã€‚å¸¸ã«å…ˆé ­ã«è¿½åŠ ã™ã‚‹     */
     {
         entry_t *current_inuse_top;
         current_inuse_top = array_table[index].inuse_top_pointer;
         if( current_inuse_top ){
             current_inuse_top->prev = entp;
         } else {
-            /* Œ»İƒgƒbƒv‚ª‚È‚©‚Á‚½‚Ì‚ÅA last ‚ğ top ‚É‚·‚é‚¼ */
+            /* ç¾åœ¨ãƒˆãƒƒãƒ—ãŒãªã‹ã£ãŸã®ã§ã€ last ã‚’ top ã«ã™ã‚‹ã */
             array_table[index].inuse_last_pointer = entp;
         }
         entp->next = current_inuse_top;
-        entp->prev = NULL; /* æ“ª‚È‚Ì‚Ånull*/
+        entp->prev = NULL; /* å…ˆé ­ãªã®ã§null*/
         array_table[index].inuse_top_pointer = entp;
     }
 	 SET_LAST_ERROR(0);
@@ -238,13 +238,13 @@ int vce_free_array_object( int index , void *p ) {
         return SET_LAST_ERROR(VCE_EINVAL);
     }
 
-    /* ƒXƒ^ƒbƒNƒ|ƒCƒ“ƒ^‚ª0‚æ‚è¬‚³‚­‚È‚é‚Ì‚Í©•ª‚ÌƒoƒO */
+    /* ã‚¹ã‚¿ãƒƒã‚¯ãƒã‚¤ãƒ³ã‚¿ãŒ0ã‚ˆã‚Šå°ã•ããªã‚‹ã®ã¯è‡ªåˆ†ã®ãƒã‚° */
     if( ( sp = &array_table[index].blank_pointer_stack_pointer ) == 0 ){
         VCE_ERROUT_V1( BUG_FREESTACK_OVERFLOW_S, array_table[index].name );
         return SET_LAST_ERROR(VCE_EBUG);
     }
 
-    /* ‚·‚Å‚É‰ğ•ú‚³‚ê‚Ä‚½‚ç©•ª‚ÌƒoƒO */
+    /* ã™ã§ã«è§£æ”¾ã•ã‚Œã¦ãŸã‚‰è‡ªåˆ†ã®ãƒã‚° */
     if( array_table[index].ent[dindex].use == 0 ){
         VCE_ERROUT_V2( WARN_REFREE_S_P, array_table[index].name , p );
         return SET_LAST_ERROR(VCE_EBUG);
@@ -255,10 +255,10 @@ int vce_free_array_object( int index , void *p ) {
         &array_table[index].ent[dindex];
 
 
-    /* g—p’†ƒŠƒXƒg‚©‚çíœ */
+    /* ä½¿ç”¨ä¸­ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤ */
 
-    /* ƒŠƒ“ƒN‚É‘O‚ª‚ ‚éê‡‚ÍA‚»‚¢‚Â‚Ìnext‚ğ‚¢‚¶‚èA‘O‚ª‚È‚¢ê‡‚Í
-     æ“ª‚È‚Ì‚ÅAtop‚ğ‚¢‚¶‚é */
+    /* ãƒªãƒ³ã‚¯ã«å‰ãŒã‚ã‚‹å ´åˆã¯ã€ãã„ã¤ã®nextã‚’ã„ã˜ã‚Šã€å‰ãŒãªã„å ´åˆã¯
+     å…ˆé ­ãªã®ã§ã€topã‚’ã„ã˜ã‚‹ */
     if( array_table[index].ent[dindex].prev ){
         array_table[index].ent[dindex].prev->next =
             array_table[index].ent[dindex].next;
@@ -267,8 +267,8 @@ int vce_free_array_object( int index , void *p ) {
             array_table[index].ent[dindex].next;
     }
 
-    /* ƒŠƒ“ƒN‚ÉŒã‚ë(next)‚ª‚ ‚éê‡‚Í‚»‚¢‚Â‚Ìprev‚ğ‚¢‚¶‚èA
-       next‚ª‚È‚¢ê‡‚ÍÅŒã”ö‚È‚Ì‚Ålast_pointer‚ğ‚¢‚¶‚é‚Ì‚¾ */
+    /* ãƒªãƒ³ã‚¯ã«å¾Œã‚(next)ãŒã‚ã‚‹å ´åˆã¯ãã„ã¤ã®prevã‚’ã„ã˜ã‚Šã€
+       nextãŒãªã„å ´åˆã¯æœ€å¾Œå°¾ãªã®ã§last_pointerã‚’ã„ã˜ã‚‹ã®ã  */
     if( array_table[index].ent[dindex].next ){
         array_table[index].ent[dindex].next->prev =
             array_table[index].ent[dindex].prev;
@@ -277,7 +277,7 @@ int vce_free_array_object( int index , void *p ) {
             array_table[index].ent[dindex].prev;
     }
 
-    /* ƒtƒ‰ƒO‚ğOFF */
+    /* ãƒ•ãƒ©ã‚°ã‚’OFF */
     array_table[index].ent[dindex].use = 0;
 
     return SET_LAST_ERROR(0);
@@ -326,8 +326,8 @@ void *vce_get_array_object_next( int index , void *p ) {
     return array_table[index].ent[dindex].next->buf;
 }
 /*
-  ÅŒã‚Ì—v‘f‚ğæ‚è‚¾‚·ŠÖ”B
-  Œ»İ‚Í‘S•”ƒ‹[ƒv‚³‚¹‚Ä‚¢‚é‚Ì‚Å’x‚¢B‚‘¬‰»‚ª–]‚Ü‚ê‚éB
+  æœ€å¾Œã®è¦ç´ ã‚’å–ã‚Šã ã™é–¢æ•°ã€‚
+  ç¾åœ¨ã¯å…¨éƒ¨ãƒ«ãƒ¼ãƒ—ã•ã›ã¦ã„ã‚‹ã®ã§é…ã„ã€‚é«˜é€ŸåŒ–ãŒæœ›ã¾ã‚Œã‚‹ã€‚
 */
 void *vce_get_array_object_last( int index ) {
     if( CHECKINDEX(index) || array_table[index].use == 0 ){

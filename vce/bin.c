@@ -1,10 +1,10 @@
 /*
 
-  ƒoƒCƒiƒŠpack/unpackƒ‹[ƒ`ƒ“B
+  ãƒã‚¤ãƒŠãƒªpack/unpackãƒ«ãƒ¼ãƒãƒ³ã€‚
 
-  PACK ‚³‚ê‚½ó‘ÔF [ ] ‚Í1ŒÂ‚Ìƒf[ƒ^B1‚©2‚©4ƒoƒCƒgB
-  Ruby ‚Å‚Í‘g‚İ‚±‚İ‚Ì String::pack ‚ğg‚¤B
-  ‘Î‰‚·‚é‚æ‚¤‚É‚¹‚æ
+  PACK ã•ã‚ŒãŸçŠ¶æ…‹ï¼š [ ] ã¯1å€‹ã®ãƒ‡ãƒ¼ã‚¿ã€‚1ã‹2ã‹4ãƒã‚¤ãƒˆã€‚
+  Ruby ã§ã¯çµ„ã¿ã“ã¿ã® String::pack ã‚’ä½¿ã†ã€‚
+  å¯¾å¿œã™ã‚‹ã‚ˆã†ã«ã›ã‚ˆ
 
   SINGLE_CHAR : [char]
   SINGLE_SHORT : [nb-short]
@@ -31,7 +31,7 @@
 #include "vce.h"
 #include "vcecommon.h"
 
-/* 32ƒrƒbƒg’·”z—ñ‚Ì‚Æ‚«‚ÉA‚±‚Ì—v‘f‚ğ‰z‚¦‚½‚çƒGƒ‰[‚Æ‚·‚é */
+/* 32ãƒ“ãƒƒãƒˆé•·é…åˆ—ã®ã¨ãã«ã€ã“ã®è¦ç´ ã‚’è¶ŠãˆãŸã‚‰ã‚¨ãƒ©ãƒ¼ã¨ã™ã‚‹ */
 #define MAXUNITLEN (1024*1024*16)
 
 
@@ -268,7 +268,7 @@ int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len ) {
 				strcount = 0;
 				((char**)(bi[i].p))[0] = &inp[so_far];
 				for(scanner=0;(scanner+1)<rest;scanner++){
-					/* ƒf[ƒ^‚Ì1•¶š–Ú‚©‚ç‡‚ÉŒ©‚Ä‚¢‚­ƒXƒLƒƒƒi */
+					/* ãƒ‡ãƒ¼ã‚¿ã®1æ–‡å­—ç›®ã‹ã‚‰é †ã«è¦‹ã¦ã„ãã‚¹ã‚­ãƒ£ãƒŠ */
 					if( rest < (scanner + 1) ){
 						return SET_LAST_ERROR(VCE_EDATASHORT);
 					}
@@ -483,13 +483,13 @@ int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len ) {
 		  case STRARRAY_8:
 			if( bi[i].n >255 ) return SET_LAST_ERROR(VCE_EINVAL);
 			if( rest < 1 + bi[i].n ){
-				/* char ‚ÆAŒÂ”•ª‚Ìnull•¶š‚ÍÅ’á•K—v‚â‚Ë */
+				/* char ã¨ã€å€‹æ•°åˆ†ã®nullæ–‡å­—ã¯æœ€ä½å¿…è¦ã‚„ã­ */
 				return SET_LAST_ERROR(VCE_EFULL);
 			} else {
 				unsigned int strtotal;
 				SET_8BIT_INT( &outp[so_far], bi[i].n );
 				so_far += 1;
-				strtotal = 1; /* æ“ª‚Ì1ƒoƒCƒgAŒÂ”‚Ë */
+				strtotal = 1; /* å…ˆé ­ã®1ãƒã‚¤ãƒˆã€å€‹æ•°ã­ */
 				for(j=0;j<(int)bi[i].n;j++){
 					int l = vce_strlenmax( ((char**)(bi[i].p))[j],
 										   rest - so_far );
@@ -509,7 +509,7 @@ int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len ) {
 				unsigned int strtotal;
 				SET_16BIT_INT(&outp[so_far], bi[i].n );
 				so_far += 2;
-				strtotal = 2; /* ŒÂ”‚ªshort‚¾‚©‚ç */
+				strtotal = 2; /* å€‹æ•°ãŒshortã ã‹ã‚‰ */
 				for(j=0;j<(int)bi[i].n;j++){
 					int l = vce_strlenmax( ((char**)(bi[i].p))[j],
 										   rest - so_far );
@@ -532,17 +532,17 @@ int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len ) {
 }
 
 /*
-  ‰Â•Ï’·’·‚³w’èq‚ğ‰Šú‰»‚·‚éB
+  å¯å¤‰é•·é•·ã•æŒ‡å®šå­ã‚’åˆæœŸåŒ–ã™ã‚‹ã€‚
 
-  d—l
+  ä»•æ§˜
   
-	  0x00 - 0xfc : ‚¤‚µ‚ë‚Í0ƒoƒCƒgB‚»‚Ì‚Ü‚Ü’·‚³‚ğ‚ ‚ç‚í‚·
-	  0xfd : ‚¤‚µ‚ë‚Í4ƒoƒCƒgB‚»‚Ì4ƒoƒCƒg‚Å’·‚³‚ğ‚ ‚ç‚í‚·(network-order)
-	  0xfe : ‚¤‚µ‚ë‚Í8ƒoƒCƒgB‚»‚Ì8ƒoƒCƒg(network-order)‚Å’·‚³‚ğ‚ ‚ç‚í‚·
-	  0xff : ‘ÑˆæŠOƒf[ƒ^(—\–ñ)
+	  0x00 - 0xfc : ã†ã—ã‚ã¯0ãƒã‚¤ãƒˆã€‚ãã®ã¾ã¾é•·ã•ã‚’ã‚ã‚‰ã‚ã™
+	  0xfd : ã†ã—ã‚ã¯4ãƒã‚¤ãƒˆã€‚ãã®4ãƒã‚¤ãƒˆã§é•·ã•ã‚’ã‚ã‚‰ã‚ã™(network-order)
+	  0xfe : ã†ã—ã‚ã¯8ãƒã‚¤ãƒˆã€‚ãã®8ãƒã‚¤ãƒˆ(network-order)ã§é•·ã•ã‚’ã‚ã‚‰ã‚ã™
+	  0xff : å¸¯åŸŸå¤–ãƒ‡ãƒ¼ã‚¿(äºˆç´„)
 
-  ‚±‚ÌŠÖ”‚Í”ñŒöŠJ
-  out ‚É 0 ‚ğw’è‚·‚é‚ÆA’·‚³‚¾‚¯æ‚ê‚é
+  ã“ã®é–¢æ•°ã¯éå…¬é–‹
+  out ã« 0 ã‚’æŒ‡å®šã™ã‚‹ã¨ã€é•·ã•ã ã‘å–ã‚Œã‚‹
  */
 int vce_set_variable_length_specifier( char *out, int outmax, unsigned int len_upper, unsigned int len_lower ) {
 	if( len_upper == 0 ){
@@ -572,7 +572,7 @@ int vce_set_variable_length_specifier( char *out, int outmax, unsigned int len_u
 	/* not reached */
 	return SET_LAST_ERROR(VCE_EBUG);
 }
-/* ‚Æ‚è‚¾‚·   ‚±‚ÌŠÖ”‚Í”ñŒöŠJ  */
+/* ã¨ã‚Šã ã™   ã“ã®é–¢æ•°ã¯éå…¬é–‹  */
 int vce_get_variable_length_specifier( const char *src, int srcmax, unsigned int *len_upper, unsigned int *len_lower ) {
 	unsigned char top;
 	if( srcmax < 1 ) return SET_LAST_ERROR(VCE_ETOOSHORT);
@@ -698,14 +698,14 @@ int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, const void *ia, int 
 }
 
 /*
-  ƒtƒH[ƒ}ƒbƒg:
+  ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ:
   [VARLEN(string num)][ STRING ][ STRING ]...
 
   STRING : [VARLEN][data]
 
-  eachmax : Še•¶š—ñ‚ÌÅ‘å’·B
-  ‚±‚Ì’·‚³ˆÈã‚Ì•¶š—ñ‚ª‚ ‚é‚Æ¸”s‚·‚éBŸè‚É truncate ‚µ‚È‚¢B
-  ƒkƒ‹•¶š‚È‚µB
+  eachmax : å„æ–‡å­—åˆ—ã®æœ€å¤§é•·ã€‚
+  ã“ã®é•·ã•ä»¥ä¸Šã®æ–‡å­—åˆ—ãŒã‚ã‚‹ã¨å¤±æ•—ã™ã‚‹ã€‚å‹æ‰‹ã« truncate ã—ãªã„ã€‚
+  ãƒŒãƒ«æ–‡å­—ãªã—ã€‚
 
  */
 int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, const char * const *stra, int num, int eachmax ) {

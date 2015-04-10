@@ -25,11 +25,11 @@ vce_limit_t vce_limit = {
 char *vce_sendbuf_work = NULL;
 char *vce_recvbuf_work = NULL;
 
-/* ’¼‰º‘w‚Ìsocketƒ‰ƒCƒuƒ‰ƒŠ‚ª—˜—p‰Â”\‚É‚È‚Á‚½‚ç1‚Æ‚·‚éB
-   —˜—p‰Â”\‚Æ‚ÍA socket() ‚ª¬Œ÷‚µ connect/accept ‚Å‚«‚é‚æ‚¤‚Èó‘Ô‚Ì–B
-   Linux ‚¾‚Á‚½‚çÅ‰‚©‚ç1A‚»‚êˆÈŠO‚Í0‚©‚ç‚Í‚¶‚Ü‚éB
-   WIN32 ‚Ìê‡‚Í winsock ‚Ì‰Šú‰»‚ªI—¹‚µ‚½‚ç1‚É‚µA
-   ‚±‚Ìƒtƒ‰ƒO‚ª 0 ‚Ì‚Æ‚«‚ÍA vce_heartbeat ‚Í‰½‚Ìˆ—‚à‚¹‚¸ return ‚·‚éB
+/* ç›´ä¸‹å±¤ã®socketãƒ©ã‚¤ãƒ–ãƒ©ãƒªãŒåˆ©ç”¨å¯èƒ½ã«ãªã£ãŸã‚‰1ã¨ã™ã‚‹ã€‚
+   åˆ©ç”¨å¯èƒ½ã¨ã¯ã€ socket() ãŒæˆåŠŸã— connect/accept ã§ãã‚‹ã‚ˆã†ãªçŠ¶æ…‹ã®äº‹ã€‚
+   Linux ã ã£ãŸã‚‰æœ€åˆã‹ã‚‰1ã€ãã‚Œä»¥å¤–ã¯0ã‹ã‚‰ã¯ã˜ã¾ã‚‹ã€‚
+   WIN32 ã®å ´åˆã¯ winsock ã®åˆæœŸåŒ–ãŒçµ‚äº†ã—ãŸã‚‰1ã«ã—ã€
+   ã“ã®ãƒ•ãƒ©ã‚°ãŒ 0 ã®ã¨ãã¯ã€ vce_heartbeat ã¯ä½•ã®å‡¦ç†ã‚‚ã›ãš return ã™ã‚‹ã€‚
 */
 
 int vce_socket_library_ok = 0;
@@ -46,7 +46,7 @@ int vce_initialize( void ) {
 
 	vce_update_time();
 
-	// ‘—óMƒoƒbƒtƒ@‚ğ‰Šú‰»‚·‚é (‘S‘Ì‚Å‰Â•Ï)
+	// é€å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–ã™ã‚‹ (å…¨ä½“ã§å¯å¤‰)
 	vce_sendbuf_work = (char*) VCEMALLOC( vce_limit.sendbuf_work_size );
 	vce_recvbuf_work = (char*) VCEMALLOC( vce_limit.recvbuf_work_size );
 	if( !vce_sendbuf_work || !vce_recvbuf_work ){
@@ -143,13 +143,13 @@ int vce_finalize( void ) {
 VCEI64 vce_mainloop_utime_store = 0;
 int vce_mainloop_counter = 0; 
 
-time_t vce_global_time = 0; // ƒVƒXƒeƒ€ƒR[ƒ‹‚Ì‰ñ”‚ğŒ¸‚ç‚·‚½‚ß
+time_t vce_global_time = 0; // ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒ¼ãƒ«ã®å›æ•°ã‚’æ¸›ã‚‰ã™ãŸã‚
 
 
 void vce_heartbeat( void ) {
 	vce_mainloop_counter ++;
 	vce_tcp_poll(0);
-	vce_update_time(); // ŠÖŒW‚ÍÅŒã‚É‚â‚é‚Ì‚ªd—l
+	vce_update_time(); // æ™‚åˆ»é–¢ä¿‚ã¯æœ€å¾Œã«ã‚„ã‚‹ã®ãŒä»•æ§˜
 }
 
 void vce_heartbeat_on_single_conn( conn_t c ) {

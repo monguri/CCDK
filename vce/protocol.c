@@ -14,10 +14,10 @@ int vce_protocol_parser_bin16( conn_t ct ) {
     if( datalen < 2 ) return SET_LAST_ERROR(0);
     contentlen = GET_16BIT_INT( data ) & 0xffff;
     /*
-    ƒŒƒR[ƒh’·‚Ì§ŒÀˆ—
-    §ŒÀ‚ª‚µ‚Ä‚ ‚Á‚½‚çi‚PˆÈãj‚È‚çƒŒƒR[ƒh’·‚ğŒ©‚ÄŒxŠÖ”‚ğŒÄ‚ÔB
-    ŒxŠÖ”‚ªİ’è‚µ‚Ä‚È‚¯‚ê‚ÎƒGƒ‰[‚ğ“f‚¢‚ÄI‚í‚èB
-    ƒŒƒR[ƒh‚ÌÅ‰‚Ì‚QƒoƒCƒg‚Å”»’f‚·‚é‚Ì‚Å–³‘Ê‚ÉóM‚¹‚¸‚·‚Î‚â‚¢”»’f‚ª‰Â”\
+    ãƒ¬ã‚³ãƒ¼ãƒ‰é•·ã®åˆ¶é™å‡¦ç†
+    åˆ¶é™ãŒã—ã¦ã‚ã£ãŸã‚‰ï¼ˆï¼‘ä»¥ä¸Šï¼‰ãªã‚‰ãƒ¬ã‚³ãƒ¼ãƒ‰é•·ã‚’è¦‹ã¦è­¦å‘Šé–¢æ•°ã‚’å‘¼ã¶ã€‚
+    è­¦å‘Šé–¢æ•°ãŒè¨­å®šã—ã¦ãªã‘ã‚Œã°ã‚¨ãƒ©ãƒ¼ã‚’åã„ã¦çµ‚ã‚ã‚Šã€‚
+    ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æœ€åˆã®ï¼’ãƒã‚¤ãƒˆã§åˆ¤æ–­ã™ã‚‹ã®ã§ç„¡é§„ã«å—ä¿¡ã›ãšã™ã°ã‚„ã„åˆ¤æ–­ãŒå¯èƒ½
     */
     if(c->maxlen_record>=1&&
         contentlen > c->maxlen_record )
@@ -69,7 +69,7 @@ int vce_protocol_parser_text( conn_t ct ) {
     vce_sbuf_get_buffer( &c->rb, &data, &datalen );
     if( datalen < 1 ) return SET_LAST_ERROR(0);
 
-    // s‚ª‚»‚ë‚Á‚Ä‚é‚©‚İ‚é 
+    // è¡ŒãŒãã‚ã£ã¦ã‚‹ã‹ã¿ã‚‹ 
     for(i=0;i<datalen;i++){
         if( data[i] == '\r' && data[i+1] == '\n' && (i<(datalen-1))){
             if( c->pcallback ){
@@ -97,7 +97,7 @@ int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  ) {
 
     if( !vce_conn_is_valid(ct) ) return SET_LAST_ERROR(VCE_EINVAL);
 
-    /* Å‰‚É‘S‘Ì‚Ì’·‚³‚ğ‹‚ß‚é */
+    /* æœ€åˆã«å…¨ä½“ã®é•·ã•ã‚’æ±‚ã‚ã‚‹ */
     if( len > BIN16DATA_MAX ) return SET_LAST_ERROR(VCE_ELONGINPUT);
     totallen = 2 + len ;
 
@@ -108,9 +108,9 @@ int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  ) {
         return SET_LAST_ERROR( VCE_EWBFULL );
     }
 
-    /* 2‰ñ‘‚«‚±‚ŞAƒGƒ‰[‚É‚È‚ç‚È‚¢(writable‚Å’²‚×‚Ä‚é‚©‚ç) */
+    /* 2å›æ›¸ãã“ã‚€ã€ã‚¨ãƒ©ãƒ¼ã«ãªã‚‰ãªã„(writableã§èª¿ã¹ã¦ã‚‹ã‹ã‚‰) */
 
-    /* ƒwƒbƒ_‚ğ‚Ü‚¸‘‚«‚±‚Ş */
+    /* ãƒ˜ãƒƒãƒ€ã‚’ã¾ãšæ›¸ãã“ã‚€ */
     SET_16BIT_INT( work, len );
     vce_conn_write( ct, work, 2 );
     vce_conn_write( ct, data, len );
@@ -149,12 +149,12 @@ int vce_protocol_unparser_text( conn_t ct, char *data, int len ) {
 
     if( !vce_conn_is_valid(ct) ) return SET_LAST_ERROR(VCE_EINVAL);
 
-    /* c‚è‚ªA‰üs‚Ì•ª‚à‚ ‚é‚©‚İ‚é */
+    /* æ®‹ã‚ŠãŒã€æ”¹è¡Œã®åˆ†ã‚‚ã‚ã‚‹ã‹ã¿ã‚‹ */
     if( rest < 0 ) return SET_LAST_ERROR(rest);
 
     if( rest < totallen ) return SET_LAST_ERROR(VCE_EWBFULL);
 
-    /* ‚ ‚é‚È‚çA2‰ñ‘‚«‚±‚ŞA‚»‚Ì‚Ù‚¤‚ªmemcpy‚æ‚è‘¬‚¢‚¾‚ë‚¤ */
+    /* ã‚ã‚‹ãªã‚‰ã€2å›æ›¸ãã“ã‚€ã€ãã®ã»ã†ãŒmemcpyã‚ˆã‚Šé€Ÿã„ã ã‚ã† */
     vce_conn_write( ct, data, len );
     vce_conn_write( ct, "\n", 1 );
     return totallen;

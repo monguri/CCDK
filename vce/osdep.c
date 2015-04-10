@@ -83,7 +83,7 @@ void vce_socket_shutdown_rw( int fd ) {
 
 }
 
-/* connect ‚µ‚½‚Æ‚«‚ÉAƒ[ƒJƒ‹ƒAƒhƒŒƒX‚à“¯‚Éæ“¾‚·‚é */
+/* connect ã—ãŸã¨ãã«ã€ãƒ­ãƒ¼ã‚«ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚‚åŒæ™‚ã«å–å¾—ã™ã‚‹ */
 int vce_socket_connect( int fd, const char *hname, unsigned short port,
                         char *rad, int *rad_len,
                         char *lad, int *lad_len,
@@ -186,7 +186,7 @@ int vce_socket_getsockname( int fd, char *ad, int *ad_len, unsigned short *p ) {
 #endif
 
 }
-/* accept ‚µ‚½‚Æ‚«‚ÉAƒ[ƒJƒ‹ƒAƒhƒŒƒX‚à“¯‚Éæ“¾‚·‚é */
+/* accept ã—ãŸã¨ãã«ã€ãƒ­ãƒ¼ã‚«ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚‚åŒæ™‚ã«å–å¾—ã™ã‚‹ */
 int vce_socket_accept( int bindfd, char *rad, int *rad_len,
                        unsigned short *rport,
                        char *lad, int *lad_len,
@@ -219,7 +219,7 @@ int vce_socket_accept( int bindfd, char *rad, int *rad_len,
 
 }
 
-//  Win32‚ÅDLL‚ğì‚éê‡‚Ì‚½‚ß‚ÉA‰½‚à‚µ‚È‚¢ dllmain ‚ğ’è‹`‚·‚é
+//  Win32ã§DLLã‚’ä½œã‚‹å ´åˆã®ãŸã‚ã«ã€ä½•ã‚‚ã—ãªã„ dllmain ã‚’å®šç¾©ã™ã‚‹
 
 #ifdef WIN32
 #ifdef _USRDLL
@@ -383,11 +383,11 @@ int vce_socket_tcp_socket( void ) {
 
 int vce_socket_lib_os_init() {
 
-    // TCP‚ğg‚¤‚Æ‚¢‚¤‚±‚Æ‚ÍA SIGPIPE‚ª‚­‚é‚Æ‚¢‚¤‚±‚Æ
+    // TCPã‚’ä½¿ã†ã¨ã„ã†ã“ã¨ã¯ã€ SIGPIPEãŒãã‚‹ã¨ã„ã†ã“ã¨
     vce_init_signal();
 
 #ifdef WIN32
-    /* Win32 ‚Ìê‡‚ÍAwinsock ‚Ì‰Šú‰»‚ğ‚·‚é•K—v‚ª‚ ‚éB */
+    /* Win32 ã®å ´åˆã¯ã€winsock ã®åˆæœŸåŒ–ã‚’ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚ */
     {
         WSADATA wsaData;
         int iWsa;
@@ -479,8 +479,8 @@ int vce_socket_set_nodelay( int fd ) {
 
 }
 
-/* heartbeat ‚Ì’†ˆÈŠO‚Å vce_global_time ‚ğg‚¤‚Æ‚«‚ÍC
-   ‚·‚²‚­ŒÃ‚¢’l‚ª“ü‚Á‚Ä‚é‚©‚à‚µ‚ê‚È‚¢‚Ì‚ÅC–ˆ‰ñ update_time ‚·‚é–! */
+/* heartbeat ã®ä¸­ä»¥å¤–ã§ vce_global_time ã‚’ä½¿ã†ã¨ãã¯ï¼Œ
+   ã™ã”ãå¤ã„å€¤ãŒå…¥ã£ã¦ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã®ã§ï¼Œæ¯å› update_time ã™ã‚‹äº‹! */
 void vce_update_time(void) {
 	
 #if defined linux || defined __APPLE__ || defined sun
@@ -491,7 +491,7 @@ void vce_update_time(void) {
 #endif
 
 #ifdef WIN32
-	/* win32 ‚Åƒ}ƒCƒNƒ•b‚Ì¸“x‚ğ‚à‚Âæ“¾ŠÖ”‚Í‚È‚¢ */
+	/* win32 ã§ãƒã‚¤ã‚¯ãƒ­ç§’ã®ç²¾åº¦ã‚’ã‚‚ã¤æ™‚åˆ»å–å¾—é–¢æ•°ã¯ãªã„ */
 	SYSTEMTIME st;
 	GetSystemTime( &st );
 	time( &vce_global_time );
@@ -502,10 +502,10 @@ void vce_update_time(void) {
 }
 
 /*
-  ƒL[‚ğ¶¬‚·‚éA‚½‚¾‚µ–ˆ‰ñƒ‰ƒ“ƒ_ƒ€‚È‚à‚ÌB
+  ã‚­ãƒ¼ã‚’ç”Ÿæˆã™ã‚‹ã€ãŸã ã—æ¯å›ãƒ©ãƒ³ãƒ€ãƒ ãªã‚‚ã®ã€‚
 
-  char *k : o—ÍƒL[
-  int len : Å‘å’·‚³
+  char *k : å‡ºåŠ›ã‚­ãƒ¼
+  int len : æœ€å¤§é•·ã•
   
  */
 char itoxc(unsigned int i) {
@@ -524,12 +524,12 @@ void itox(char *out,unsigned int i) {
 	*out++=itoxc(i);
 }
 
-// linux ‚Ìê‡‚ÍAfd_set ‚ª‚Å‚©‚¢‚±‚Æ‚ğ—v‹‚·‚é 
+// linux ã®å ´åˆã¯ã€fd_set ãŒã§ã‹ã„ã“ã¨ã‚’è¦æ±‚ã™ã‚‹ 
 #if (defined linux) && ( FD_SETSIZE < OSDEP_FD_SETSIZE )
 #error "VCE have to be compiled having FD_SETSIZE == OSDEP_FD_SETSIZE !!"
 #endif
 
-// fd_set ‚ÌŒ^–¼‚ªˆá‚¤‚Æ‚«‚à‚ ‚é 
+// fd_set ã®å‹åãŒé•ã†ã¨ãã‚‚ã‚ã‚‹ 
 #if defined linux || defined WIN32 || defined __APPLE__ || defined sun
 static fd_set vce_wfds, vce_rfds;
 #endif
