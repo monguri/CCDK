@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\vce;$(IncludePath);$(ProjectDir)..\externals;$(ProjectDir)..\externals\moyai\zlib-1.2.7;$(ProjectDir)..\..\redis\deps;$(ProjectDir)..\..\redis\msvs\Release</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\redis\msvs\Debug;$(ProjectDir)..\externals\moyai\demowin\DebugD3D;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\vce;$(IncludePath);$(ProjectDir)..\externals;$(ProjectDir)..\externals\moyai\zlib-1.2.7;$(ProjectDir)..\externals\redis\deps;$(ProjectDir)..\externals\redis\msvs\Release</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\redis\msvs\Debug;$(ProjectDir)..\externals\moyai\demowin\DebugD3D;$(ProjectDir)..\externals\redis\msvs\Debug;$(ProjectDir)..\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\vce;$(IncludePath);$(ProjectDir)..\externals;$(ProjectDir)..\externals\moyai\zlib-1.2.7;$(ProjectDir)..\..\redis\deps</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\redis\msvs\Release;$(ProjectDir)..\externals\moyai\demowin\ReleaseD3D;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\vce;$(IncludePath);$(ProjectDir)..\externals;$(ProjectDir)..\externals\moyai\zlib-1.2.7;$(ProjectDir)..\externals\redis\deps</IncludePath>
+    <LibraryPath>$(ProjectDir)..\externals\redis\msvs\Release;$(ProjectDir)..\externals\moyai\demowin\ReleaseD3D;$(ProjectDir)..\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -61,8 +61,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;moyai.lib;Win32_Interop.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/verbose:lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>ws2_32.lib;moyai.lib;Win32_Interop.lib;hiredis.lib;vce.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/verbose:lib /STACK:8000000 %(AdditionalOptions)</AdditionalOptions>
       <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -82,7 +82,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>ws2_32.lib;Win32_Interop.lib;moyai.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;Win32_Interop.lib;moyai.lib;vce.lib;hiredis.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Link>
     <PreBuildEvent>
@@ -102,10 +102,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ssproto_sv.cpp" />
     <ClCompile Include="stdafx.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\..\redis\msvs\Debug\hiredis.lib" />
-    <Library Include="..\Debug\vce.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
