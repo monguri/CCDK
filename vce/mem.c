@@ -3,40 +3,40 @@
 #include "osdep.h"
 #include "core.h"
 
-/* 配列の要素をあらわす */
+/* each element stored in an array */
 typedef struct _entry_t {
     int use;
-    struct _entry_t *next , *prev;   /* 使用中リスト用 */
+    struct _entry_t *next , *prev;   /* link to used list */
     char *buf;
 } entry_t;
 
-/* 配列自体をあらわす */
+/* array that stores many entry_t */
 typedef struct _array_t {
     int use;
     int num;
-    size_t size;        /* 構造体のサイズ */
+    size_t size;        /* size of structure */
 
-    entry_t *ent;       /* 実体 */
+    entry_t *ent;       /* body */
 
-    /* 空きを指すポインタの配列。この配列は同時に使用中配列でもある。 */
+    /* store freed entries in stack (could be used as used list at the same time)*/
     entry_t **blank_pointer_stack;
     int blank_pointer_stack_pointer;
 
-    /* マスターバッファへのポインタ (mallocして得るもの)*/
+    /* pointer to master buffer that is allocated by malloc */
     char *master_buffer;
     size_t master_buffer_size;
 
-    /* 使用中リストの先頭へのポインタ NULLだったら使用中のものはない */
+    /* pointer to the first element of used list. Indicates nothing is in use if NULL */
     entry_t *inuse_top_pointer;
-    /* 使用中リストの最後尾へのポインタ NULLだったら使用中のものはない */
+    /* pointer to the last element of used list. Indicates nothing is in use if NULL */
     entry_t *inuse_last_pointer;
 
-    /* 配列の名前。名前をつけて表示したり。超細かいログのため */
+    /* name of this array, for logging */
     char name[32];
 
 } array_t;
 
-/* array構造体の配列 */
+/* All array_t is stored in this array. Total size is fixed in the initialization */
 static array_t *array_table;
 
 
@@ -66,7 +66,7 @@ int vce_init_array( size_t size , int num , const char *nm ) {
     int i;
     int index = -1;
 
-    /* 空きをさがす。配列初期化は頻繁にはしないのでループ検索でよい */
+    /* Linear search is OK because array initialization is not often */
     for(i=0;i<vce_limit.max_array; i++){
         if(array_table[i].use == 0 ){
             index = i;
@@ -78,16 +78,15 @@ int vce_init_array( size_t size , int num , const char *nm ) {
         return SET_LAST_ERROR(VCE_EFULL);
     }
 
-    /* 大きさ０の配列は諸事情により無理 */
     if( size == 0 ) return SET_LAST_ERROR(VCE_EINVAL);
 
-    /* マスターバッファ(記憶する場所)をVCEMALLOC */
+    /* allocate master buffer */
     if( ( array_table[index].master_buffer =
           (char *) VCEMALLOC( size * num ) ) == NULL ) {
         VCE_ERROUT_V1( FATAL_ARRAY_FMALLOC_D , index );
         return SET_LAST_ERROR(VCE_EFULL);
     }
-    /* 管理配列をVCEMALLOC */
+    /* allocate entry list */
     if( ( array_table[index].ent =
           (entry_t * ) VCEMALLOC( sizeof( entry_t ) * num ) ) == NULL ) {
         VCE_ERROUT_V1( FATAL_ARRAY_FMALLOC1_D ,index );
@@ -95,7 +94,7 @@ int vce_init_array( size_t size , int num , const char *nm ) {
         return SET_LAST_ERROR(VCE_EFULL);
     }
 
-    /* 利用状況スタックをMALLOC */
+    /* allocate used list(stack) */
     if( (  array_table[index].blank_pointer_stack =
            (entry_t **) VCEMALLOC( sizeof( entry_t *) * num ) )== NULL ) {
         VCE_ERROUT_V1( FATAL_ARRAY_FMALLOC2_D ,index);
@@ -104,32 +103,26 @@ int vce_init_array( size_t size , int num , const char *nm ) {
         return SET_LAST_ERROR(VCE_EFULL);
     }
 
-    /* 全部0初期化。memsetはinitの中にしかないので、
-     ポインタに有効な値を入れたまま割りあて/解放ができる。
-     これは必要なことである。 */
+    /* memset() is only here. Pointers will be kept when alloc/free from array. */
     memset( array_table[index].master_buffer , 0 , size * num );
     memset( array_table[index].ent , 0, sizeof( entry_t ) * num );
-    memset( array_table[index].blank_pointer_stack , 0 ,
-            sizeof( entry_t * ) * num );
+    memset( array_table[index].blank_pointer_stack , 0 , sizeof( entry_t * ) * num );
 
 
-    /* バッファを細分化して初期化 */
+    /* Splitting master buffer */
     for( i = 0 ; i < num ; i++ ) {
         char *ptrdiv = array_table[index].master_buffer + size * i;
         array_table[index].ent[i].use = 0;
         array_table[index].ent[i].buf = ptrdiv;
 
-        /* 使用中リストで使うポインタもNULL初期化(必然性薄い) */
         array_table[index].ent[i].next = NULL;
         array_table[index].ent[i].prev = NULL;
 
-        /* スタックに並べて入れる */
-        array_table[index].blank_pointer_stack[i] =
-            &array_table[index].ent[i];
-           
+        /* put it in stack */
+        array_table[index].blank_pointer_stack[i] = &array_table[index].ent[i];           
     }
 
-    /* 配列管理構造体自体の初期化 */
+    /* initialize entries */
     array_table[index].use = 1;
     array_table[index].num = num;
     array_table[index].size = size;
@@ -138,16 +131,14 @@ int vce_init_array( size_t size , int num , const char *nm ) {
     array_table[index].inuse_top_pointer = NULL;
     array_table[index].inuse_last_pointer = NULL;
 
-    vce_copy_cstring( array_table[index].name,
-                      sizeof( array_table[index].name ), nm );
-    VCE_ERROUT_V5( NOTE_INIT_ARRAY_OK_D_P_U_D_S,
-                index,(void*) array_table[index].master_buffer,
-                (unsigned int )size , num , nm );
+    vce_copy_cstring( array_table[index].name, sizeof( array_table[index].name ), nm );
+    VCE_ERROUT_V5( NOTE_INIT_ARRAY_OK_D_P_U_D_S, index,(void*) array_table[index].master_buffer, (unsigned int )size , num , nm );
 	SET_LAST_ERROR(0);
     return index;
     
 }
 
+// deallocate array
 int vce_end_array( int index ) {
     if( CHECKINDEX(index) || array_table[index].use == 0 ){
         return SET_LAST_ERROR(VCE_EINVAL);
@@ -181,18 +172,17 @@ void *vce_alloc_array_object( int index ) {
     entp->use = 1;
     retp = entp->buf;
 
-    /* 使用中リンクを更新。常に先頭に追加する     */
+    /* update used list links. Always insert at the top */
     {
         entry_t *current_inuse_top;
         current_inuse_top = array_table[index].inuse_top_pointer;
         if( current_inuse_top ){
             current_inuse_top->prev = entp;
         } else {
-            /* 現在トップがなかったので、 last を top にするぞ */
             array_table[index].inuse_last_pointer = entp;
         }
         entp->next = current_inuse_top;
-        entp->prev = NULL; /* 先頭なのでnull*/
+        entp->prev = NULL;
         array_table[index].inuse_top_pointer = entp;
     }
 	 SET_LAST_ERROR(0);
@@ -238,13 +228,13 @@ int vce_free_array_object( int index , void *p ) {
         return SET_LAST_ERROR(VCE_EINVAL);
     }
 
-    /* スタックポインタが0より小さくなるのは自分のバグ */
+    /* If stack pointer gets negative, it'd be a VCE bug.. */
     if( ( sp = &array_table[index].blank_pointer_stack_pointer ) == 0 ){
         VCE_ERROUT_V1( BUG_FREESTACK_OVERFLOW_S, array_table[index].name );
         return SET_LAST_ERROR(VCE_EBUG);
     }
 
-    /* すでに解放されてたら自分のバグ */
+    /* Can't free twice */
     if( array_table[index].ent[dindex].use == 0 ){
         VCE_ERROUT_V2( WARN_REFREE_S_P, array_table[index].name , p );
         return SET_LAST_ERROR(VCE_EBUG);
@@ -255,29 +245,22 @@ int vce_free_array_object( int index , void *p ) {
         &array_table[index].ent[dindex];
 
 
-    /* 使用中リストから削除 */
+    /* remove from used list */
 
-    /* リンクに前がある場合は、そいつのnextをいじり、前がない場合は
-     先頭なので、topをいじる */
+    /* look at previous one */
     if( array_table[index].ent[dindex].prev ){
-        array_table[index].ent[dindex].prev->next =
-            array_table[index].ent[dindex].next;
+        array_table[index].ent[dindex].prev->next = array_table[index].ent[dindex].next;
     } else {
-        array_table[index].inuse_top_pointer =
-            array_table[index].ent[dindex].next;
+        array_table[index].inuse_top_pointer = array_table[index].ent[dindex].next;
     }
 
-    /* リンクに後ろ(next)がある場合はそいつのprevをいじり、
-       nextがない場合は最後尾なのでlast_pointerをいじるのだ */
+    /* look at latter one */
     if( array_table[index].ent[dindex].next ){
-        array_table[index].ent[dindex].next->prev =
-            array_table[index].ent[dindex].prev;
+        array_table[index].ent[dindex].next->prev = array_table[index].ent[dindex].prev;
     } else {
-        array_table[index].inuse_last_pointer =
-            array_table[index].ent[dindex].prev;
+        array_table[index].inuse_last_pointer = array_table[index].ent[dindex].prev;
     }
 
-    /* フラグをOFF */
     array_table[index].ent[dindex].use = 0;
 
     return SET_LAST_ERROR(0);
@@ -325,10 +308,7 @@ void *vce_get_array_object_next( int index , void *p ) {
 	SET_LAST_ERROR(0);
     return array_table[index].ent[dindex].next->buf;
 }
-/*
-  最後の要素を取りだす関数。
-  現在は全部ループさせているので遅い。高速化が望まれる。
-*/
+/* TODO: avoid full-scan */
 void *vce_get_array_object_last( int index ) {
     if( CHECKINDEX(index) || array_table[index].use == 0 ){
         SET_LAST_ERROR(VCE_EINVAL);
