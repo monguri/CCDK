@@ -25,15 +25,13 @@ vce_limit_t vce_limit = {
 char *vce_sendbuf_work = NULL;
 char *vce_recvbuf_work = NULL;
 
-/* 直下層のsocketライブラリが利用可能になったら1とする。
-   利用可能とは、 socket() が成功し connect/accept できるような状態の事。
-   Linux だったら最初から1、それ以外は0からはじまる。
-   WIN32 の場合は winsock の初期化が終了したら1にし、
-   このフラグが 0 のときは、 vce_heartbeat は何の処理もせず return する。
+/*
+  Set 1 when socket library(winsock in windows) is ready.
+  "Ready" means that socket() and connect(), accept() is available.
+  Linux and OSX: always 1, Windows: start from 0, and 1 after winsock initialization.
+  vce_heartbeat will do nothing whenthis flag is 0 .
 */
-
-int vce_socket_library_ok = 0;
-
+int vce_socket_library_ok = 0;  
 
 int vce_initialize( void ) {
 	int ret;
@@ -46,7 +44,7 @@ int vce_initialize( void ) {
 
 	vce_update_time();
 
-	// 送受信バッファを初期化する (全体で可変)
+	// fixed size of send/recv buffer.
 	vce_sendbuf_work = (char*) VCEMALLOC( vce_limit.sendbuf_work_size );
 	vce_recvbuf_work = (char*) VCEMALLOC( vce_limit.recvbuf_work_size );
 	if( !vce_sendbuf_work || !vce_recvbuf_work ){
@@ -143,13 +141,13 @@ int vce_finalize( void ) {
 VCEI64 vce_mainloop_utime_store = 0;
 int vce_mainloop_counter = 0; 
 
-time_t vce_global_time = 0; // システムコールの回数を減らすため
+time_t vce_global_time = 0; // To reduce frequency of systemcalls called.
 
 
 void vce_heartbeat( void ) {
 	vce_mainloop_counter ++;
 	vce_tcp_poll(0);
-	vce_update_time(); // 時刻関係は最後にやるのが仕様
+	vce_update_time(); 
 }
 
 void vce_heartbeat_on_single_conn( conn_t c ) {
