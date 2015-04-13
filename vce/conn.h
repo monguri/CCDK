@@ -6,43 +6,42 @@
 #include "osdep.h"
 
 
-//  TCPコネクション1本を表現する 
+// Represent a TCP connection(socket).
 typedef struct _conn {
     int fd;
 
-	/* closed flag。 close を呼びだしたらこのフラグが1になり、
-	   チェックのときにこのフラグが1だったら実際に close される。
-       アプリケーションが能動的に close を呼びだしたときだけ、
-       このフラグが使われ、受動的に閉じられる場合は直接 conn_free が使われる。
-    */
+	// Indicate that this connection is about to close.
+    // This flag is set 1 only when vce_conn_close() is called.
+    // close(2) systemcall will be called inside vce_heartbeat() if this flag is set.
+    // VCE don't set this flag internally. In that case VCE uses conn_free directly.
 	int closed_flag;
 
-	/* ノンブロッキング connect の connect が終了しているかどうかのフラグ。
-	   tcpcontext の nonblock_connect が 1 でないときはこの変数は使われない */
+	// Connect() succeeded or not, in non-blocking connect socket.
+    // This flag won't be used if tcpcontext's nonblock_connect is not set 1.
 	int nonblock_connect_ok;
 
-    // accept/connect したときにわかるアドレス 
-	char remote_addr[16]; // ipv4 の場合は先頭の4バイトに NBOrder で。 ipv6 の場合は全体に NBOrder 
-	int remote_addr_len; // ipv4 なら4、 ipv6 なら 16 
+    // Internet address of a connection, initialized when successful accept/connect()
+	char remote_addr[16]; // ipv4:top 4 bytes network byte order. ipv6:16bytes net byte order.
+	int remote_addr_len; // ipv4:4 ipv6:16 
 	unsigned short remote_port; // network byte order
 	char local_addr[16];
 	int local_addr_len;
 	unsigned short local_port;
     
-    time_t last_access; // 最後にアクセスがあった時刻
-    int timeout_sec;  // タイムアウトの設定
+    time_t last_access; // time of last access
+    int timeout_sec;  // connection timeout thres
 
 	sbuf rb,wb;
 
-    void *tcpc; // tcpcontextへのptr
+    void *tcpc; // pointer totcpcontext
 
     int is_server;
     
-    int index; // conn配列の中の index 
+    int index; // index to conn array
 	void *userdata; // additional userdata pointer 
-	char *statebuf; // 状態管理バッファ(tcpcontextのmiからとるポインタ
-	size_t statebuf_size; // tcpcontextのコピー 
-	int statebuf_mi; // tcpcontextのコピー 
+	char *statebuf; // master state buffer ( from tcpcontext's mem index)
+	size_t statebuf_size; // copy from tcpcontext
+	int statebuf_mi; // copy from tcpcontext
 
     int ( *protocol_parser ) ( conn_t );
 
@@ -50,18 +49,18 @@ typedef struct _conn {
     int ( *protocol_hiwater_acceptwatcher ) (conn_t, int);
 	int ( *protocol_closewatcher ) ( conn_t, CLOSE_REASON r );
 
-	int ( *pcallback)(conn_t,char*,int);	// プロトコルコールバック関数 
+	int ( *pcallback)(conn_t,char*,int);	// protocol callback function
 	
-	unsigned int serial;  // 自分自身のシリアル番号 
+	unsigned int serial;  // serial number of itself
 
 
-    /* exploit対策、bin16パーサでの最大値設定 */
-	/* tcpcontextから受け取る */
+    // Avoiding exploit. bin16 parser max length.
+	// tcpcontext gives this
 	int (*maxlen_warning)(conn_t ct);
 	int maxlen_record;
 
 
-	/* 統計情報 */
+	// stats
     VCEI64 recv_byte, send_byte, conn_write;
     VCEI64 recv_syscall, send_syscall;
 

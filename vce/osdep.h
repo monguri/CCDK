@@ -4,19 +4,19 @@
 
 #include "vce.h"
 
-/* 最大接続数とかのデフォルト */
+// defaults of max of resources
 #ifdef linux
 #define OSDEP_DEFAULT_MAXTCPCONTEXT 16
 #define OSDEP_DEFAULT_MAXTASKGROUP 16
 #define OSDEP_DEFAULT_MAX_ARRAY_INDEX 16384
-#define OSDEP_DEFAULT_MAXCON 1000 /* linux での標準的な値 */
+#define OSDEP_DEFAULT_MAXCON 1000  
 #define OSDEP_SEND_UNIT (1024*256)
-#define OSDEP_RECV_UNIT (1024*256*4) /* サーバとして使われるので大きめ */
+#define OSDEP_RECV_UNIT (1024*256*4) // relatively bigger because Linux is used mainly as a server.
 #define OSDEP_FD_SETSIZE FD_SETSIZE
 #endif
 
 #if defined(__APPLE__) || defined(sun)
-/* Almost copied from linux config, but smaller max connections */
+// Almost copied from linux config, but smaller max connections 
 #define OSDEP_DEFAULT_MAXTCPCONTEXT 16
 #define OSDEP_DEFAULT_MAXTASKGROUP 16
 #define OSDEP_DEFAULT_MAX_ARRAY_INDEX 16384

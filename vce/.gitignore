@@ -9,3 +9,4 @@ testsv
 libvce.a
 testproto_sv.*
 testproto_cli.*
+deps.make
