@@ -1012,7 +1012,7 @@ int ssproto_kvs_append_string_array_recv( conn_t _c, int query_id, const char *k
             if( trim == 0 || n <= trim ) {
                 modified_v = picojson::value(ary);
             } else { // n > trim
-                // [ a, b, c, d, e ]でnが5でtrimが3なら、start_iは2
+                // start_i is 2 if input is [ a, b, c, d, e ] and n=5, trim=3
                 int start_i =  n - trim;
                 picojson::array shorter;
                 for(int i=start_i;i<n;i++) {

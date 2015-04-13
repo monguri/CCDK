@@ -1,4 +1,4 @@
-// backend.cpp : コンソール アプリケーションのエントリ ポイントを定義します。
+// backend.cpp : Defines entry point of console application.
 //
 
 #include "stdafx.h"
