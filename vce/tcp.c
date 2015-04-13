@@ -9,15 +9,13 @@
 #include "util.h"
 
 
-
-
 int vce_tcpcontext_mi = -1;
 
 
-// select のタイムアウト調整 
+// Automatically adjust select timeout
 int vce_select_timeout_us = 0;
 int vce_fdwrap_select_nfds = -1;
-int vce_select_timeout_flag = 0; // 1:select のタイムアウトをする
+int vce_select_timeout_flag = 0; // Performn select timeout when 1
 
 int vce_tcpcontext_init_world( void ) {
     if( vce_limit.max_tcpcontext > 0 ){
@@ -33,8 +31,7 @@ int vce_tcpcontext_fin_world(void) {
     return 0;
 }
 
-//   あたらしいconnのシリアル番号を得る
-static unsigned int vce_conn_serial = 0; //serialのインクリメント用
+static unsigned int vce_conn_serial = 0; 
 int vce_tcpcontext_get_next_conn_serial() {
     vce_conn_serial++;
     if( vce_conn_serial == 0 ){
@@ -123,7 +120,6 @@ tcpcontext_t  vce_tcpcontext_create(
             return NULL;
         }
 
-        /* reuseaddr を設定する */
         if( vce_socket_set_reuseaddr( t->mainsock ) < 0 ){
             VCE_ERROUT1( FATAL_TCP_SETSOCKOPT_REUSE_S , vce_get_os_errstr());
             vce_free_array_object( vce_tcpcontext_mi, t );
@@ -132,17 +128,14 @@ tcpcontext_t  vce_tcpcontext_create(
         }
         if( vce_socket_set_keepalive( t->mainsock ) < 0 ){
 #ifdef linux
-            VCE_ERROUT1( "warning: vce_socket_set_keepalive fail (%s)\n",
-                         vce_get_os_errstr());
+            VCE_ERROUT1( "warning: vce_socket_set_keepalive fail (%s)\n", vce_get_os_errstr());
 #else
-            VCE_ERROUT_V1( "warning: vce_socket_set_keepalive fail (%s)\n",
-                           vce_get_os_errstr());
+            VCE_ERROUT_V1( "warning: vce_socket_set_keepalive fail (%s)\n", vce_get_os_errstr());
 #endif
         }
 
         if( vce_socket_bind( t->mainsock, bindaddr,port ) < 0 ){
-            VCE_ERROUT3( FATAL_TCP_BIND_S_S_D,
-                         vce_get_os_errstr() , bindaddr , (int)port );
+            VCE_ERROUT3( FATAL_TCP_BIND_S_S_D, vce_get_os_errstr() , bindaddr , (int)port );
             vce_free_array_object( vce_tcpcontext_mi, t );
             SET_LAST_ERROR( VCE_EBIND );
             return NULL;
@@ -158,14 +151,12 @@ tcpcontext_t  vce_tcpcontext_create(
         }
     }
 
-    /* 状態管理用バッファ初期化。 */
+    // master buffer of state buffer of each connections 
     if( statebuf_size > 0 ){
         t->statebuf_size = statebuf_size;
         t->statebuf_num = t->max_conn;
-        vce_snprintf( aname, sizeof(aname),
-                      "stateb%d" , port); /* sizeofは 32 だよ */
-        t->statebuf_mi = vce_init_array( t->statebuf_size,
-                                         t->statebuf_num, aname);
+        vce_snprintf( aname, sizeof(aname), "stateb%d" , port); /* sizeof is 32  */
+        t->statebuf_mi = vce_init_array( t->statebuf_size, t->statebuf_num, aname);
         if( t->statebuf_mi < 0){
             VCE_ERROUT0( FATAL_TCP_STATEBUF_INIT );
             ret_e = VCE_EARRAY;
@@ -176,7 +167,7 @@ tcpcontext_t  vce_tcpcontext_create(
         t->statebuf_mi = -1;
     }
 
-    /* 読みこみbufferなどを初期化 */
+    // read buffer master
     vce_snprintf( aname,sizeof(aname),"rb%d", port);
     t->rbmaster_mi = vce_init_array( rblen, t->max_conn, aname );
     if( t->rbmaster_mi < 0 ){
@@ -184,21 +175,20 @@ tcpcontext_t  vce_tcpcontext_create(
         goto return_error;
     }
     vce_snprintf( aname,sizeof(aname),"erb%d", port);
-    /* ここの +8 は、暗号のヘッダ */
-    /* さらに圧縮用のヘッダ */
+    // encrypted read buffer master (+8 for encryption header, +8 to compress header )
     t->erbmaster_mi = vce_init_array( rblen+8+8, t->max_conn, aname );
     if( t->erbmaster_mi < 0 ){
         ret_e = VCE_EARRAY;
         goto return_error;
     }
+    // write buffer master
     vce_snprintf( aname,sizeof(aname),"wb%d", port);
     t->wbmaster_mi = vce_init_array( wblen, t->max_conn, aname );
     if( t->wbmaster_mi < 0 ){
         ret_e = VCE_EARRAY;
         goto return_error;
     }
-    /* ここの +8 は、暗号のヘッダ */
-    /* さらに圧縮用のヘッダ */
+    // encrypted write buffer master (+8 for encryption header, +8 to compress header )
     vce_snprintf( aname,sizeof(aname),"ewb%d", port);
     t->ewbmaster_mi = vce_init_array( wblen+8+8, t->max_conn, aname );
     if( t->ewbmaster_mi < 0 ){
@@ -257,7 +247,7 @@ void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t, CL
 void vce_tcpcontext_cleanup( tcpcontext_t tp ) {
     tcpcontext *t = ( tcpcontext * ) tp;
 
-    vce_conn_close_tcpcontext_all( (tcpcontext_t) tp ); // すべてのコネクションを閉じる
+    vce_conn_close_tcpcontext_all( (tcpcontext_t) tp ); 
 
     if( t->is_server ) vce_socket_close( t->mainsock );
 
@@ -306,15 +296,12 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
                             (tcpcontext_t) t );
     if( ns < 0 ) return;
 
-    // accept数チェック 
+    // Are we getting max accept per second?
     if(t->accept_max) {
-        // 時間経過分許可カウント増加
         while(t->accept_lasttime<vce_mainloop_utime_store) {
             t->accept_lasttime+=60*1000*1000/t->accept_max;
             if(t->accept_count<t->accept_max) {
                 t->accept_count++;
-
-                // 無駄なループを避けるため適当に抜けてしまう 
                 if(t->accept_count==t->accept_max) {
                     t->accept_lasttime=vce_mainloop_utime_store+60*1000*1000/t->accept_max;
                     break;
@@ -324,7 +311,7 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
         if(t->accept_count>=0) {
             t->accept_count--;
         } else {
-            // 許容数オーバー 
+            // Excess accept!
             int ret=-1;
             if(t->accept_warning) ret=t->accept_warning((tcpcontext_t)t);
             if(ret<0) {
@@ -335,29 +322,29 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
         }
     }
 
-    // これ以上 acceptしない設定になってたらだめだよ 
+    // Application can stop all new connection by this flag
     if( t->accept_more == 0 ){
         VCE_ERROUT_V0( WARN_TCP_NO_MORE_ACCEPT );
         vce_socket_close(ns);
         return;
     }
 
-    // もしも、使用中コネクションのカウンタが、最大だったらこれ以上コネクションはれないよ 
+    // max concurrent sockets
     if( t->conn_in_use == t->max_conn ) {
         VCE_ERROUT_V1( WARN_TCP_MAX_CONN_IN_USE_D, t->max_conn );
         vce_socket_close(ns );
         return;
     }
 
-    // connを1個わりつける 
+    // new conn
     if( !( newc = vce_conn_alloc()) ){
         VCE_ERROUT_V2( WARN_TCP_MAXCON_D_D,
                        t->max_conn, htons(t->sa.sin_port ));
         return;
     }
-    // 使用中の数を増やす 
     t->conn_in_use ++;
-    // 状態管理バッファを初期化 
+    
+    // state buffer from VCE's array
     if( t->statebuf_mi >= 0 ){
         newc->statebuf = vce_alloc_array_object( t->statebuf_mi );
         if( !newc->statebuf ){
@@ -415,13 +402,13 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
         }
     }
 
-    // accept したら、状態バッファをゼロクリア
+    // init state buffer
     tmpconnt.p = newc;
     tmpconnt.serial = newc->serial;
     statebuf = vce_conn_get_state_buffer( tmpconnt, &statebuflen );
     if( statebuf )memset( statebuf,0, statebuflen );
 
-    // 全部うまくいったら、acceptor を呼びだすのだ。cipher が1のときは、NEGO がおわってから ACCEPTED をメインに送る 
+    // callback! 
     if( newc->protocol_acceptwatcher ){
         if( t->conn_in_use >= (t->conn_hiwater_thres-1) ){
             VCE_ERROUT_V2( "try_accept: hiwater (now:%d hiw:%d)\n", t->conn_in_use, t->conn_hiwater_thres );
@@ -445,7 +432,7 @@ static void tcpcontext_try_accept( tcpcontext *t ) {
 
 
 
-// すべての接続をpollする
+// Poll all connections
 void vce_tcp_poll( int isolate_conn_serial ) {
     conn *c;
     tcpcontext *t;
@@ -456,7 +443,7 @@ void vce_tcp_poll( int isolate_conn_serial ) {
 
 	vce_fdwrap_select_nfds=0;
     
-    // 全部の mainsock 
+    // all listening sockets
     ARRAY_SCAN( vce_tcpcontext_mi , t ){
         if( !t->is_server )continue;
         vce_socket_fdwrap_set_read( t->mainsock );
@@ -464,11 +451,10 @@ void vce_tcp_poll( int isolate_conn_serial ) {
 			vce_fdwrap_select_nfds=t->mainsock;
     }
 
-    // 全部のconn 
+    // all normal sockets
     ARRAY_SCAN( vce_conn_mi, c ){
 		if(c->fd>vce_fdwrap_select_nfds) vce_fdwrap_select_nfds=c->fd;
 
-        // 閉じフラグが立っていない場合は、通常の select をしようとする 
         if( c->closed_flag == 0 ){
             if( vce_sbuf_get_use( &c->wb ) > 0 ||
                 ( ((tcpcontext*)c->tcpc)->nonblock_connect &&
@@ -482,13 +468,13 @@ void vce_tcp_poll( int isolate_conn_serial ) {
             continue;
         }
 
-        // closedでも、書きたいデータがまだある場合は送ろうと努力する。ない場合は素直に閉じる。
+        // finish connection when closed and no data to send.
         if( vce_sbuf_get_use( &c->wb ) == 0  ){
             vce_conn_free( c, 1, CLOSE_REASON_APPLICATION );
             VCE_ERROUT_V0( "tcp.c: conn_free(c,1) and continue 1.\n");
             continue;
         }
-        // ただし、最大時間の制限はつけとく
+        // finish connection when send times out.
         if( c->last_access < ( vce_global_time - c->timeout_sec )){
             VCE_ERROUT_V1( "tcp.c: absolute close_timeout for ser:%d! calling closewatcher 2.\n", c->serial );
             vce_conn_free(c,1, CLOSE_REASON_TIMEOUT );
@@ -496,7 +482,7 @@ void vce_tcp_poll( int isolate_conn_serial ) {
             continue;
         }
 
-        // closed で書きこみデータがあって、 timeout でもない場合は、read も write もフラグを立て続ける。 
+        // Perform select() on closing connection when have something in sendbuffer.
         if( vce_sbuf_get_use( &c->wb ) > 0 ){
             any_io |= 8;
             vce_socket_fdwrap_set_write( c->fd );
@@ -504,7 +490,7 @@ void vce_tcp_poll( int isolate_conn_serial ) {
         }
     }
 
-    // select(3)を呼ぶ。今のOSだとepoll,kqueueとかなくても十分速い。
+    // Call select(3).  TODO:implement epoll or kqueue in future? select() is enough fast in Linux and OSX with current usage.
     vce_socket_fdwrap_select( vce_fdwrap_select_nfds+1, &read_ret, &write_ret );
 
     // accept/read/write test 
@@ -535,14 +521,14 @@ void vce_tcp_poll( int isolate_conn_serial ) {
         ARRAY_SCAN( vce_tcpcontext_mi , t ){
             if( !t->is_server ) continue;
             if( vce_socket_fdwrap_is_readable( t->mainsock ) ){
-                any_io |= 2; // accept はれっきとした I/O
+                any_io |= 2; // accept is actually an I/O
                 tcpcontext_try_accept( t );
             }
         }
 
     }
 
-    // ということで、any_io がここで真だったら select のタイムアウトをカナリ へらし、0だったら1  usふやす 
+    // Shorten timeout threshold when any IO is performed, otherwize increase
     if( vce_select_timeout_flag  ){
         if( any_io ){
             if( vce_select_timeout_us > 0 ) vce_select_timeout_us /= 2;
@@ -610,22 +596,21 @@ conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hname , unsigned sho
                             &local_port,
                             (tcpcontext_t)t) < 0 ){
         vce_socket_close(fd);
-        VCE_ERROUT_V2( "tcp.c : connect: returning null_ct %p, %d\n",
-                       null_ct.p, null_ct.serial );
+        VCE_ERROUT_V2( "tcp.c : connect: returning null_ct %p, %d\n", null_ct.p, null_ct.serial );
         SET_LAST_ERROR( VCE_ECONNECT);
         return null_ct;
     }
 
     VCE_ERROUT_V1( NOTE_TCP_CONNECT_OK_D , fd );
 
-    // 新しいconn が1個ないとはじまらんよね。 
+    // new conn
     if( ( newc = vce_conn_alloc()) == NULL ){
         return_error = VCE_EFULL;
         goto error_return;
     }
     t->conn_in_use ++;
 
-    // 状態管理バッファも初期化
+    // state buffer
     if( t->statebuf_mi >= 0 ){
         newc->statebuf = vce_alloc_array_object( t->statebuf_mi );
         if( !newc->statebuf ){
