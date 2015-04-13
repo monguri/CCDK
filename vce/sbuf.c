@@ -24,20 +24,11 @@ int vce_sbuf_is_valid( sbuf *s ) {
 	if( !s || !s->buf ) return 0; else return 1;
 }
 
-/*
-  sbuf にpushする。
-  appendできた長さを返す。
-
-  バグっている場合は落ちてほしいので、バグチェックはしないぞ
-
-  VCEに特徴的な機能として、指定された量のデータを append できなかった場合は、
-  中途半端なデータを書きこまずエラーを返す。
-  これは基本的なスタンスである。
-  
- */
+// Returns length of appended buffer, in bytes.
+//  Do not check consistency because we prefer crash when invalid data is given. (VCE always do so)
 int vce_sbuf_push( sbuf *s, char *p , size_t pl ) {
-    /* このrestは、後半にある残りね。全体の残りではないよ */
-    int rest =(int)s->len - s->end;
+    // buffer is formed like this : [ room A ][ used body ][ room B ]
+    int rest =(int)s->len - s->end;    // rest means room B.
 	if(pl==0)
 		return 0;
     if( rest >= (int) pl ){
@@ -46,7 +37,7 @@ int vce_sbuf_push( sbuf *s, char *p , size_t pl ) {
 		SET_LAST_ERROR(0);
         return (int)pl;
     }
-    /* 残りの部分にそのまま足せない場合はずらしてもういちどしらべる */
+    // if room B is not enough, move the body to the top of the buffer and look again.
     memmove( s->buf, s->buf + s->start , s->end - s->start );
     s->end -= s->start;
     s->start = 0;
@@ -62,15 +53,11 @@ int vce_sbuf_push( sbuf *s, char *p , size_t pl ) {
     return SET_LAST_ERROR(VCE_EBUG);
 }
 
-/*
-  sbuf の前を削りだす(shrink)
-
-  char *out: 出力バッファ
-  size_t outl : そのさいず
-
-  コピーできた長さをかえす。
-  out にNULLをいれると、コピーしない
- */
+// sbuf: [ room A ][ used body ][ room B ]
+// Copy data from the begging of used body and expand room A.
+// char *out: output buffer
+// size_t outl : size of output buffer.
+// Do not copy anything when out is NULL.
 int vce_sbuf_shrink( sbuf *s, char *out, size_t outl ) {
     int cplen;
     int datalen ;
@@ -85,15 +72,16 @@ int vce_sbuf_shrink( sbuf *s, char *out, size_t outl ) {
 	SET_LAST_ERROR(0);
     return cplen;
 }
-/* 残りバッファ長をかえす */
+// [roomA][body][roomB].
+// Returns total length of roomA and roomB. These two rooms are put together when pushing data into sbuf.
 int vce_sbuf_get_rest( sbuf *s ) {
 	int r;
-    /* 前と後に空きがありうるから。pushのときに詰まるね */
 	SET_LAST_ERROR(0);
     r =  ( (int)s->len - s->end ) + ( s->start - 0 ) ;
 	return r;
 }
-/* 使用中のデータ長を返す */
+// [roomA][body][roomB].
+// Returns body length.
 int vce_sbuf_get_use( sbuf *s ) {
 	SET_LAST_ERROR(0);
     return s->end - s->start;

@@ -13,22 +13,13 @@ int vce_protocol_parser_bin16( conn_t ct ) {
     vce_sbuf_get_buffer( &c->rb, &data, &datalen );
     if( datalen < 2 ) return SET_LAST_ERROR(0);
     contentlen = GET_16BIT_INT( data ) & 0xffff;
-    /*
-    レコード長の制限処理
-    制限がしてあったら（１以上）ならレコード長を見て警告関数を呼ぶ。
-    警告関数が設定してなければエラーを吐いて終わり。
-    レコードの最初の２バイトで判断するので無駄に受信せずすばやい判断が可能
-    */
-    if(c->maxlen_record>=1&&
-        contentlen > c->maxlen_record )
-    {
-        if(c->maxlen_warning)
-        {
-            if(c->maxlen_warning(ct)<0)
-                return SET_LAST_ERROR(VCE_EPROTO_TOOLONG);
-        }
-        else
+    // Limitting length of the record.
+    if(c->maxlen_record>=1 && contentlen > c->maxlen_record ) {
+        if(c->maxlen_warning) {
+            if(c->maxlen_warning(ct)<0) return SET_LAST_ERROR(VCE_EPROTO_TOOLONG);
+        } else {
             return SET_LAST_ERROR(VCE_EPROTO_TOOLONG);
+        }
     }
 
     if( datalen < ( 2 + contentlen ) ) return SET_LAST_ERROR(0);
@@ -69,7 +60,7 @@ int vce_protocol_parser_text( conn_t ct ) {
     vce_sbuf_get_buffer( &c->rb, &data, &datalen );
     if( datalen < 1 ) return SET_LAST_ERROR(0);
 
-    // 行がそろってるかみる 
+    // Do I have enough characters to compose a line?
     for(i=0;i<datalen;i++){
         if( data[i] == '\r' && data[i+1] == '\n' && (i<(datalen-1))){
             if( c->pcallback ){
@@ -97,7 +88,6 @@ int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  ) {
 
     if( !vce_conn_is_valid(ct) ) return SET_LAST_ERROR(VCE_EINVAL);
 
-    /* 最初に全体の長さを求める */
     if( len > BIN16DATA_MAX ) return SET_LAST_ERROR(VCE_ELONGINPUT);
     totallen = 2 + len ;
 
@@ -108,11 +98,12 @@ int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  ) {
         return SET_LAST_ERROR( VCE_EWBFULL );
     }
 
-    /* 2回書きこむ、エラーにならない(writableで調べてるから) */
+    // write twice, but never get error (checking by writable() function beforehand
 
-    /* ヘッダをまず書きこむ */
+    // header first
     SET_16BIT_INT( work, len );
     vce_conn_write( ct, work, 2 );
+    // content second
     vce_conn_write( ct, data, len );
 
     SET_LAST_ERROR(0);
@@ -149,12 +140,12 @@ int vce_protocol_unparser_text( conn_t ct, char *data, int len ) {
 
     if( !vce_conn_is_valid(ct) ) return SET_LAST_ERROR(VCE_EINVAL);
 
-    /* 残りが、改行の分もあるかみる */
+    // Do I have room to store newline?
     if( rest < 0 ) return SET_LAST_ERROR(rest);
 
     if( rest < totallen ) return SET_LAST_ERROR(VCE_EWBFULL);
 
-    /* あるなら、2回書きこむ、そのほうがmemcpyより速いだろう */
+    // write body and newline
     vce_conn_write( ct, data, len );
     vce_conn_write( ct, "\n", 1 );
     return totallen;
