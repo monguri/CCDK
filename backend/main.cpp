@@ -35,8 +35,8 @@ char g_redis_addr[1024] = "localhost";
 
 char g_topdir[1024] = "./datadir";
 redisContext *g_redis;
-tcpcontext_t g_dbctx; // DB用
-tcpcontext_t g_rtctx; // リアルタイム用
+tcpcontext_t g_dbctx; // For Database server
+tcpcontext_t g_rtctx; // For Realtime server
 
 long long g_loopcnt;
 
@@ -44,7 +44,7 @@ long long g_loopcnt;
 class ChannelMember {
 public:
     conn_t co;
-    int x, y; // 位置
+    int x, y; // Position 
     time_t last_active_at;
     void set( conn_t c ) {
         co = c;
@@ -55,10 +55,10 @@ public:
 
 class Channel {
 public:
-    int id; // 0なら不使用
-    time_t last_active_at; // 通信がなくなった一定時間後に消える
-    ChannelMember members[256]; //密に使う。削除したら詰める
-    int num_members; //
+    int id; // Not used when 0
+    time_t last_active_at; // Will be destroyed soon after stopping receiving data or closed
+    ChannelMember members[256]; // Stuffed from the beginning. Re-stuff when deletion
+    int num_members; // Total number of members used.
     bool leave( conn_t c ) {
         for(int i=0;i<num_members;i++) {
             if( vce_conn_is_equal( members[i].co, c ) ) {
@@ -86,13 +86,13 @@ public:
         num_members ++;
         return true;
     }
-    // TODO: スキャンしている。が、頻度を低くして調整できる。限度はあるが。。
+    // TODO: Now scanning every members.  Can be tuned by updating less frequent though.
     bool updatePosition( conn_t co, int x, int y ) {
         for(int i=0;i<num_members;i++) {
             if( vce_conn_is_equal( members[i].co, co ) ) {
                 members[i].x = x;
                 members[i].y = y;
-                members[i].last_active_at = time(NULL); // TODO: 重いようなら、キャッシュされた値を使え。
+                members[i].last_active_at = time(NULL); // TODO: Can be tuned by caching.
                 return true;
             }
         }
@@ -101,14 +101,14 @@ public:
     int getMemberCount() { return num_members; }
 };
 
-Channel g_channels[1024]; // 同時にオンラインになりうるプロジェクトの数
+Channel g_channels[1024]; // Max number of concurrent online project at the same.
 
 
 class ConnectionState {
 public:
     double last_ping_at;
-    Channel *cur_channel_cache; // Channelの配列は再利用されるのでcache
-    int cur_channel_id; // チェック用のid
+    Channel *cur_channel_cache; // Pointer to current channel joined, to avoid searching every time.
+    int cur_channel_id; // Channel ID for checking pointer consistency.
     void init() {
         cur_channel_cache = NULL;
         cur_channel_id = 0;
@@ -136,7 +136,7 @@ const char *getConnectionType( conn_t c ) {
 
 typedef struct {
 public:
-    unsigned int by_conn_id; // 0だったらlockされていない
+    unsigned int by_conn_id; // Not locked when 0.
     time_t lock_at;
     
 } LockEntry;
@@ -145,7 +145,7 @@ public:
 
 class LockGrid {
 public:
-    int id; // 0だったら不使用
+    int id; // Not used when 0.
     static const int W=128;
     static const int H=128;    
     LockEntry entries[H][W];
@@ -161,7 +161,7 @@ public:
     bool lock( int x, int y, int by ) {
         if(x>=W || y>=H ||x<0 ||y<0) return false;
         if( entries[y][x].by_conn_id != 0 ) {
-            return false; // 自分で何度もlockすることもできない
+            return false; // Can't lock twice
         }
         entries[y][x].by_conn_id = by;
         entries[y][x].lock_at = time(NULL);
@@ -270,7 +270,7 @@ int conn_closewatcher( conn_t c, CLOSE_REASON reason ) {
 void cleanAll( conn_t c ) {
     ConnectionState *cs = (ConnectionState*) vce_conn_get_state_buffer( c, NULL );
     if( checkCSChannel(cs) ) {
-        // TODO: プレゼンスも削除したほうがもっといいよね.user_idがないので削除できない。
+        // TODO: Better to clean presence too. (Otherwise times out). Need user_id to clean presence.
         cs->cur_channel_cache->leave(c);
         cs->cur_channel_cache = NULL;
         cs->cur_channel_id = 0;
@@ -421,7 +421,7 @@ int main( int argc, char **argv ) {
         g_dbctx = vce_tcpcontext_create( 1, // server
                                          NULL, DBPORT, // addr, port
                                          g_maxcon, // maxcon
-                                         1*1024*1024, 2*1024*1024, // rblen, wblenとても多め.
+                                         1*1024*1024, 2*1024*1024, // recv buffer size, send buffer size
                                          g_tcp_timeout, // timeout
                                          0, // nonblock_connect
                                          0, // nodelay
@@ -468,7 +468,7 @@ int main( int argc, char **argv ) {
         g_rtctx = vce_tcpcontext_create( 1, // server
                                          NULL, RTPORT,
                                          g_maxcon,
-                                         256*1024, 1024*1024, 
+                                         256*1024, 1024*1024,  // recv buffer size, send buffer size
                                          g_tcp_timeout,
                                          0,
                                          1, // nodelay
@@ -501,9 +501,9 @@ int main( int argc, char **argv ) {
 
             static double last_dot_at = 0;
             int curcon = getCurrentConnNum();
-            
-            if( curcon > 5 ) { 
-                // 接続が多い時、ループ速度が低下してたら何か出す
+
+            // Slow loop warn. It can cause too much server latency
+            if( curcon > 5 ) {                 
                 double dt_per_dot = nt - last_dot_at;
                 if( dt_per_dot > 2.0f && last_dot_at > 0 ) {
                     print("server loop slowdown: %f sec", dt_per_dot);
@@ -525,7 +525,7 @@ int main( int argc, char **argv ) {
 
         if( g_enable_realtime ) { 
             static double last_pollgridlock_at = 0;
-            if( nt > last_pollgridlock_at + 0.01 ) { // 0.1なら、100プロジェクト調べるのに10秒
+            if( nt > last_pollgridlock_at + 0.01 ) { // 0.01 * 100 project = 1 second
                 last_pollgridlock_at = nt;
                 pollProgressLockGrids();
             }
@@ -647,7 +647,7 @@ int ssproto_check_file_recv( conn_t _c, int query_id, const char *filename ) {
         if(ret) {
             res = SSPROTO_FILE_EXIST;
         } else {
-            // ファイルが無いがエラーでもない
+            // No file found, but not an error.
             res = SSPROTO_FILE_NOT_EXIST;
         }
     }
@@ -673,7 +673,7 @@ void convertRedisElementsToStringArray( redisReply *reply, char **strary ) {
             strary[i] = & work[i][0];
             break;
         case REDIS_REPLY_NIL:
-            // TODO: genは文字列の配列しか使えないので、仮に(nil)を返しておく
+            // TODO: Now VCE's gen can only handle string array. returning special string.
             {
                 static char nilstr[] = "(nil)";
                 strary[i] = nilstr;
@@ -688,7 +688,7 @@ int ssproto_kvs_command_str_recv( conn_t _c, int query_id, const char *command )
     CHECK_DATABASE("kvs_command_str");    
     //    print("ssproto_kvs_command_str_recv: qid:%d cmd:'%s'", query_id, command );
     prt("R");    
-    redisReply *reply = (redisReply*) redisCommand( g_redis, command ); // セキュリティ皆無.
+    redisReply *reply = (redisReply*) redisCommand( g_redis, command ); // No security! Use only inside data center servers.
     switch( reply->type) {
     case REDIS_REPLY_STRING:
         //        print("redis returns string: '%s'", reply->str );
@@ -702,7 +702,7 @@ int ssproto_kvs_command_str_recv( conn_t _c, int query_id, const char *command )
         break;
     case REDIS_REPLY_INTEGER:
         //        print("redis returns integer: %d", reply->integer );
-        // 現状のgenは同じ関数に複数の型を入れられないので、一旦文字列に変換せざるをえない
+        // Have to convert to string, because now gen can't manage multiple prototypes of same function.
         {
             char s[128];
             snprintf(s,sizeof(s), "%lld", reply->integer);
@@ -737,7 +737,7 @@ int ssproto_kvs_command_str_recv( conn_t _c, int query_id, const char *command )
 }
 int ssproto_kvs_command_str_oneway_recv( conn_t _c, const char *command ) {
     CHECK_DATABASE( "kvs_command_str_oneway");    
-    redisCommand( g_redis, command ); // セキュリティ皆無かつエラー処理皆無
+    redisCommand( g_redis, command ); // No security! Use only inside data center servers.
     return 0;
 }
 
@@ -769,11 +769,11 @@ int ssproto_kvs_load_bin_recv( conn_t _c, int query_id, const char *key, const c
         print("redis error on '%s':'%s' emsg:'%s'", key, field, reply->str );
         ssproto_kvs_load_bin_result_send( _c, query_id, SSPROTO_E_KVS_COMMAND, 0, key, field, reply->str, reply->len );
     } else if( reply->type == REDIS_REPLY_NIL ){
-        // データが無いときはここ
+        // No data stored in redis.
         print("redis no data on '%s' '%s'", key, field );
         ssproto_kvs_load_bin_result_send( _c, query_id, SSPROTO_OK, 0, key, field, NULL,0 );
     } else {
-        // データがあった。
+        // Data found!
         //        print("redis get ok on '%s':'%s' reply type:%d", key, field, reply->type );
         prt("R");
         ssproto_kvs_load_bin_result_send( _c, query_id, SSPROTO_OK, 1, key, field, reply->str, reply->len );
@@ -794,12 +794,12 @@ void Project::clear() {
 }
 bool Project::updateUser( int user_id ) {
     for(int i=0;i<elementof(online_players);i++) {
-        if( online_players[i].user_id == user_id ) { // 見つかった
+        if( online_players[i].user_id == user_id ) { // found a user
             online_players[i].last_active_at = time(NULL);
             return true; 
         }
     }
-    // 見つからない
+    // User not found
     for(int i=0;i<elementof(online_players);i++) {
         if( online_players[i].user_id == 0 ) {
             online_players[i].user_id = user_id;
@@ -860,7 +860,7 @@ void Project::listOnlineUsers( int *out, int *outn ) {
     }
     *outn = outind;
 }
-// TODO: 後でキャッシュされた値を使うようにしたら軽くなる
+// TODO: Use cache for more performance.
 int Project::countOnlineUsers() {
     int n=0;
     for(int i=0;i<elementof(online_players);i++) {
@@ -937,7 +937,7 @@ int ssproto_count_presence_recv( conn_t _c, int project_id ){
 }
 
 //////////////////
-// listをそのまま使った操作(主にログ用)
+// Redis list. (Mainly for logging)
 int ssproto_kvs_push_to_list_recv( conn_t _c, int query_id, const char *key,  const char *s, int trim ) {
     CHECK_DATABASE( "kvs_push_to_list");    
     //    print("ssproto_kvs_push_to_list_recv: k:'%s' s:'%s', trim:%d", key, s, trim );
@@ -946,7 +946,7 @@ int ssproto_kvs_push_to_list_recv( conn_t _c, int query_id, const char *key,  co
 
     switch( reply->type ) {
     case REDIS_REPLY_INTEGER:
-        // 正常終了の場合新しい個数が返る
+        // Have a correct number of elements in a list
         print("ssproto_kvs_push_to_list_recv: redisCommand returned integer:%d", reply->integer );
         ssproto_kvs_push_to_list_result_send( _c, query_id, SSPROTO_E_KVS_COMMAND, key, reply->integer );
         break;
@@ -981,7 +981,7 @@ int ssproto_kvs_get_list_range_recv( conn_t _c, int query_id, const char *key, i
     return 0;       
 }
 /////////////////
-// RedisのHashにJSONで入れる文字列の配列。
+// Store JSON array in Redis Hash.
 // [ "hoge", "fuga", "piyo" ]
 int ssproto_kvs_append_string_array_recv( conn_t _c, int query_id, const char *key, const char *field, const char *s, int trim ) {
     CHECK_DATABASE( "kvs_append_sring_array");    
@@ -1084,8 +1084,7 @@ int ssproto_kvs_get_string_array_recv( conn_t _c, int query_id, const char *key,
 }
 
 ///////////////////
-// 同報機能
-
+// Broadcasting
 int ssproto_broadcast_recv( conn_t _c, int type_id, const char *data, int data_len ) {
     CHECK_REALTIME( "broadcast" );
     print("ssproto_broadcast_recv: t:%d", type_id);
@@ -1278,7 +1277,7 @@ void pollProgressLockGrids() {
     }
 }
 
-// grid_idはプロジェクトのid
+// grid_id is designed to be used as project id
 int ssproto_lock_grid_recv( conn_t _c, int grid_id, int x, int y ) {
     CHECK_REALTIME("lock_grid");    
     //        print("ssproto_lock_grid_recv: g:%d, xy:%d,%d serial:%d", grid_id, x,y, _c.serial );
@@ -1321,7 +1320,7 @@ int ssproto_lock_keep_grid_recv( conn_t _c, int grid_id, int x, int y ) {
 
 bool lockProject( int id, int cat, int by_conn_id ) {
     for(int i=0;i<elementof(g_lockprojects);i++) {
-        if( g_lockprojects[i].id == id && g_lockprojects[i].category == cat ) return false; // 同じロックを2回取得することはできない。
+        if( g_lockprojects[i].id == id && g_lockprojects[i].category == cat ) return false; // Can't get the same lock twice
     }
     for(int i=0;i<elementof(g_lockprojects);i++) {
         if( g_lockprojects[i].id == 0 ) {
@@ -1433,7 +1432,6 @@ public:
 
 SharedProject g_sharedpjs[2048];
 
-// 起動中に何度やってもOK。定期的に保存する
 char g_sharedproj_filename[] = "_sharedprojects";
 bool saveAllSharedProjects() {
     static char fullpath[1024];
@@ -1444,8 +1442,9 @@ bool saveAllSharedProjects() {
     print("saveAllSharedProjects: time:%f result:%d", et-st,ret);
     return ret;
 }
-// 起動時に1回だけ.
-// バージョンアップしてサイズが違っている場合は、無視する。サイズが同じでバージョンが違うのは未対応(メンテで消すこと)
+// Only once when starting server.
+// Ignore data if data size differs. Size will be different when server program is updated.
+// You have to clear the data if the size is not changed when updating server program.
 bool loadAllSharedProjects() {
     static char fullpath[1024];
     makeFullPath( fullpath, sizeof(fullpath), g_sharedproj_filename );
@@ -1523,7 +1522,7 @@ void freeProject( int pjid ) {
     }
 }
 void unshareProject( int pjid ) {
-    // publishされてるのはそのままにしとく
+    // keep published projects
     SharedProject *sp = findSharedProject(pjid);
     if(!sp) {
         print("unshareProject: project %d not found", pjid );
@@ -1541,7 +1540,7 @@ void unshareProject( int pjid ) {
 }
 
 
-// 使用中でも最も古いのを強制的に再利用する
+// Reuse even if it is in use.
 SharedProject *reuseOldestProject() {
     SharedProject *out = & g_sharedpjs[0];
     time_t oldest = g_sharedpjs[0].shared_at;
@@ -1554,7 +1553,8 @@ SharedProject *reuseOldestProject() {
     out->project_id = 0;
     return out;
 }
-// withがNULLなら一般公開
+
+// Make a project public when with==NULL
 void shareProject( int pjid, int uid, const int *with, int num ) {
     SharedProject *sp = findSharedProject(pjid );
     if(!sp) {
@@ -1568,13 +1568,13 @@ void shareProject( int pjid, int uid, const int *with, int num ) {
     sp->owner_user_id = uid;
     sp->project_id = pjid;
     if(with) {
-        // フォロワに公開
+        // share to followers
         sp->setMembers( with, num );
     } else {
-        // 一般公開
+        // share to public
         sp->published = true;
     }
-    saveAllSharedProjects(); // 今のところ1MBで1msぐらいなので、ひどく重くなるまでは毎回全保存で
+    saveAllSharedProjects(); // Now it takes only 1ms or so.
 }
 
 // TODO: sort
@@ -1617,7 +1617,7 @@ int getSharedProjects( int *out_ids, int maxn, int user_id ) {
     }
     return outnum;
 }
-// useridが、pjidに参加できるならtrue. shared内だけを検索
+// Returns true if the userid is able to join a project(pjid). Search only inside of shared projects.
 bool checkSharedProjectJoinable( int pjid, int userid ) {
     SharedProject *sp = findSharedProject(pjid);
     if(!sp) { print("checkSharedProjectJoinable: pj %d not found", pjid ); return false; }
@@ -1722,10 +1722,10 @@ int ssproto_is_shared_project_recv( conn_t _c, int project_id, int owner_user_id
 
 
 /////////////////
-// 画像
+// Image store
 class ImageEntry : public Image {
 public:
-    int id; // project_idをそのまま入れる想定
+    int id; // Designed for use with project_id.
     double last_updated_at;
     bool changed;
     double last_access_at;
@@ -1742,7 +1742,7 @@ public:
 
     ImageEntry *alloc( int id, int w, int h ) {
         ImageEntry *e = get(id);
-        assert(!e); // 使う側のバグ
+        assert(!e); 
         
         for(int i=0;i<elementof(imgs);i++) {
             if( imgs[i] == NULL ) {
@@ -1807,7 +1807,7 @@ int ssproto_ensure_image_recv( conn_t _c, int query_id, int image_id, int w, int
     }
     ImageEntry *img = g_imgstore.get( image_id );
     if(!img) {
-        // メモリに無いときはストレージから読もうとする
+        // Not in memory, load from storage..
 
         img = g_imgstore.alloc( image_id, w, h );
         if(!img) {
@@ -1820,7 +1820,7 @@ int ssproto_ensure_image_recv( conn_t _c, int query_id, int image_id, int w, int
             // print("loaded png file:'%s'", fullpath );
         } else {
             print("ssproto_ensure_image_recv: can't load file:'%s'", fullpath );
-            // 保存されてないので初期化
+            // Not in file, initialize first!
             img->fill(Color(0,0,0,1));
 #if 0            
             for(int i=0;i<w;i++) {
@@ -1930,7 +1930,7 @@ int ssproto_get_image_raw_recv( conn_t _c, int query_id, int image_id, int x0, i
 
 
 
-// SSPROTO_E_*を返す
+// Gives SSPROTO_E_* when error
 int getCounterValue( int cat, int id, int *out ) {
     char fullpath[1024];
     Format f( "_counter_cat%d_id%d", cat, id );
@@ -1943,7 +1943,7 @@ int getCounterValue( int cat, int id, int *out ) {
     *out = atol(buf);
     return SSPROTO_OK;
 }
-// SSPROTO_E_*を返す
+// Gives SSPROTO_E_* when error
 int setCounterValue( int cat, int id, int value ) {
     char fullpath[1024];
     Format f( "_counter_cat%d_id%d", cat, id );
@@ -2033,7 +2033,7 @@ void dumpNetstat() {
 void printStat() {
     print("\n====");
     dumpNetstat();
-    // projs
+    // projects
     print("projects: %d", countProject() );
     if( g_dump_projects ) {
         time_t nowt = time(NULL);
