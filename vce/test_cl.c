@@ -18,7 +18,7 @@ int testproto_cli_recv_error_callback( conn_t c, int e ) {
 }
 
 
-int g_sync_waiting_pong = 0; // ブロッキングアクセスを待つための状態
+int g_sync_waiting_pong = 0; // for blocking PING
    
 int testproto_pong_recv( conn_t c, int msgid, int majorversion, int minorversion, int tick ) {
     if( g_sync_waiting_pong ) {
@@ -35,7 +35,7 @@ int testproto_pong_recv( conn_t c, int msgid, int majorversion, int minorversion
     return 0;
 }
 
-// ブロックする
+// blocking(=synchronized) ping
 void syncPing( conn_t c ) {
     vce_errout( "send ping sync");
     testproto_ping_send( c, 5,4,3,2 );
