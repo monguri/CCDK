@@ -1,31 +1,23 @@
 /*
-  
-  行とデリミタによるテキスト文字列処理ルーチン。
-  もしかすると、多言語処理ルーチンもここに入るのかも。
+  Text processing with line and delimiters for parsing/composing HTTP.
 
-  HTTP を強く意識したヘッダ構成を得意とするようにデザインする。
-  例：
+  Designed for HTTP, for example http request header:
+  "Content-Length: 8937"
+  Another example is handling empty newline codes like "\n\n" or "\r\n\r\n"
 
-  Content-Length: 8937
-  のような。また、バイナリ本体がテキストの空行(\n\nもしくは\r\n\r\n)
-  の直後に続くことも意識する。
+  Only processes on-memory buffer.
 
-  すべて、オンメモリのバッファに対する処理とする。
-  超でかいファイルを送る場合などはそうしたくないが、
-  そのときはオリジナルスレッドを使ってやるのだ。
-  まず、
-  divide_header_and_content でヘッダと本体を分離することができ、
-  そうやって得たheader をさらに
-  get_header_info( nocase, "Content-Length" , ... )
-  として取りだすことができる。
-  "Content-Length: 8398" でも "Content-Length : 90823" でも、
-  "content-length 29834" でもOKになるようにする。
-  具体的には、content-lengthが行頭からはじまり、かつ
-  その直後に':' ' ' '\t' が何文字続いても無視し、それら以外の文字が出現
-  した位置から改行記号の前の文字までを取りだす。
+  Steps to use:
+  1. Break content body and header with  divide_header_and_content,
+  2. get each request header by get_header_info( nocase, "Content-Length" , ... ) function
+  This ignores case:
+  "Content-Length: 8398", "Content-Length : 90823", and  "content-length 29834" are also OK.
+  Extracts string "content-length" if:
+  - Starting from the beginning of the line and
+  - Ignores ':' ' ' '\t'
+  - Lastly uses other characters before the end of line.
   
  */
-
 #include "vce.h"
 #include "vcecommon.h"
 #include "util.h"
@@ -67,10 +59,8 @@ int vce_text_cmpnocase( const char *s1, const char *s2, int n ) {
     return 0;
 }
 
-/*
-  ' ' , ':' , '\t' を飛ばしてそれら以外の文字があったらその場所を返す
-  有効な文字がない場合は NULL を返す
- */
+// Skip  ' ' , ':' , '\t'  and find other character. Returns position of the character found.
+// Returns NULL if no valid characters.
 static char *skip_header_item_spaces( char *b , int len, int *skipped ) {
     int i;
     for(i=0;i<len;i++){
@@ -84,7 +74,7 @@ static char *skip_header_item_spaces( char *b , int len, int *skipped ) {
 }
 
 int vce_httptext_get_header_info( const char *h, int hlen , char *item , char *out, int outlen_real ) {
-    int outlen = outlen_real - 1; /* NULL終端を、returnする直前にやる */
+    int outlen = outlen_real - 1; // NULL termination will be done just before returning from this function
     int i,lineno = 1,cplen , itemlen = (int)strlen( item);
     char *top = (char*)h;
     for(i=0; i<hlen;i++){
@@ -158,7 +148,7 @@ char *vce_text_split_index( const char *src, char c, int index ) {
 			if( count == index ) return (char*)src + i + 1;
 		}
 	}
-	/* not reached */
+	// not reached 
 }
 
 int vce_text_split_index_get_string( const char *src, char c, int index, char *out, int outlen ) {
@@ -250,7 +240,7 @@ int vce_text_hashpjw( const char *s ) {
             h = h ^ g;
         }
     }
-    return h / 16; /* 有効な値になるように 16で割っている */
+    return h / 16; // To be valid from the lowest bits
 }
 
 char *vce_makecstr( char *out, int outlen, const char *in, int inlen ) {
@@ -324,11 +314,11 @@ int vce_escape_string( char *to, int tolen, const char *from, int fromlen ) {
   for (end=(char*)from+fromlen; from != end ; from++)
   {
     switch (*from) {
-    case 0:				/* Must be escaped for 'mysql' */
+    case 0:				// Must be escaped for 'mysql' 
       *to++= '\\';
       *to++= '0';
       break;
-    case '\n':				/* Must be escaped for logs */
+    case '\n':				// Must be escaped for logs 
       *to++= '\\';
       *to++= 'n';
       break;
@@ -344,11 +334,11 @@ int vce_escape_string( char *to, int tolen, const char *from, int fromlen ) {
       *to++= '\\';
       *to++= '\'';
       break;
-    case '"':				/* Better safe than sorry */
+    case '"':				// Better safe than sorry 
       *to++= '\\';
       *to++= '"';
       break;
-    case '\032':			/* This gives problems on Win32 */
+    case '\032':			// This gives problems on Win32
       *to++= '\\';
       *to++= 'Z';
       break;
