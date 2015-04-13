@@ -8,7 +8,6 @@ static void * (*vce_internal_malloc_func)(size_t) = malloc;
 static void * (*vce_internal_realloc_func)(void*,size_t) = realloc;
 void (*vce_internal_free_func)(void*) = free;
 
-//  アルファベットから数値にする
 static int getbinhex( int c ) {
     switch(c){
     case '0': return 0;
@@ -114,7 +113,7 @@ int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int l
     }
 	for( i = 0; i < len; i++ ){
 		if( (so_far + 2) >= outlen ) return SET_LAST_ERROR( VCE_EFULL );
-        /* 高速化できる PENDING */
+        // TODO: performance tuning
 		vce_snprintf( out + so_far ,3, "%02x" , buf[i] & 0xff );
 		so_far += 2;
         if( folding ){
@@ -220,19 +219,17 @@ void VCEFREE( void *p ) {
 
 
 
-// ipv4 の文字列 192.168.1.2 みたいのをNBバイト列から作る
+// Make numerical ipv4 address string like "192.168.1.2", from 4 binary bytes network order
 char * vce_make_ipv4_dot_notation( const char *b, int len, char *work, int worklen ) {
 	if( len != 4 ){
 		vce_snprintf(work,worklen,"ERROR");
 	} else {
-		vce_snprintf( work,worklen,"%d.%d.%d.%d",
-					  b[0] & 0xff, b[1] & 0xff,
-					  b[2] & 0xff, b[3] & 0xff );
+		vce_snprintf( work,worklen,"%d.%d.%d.%d", b[0] & 0xff, b[1] & 0xff, b[2] & 0xff, b[3] & 0xff );
 	}
 	return work;
 }
 
-// ipv6 の文字列 0:0:0:134:143:8a:.. みたいのを16バイトの NB バイト列からつくる
+// Make numerical ipv6 address string like "0:0:0:134:143:8a:.." from 16byte network order array
 char * vce_make_ipv6_dot_notation( const char *b, int len, char *work, int worklen ) {
 	if( len != 16 ){
 		vce_snprintf( work, worklen, "ERROR" );
@@ -271,11 +268,7 @@ void vce_replace_malloc_funcs( void* (*a)(size_t), void* (*r)(void*,size_t), voi
 
 }
 
-/*
-  Locale の処理などを一切しない tolower. localeなどの処理は目的上
-  まったく要らない。
-  
-*/
+// To-lower function without no locales 
 int tolower_direct( int c ) {
     switch( c ){
       case 'A': return 'a';
