@@ -11,7 +11,7 @@ static vce_stat_t vce_usage;
 
 int vce_verbose_mode = 0; 
 int vce_last_error = 0;       
-int vce_log_read_write = 0; // read/write の様子を全部ログするフラグ 
+int vce_log_read_write = 0; // This could be very verbose. Outputs log every read/write
 
 
 
@@ -49,7 +49,7 @@ void vce_errout_v( const char *format, ... ) {
 }
 
    
-// vceusage の内容を操作する(ユーザに非公開)
+// Do not expose vceusage access functions
 void vce_usage_set_boot_time( time_t t ) {
     vce_usage.boot_time = t;
 }
@@ -145,7 +145,7 @@ void vce_get_stat( vce_stat_t *v ) {
 }
 
 int vce_get_netstat_string( char *buf, int maxlen ) {
-    /* まず全部の conn をリストアップ */
+    // list all conns up.
     conn *co;
     char oneline[256];
     int so_far = 0;
