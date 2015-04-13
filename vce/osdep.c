@@ -83,7 +83,7 @@ void vce_socket_shutdown_rw( int fd ) {
 
 }
 
-/* connect したときに、ローカルアドレスも同時に取得する */
+// Get local address on connect() success.
 int vce_socket_connect( int fd, const char *hname, unsigned short port,
                         char *rad, int *rad_len,
                         char *lad, int *lad_len,
@@ -186,7 +186,7 @@ int vce_socket_getsockname( int fd, char *ad, int *ad_len, unsigned short *p ) {
 #endif
 
 }
-/* accept したときに、ローカルアドレスも同時に取得する */
+// get local address when accept() success.
 int vce_socket_accept( int bindfd, char *rad, int *rad_len,
                        unsigned short *rport,
                        char *lad, int *lad_len,
@@ -219,7 +219,7 @@ int vce_socket_accept( int bindfd, char *rad, int *rad_len,
 
 }
 
-//  Win32でDLLを作る場合のために、何もしない dllmain を定義する
+// To add DllMain() in case for building DLL on Win32
 
 #ifdef WIN32
 #ifdef _USRDLL
@@ -383,11 +383,10 @@ int vce_socket_tcp_socket( void ) {
 
 int vce_socket_lib_os_init() {
 
-    // TCPを使うということは、 SIGPIPEがくるということ
+    // Will get SIGPIPE when use TCP on UNIX.
     vce_init_signal();
 
 #ifdef WIN32
-    /* Win32 の場合は、winsock の初期化をする必要がある。 */
     {
         WSADATA wsaData;
         int iWsa;
@@ -479,8 +478,8 @@ int vce_socket_set_nodelay( int fd ) {
 
 }
 
-/* heartbeat の中以外で vce_global_time を使うときは，
-   すごく古い値が入ってるかもしれないので，毎回 update_time する事! */
+// Note: You have to call vce_update_time if you use vce_global_time outside of vce_heartbeat.
+// Otherwise vce_global_time could be a very old value!
 void vce_update_time(void) {
 	
 #if defined linux || defined __APPLE__ || defined sun
@@ -491,7 +490,7 @@ void vce_update_time(void) {
 #endif
 
 #ifdef WIN32
-	/* win32 でマイクロ秒の精度をもつ時刻取得関数はない */
+	// win32 doesn't have microseconds timer function
 	SYSTEMTIME st;
 	GetSystemTime( &st );
 	time( &vce_global_time );
@@ -501,13 +500,9 @@ void vce_update_time(void) {
 	
 }
 
-/*
-  キーを生成する、ただし毎回ランダムなもの。
-
-  char *k : 出力キー
-  int len : 最大長さ
-  
- */
+// generate random key every time
+// char *k : output key
+//  int len : max length
 char itoxc(unsigned int i) {
 	i=i&0xf;
 	return i<10?'0'+i:('a'-10)+i;
@@ -524,12 +519,12 @@ void itox(char *out,unsigned int i) {
 	*out++=itoxc(i);
 }
 
-// linux の場合は、fd_set がでかいことを要求する 
+// On Linux systems, VCE requires fd_set has a big size.
 #if (defined linux) && ( FD_SETSIZE < OSDEP_FD_SETSIZE )
 #error "VCE have to be compiled having FD_SETSIZE == OSDEP_FD_SETSIZE !!"
 #endif
 
-// fd_set の型名が違うときもある 
+// To support systems that dont have fd_set or different names
 #if defined linux || defined WIN32 || defined __APPLE__ || defined sun
 static fd_set vce_wfds, vce_rfds;
 #endif
