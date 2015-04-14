@@ -8,8 +8,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vce", "vce\vce.vcxproj", "{94E0DD7F-041E-4A2E-854F-0473BB016D42}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "many_to_many", "skeletons\many_to_many\many_to_many.vcxproj", "{00F23677-1FE4-4B14-BB19-D6DAF39B8D4E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42} = {94E0DD7F-041E-4A2E-854F-0473BB016D42}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "backend", "backend\backend.vcxproj", "{EB93AE2F-CFA5-46D3-B28F-54DAEB026B17}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94E0DD7F-041E-4A2E-854F-0473BB016D42} = {94E0DD7F-041E-4A2E-854F-0473BB016D42}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
