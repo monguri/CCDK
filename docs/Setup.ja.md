@@ -353,5 +353,91 @@ Channelcastのカウンタ値が増えていくのが見えたら完了です。
 
 
 
+###5. LinuxやMacOS Xでの動作確認
+バックエンドサーバーだけは、LinuxやMacOS X で動作させることができます。
+手順は以下の通りです。
+
+
+1. gitでCCDKを取得する
+2. Redisをインストール
+3. hiredisをインストール
+3. Redisサーバーを起動
+4. ビルド
+5. バックエンドサーバーを起動
+
+
+<B>手順1, gitでソースを取得する(Linux, OS X共通)</B>
+CCDKをgitで取得する手順は、CCDKセットアップ手順1,2と同じです。
+コマンドラインは以下です。
+
+<pre>
+bash$ git clone git@github.com:ShinraTech/CCDK
+</pre>
+
+
+
+<B>手順2, Redisをインストール</B>
+Linux(Ubuntu)では、apt-getを用いて、root権限がある状態で以下のコマンドを実行します。
+<pre>
+bash$ apt-get install redis-server
+</pre>
+OS Xでは、homebrewを用いて、
+<pre>
+bash$ brew install redis
+</pre>
+とするだけです。
+
+<B>手順3, hiredisをインストール</B>
+hiredisは、Redisサーバーに対してプログラムからアクセスするためのライブラリです。
+Linux(Ubuntu)では、apt-get可能なパッケージは提供されていないので、
+ソースコードからビルドしてインストールします。
+hiredisのソースコードは、以下のコマンドラインでcloneできます。
+<pre>
+bash$ git clone git@github.com:ShinraTech/hiredis
+bash$ cd hiredis
+bash$ make
+bash$ make install
+</pre>
+
+Ubuntu 10.04ではこれだけです。他のディストリビューションでは検証していませんが、
+似たような方法でインストールできるはずです。
+Linuxでは、バックエンドサーバーの起動時にhiredisの共有ライブラリが必要になるので、
+.bashrcなどに、以下のような動的リンカ用の環境変数を書き込んでおくと良いでしょう。
+共有ライブラリの実際の位置は、<code>make install</code>したときの出力をみて確認してください。
+<pre>
+LD_LIBRARY_PATH=/usr/local/lib
+</pre>
+
+OS Xでは、homebrewを用いて、
+<pre>
+bash$ brew install hiredis 
+</pre>
+を実行するだけで、ライブラリ一式がインストールされます。
+
+
+#TODOOOOOOOOOOOO:racc linuxのクリーン
+
+<B>手順4, ビルド(Linux, OS X共通)</B>
+CCDKのトップディレクトリに、全体を一気にビルドするためのMakefileを用意しています。
+<pre>
+bash$ cd CCDK
+bash$ make setup
+</pre>
+
+make setupをすることで、gitのサブモジュールをすべて取得し、コンパイルを行います。
+コンパイルができたら、 backendディレクトリ内に、 ssvと ssbenchと2つのプログラムができているはずです(図)。 ssvがバックエンドサーバーです。 datadirは静的ファイルを保存するディレクトリで、ssvの動作に必要です。
+
+![](images/backend_compiled.png)
+
+backendディレクトリにおいて、次のようにしてssvを起動します。
+
+<pre>
+bash$ ./ssv
+</pre>
+
+
+<pre>
+./ssv: error while loading shared libraries: libhiredis.so.0.12: cannot open shared object file: No such file or directory
+</pre>
 
 

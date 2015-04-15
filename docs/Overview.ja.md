@@ -4,12 +4,17 @@ CCDKは、"Community Cloud Development Kit" の略で、シンラ・テクノロ
 このレポジトリ ( <a href="https://github.com/ShinraTech/CCDK">https://github.com/ShinraTech/CCDK</a> )では、CCDKのドキュメント、ソースコードつきのサンプルゲーム、
 開発ツールのバイナリアーカイブを配布しています。
 
-シンラ・テクノロジーは、CCDKのサポートを、
-<a href="https://www.facebook.com/pages/Shinra-Community-CDK/1613401802228319">Facebookグループ</a> で主に行っています。
-不明な点があれば、どんなことでも構いませんので、
-グループで質問をしてみてください。
-[FAQ](FAQ.ja.md) も用意していますので、質問をする際にはぜひ、参考にしてください。
+技術サポート
+====
+シンラ・テクノロジーの開発チームが、CCDKの技術サポートを行っています。
 
+不明な点があれば、日本語の場合はメールアドレス <code>CCDK-jp@shinra.com</code>　へ、英語の場合は <code>CCDK-en@shinra.com</code> までメールしてください。
+
+メール以外にも、
+<a href="https://www.facebook.com/pages/Shinra-Community-CDK/1613401802228319">CCDKのFacebookグループ</a> も用意しています。
+困っている問題以外にも、雑談や、こんなことがやりたい、などといった話題でもかまいませんので、書き込んでみてください。
+
+[FAQ](FAQ.ja.md) も用意していますので、質問をする際にはぜひ、参考にしてください。
 
 CCDKでできること・できないこと
 ====
