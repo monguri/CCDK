@@ -248,10 +248,21 @@ MCSのパッケージが必要です。 MCSパッケージを展開する位置�
 SDSは内部でPythonを使うため、Pythonのセットアップが必要です。
 
 実行すると以下のように空のウインドウが表示されます。
-![sds_startup](images/sds_startup.png)
+![sds_startup](images/sds_empty.png)
 
 SDSはゲームプログラムのパッケージを作ったり使うためのGUIツールです。別のドキュメントで詳しく説明します。
-ここではメニューの <code>File > New</code> を選択します。 
+
+SDSの設定をまず確認します。
+メニューの<code>Settings > MCS Configuration</code>を選択すると、以下のような設定ダイアログが表示されます。
+![](images/sds_mcs_configuration.png)
+
+一番上はPythonの実行ファイルの位置を指定します。ファイルが存在しない場合は赤い枠で表示されます。
+Shinra script path, Shinra MCS pathは、起動したSDSの位置が自動的に入力されます。
+Games installation dirは、 SDSが動作時に保存するさまざまなファイルの置き場所で、ゲームを構成するファイル全部のコピーなどが置かれるところです。ディレクトリが無い場合は作成してください。 Default game user idは、そのままで構いません。
+
+
+次にプロジェクトを作ります。
+メニューの <code>File > New</code> を選択します。 
 New Shinra Project というウインドウが表示されるので、
 プロジェクトの設定を保存するためのファイル(.vcxprojのようなもの)の名前を入力してください。
 仮にsdstestなどとします。 
