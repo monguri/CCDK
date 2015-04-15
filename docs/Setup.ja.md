@@ -235,22 +235,110 @@ many_to_manyを、さらにいくつか起動して、パケットの受信速�
 
 <B>手順4, 1:1スケルトンをビデオストリーミングありで確認</B>
 
-* MCSを任意の場所に展開します。レポの位置で構いません。
-* SDSを起動
-* data packの位置を指定して追加します。
-* statupを追加します。
-* workdirを追加します。
-* Start。
+ビデオストリーミングを試すには、CCDK/mcsディレクトリに配置されている、
+MCSのパッケージが必要です。 MCSパッケージを展開する位置はどこでもかまいません。
+ここではCCDK内に置かれた位置でそのまま展開します(図)。
+![ccdk_mcs_content](images/ccdk_mcs_content.png)
 
- 
+図の9101.8という番号はMCSのビルド番号で、新しいバージョンがリリースされるたびに変わります。
+
+展開ができたらShinraDevelopmentStation.exeを実行します。
+署名をしていないプログラムを実行する際のWindowsの警告が表示されますが、実行を選択してください。このプログラムを以降では"SDS"と呼びます。
+
+SDSは内部でPythonを使うため、Pythonのセットアップが必要です。
+
+実行すると以下のように空のウインドウが表示されます。
+![sds_startup](images/sds_startup.png)
+
+SDSはゲームプログラムのパッケージを作ったり使うためのGUIツールです。別のドキュメントで詳しく説明します。
+ここではメニューの <code>File > New</code> を選択します。 
+New Shinra Project というウインドウが表示されるので、
+プロジェクトの設定を保存するためのファイル(.vcxprojのようなもの)の名前を入力してください。
+仮にsdstestなどとします。 
+ファイルを保存する位置は、Documentsフォルダなどを適当に指定してかまいません。
+次にメニューの <code>Project > Add Data pack</code>を選択します。
+すると以下のようなウインドウが表示されます。
+![](images/sds_add_datapack.png)
+DataPackは、ゲームの実行に必要なファイルがすべて格納されているディレクトリです。
+
+SDSを手早く試せるようにするため、CCDKレポジトリのトップレベルに、<code>CCDK/streamtest</code>というディレクトリがあります。ここに、one_to_one.exeとmany_to_many.exeと、必要な画像ファイルなどが配置されています(図)。
+![](images/streamtest_dir.png)
+念のためここで one_to_one.exeなどをダブルクリックして起動し、動作確認してください。
+
+このディレクトリをDataPackとして、そのまま追加します。
+メニューから<code>Project > Add Data Pack</code>を選択して、
+Browseボタンを押し、 streamtestディレクトリを選択し、成功すると以下のように、左側のツリービューに <code> sdstest > Data packs > DataPack </code> と表示されます。
+DataPackは複数追加できますが、今はひとつだけとします。
+
+![](images/sds_add_streamtest.png)
+
+次に,Startupという項目で、このDataPackの中のどのファイルが起動すべき実行ファイルなのかを指示します。
+<code>Project > Add Startup configuration</code>を選択すると次のような画面が表示されます。
+![](images/sds_add_startup.png)
+
+Data packの項目が赤い枠になっていますが、これはDataPackがまだ選択されていないことを示しています。　赤い枠をクリックしてすでに追加されているDataPackを選択します。
+
+次に Executableの入力欄に、 one_to_one.exeと直接入力します。赤い枠が消えたら、入力完了です。
+
+Executableの次は、Work directoryを指定します。DataPackの中のトップディレクトリで動作させたいので、 "." (ダブルクォート記号は含まない)を指定します。
+
+
+![](images/sds_set_executable_workdir.png)
+
+最後に動作確認を行います。<code>Project > Start game > Startup </code>を選択します。
+
+![](images/sds_start_game_menu.png)
+
+Startupを選択すると以下のような Start ボタンが表示されます。
+
+![](images/sds_running_game.png)
+
+ユーザー名や使われるポート番号などの情報が表示されていますが、それらは別のドキュメントで説明します。ここではStartボタンを押します。
+
+ウインドウが2つ表示されます(初回実行時は、Windowsの警告が表示されますが、つねに許可を選択してください。) ひとつは、 "Direct3D Win32 Game1" で、これは、one_to_one.exeのウインドウです。もうひとつは ShinraClient で、これがビデオストリームのビューワです。
+
+![](images/sds_start_game_and_client.png)
+
+ShinraClientにフォーカスしてEnterを押すと、以下のようにビデオストリームが見えます。
+ビデオストリームを介さない描画と画質が違っているのがわかります。また、Pキーを押してサウンドを再生した際、タイミングが若干遅れているのもわかります。　映像と音声のクオリティや遅延については、シンラ・システムの商用サービスと異なっていることに注意してください。
+one_to_one.exeのウインドウは、画面に対しては描画していないので、真っ白のままになります。
+
+![](images/sds_one_to_one_stream_work.png)
+
+ShinraClientを閉じ、 SDSのStopボタンを押してテストを終了します。
+
+
 <B>手順5, N:Nスケルトンをビデオストリーミングありで確認</B>
-* backendを起動
-* SDSを起動
-* data packの位置を指定して追加します。
-* statupを追加します。
-* workdirを追加します。
-* start
-* start multiple
+
+手順4でDataPackとして指定した CCDK/streamtestというディレクトリには、
+many_to_many.exeも含まれています。SDSを用いて、Startupをもうひとつ追加するだけで、
+many_to_manyのビデオストリームを試すことができます。
+
+まず、手順3の方法で、CCDK.slnからバックエンドサーバーを起動してください。
+これはデバッガあり・なしどちらでもかまいません。
+
+次に、SDSで<code>Project > Add Startup configuration</code>を選択し、Data packとしてDataPackを、Executableとして many_to_many.exeを追加し, Work directoryも手順4と同様"."を指定します(図)。
+![](images/sds_add_many_to_many_startup.png)
+
+このとき新しいStartup1というStartup configurationが追加されているのが、左側のツリービューでわかります。
+
+追加できたら <code>Project > Start game  > Startup1</code>を選択して、手順4と同様に起動します。ビデオストリームが表示され、Pingの値が増加していけば成功です(図)。
+
+![](images/sds_many_to_many_stream_work.png)
+
+複数のmany_to_many.exeを起動するには、Startボタンが表示されているウインドウの灰色の部分で右クリックをしてポップアップメニューを表示し、<code>Add game instance</code>を選択します(図).
+![](images/sds_add_game_instance.png)
+
+すると以下の図のように、異なるポート番号が割り当てられた2つのゲームを起動することができるようになります。
+
+![](images/sds_two_instances.png)
+
+それぞれのStartボタンを押して2組の many_to_many.exeと ShinraClientを起動します(図)。
+
+![](images/sds_two_many_to_many_stream_work.png)
+
+Channelcastのカウンタ値が増えていくのが見えたら完了です。
+同じ要領で、クライアントをいくつでも追加することができます。
 
 
 
