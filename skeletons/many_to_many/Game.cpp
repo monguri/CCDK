@@ -109,7 +109,7 @@ void Game::Initialize(HWND window)
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
 	m_spriteBatch = new SpriteBatch(m_d3dContext.Get());
-	m_spriteFont = new SpriteFont( m_d3dDevice.Get(), L"..\\assets\\tahoma32.spritefont");
+	m_spriteFont = new SpriteFont( m_d3dDevice.Get(), L".\\assets\\tahoma32.spritefont");
 
 	// This is only needed in Win32 desktop apps
 	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
@@ -118,7 +118,7 @@ void Game::Initialize(HWND window)
 	eflags = eflags | AudioEngine_Debug;
 #endif
 	m_audioEngine = new AudioEngine(eflags);
-	m_soundEffect = new SoundEffect(m_audioEngine, L"..\\assets\\coinget.wav");
+	m_soundEffect = new SoundEffect(m_audioEngine, L".\\assets\\coinget.wav");
 	m_soundEffect->Play();
 
 
