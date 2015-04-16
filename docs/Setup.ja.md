@@ -101,16 +101,12 @@ C:¥Users¥cloud¥Documents¥GitHub¥CCDK
 
 ###3. RubyやPythonなどの必要な外部ツールをインストールする。
 CCDKは、以下の外部ツールを利用しています。
+以下では、Windows版のみ説明します。Linux(UNIX)については後述します。
 
-* Windows
-  * Python 3.4 (3.4.1)
-  * Ruby 2.1 (2.1.5p273)
-  * VisualStudio 2013
-  
-* Linux
-  * Ubuntu 10.04
-  * Ruby 2.0.0p247 
-  * g++ 4.4.3
+* Python 3.4 (3.4.1)
+* Ruby 2.1 (2.1.5p273)
+* VisualStudio 2013
+* Redis (MSOpenTech版)
     
 
 それぞれ、バージョン番号の末尾の番号(マイナーバージョン)が一致していなくても動作するはずですが、開発チームでテストしているのは以上のバージョンのみです。
@@ -149,6 +145,26 @@ CCDKの開発では、　Professional 2013を利用しています。
 https://www.visualstudio.com/downloads/
 </pre>
 
+Redisは、Redis公式プロジェクトから派生した、
+マイクロソフト社のオープンソース版をVisualStudioでコンパイルすると、
+Redis用のライブラリファイルも生成されるので、それを使います。
+
+Redisのソースコードは、GitHub for windowsを用いてcloneした場合、
+<Pre>
+CCDK/externals/redis
+</pre>
+にチェックアウトされています。
+<Pre>
+CCDK/externals/redis/msvs/RedisServer.sln
+</prE>
+この位置にあるソリューションファイルを開き、全体をビルドすると、
+<pre>
+CCDK/externals/redis/msvs/Debug/hiredis.lib
+CCDK/externals/redis/msvs/Debug/redis-server.exe
+</pre>
+などが出力されます。
+これらは後でバックエンドサーバーをビルドするときに使います。
+DebugとReleaseの両方をビルドしてください。
 
 
 ###4. CCDKのサンプルプログラムの動作確認を行う。
@@ -357,41 +373,74 @@ Channelcastのカウンタ値が増えていくのが見えたら完了です。
 バックエンドサーバーだけは、LinuxやMacOS X で動作させることができます。
 手順は以下の通りです。
 
+1. Linux自体をセットアップする
+2. 必要な外部ツールやライブラリをインストールする
+3. gitでCCDKを取得する
+4. バックエンドサーバーをビルド
+5. Redisサーバーを起動する
+6. バックエンドサーバーを起動する
 
-1. gitでCCDKを取得する
-2. Redisをインストール
-3. hiredisをインストール
-3. Redisサーバーを起動
-4. ビルド
-5. バックエンドサーバーを起動
+
+<B>手順1, Linux自体をセットアップする</B>
+
+CCDKは、Ubuntu server 14.04.2または 10.04 で試しています。
+特に新しいカーネル機能などを利用していないうえ、
+必要なすべてをソースコードで提供しているので、
+ほとんどのディストリビューションで問題はないはずです。
+
+Linuxのセットアップに慣れている方は手順2に進んで構いません。
+またLinuxではなくMacOS Xを用いる場合は、この手順は必要ありません。
+
+ここでは、VirtualBoxとUbuntu Serverを用いて、
+完全に無料でローカルにLinuxサーバー環境を構築する方法を紹介します。
+
+まずVirtualBoxを公式サイトからダウンロードします。
+
+[http://www.oracle.com/technetwork/server-storage/virtualbox/downloads/index.html](http://www.oracle.com/technetwork/server-storage/virtualbox/downloads/index.html)
+
+ホストOSは、MacOS X, Windows どちらでもかまいません。
+
+次に、Ubuntu Serverを公式サイトからダウンロードします。
+[http://www.ubuntu.com/download/server](http://www.ubuntu.com/download/server) 
+
+必要なファイルは、<code>ubuntu-14.04.2-server-amd64.iso</code>のような名称の、600MBほどの大きさです。多少バージョン番号が違っていても構いません。Ubuntu-desktopでも構いません。
+
+VirtualBoxを起動してNewボタンをクリックし、Linux, Ubuntu 64bitを選択して、
+メモリ量は2GB程度、ディスク容量は、可変で20GB程度を設定します。
+起動時にディスクイメージのファイル位置を入力するよう促されるので、
+さきほどダウンロードしたISOファイルを指定します。
+あとは通常のUbuntuのインストールと同様、キーボードや時刻、
+ユーザーアカウント名などを設定してください。
+![](images/ubuntu_1404_setup_done.png)
+以上のようなログインコンソールが表示されたらセットアップ完了です。
 
 
-<B>手順1, gitでソースを取得する(Linux, OS X共通)</B>
-CCDKをgitで取得する手順は、CCDKセットアップ手順1,2と同じです。
-コマンドラインは以下です。
 
-<pre>
-bash$ git clone git@github.com:ShinraTech/CCDK
+
+<B>手順2, 必要な外部ツールやライブラリをインストールする</B>
+
+以下、Ubuntuでの方法を説明します。
+Ubuntu serverの場合、初期は最小の構成になっているので、
+git, make, gcc, ruby, ruby-dev, racc, g++, zlib1g-dev, redis-server
+をインストールする必要があります。それぞれ以下のようにしてインストールします。
+<Pre>
+bash$ sudo apt-get install git
+bash$ sudo apt-get install make
+bash$ sudo apt-get install gcc
+bash$ sudo apt-get install ruby
+bash$ sudo apt-get install ruby-dev
+bash$ gem install racc
+bash$ sudo apt-get install g++
+bash$ sudo apt-get install zlib1g-dev
+bash$ sudo apt-get install redis-server
 </pre>
 
-
-
-<B>手順2, Redisをインストール</B>
-Linux(Ubuntu)では、apt-getを用いて、root権限がある状態で以下のコマンドを実行します。
-<pre>
-bash$ apt-get install redis-server
-</pre>
-OS Xでは、homebrewを用いて、
-<pre>
-bash$ brew install redis
-</pre>
-とするだけです。
-
-<B>手順3, hiredisをインストール</B>
+次にhiredisをインストールします。
 hiredisは、Redisサーバーに対してプログラムからアクセスするためのライブラリです。
-Linux(Ubuntu)では、apt-get可能なパッケージは提供されていないので、
-ソースコードからビルドしてインストールします。
-hiredisのソースコードは、以下のコマンドラインでcloneできます。
+Ubuntuでは、hiredisがパッケージで提供されていません。
+そこで、ソースからビルドする必要があります。
+
+hiredisのソースコードは、以下のコマンドラインで取得,ビルドできます。
 <pre>
 bash$ git clone git@github.com:ShinraTech/hiredis
 bash$ cd hiredis
@@ -408,16 +457,35 @@ Linuxでは、バックエンドサーバーの起動時にhiredisの共有ラ�
 LD_LIBRARY_PATH=/usr/local/lib
 </pre>
 
-OS Xでは、homebrewを用いて、
+
+
+MacOS Xの場合は、XCode と command line toolsがインストールされている状態で、
+Homebrew環境の場合、 redis, hiredis, racc だけが追加で必要です。
 <pre>
-bash$ brew install hiredis 
+bash$ brew install redis
+bash$ brew install hiredis
+bash$ gem install racc
 </pre>
-を実行するだけで、ライブラリ一式がインストールされます。
+
+とするだけです。
+
+<B>手順3, gitでCCDKを取得する</B>
+Linux, MacOS Xともに共通です。
+MacOS Xでは[GitHub for Mac](https://mac.github.com/) というGUIアプリも使えますが、
+ここではコマンドラインの方法を説明します。
+
+<pre>
+bash$ git clone git@github.com:ShinraTech/CCDK
+</pre>
+
+以上のようにするだけです。
+この段階では、redisやmoyaiなどのサブモジュールはまだ取得されていません。
 
 
-#TODOOOOOOOOOOOO:racc linuxのクリーン
+<B>手順4, バックエンドサーバーをビルド</B>
 
-<B>手順4, ビルド(Linux, OS X共通)</B>
+Linux, MacOS Xともに共通です。
+
 CCDKのトップディレクトリに、全体を一気にビルドするためのMakefileを用意しています。
 <pre>
 bash$ cd CCDK
@@ -435,9 +503,35 @@ backendディレクトリにおいて、次のようにしてssvを起動しま�
 bash$ ./ssv
 </pre>
 
+LD_LIBRARY_PATHが設定されていないなどが原因で、hiredisが見つからない場合は、以下のようなエラーがでて起動できないかもしれません。
 
 <pre>
 ./ssv: error while loading shared libraries: libhiredis.so.0.12: cannot open shared object file: No such file or directory
 </pre>
+
+ssvは、引数無しで起動すると、使用方法の説明を表示して終了します(図)。
+![](images/ssv_noopt_run.png)
+
+
+<B>手順5, Redisサーバーを起動する</B>
+ssvは、データを永続化するために、SQLのサーバーではなくRedisを用います。
+Redisを起動するには、任意の場所で、
+<pre>
+bash$ redis-server 
+</pre>
+として起動するだけです。起動するとロゴマークのアスキーアートが出力されます(図)。
+![](images/redis_server_run.png)
+
+
+<B>手順6, バックエンドサーバーを起動する</B>
+<code>CCDK/backend</code> ディレクトリに移動して、
+<pre>
+bash$ ./ssv realtime database 
+</pre>
+として起動すると、以下の図のようにssvが稼働開始します。 
+![](images/ssv_opt_run.png)
+
+
+
 
 
