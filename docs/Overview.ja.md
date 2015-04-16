@@ -58,7 +58,7 @@ GPU、そして表示ディスプレイも、CPUと同じマシン上に搭載�
 D3D9.dllはここではフェイクされていず、Microsoft社が提供しているものをそのまま利用します。
 
 
-![CoreSystem](coresystem.png)
+![CoreSystem](images/coresystem.png)
 
 上の図は、シンラの商用版システムの構成を示しています。
 CPUマシンとGPUマシンは物理的に分離されており、データセンターのLAN内で、
