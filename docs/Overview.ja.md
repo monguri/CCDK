@@ -1,4 +1,4 @@
-# CCDK Overview
+# CCDKの概要
 CCDKは、"Community Cloud Development Kit" の略で、シンラ・テクノロジーが提供する、クラウドゲームを開発するためのソフトウェア・キットです。
 
 このレポジトリ ( <a href="https://github.com/ShinraTech/CCDK">https://github.com/ShinraTech/CCDK</a> )では、CCDKのドキュメント、ソースコードつきのサンプルゲーム、
