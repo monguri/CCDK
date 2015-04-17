@@ -3,6 +3,10 @@
 #define _SSPROTO_SV_H_
 #include "vce.h"
 
+#undef SSPROTO_TEST_INT
+#define SSPROTO_TEST_INT 10
+#undef SSPROTO_TEST_STR
+#define SSPROTO_TEST_STR "test"
 #undef SSPROTO_USERID_SIZE_MAX
 #define SSPROTO_USERID_SIZE_MAX 32
 #undef SSPROTO_OK
@@ -95,6 +99,15 @@
 #define SSPROTO_PRESENCE_PER_PROJECT_MAX 1024
 #undef SSPROTO_PACKET_SIZE_MAX
 #define SSPROTO_PACKET_SIZE_MAX 65536
+
+#ifndef _SSPROTO_AAA_ENUMDEF_
+#define _SSPROTO_AAA_ENUMDEF_
+typedef enum {
+ SSPROTO_AAA_OK = 0,
+ SSPROTO_AAA_NG = 1,
+
+} SSPROTO_AAA;
+#endif
 
 #ifndef _SSPROTO_FUNCID_ENUMDEF_
 #define _SSPROTO_FUNCID_ENUMDEF_
@@ -189,6 +202,10 @@ typedef enum _SSPROTO_FUNCID{
 } SSPROTO_FUNCID;
 #endif
 
+typedef struct _ssproto_teststruct {
+    int x;
+    int y;
+} ssproto_teststruct;
 
 
 #ifdef __cplusplus

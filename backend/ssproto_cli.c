@@ -3274,7 +3274,7 @@ void ssproto_get_channel_member_count_result_recv_debugprint(int on_off)
 #endif
 unsigned int ssproto_cli_get_version( unsigned int *subv )
 {
-  if(subv)*subv= 42653699;
+  if(subv)*subv= 940685474;
   return (unsigned int)10003;
 }
 conn_t ssproto_cli_get_current_conn( void )

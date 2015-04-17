@@ -1,41 +1,99 @@
-Shinra backend server protocol,
-originated from Space Sweeper backend server.
-
+これはSpace Sweeperで使っているバックエンドサーバー用のプロトコル定義ファイルです。
 2015 Shinra Technologies, All rights reserved.
+
+以下の説明で「クライアント」はゲームサーバーで「サーバー」は
+バックエンドサーバーを指します。
 
 
 =protocolname ssproto
+
+プロトコル名。自由に変更してください。
+
 =serverconnection conn
+
+この設定はそのままにしておいてください。
 
 =version 10003
 
-#=enum AAA OK 0
-#=enum AAA NG        
+gen.rbは、プロトコルのバージョンを2つの整数値で表現します。
+ここで指定されている値をメジャーバージョン、
+ssproto.txtファイルの内容をハッシュして得られる値をマイナーバージョンとして、
+ssproto_sv_get_version()関数で両方を得ることができます。
+
+
+
+Space Sweeperでは、この値をクライアントとサーバーで比較して、
+メジャーバージョンが一致しない場合はプログラムを終了します。
+メジャーバージョンは手動でのみ変更されます。
+過去との互換性がなくなるような変更をしたときはメジャーバージョンを変更する、
+という運用をします。
+
+
+=enum AAA AAA_OK 0
+=enum AAA AAA_NG        
+
+enum enum型の名前 要素名　値　という順番で定義します。上の例の場合は、
+以下のようなenumが生成されます。
+
+typedef enum {
+ SSPROTO_AAA_OK = 0,
+ SSPROTO_AAA_NG = 1,
+} SSPROTO_AAA;
+
+
+
 
 =idmax 256
+RPC用に定義される関数の内部IDの最大値です。
+
+=define TEST_INT 10
+=define TEST_STR "test"
+
+以下のようなコードを生成します。
+#undef SSPROTO_TEST_INT
+#define SSPROTO_TEST_INT 10
+#undef SSPROTO_TEST_STR
+#define SSPROTO_TEST_STR "test"
 
 
-#=define TEST 10
-#=define TEST_STR "test"
 
-#=struct hoge { int x, int y}
+=struct teststruct { int x, int y}
+
+以下のような構造体を定義します。この構造体は、RPC関数定義をするときに使えます。
+
+typedef struct _ssproto_teststruct {
+    int x;
+    int y;
+} ssproto_teststruct;
+
+
 
 #=sh #include "test.h"
-#=ch #include "client.h"
+#=ch #include "test.h"
+
+C/C++のヘッダを読み込ませることができます。
 
 =c2s 1 ping ( int64 t_usec, int cmd )
 =s2c 2 pong ( int64 t_usec, int cmd )
-cmdはそのまま返される。自由に使える。
+
+TCPのコネクションがまだ切断されていないかどうかを定期的に確認するために、
+クライアントからpingを送り、サーバがそれを受けるとpongを返します。
+t_usec : 現在時刻(マイクロ秒)
+cmd: 任意の値。サーバは、クライアントから受信したこの値をそのまま返します。
+Space Sweeperではいつも0として使っています。
+
 
 =define USERID_SIZE_MAX 32
 
 =s2c 4 version_notify ( uint maj, uint min )
-サーバからバージョンをおくり、クライアントで判定して不一致だったら落とす
+サーバから, ssproto_get_version()で得られるバージョン番号を送信する。
+クライアントはこれを受信してメジャーが不一致だったらエラー終了する。
+この関数はできるだけ最初に定義し、開発を進める間変更しないのが望ましい。
 
 
 ##########
 
-# 返り値
+# 返り値の一覧
 
 =define OK (0)
 =define E_FILE_NAME_INVALID (-1)
