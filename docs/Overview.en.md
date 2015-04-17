@@ -67,9 +67,9 @@ Therefore, some products developed under the CCDK may exhibit different behavior
 
 The latest version of the MCS is stored in the /packages directory; the file name is displayed below. Multiple versions may be displayed; please work off the highest version number (or most recently updated date).
 
-<pre>
+```
 packages/ShinraMCS-8304.34.zip
-</pre>
+```
 
 
 Developing Games with the CCDK
@@ -104,9 +104,10 @@ Getting the CCDK
 The CCDK is not distributed as a compressed archive, but rather as a GitHub repository. When using it with your game project, it’s recommended to use git tags that correspond to the version number. 
 
 You can receive the most up-to-date version by running the following at the command line:
-<pre>
+
+```
 git clone git@github.com:ShinraTech/CCDK
-</pre>
+```
 
 CCDK Setup
 ===
