@@ -96,266 +96,487 @@ Space Sweeperではいつも0として使っています。
 # 返り値の一覧
 
 =define OK (0)
-=define E_FILE_NAME_INVALID (-1)
-=define E_FILE_NAME_TOO_LONG (-2)
-=define E_FILE_ACCESS (-3)
-=define E_KVS_COMMAND (-10)
-=define E_KVS_ARRAY_NOT_IMPLEMENTED (-11)
-=define E_CHANNEL_FULL (-30)
-=define E_CHANNEL_JOIN_REQUIRED (-31)
-=define E_CANT_LOCK (-40)
-=define E_CANT_UNLOCK (-41)
-=define E_IMAGE_STORE_CANNOT_ALLOCATE (-42)
-=define E_IMAGE_INVALID_SIZE (-43)
-=define E_IMAGE_NOT_FOUND (-44)
-=define E_IMAGE_CANNOT_CONVERT (-45)
-=define E_PROJECT_NOT_SHARED (-46)
+=define E_FILE_NAME_INVALID (-1)             # ファイル名に不正な文字が含まれている
+=define E_FILE_NAME_TOO_LONG (-2)            # ファイル名が長すぎる
+=define E_FILE_ACCESS (-3)                   # ファイルのアクセス権限が不足している
+=define E_KVS_COMMAND (-10)                  # Redisが何らかのエラーを返した。(サーバのログにエラーログが出力されているか確認)
+=define E_CHANNEL_FULL (-30)                 # そのChannelにはこれ以上joinできない
+=define E_CANT_LOCK (-40)                    # ロックを取得できなかった。
+=define E_CANT_UNLOCK (-41)                  # ロックを開放できなかった。
+=define E_IMAGE_STORE_CANNOT_ALLOCATE (-42)  # 画像用のメモリを割り当て失敗。(インメモリのプロジェクトが多すぎる)
+=define E_IMAGE_INVALID_SIZE (-43)           # 画像のサイズが不正
+=define E_IMAGE_NOT_FOUND (-44)              # 指定されたIDの画像は見つからなかった。
+=define E_IMAGE_CANNOT_CONVERT (-45)         # 画像をPNGに変換することができなかった。
+=define E_PROJECT_NOT_SHARED (-46)           # そのプロジェクトは共有されていない。
 
 ###########
-# コアコマンド
+
+# 基本情報に関するコマンド
 
 # クライアントのID
 =c2s 10 conn_serial()
 =s2c 11 conn_serial_result( int serial )
-conn_tのserialをそのまま返すだけ。
+サーバ側でのVCEのconn_tのシリアル番号を要求する。サーバはそのまま返す。
+conn_tのシリアル番号は、新しい接続を受け入れる度に増加する。
+Space Sweeperではこのシリアル番号を用いてクライアント同士を区別している。
 
 
 =c2s 12 clean_all()
 =s2c 13 clean_all_result()
 
-参加してるチャネルやロックなどを全部解放する。
+現在参加してるチャネルやロックなどがある場合、全て解放する。
 
 ###########
 
-# ファイル
+# 各コマンドに共通する仕様
+
+行頭に =c2sとなっているコマンドはクライアント側(ssproto_cli.h)で定義される関数で、
+クライアントがこれを発行しサーバーが受信する。
+反対に、行頭に =s2cとなっているコマンドはサーバー側(ssproto_sv.h)で定義され、
+サーバーがこれを発行しクライアントが受信する。
+
+databaseモード用の関数は、クライアントからの1つの要求に対してサーバーから1個の返答を返す。
+例えば put_file に対して put_file_resultというように、c2sとs2cが組になっている。
+対になっている関数は、 _resultという接尾語を付ける。
+
+databaseモード用の関数は、ファイルなどにアクセスするため、サーバー側での処理に時間がかかる場合がある。
+それに対応するため、クライアントから非同期的に関数を呼び出せるようにする必要がある。
+その目的のために、クライアントから送るときに任意のquery_idを設定し、
+サーバーがその値をそのまま返すようにする。こうすれば、クライアントから複数の関数を同時に発行しても、
+_resultを受け取ったときにquery_idを使って検索をし、正しく結果を扱うことができるようになる。
+
+realtimeモードでは、クライアントが要求しなくても能動的にサーバーから関数を送信する場合がある。
+その場合は、resultと区別をして _notifyという接尾語をつけている。
 
 
-=define FILE_PATH_MAX 64
-=define FILE_SIZE_MAX (128*1024)
-=define FILE_SIZE_ABS_MAX (1024*1024) # パートに分けてファイル保存するときの上限
+# ファイル操作コマンド(databaseモードで利用可能)
+
+=define FILE_PATH_MAX 64   # ファイルパスの最大長
+=define FILE_SIZE_MAX (128*1024)  # それぞれのファイルサイズの最大値
+=define FILE_SIZE_ABS_MAX (1024*1024) # パートに分けてファイル保存するときの合計サイズの上限
 =c2s 20 put_file( int query_id, string filename[FILE_PATH_MAX], char data[FILE_SIZE_MAX] )
 =s2c 21 put_file_result( int query_id, int result, string filename[FILE_PATH_MAX] )
-データを保存する。
+
+静的ファイルにデータを保存し永続化する。dataはバイナリデータ。
+サーバは、query_id, filenameはそのまま返す。resultは、SSPROTO_OKまたはSSPROTO_E_*が返される。
+
+すべてのファイルは、そのままのパスに保存されるのではなく、datadirの中のディレクトリに分散配置される。
+
 
 =c2s 30 get_file( int query_id, string filename[FILE_PATH_MAX] )
 =s2c 31 get_file_result( int query_id, int result, string filename[FILE_PATH_MAX], char data[FILE_SIZE_MAX] )
-データを取得する。
+静的ファイルに保存されているデータを読む。
+
 
 =define FILE_EXIST 1
 =define FILE_NOT_EXIST 0
 =c2s 40 check_file( int query_id, string filename[FILE_PATH_MAX] )
 =s2c 41 check_file_result( int query_id, int result, string filename[FILE_PATH_MAX] )
-存在確認。result=1ならファイルが存在する.0なら無い、負ならエラー
+ファイルが存在するか調べる。result=1ならファイルが存在する。　0ならファイルが無い。 負ならエラー(SSPROTO_E_*)
+
 
 ###############
 
-# 永続化つき画像
+# インメモリ画像データ(永続化有り)
+SpaceSweeperのフィールド地図を実現するためのインメモリ画像。
+バックエンドサーバーの ImageEntry, ImageStoreクラスを参照。
+
+画像を細かい単位に分けてput/get_fileすることによって実現することも理論上可能。
+Space Sweeperではひとつのマップあたり16x16セルごとに細かく更新するが、
+読み込みは512x512で行いたいので、実行効率のためにオンメモリRaw画像とした。
+
+非常に頻繁に更新するランダムアクセスな領域がほしい場合は、
+バックエンドサーバーにオンメモリで確保して使うのは典型的な拡張方法である。
+
+
 =define IMAGE_WIDTH_MAX (2048)
 =define IMAGE_HEIGHT_MAX (2048)
 =define IMAGE_PART_WIDTH_MAX (32)
 =define IMAGE_PART_HEIGHT_MAX (32)
 =c2s 50 ensure_image( int query_id, int image_id, int w, int h )
 =s2c 51 ensure_image_result( int query_id, int result, int image_id )
-画像ファイルがメモリ(とファイル)に無い場合それを割り当てる。
+画像がメモリ(とファイル)に無い場合、メモリを割り当てる。画像は黒色(0,0,0)で初期化される。
+Space Sweeperでは、image_idにプロジェクトIDをそのまま割り当てているが、異なるIDでもよい。
+w,h: 幅, 高さ
+result: SSPROTO_*
+
+
 
 =c2s 52 update_image_part( int query_id, int image_id, int x0, int y0, int w, int h, uchar r[1024], uchar g[1024], uchar b[1024] )
 =s2c 53 update_image_part_result( int query_id, int result, int image_id )
-すでにある画像を更新する。
-画像がメモリに存在しない場合はエラー。
-ファイルにはPNGで保存する。毎回保存するとは限らない（せっていによる）
-ファイルがない場合は真っ黒な画像(すべて0)で初期化する。
+すでにメモリにある画像の一部を更新する。
+画像がメモリに存在しない場合はresultでエラーを返す。
+静的ファイルにはRawのまま保存する。更新後数秒後にサーバで保存する。
+画像サイズが2048x2048の場合はx4=16MBytesのサイズとなる。
 
 =define PNG_SIZE_MAX (1024*1024)
 =c2s 54 get_image_png( int query_id, int image_id )
 =s2c 55 get_image_png_result( int query_id, int result, int image_id, char png_data[PNG_SIZE_MAX] )
 
-メモリに生で格納されている画像をPNGで取りだす。
+メモリに格納されているRaw画像をPNGに変換して取りだす。
+画像サイズが大きい場合はかなり(2048x2048で100ms程度)時間がかかるので注意が必要。
+Space Sweeperでは現在この関数を使っていない。
+result: SSPROTO_*
+png_dataのデータをそのままファイルに保存することで、通常のPNG画像として利用可能。
+
 
 =define RAW_IMAGE_SIZE_MAX (512*512*4)
 =c2s 56 get_image_raw( int query_id, int image_id, int x0, int y0, int w, int h )
 =s2c 57 get_image_raw_result( int query_id, int result, int image_id, int x0, int y0, int w, int h, char raw_data[RAW_IMAGE_SIZE_MAX] )
-w,hはそれぞれ最大512
-raw_dataは RGBARGBA.....でTDLR
+メモリに格納されているRaw画像をRawのままとりだす。任意の部分を取り出せる。
+raw_dataは1ピクセルあたり4バイトで、
+for(上から下へ) 
+  for(左から右へ) 
+    for(RGBA)
+の順にバイトが並ぶ。
+
+w,hはそれぞれ最大512まで。
+result: SSPROTO_*
+
+静的ファイルへのアクセスは発生しない。
 
 ##############
 
-# KVS
+# Key Value Storeアクセス用のコマンド群
+
+Space Sweeperでは、キャラクタデータやランキングなどのデータを永続化するために、
+databaseモードのバックエンドサーバーを経由してキー・バリュー・ストアの機能を呼び出している。
+
+Space Sweeperでバックエンドサーバー経由でKVSにアクセスしている理由は、
+
+ 1. 非同期的にKVSにアクセスしたい。スレッドを増やさずに非同期的な関数呼び出しをしたいため。
+ 2. KVSに対するTCP接続数を少なく抑えたい。
+
+以上のように2つある。
+特に1については、KVS(あるいはDBMS)の動作は基本的には非常に速いとはいえ、
+場合によってはクエリに数秒かかることがあるためである。
+ただし、Space Sweeperでは、ほとんどの部分でごく簡単なクエリしか発行しないので、
+バックエンドサーバーに対するRPC呼び出しを同期的に行っている。
+
+スレッドの数にこだわらないプロジェクトでは、バックエンドサーバー経由ではなく、
+hiredisやlibmysqlclientなどを用いてデータベースに直接アクセスする方法も十分合理的であると考えられる。
+
 
 
 =define GENERATE_ID_NUM_MAX 100
 =c2s 100 generate_id_32( int query_id, int num )
 =s2c 101 generate_id_32_result( int query_id, int generated_id_start, int num )
-新規にIDを生成する. 確実に1以上の値が返る。
+新規にIDを生成する.同時に複数のIDを生成できる。KVSにはアクセスしない。
+現在はconn_tのシリアル番号を使っているため、SpaceSweeperではこの関数は使われていない。
+他のKVSコマンドを利用して同様のことができるため、将来削除される可能性が高い。
 
-=define KVS_COMMAND_MAX 1024
-=define KVS_ELEMENT_MAX 1024
-=define KVS_ARRAYLEN_MAX 1024
 
-=define KVS_VALUE_STRING 1
-=define KVS_VALUE_ARRAY 2 
-=define KVS_VALUE_INTEGER 3
-=define KVS_VALUE_NIL 4
-=define KVS_VALUE_ERROR 6
+=define KVS_COMMAND_MAX 1024   # コマンド長さの最大値
+=define KVS_ELEMENT_MAX 1024   # 配列の要素数の最大値
+=define KVS_ARRAYLEN_MAX 1024  # 配列の各要素の最大長さ
+
+=define KVS_VALUE_STRING 1  # 文字列型の値
+=define KVS_VALUE_ARRAY 2   # 文字列型の配列
+=define KVS_VALUE_INTEGER 3 # 整数の値
+=define KVS_VALUE_NIL 4     # 値が無い(空文字列とは区別)
+=define KVS_VALUE_ERROR 6   # エラー
 
 =c2s 120 kvs_command_str( int query_id, string command[KVS_COMMAND_MAX] )
 =s2c 121 kvs_command_str_result( int query_id, int retcode, int valtype, stringarray result[KVS_ARRAYLEN_MAX][KVS_ELEMENT_MAX] )
-自由な文字列のコマンドを発行する。
+KVS(Redis)に対して、自由な文字列のコマンドを発行し、文字列の配列として結果を得る。
+Space Sweeperでは様々な用途で利用している。
+
+valetypeは、KVS_VALUE_STRING|ARRAY|INTEGER|NIL|ERROR を返す。
+
+
 
 =c2s 122 kvs_command_str_oneway( string command[KVS_COMMAND_MAX] )
-DBからの返りを求めない.
+バックエンドサーバーから返り(_result)を求めない、一方通行のクエリ。
+Space Sweeperでは、ゲームのログを出力するために使用している。
 
 =define KVS_KEY_MAX 128
 =define KVS_FIELD_MAX 128
 =define KVS_BIN_MAX (256*1024)
 
-
 =c2s 130 kvs_push_to_list( int query_id, string key[KVS_KEY_MAX], string s[KVS_BIN_MAX], int trim )
-文字列をRedisのLISTにLPUSHする。trimに0以外を指定すると、lpushした後にltrim 0 trim する。trimが3のとき、先頭から3つだけを残す。
 =s2c 131 kvs_push_to_list_result( int query_id, int retcode, string key[KVS_KEY_MAX], int updated_num )
+文字列をRedisのLISTにLPUSHする。trimに0以外を指定すると、lpushした後にltrim 0 trim する。trimが3のとき、先頭から3つだけを残す。
 成功ならretcode=OK
+
+Space Sweeperでは、現在このコマンドは使用していない。(開発中は使用していた)
+
+
 
 =c2s 132 kvs_get_list_range( int query_id, string key[KVS_KEY_MAX], int start_ind, int end_ind )
 =s2c 133 kvs_get_list_range_result( int query_id, int retcode, int start_ind, int end_ind, string key[KVS_KEY_MAX], stringarray result[KVS_ARRAYLEN_MAX][KVS_ELEMENT_MAX] )
-位置start_indからnum個の要素を取り出す。(RedisのLRANGE)
+Redisのリストの、位置start_indからnum個の要素を取り出す。(RedisのLRANGE)
+
 
 =c2s 134 kvs_append_string_array( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], string s[KVS_ELEMENT_MAX], int trim )
 =s2c 135 kvs_append_string_array_result( int query_id, int retcode, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
 =c2s 136 kvs_get_string_array( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
 =s2c 137 kvs_get_string_array_result( int query_id, int retcode, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], stringarray result[KVS_ARRAYLEN_MAX][KVS_ELEMENT_MAX] )
-RedisのListはネストできないので、内部的にJSONで保存されている。
+内部的にJSONで保存されている文字列の配列に対して追加や取得を行う。
+文字列の配列は、 [ "hoge", "piyo", "fuga" ]　のような構造で、
+そのJSONを、RedisのHashに保存する。そのため、 keyとfieldの2つの情報が必要となる。
+一度JSONに保存しているのは、RedisのListが要素をネストできないため。
+Space Sweeperでは、プロジェクトの活動記録をこの形式で保存している。
 
 
 =c2s 140 kvs_save_bin( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], char data[KVS_BIN_MAX] )
 =s2c 141 kvs_save_bin_result( int query_id, int retcode, int valtype, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
-バイナリデータをRedisにHSETする。
-SETではまとめて削除がやりにくいので、管理しやすさからHashを使う。
+バイナリデータをRedisのHashにHSETする。
+HashではないSETでは大量に要素がある場合の削除がやりにくいので、
+管理のしやすさのためにHashを使っている。
+Space Sweeperでは、キャラクタデータの構造体などをそのまま保存するために使用している。
+
 
 =c2s 150 kvs_load_bin( int query_id, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX] )
 =s2c 151 kvs_load_bin_result( int query_id, int retcode, int has_data, string key[KVS_KEY_MAX], string field[KVS_FIELD_MAX], char data[KVS_BIN_MAX] )
-バイナリデータをRedisからHGETする。
+kvs_save_binで保存したバイナリデータをRedisからHGETする。
+has_data: データがない場合は0, データがある場合は1
+
 
 ############
 # 単純なカウンタ(毎回ストレージアクセスあり)
 =c2s 160 counter_add( int counter_category, int counter_id, int addvalue )
+
+バックエンドサーバー内部で管理されている整数カウンタの値を増加させる。
+カウンタは、カテゴリ番号とカウンタIDの2つの値の組で区別できる。
+Space Sweeperでは、各プロジェクトで費やされた合計時間の蓄積に用いている。
+その際、 counter_categoryは100で固定、counter_idはプロジェクトIDを指定している。
+
+カウンタは値を変更するたびに小さな静的ファイルにデータを保存する。
+
+
 =c2s 161 counter_get( int counter_category, int counter_id )
 =s2c 162 counter_get_result( int counter_category, int counter_id, int result, int curvalue )
+
+整数カウンタの値を取り出す。
+
 
 ##################
 # プロジェクト共有(毎回ストレージアクセス無し)
 
+バックエンドサーバーのdatabaseモードでは、
+Space Sweeperの"プロジェクトの共有・公開"モデルをそのままオンメモリ実装している。
+バックエンドサーバーを再起動するとその状態は失われる。
+
 =define SHARE_MAX 128
 =c2s 180 share_project( int user_id, int project_id, int with[SHARE_MAX] )
 =s2c 181 share_project_result( int project_id )
+user_idが、project_idで指定されるプロジェクトを withで指定されるフレンドに対して共有する。
+withは、user_idの配列。
+user_idで指定されるユーザが project_idを所有しているかどうかはバックエンドサーバー側では確認しない。
+Space Sweeperでは、　share_project_resultを無視している。
 
 =c2s 182 publish_project( int user_id, int project_id )
 =s2c 183 publish_project_result( int project_id )
-全体共有
-
+project_idで指定されるプロジェクトを一般に公開する。
+Space Sweeperでは、　publish_project_resultを無視している。
 
 =define SEARCH_MAX 20
 =c2s 186 search_shared_projects( int user_id )
 =s2c 187 search_shared_projects_result( int user_id, int project_ids[SEARCH_MAX] )
-自分が参加できるプロジェクトを検索する。
+user_idで指定されるユーザが参加できるプロジェクトを検索してSEARCH_MAX個まで返す。
+
 
 =c2s 188 search_published_projects()
 =s2c 189 search_published_projects_result( int project_ids[SEARCH_MAX] )
-全体共有されているプロジェクトを検索する。
+全体共有されているプロジェクトをSEARCH_MAX個まで検索して返す。
+
 
 =c2s 190 project_is_joinable( int project_id, int user_id )
 =s2c 191 project_is_joinable_result( int project_id, int user_id, int result )
-プロジェクトに参加できるか調べる。publishされたものとshareされたものの両方から探す。
-searchだと、確実には調べられない。
+project_idで指定されたプロジェクトにuser_idが参加できるか調べる。
+publishされたものとshareされたものの両方から調べる。
+参加できない場合は SSPROTO_E_PROJECT_NOT_SHARED が、参加できる場合は SSPROTO_OKが返される。
+
 
 =c2s 192 unshare_project( int project_id )
 =c2s 194 unpublish_project( int project_id )
-共有や公開を解除する。
+project_idで指定されるプロジェクトの共有状態や公開状態を解除し、
+プライベートプロジェクトに戻す。
 
 =c2s 196 is_published_project( int project_id )
 =s2c 197 is_published_project_result( int project_id, int published )
-published:0/1
+project_idで指定されるプロジェクトが、一般公開されているか調べる。
+published: 公開されているなら1,そうでないなら0
 
 =c2s 198 is_shared_project( int project_id, int owner_uid )
 =s2c 199 is_shared_project_result( int project_id, int shared )
 sharedの値は以下の通り
-=define PROJECT_IS_NOT_SHARED 0
-=define PROJECT_IS_SHARED 1
-=define PROJECT_IS_PUBLISHED 2
+=define PROJECT_IS_NOT_SHARED 0  # まったく共有設定していない。
+=define PROJECT_IS_SHARED 1      # フレンドと共有している。
+=define PROJECT_IS_PUBLISHED 2   # 一般公開している。
 
+project_idで指定されたプロジェクトが、 owner_uidによって何らかの方法で共有されているか、
+つまりそのプロジェクトを自分自身が共有設定しているかどうかを調べる。
+sharedパラメータで、PROJECT_IS_NOT_SHARED,PROJECT_IS_SHARED,PROJECT_IS_PUBLISHEDのどれかが返される。
 
 
 ##################
 
-# プレゼンス (毎回ストレージアクセス無し)
+# プレゼンス
+databaseモードでは、フレンドが現在プロジェクトに参加中かどうかの状態管理機能が利用可能である。
+
 
 =c2s 200 update_presence( int project_id, int user_id )
+user_idのユーザが、 project_idのプロジェクトに参加中であることをバックエンドサーバーに教える。
+30秒間このコマンドが送られない状態が続くとタイムアウトし、プレイ中の状態は削除される。
+Space Sweeperでは、プロジェクトにGOするとこのコマンドを発行する。
+
+
 =c2s 201 delete_presence( int project_id, int user_id )
-=c2s 204 list_presence( int project_id )
+明示的にプロジェクトから抜ける。
+Space Sweeperでは、プロジェクトからLEAVEするとこのコマンドを発行する。
+
+
 =define PRESENCE_PER_PROJECT_MAX 1024
+=c2s 204 list_presence( int project_id )
 =s2c 205 list_presence_result( int project_id, int user_ids[PRESENCE_PER_PROJECT_MAX] )
+あるプロジェクトに参加しているすべてのユーザーのIDを取得する。
+Space Sweeperでは現在このコマンドを使用していない。
+
 =c2s 206 count_presence( int project_id )
 =s2c 207 count_presence_result( int project_id, int user_num )
+あるプロジェクトに参加しているすべてのユーザーの数を取得する。
+Space Sweeperでは、プロジェクトリストでこの人数を取得して表示している。
 
 
 #################
 
-# グリッドのオンメモリLock (ストレージアクセス無し)
+# グリッドのロック
+リアルタイムモードの機能。
+Space Sweeperでは、プロジェクトのフィールドマップ(2048x2048セル)を 16x16のチャンク(128x128=16384チャンク)に区切って、
+敵キャラクターの生成や地形の変化などの処理を行っている。
+同じチャンクが複数のゲームサーバによって読み込まれるので、同じチャンクに対する処理が確実に
+一定速度で行われるようにするため、チャンクごとに排他制御をする必要がある。
+バックエンドサーバーでは、2次元格子の構造で所有者状態を保存し、
+それを、プロジェクトに参加している各ゲームサーバーが共有することで排他制御を行う。
+
+実際の実装はバックエンドサーバーのLockGridクラスで行う。
+
+グリッドロックの状態はファイルやDBに保存されることはなく、バックエンドサーバーのプロセスを再起動すると失われる。
+
+
 =c2s 210 lock_grid( int grid_id, int x, int y )
 =s2c 211 lock_grid_result( int grid_id, int x, int y, int retcode )
+あるチャンクのロックを確保する。x,yの値は0から127の間。
+2次元格子のサイズはバックエンドサーバーでハードコードしている。
+retcodeは、 SSPROTO_OKまたは SSPROTO_E_CANT_LOCKのどちらか。
+
+
 =c2s 212 unlock_grid( int grid_id, int x, int y )
 =s2c 213 unlock_grid_result( int grid_id, int x, int y, int retcode )
+あるチャンクのロックを開放する。
+Space Sweeperでは、チャンクから一定距離離れたあと、シミュレーションを停止したタイミングで送信する。
+retcodeは、 SSPROTO_OK または SSPROTO_E_CANT_UNLOCKのどちらか。
+
 =c2s 214 lock_keep_grid( int grid_id, int x, int y )
-SSPROTO_OKだったらLock取得/解除できた。 E_ALREADY_LOCKED, E_NOT_LOCKED.
+あるチャンクのロックの時間を延長する。
+Space Sweeperでは、2秒ごとに、全チャンクに対してこのコマンドを発行する。
+バックエンドサーバーでは、延長をしない状態で5秒間経過すると、
+シミュレーションを実行していないと判断して該当するロックを開放する。
+また、誰がlockしたかを位置ごとに記憶していて、接続が切れると、自動的にその接続が保持しているすべてのlockを解除する。
+これは、ゲームサーバーが異常終了したときに、5秒待たずに速く排他制御を解除するためである。
 
-Lockは、明示的にunlockされなくても一定時間たつと消える。
-また誰がlockしたかを管理して、接続が切れると、自動的にすべてのlockを解除する。
-gridのサイズは128x128 (CHUNKSZ=16のField.width=2048でとりあえず)
 
-keepはtimeoutまでの間に送り、ロックの時間を延長する。simはだいたい0.5秒から1秒以内にまわることを想定している。
+# プロジェクト単位のロック
+リアルタイムサーバーでは、2次元格子ではなく、カテゴリ番号を用いた排他制御も提供している。
+プロジェクト単位のロックも、ファイルやDBに永続化されることはなく、バックエンドサーバーのプロセスを再起動すると失われる。
+プロジェクト単位のロックでも、グリッドロックと同様に、誰が所有者であるのかの状態を保存するのみ。
 
-# プロジェクト全体のオンメモリLock
+Space Sweeperでは主に、同時に1人しか利用できないタイプの建造物(母船など)を実現するための排他制御をこれで実現している。
+
+
 =c2s 216 lock_project( int project_id, int category )
 =s2c 217 lock_project_result( int project_id, int category, int retcode )
+あるカテゴリのロックを取得する。
+Space Sweeperでは、アイテムを預けるための端末や母船のアクセス権限を排他するために category番号を3種類定義して利用している。
+LOCKCATEGORY列挙体を参照。
+retcodeは、 SSPROTO_OKまたは SSPROTO_E_CANT_LOCKのどちらか。
+
 =c2s 218 unlock_project( int project_id, int category )
 =s2c 219 unlock_project_result( int project_id, int category, int retcode )
+あるカテゴリのロックを解放する。
+retcodeは、 SSPROTO_OKまたは SSPROTO_E_CANT_UNLOCKのどちらか。
+
 =c2s 220 lock_keep_project( int project_id, int category )
-プロジェクト全体で1プロセスだけが処理したいもの(発電など)のためのLock.
-categoryを指定して複数種類のlockに対応。
-タイムアウトの仕組み等はgridとまったく同じ。
+あるカテゴリのロック時間を延長する。
 
 
 
 
 #################
 
-# リアルタイムパケット送信 ( REALTIMEタイプが必要 )
-cli_idはconn_t.serialの値そのまま
+# ゲーム同期パケット送信
 
-=define PACKET_SIZE_MAX 65536
+リアルタイムサーバーの主な目的は、broadcast, channelcast, nearcastを行うことである。
+
+以下の各コマンドにおいては、整数パラメータであるtype_idとsender_cli_idが共通のパラメータとなっている。
+
+type_idはパケットのタイプで、バックエンドサーバーはこの値の内容によって一切挙動を変えない(無視して送信する)。
+Space Sweeperでは、構造体を送るときにシリアライズせず、メモリ上の生データをそのまま送るので、
+送りたい構造体ごとに異なる値をtype_idに設定し、受信側でそのまま対象となる構造体のメモリにコピーして使っている。
+
+sender_cli_idは、ゲームサーバープロセスを特定するために使用する。
+ゲームサーバー同士で重複していない値であれば何でもよいが、
+バックエンドサーバーの conn_t のシリアル番号がちょうどその特性を持っているため、
+Space Sweeperでは、　get_conn_serialコマンドで取得した値を互いに送信しあう仕様となっている。
+
+最大パケットサイズは64KBとしているが、実際には数十バイトまでのパケットがほとんどである。
+
+
+=define PACKET_SIZE_MAX 65536       # データパケットの最大サイズ
 =c2s 230 broadcast( int type_id, char data[PACKET_SIZE_MAX] )
 =s2c 231 broadcast_notify( int type_id, int sender_cli_id, char data[PACKET_SIZE_MAX] )
+バックエンドサーバーに接続しているすべてのゲームサーバー間の通信を行う。
+ただしコマンドを発行したバックエンドサーバーには送信しない。
 
 =c2s 232 channelcast( int channel_id, int type_id, char data[PACKET_SIZE_MAX] )
 =s2c 233 channelcast_notify( int channel_id, int sender_cli_id, int type_id, char data[PACKET_SIZE_MAX] )
-チャネルの全員に(type_id,data)を同報する
+あるチャネルに参加している全てのゲームサーバーにdataを送信する。
+ただしコマンドを発行したバックエンドサーバーには送信しない。
+
 
 =c2s 234 join_channel( int channel_id )
 =s2c 235 join_channel_result( int channel_id, int retcode )
-チャネルに参加する。同時に1個のチャネルにしか送信できない。
-サーバはコネクションの状態をつかうことで毎回チャネルIDから検索することを避ける。
+チャネルに参加する。同時に1個のチャネルにしか参加できない。
+チャネルが存在しない場合は、新たなチャネルを初期化する。
+retcodeは、 SSPROTO_OKまたは SSPROTO_E_CHANNEL_FULLかどちらか。
 
+TCP接続が切断された場合は自動的にチャネルから脱退する。
+
+現在、バックエンドサーバーでは conn_tの状態バッファに、現在参加しているチャネルのポインタを格納しておくことで、
+毎回チャネルIDからチャネルのポインタを検索するコストを回避している。
+これは、データ同期パケットは、秒間数十万回という高頻度で呼び出されるためである。
+
+Space Sweeper以外のゲームで、同時に複数のチャネルに参加できるようにしたい場合は、
+毎回IDから検索するか、最高4つまで参加できるというような仕様を決め、
+状態バッファに追加の領域を確保するかする必要がある。
 
 =c2s 236 leave_channel()
-=s2c 237 leave_channel_result( int retcode )
-チャネルから脱退する。
+明示的に現在参加しているチャネルから脱退する。
+Space Sweeperでは、現在使用していない。
 
 =c2s 240 nearcast( int x, int y, int range, int type_id, char data[PACKET_SIZE_MAX])
 =s2c 241 nearcast_notify( int channel_id, int sender_cli_id, int x, int y, int range, int type_id, char data[PACKET_SIZE_MAX])
-=c2s 242 update_nearcast_position( int x, int y )
-何らかのチャネルに参加していることが必要。
 
-チャネル(ProjectID)と座標を指定して、範囲内の人だけに(type_id,data)を同報(notify)する。
+nearcastは、現在参加しているチャネルに参加しているゲームサーバーのうち、
+現在の位置に近い(rangeの範囲)位置(x,y)にいるすべてのゲームサーバー間の通信を行う。
+
+ゲームサーバーの「位置」とは、Space Sweeperの場合はマップ内でのキャラクターの座標であり、
+その値は整数で0~2047となっている。rangeは200〜500程度。
+それぞれ、値の範囲は自由で、特に制限はない。
+
+rangeが500の場合で、x,yがたとえば(1200,800)だった場合は、(700,300)-(1700,1300)の範囲のゲームサーバーに送信することになる。
+
+
+=c2s 242 update_nearcast_position( int x, int y )
+現在参加しているチャネルにおけるゲームサーバーの位置を更新する。
+Space Sweeperでは毎秒1回程度送信している。その間に移動する速度は、10~40セル程度である。
+ゲームの実装では、厳密に位置が同期されていることを要求しない設計が必要。
+
 
 
 =c2s 244 get_channel_member_count( int channel_id )
 =s2c 245 get_channel_member_count_result( int channel_id, int maxnum, int curnum )
-チャネルの参加者数を返す
+あるチャネルに参加しているゲームサーバーの総数を取得する。
+maxnumは最大数で現在は256, curnumは現在の数。
+チャネルが存在しない場合はcurnumは0を返す。
