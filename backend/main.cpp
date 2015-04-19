@@ -370,7 +370,7 @@ void printUsage() {
     print("--channel_max=NUMBER : set max concurrent number of channel members.");
     print("--tcp_timeout=SECONDS : set TCP timeout for database and realtime connections" );
     print("--enable-fsync : Use fsync() when writing a static file (not affect on Redis storage)" );
-    print("--redis-addr : Address of the redis server.  Default is localhost" );
+    print("--redis-addr HOSTNAME : Address of the redis server.  Default is localhost" );
 }
 
 int main( int argc, char **argv ) {
