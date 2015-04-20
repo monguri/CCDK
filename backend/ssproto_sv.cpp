@@ -98,7 +98,6 @@ static double ssproto_unlock_project_result_send_counter = 0;
 static double ssproto_broadcast_notify_send_counter = 0;
 static double ssproto_channelcast_notify_send_counter = 0;
 static double ssproto_join_channel_result_send_counter = 0;
-static double ssproto_leave_channel_result_send_counter = 0;
 static double ssproto_nearcast_notify_send_counter = 0;
 static double ssproto_get_channel_member_count_result_send_counter = 0;
 
@@ -186,7 +185,6 @@ static int ssproto_unlock_project_result_send_debugout = 1;
 static int ssproto_broadcast_notify_send_debugout = 1;
 static int ssproto_channelcast_notify_send_debugout = 1;
 static int ssproto_join_channel_result_send_debugout = 1;
-static int ssproto_leave_channel_result_send_debugout = 1;
 static int ssproto_nearcast_notify_send_debugout = 1;
 static int ssproto_get_channel_member_count_result_send_debugout = 1;
 
@@ -2866,34 +2864,6 @@ int ssproto_join_channel_result_send( conn_t _c, int channel_id, int retcode )
 #endif
 }
 /****/
-int ssproto_leave_channel_result_send( conn_t _c, int retcode )
-{
-  /* Make bin_info array */
-  char _work[6];
-  int _ofs = 0;
-  ssproto_leave_channel_result_send_counter += 1;
-  _PUSH_I2( SSPROTO_S2C_LEAVE_CHANNEL_RESULT, sizeof( _work));
-  _PUSH_I4(retcode,sizeof(_work));
-
-#ifdef GEN_DEBUG_PRINT
-  if(ssproto_leave_channel_result_send_debugout)
-  {
-    char _addr[256];
-    int _retsend;
-    vce_errout( "ssproto_leave_channel_result_send( [%s], retcode=%d )\n" , vce_conn_get_remote_addr_string( _c, _addr, sizeof(_addr) ) , retcode );
-    _retsend=ssproto_sv_sender( _c, _work, _ofs);
-    if(_retsend<0){
-      vce_errout("protocol error : ssproto_leave_channel_result_send code : %d\n",_retsend);
-    }
-    return _retsend;
-  }
-  else
-    return ssproto_sv_sender( _c, _work, _ofs);
-#else
-  return ssproto_sv_sender( _c, _work, _ofs);
-#endif
-}
-/****/
 int ssproto_nearcast_notify_send( conn_t _c, int channel_id, int sender_cli_id, int x, int y, int range, int type_id, const char *data, int data_len )
 {
   /* Make bin_info array */
@@ -3294,10 +3264,6 @@ double ssproto_get_join_channel_result_send_count( void )
 {
   return ssproto_join_channel_result_send_counter;
 }
-double ssproto_get_leave_channel_result_send_count( void )
-{
-  return ssproto_leave_channel_result_send_counter;
-}
 double ssproto_get_nearcast_notify_send_count( void )
 {
   return ssproto_nearcast_notify_send_counter;
@@ -3640,10 +3606,6 @@ void ssproto_join_channel_result_send_debugprint(int on_off)
 {
   ssproto_join_channel_result_send_debugout=on_off;
 }
-void ssproto_leave_channel_result_send_debugprint(int on_off)
-{
-  ssproto_leave_channel_result_send_debugout=on_off;
-}
 void ssproto_nearcast_notify_send_debugprint(int on_off)
 {
   ssproto_nearcast_notify_send_debugout=on_off;
@@ -3655,7 +3617,7 @@ void ssproto_get_channel_member_count_result_send_debugprint(int on_off)
 #endif
 unsigned int ssproto_sv_get_version( unsigned int *subv )
 {
-  if(subv) *subv = 42653699;
+  if(subv) *subv = 45901970;
   return (unsigned int)10003;
 }
 conn_t ssproto_sv_get_current_conn( void )

@@ -3,6 +3,10 @@
 #define _SSPROTO_SV_H_
 #include "vce.h"
 
+#undef SSPROTO_TEST_INT
+#define SSPROTO_TEST_INT 10
+#undef SSPROTO_TEST_STR
+#define SSPROTO_TEST_STR "test"
 #undef SSPROTO_USERID_SIZE_MAX
 #define SSPROTO_USERID_SIZE_MAX 32
 #undef SSPROTO_OK
@@ -15,12 +19,8 @@
 #define SSPROTO_E_FILE_ACCESS -3
 #undef SSPROTO_E_KVS_COMMAND
 #define SSPROTO_E_KVS_COMMAND -10
-#undef SSPROTO_E_KVS_ARRAY_NOT_IMPLEMENTED
-#define SSPROTO_E_KVS_ARRAY_NOT_IMPLEMENTED -11
 #undef SSPROTO_E_CHANNEL_FULL
 #define SSPROTO_E_CHANNEL_FULL -30
-#undef SSPROTO_E_CHANNEL_JOIN_REQUIRED
-#define SSPROTO_E_CHANNEL_JOIN_REQUIRED -31
 #undef SSPROTO_E_CANT_LOCK
 #define SSPROTO_E_CANT_LOCK -40
 #undef SSPROTO_E_CANT_UNLOCK
@@ -95,6 +95,15 @@
 #define SSPROTO_PRESENCE_PER_PROJECT_MAX 1024
 #undef SSPROTO_PACKET_SIZE_MAX
 #define SSPROTO_PACKET_SIZE_MAX 65536
+
+#ifndef _SSPROTO_AAA_ENUMDEF_
+#define _SSPROTO_AAA_ENUMDEF_
+typedef enum {
+ SSPROTO_AAA_OK = 0,
+ SSPROTO_AAA_NG = 1,
+
+} SSPROTO_AAA;
+#endif
 
 #ifndef _SSPROTO_FUNCID_ENUMDEF_
 #define _SSPROTO_FUNCID_ENUMDEF_
@@ -182,13 +191,16 @@ typedef enum _SSPROTO_FUNCID{
   SSPROTO_S2C_BROADCAST_NOTIFY=231,
   SSPROTO_S2C_CHANNELCAST_NOTIFY=233,
   SSPROTO_S2C_JOIN_CHANNEL_RESULT=235,
-  SSPROTO_S2C_LEAVE_CHANNEL_RESULT=237,
   SSPROTO_S2C_NEARCAST_NOTIFY=241,
   SSPROTO_S2C_GET_CHANNEL_MEMBER_COUNT_RESULT=245,
   SSPROTO_IDMAX=256
 } SSPROTO_FUNCID;
 #endif
 
+typedef struct _ssproto_teststruct {
+    int x;
+    int y;
+} ssproto_teststruct;
 
 
 #ifdef __cplusplus
@@ -289,7 +301,6 @@ double ssproto_get_unlock_project_result_send_count( void );
 double ssproto_get_broadcast_notify_send_count( void );
 double ssproto_get_channelcast_notify_send_count( void );
 double ssproto_get_join_channel_result_send_count( void );
-double ssproto_get_leave_channel_result_send_count( void );
 double ssproto_get_nearcast_notify_send_count( void );
 double ssproto_get_get_channel_member_count_result_send_count( void );
 
@@ -378,7 +389,6 @@ void ssproto_unlock_project_result_send_debugprint(int on_off);
 void ssproto_broadcast_notify_send_debugprint(int on_off);
 void ssproto_channelcast_notify_send_debugprint(int on_off);
 void ssproto_join_channel_result_send_debugprint(int on_off);
-void ssproto_leave_channel_result_send_debugprint(int on_off);
 void ssproto_nearcast_notify_send_debugprint(int on_off);
 void ssproto_get_channel_member_count_result_send_debugprint(int on_off);
 
@@ -470,7 +480,6 @@ int ssproto_unlock_project_result_send( conn_t _c, int project_id, int category,
 int ssproto_broadcast_notify_send( conn_t _c, int type_id, int sender_cli_id, const char *data, int data_len );
 int ssproto_channelcast_notify_send( conn_t _c, int channel_id, int sender_cli_id, int type_id, const char *data, int data_len );
 int ssproto_join_channel_result_send( conn_t _c, int channel_id, int retcode );
-int ssproto_leave_channel_result_send( conn_t _c, int retcode );
 int ssproto_nearcast_notify_send( conn_t _c, int channel_id, int sender_cli_id, int x, int y, int range, int type_id, const char *data, int data_len );
 int ssproto_get_channel_member_count_result_send( conn_t _c, int channel_id, int maxnum, int curnum );
 

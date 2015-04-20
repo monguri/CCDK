@@ -21,7 +21,7 @@ const int DBPORT = 22222;
 const int RTPORT = 22223;
 
 const int ABS_MAXCON = 200;
-int g_maxcon = ABS_MAXCON;
+int g_maxcon = 30; // To avoid using up too much memory by default value
 bool g_dump_shared_projects = false;
 bool g_dump_projects = false;
 bool g_enable_abort_on_parser_error = false;
@@ -370,7 +370,7 @@ void printUsage() {
     print("--channel_max=NUMBER : set max concurrent number of channel members.");
     print("--tcp_timeout=SECONDS : set TCP timeout for database and realtime connections" );
     print("--enable-fsync : Use fsync() when writing a static file (not affect on Redis storage)" );
-    print("--redis-addr : Address of the redis server.  Default is localhost" );
+    print("--redis-addr HOSTNAME : Address of the redis server.  Default is localhost" );
 }
 
 int main( int argc, char **argv ) {
@@ -383,6 +383,10 @@ int main( int argc, char **argv ) {
             g_maxcon = atoi( argv[i] + strlen("--maxcon=") );
             if(g_maxcon <= 0 ) {
                 print("invalid maxcon: %d", g_maxcon );
+                return 1;
+            }
+            if( g_maxcon > ABS_MAXCON ) {
+                print("too many max connection specified:%d Absolute max is %d.", g_maxcon, ABS_MAXCON );
                 return 1;
             }
         }

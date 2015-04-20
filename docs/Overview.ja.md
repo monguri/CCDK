@@ -1,15 +1,20 @@
-# CCDK Overview
+# CCDKの概要
 CCDKは、"Community Cloud Development Kit" の略で、シンラ・テクノロジーが提供する、クラウドゲームを開発するためのソフトウェア・キットです。
 
 このレポジトリ ( <a href="https://github.com/ShinraTech/CCDK">https://github.com/ShinraTech/CCDK</a> )では、CCDKのドキュメント、ソースコードつきのサンプルゲーム、
 開発ツールのバイナリアーカイブを配布しています。
 
-シンラ・テクノロジーは、CCDKのサポートを、
-<a href="https://www.facebook.com/pages/Shinra-Community-CDK/1613401802228319">Facebookグループ</a> で主に行っています。
-不明な点があれば、どんなことでも構いませんので、
-グループで質問をしてみてください。
-[FAQ](FAQ.ja.md) も用意していますので、質問をする際にはぜひ、参考にしてください。
+技術サポート
+====
+シンラ・テクノロジーの開発チームが、CCDKの技術サポートを行っています。
 
+不明な点があれば、日本語の場合はメールアドレス ```CCDK-jp@shinra.com```　へ、英語の場合は ```CCDK-en@shinra.com``` までメールしてください。
+
+メール以外にも、
+<a href="https://www.facebook.com/pages/Shinra-Community-CDK/1613401802228319">CCDKのFacebookグループ</a> も用意しています。
+困っている問題以外にも、雑談や、こんなことがやりたい、などといった話題でもかまいませんので、書き込んでみてください。
+
+[FAQ](FAQ.ja.md) も用意していますので、質問をする際にはぜひ、参考にしてください。
 
 CCDKでできること・できないこと
 ====
@@ -53,7 +58,7 @@ GPU、そして表示ディスプレイも、CPUと同じマシン上に搭載�
 D3D9.dllはここではフェイクされていず、Microsoft社が提供しているものをそのまま利用します。
 
 
-![CoreSystem](coresystem.png)
+![CoreSystem](images/coresystem.png)
 
 上の図は、シンラの商用版システムの構成を示しています。
 CPUマシンとGPUマシンは物理的に分離されており、データセンターのLAN内で、
@@ -98,9 +103,9 @@ MCSの最新版は、packagesディレクトリに格納されています。
 複数のバージョンが格納されていますが、通常は番号がもっとも大きい、
 最新のものを利用してください。
 
-<pre>
+~~~
 packages/ShinraMCS-8304.34.zip
-</pre>
+~~~
 
 
 CCDKにおけるゲーム開発の実際
@@ -152,9 +157,10 @@ CCDKは、圧縮ファイルではなく、GitHubのgitレポジトリで配布�
 現在はプレビュー版のみをプライベートレポジトリ経由で配布しています。
 
 クローンするためのコマンドラインは
-<pre>
+
+~~~
 git clone git@github.com:ShinraTech/CCDK
-</pre>
+~~~
 
 です。クローンするだけでなく、自由にForkして活用することもできます。
 

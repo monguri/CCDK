@@ -6,3 +6,4 @@ Release/*
 packages
 .nuget
 ipch
+.DS_Store

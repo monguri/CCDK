@@ -86,7 +86,6 @@ static double ssproto_unlock_project_result_recv_counter = 0;
 static double ssproto_broadcast_notify_recv_counter = 0;
 static double ssproto_channelcast_notify_recv_counter = 0;
 static double ssproto_join_channel_result_recv_counter = 0;
-static double ssproto_leave_channel_result_recv_counter = 0;
 static double ssproto_nearcast_notify_recv_counter = 0;
 static double ssproto_get_channel_member_count_result_recv_counter = 0;
 
@@ -174,7 +173,6 @@ static int ssproto_unlock_project_result_recv_debugout = 1;
 static int ssproto_broadcast_notify_recv_debugout = 1;
 static int ssproto_channelcast_notify_recv_debugout = 1;
 static int ssproto_join_channel_result_recv_debugout = 1;
-static int ssproto_leave_channel_result_recv_debugout = 1;
 static int ssproto_nearcast_notify_recv_debugout = 1;
 static int ssproto_get_channel_member_count_result_recv_debugout = 1;
 
@@ -1045,23 +1043,6 @@ int ssproto_cli_pcallback( conn_t _c, char *_data, int _len)
     }
 #endif
     _ret = ssproto_join_channel_result_recv( _c, channel_id,retcode);
-    break;
-  }
-  case  SSPROTO_S2C_LEAVE_CHANNEL_RESULT :/* record length : 6 */
-  {
-    int retcode;
-
-    _POP_I4(retcode);
-
-    ssproto_leave_channel_result_recv_counter += 1;
-#ifdef GEN_DEBUG_PRINT
-    if(ssproto_leave_channel_result_recv_debugout)
-    {
-      char _addr[256];
-      vce_errout( "ssproto_leave_channel_result_recv( [%s], retcode=%d )\n", vce_conn_get_remote_addr_string( _c, _addr, sizeof(_addr) ) ,retcode );
-    }
-#endif
-    _ret = ssproto_leave_channel_result_recv( _c, retcode);
     break;
   }
   case  SSPROTO_S2C_NEARCAST_NOTIFY :/* record length : 65567 */
@@ -2912,10 +2893,6 @@ double ssproto_get_join_channel_result_recv_count( void )
 {
   return ssproto_join_channel_result_recv_counter;
 }
-double ssproto_get_leave_channel_result_recv_count( void )
-{
-  return ssproto_leave_channel_result_recv_counter;
-}
 double ssproto_get_nearcast_notify_recv_count( void )
 {
   return ssproto_nearcast_notify_recv_counter;
@@ -3258,10 +3235,6 @@ void ssproto_join_channel_result_recv_debugprint(int on_off)
 {
   ssproto_join_channel_result_recv_debugout=on_off;
 }
-void ssproto_leave_channel_result_recv_debugprint(int on_off)
-{
-  ssproto_leave_channel_result_recv_debugout=on_off;
-}
 void ssproto_nearcast_notify_recv_debugprint(int on_off)
 {
   ssproto_nearcast_notify_recv_debugout=on_off;
@@ -3274,7 +3247,7 @@ void ssproto_get_channel_member_count_result_recv_debugprint(int on_off)
 #endif
 unsigned int ssproto_cli_get_version( unsigned int *subv )
 {
-  if(subv)*subv= 42653699;
+  if(subv)*subv= 45901970;
   return (unsigned int)10003;
 }
 conn_t ssproto_cli_get_current_conn( void )
