@@ -3,11 +3,10 @@ CCDK セットアップ手順
 
 セットアップに必要な手順は以下の通りです。
 
-1. CCDKレポジトリの読み込みアクセス権を取得する。
-2. gitツールを用いてCCDKレポジトリをダウンロードする。
-3. RubyやPythonなどの必要な外部ツールをインストールする。
-4. CCDKのサンプルプログラムの動作確認を行う。
-5. LinuxやMacOS Xでの動作確認
+1. gitツールを用いてCCDKレポジトリをダウンロードする。
+2. RubyやPythonなどの必要な外部ツールをインストールする。
+3. CCDKのサンプルプログラムの動作確認を行う。
+4. LinuxやMacOS Xでの動作確認
 
 
 以上の1~4では、まずWindowsだけで完結する部分を説明します。
@@ -15,55 +14,12 @@ LinuxやMacOS Xに関することは最後の5.で説明します。
 
 
 
-##1. CCDKレポジトリの読み込みアクセス権を取得する
-
-CCDKは現在、GitHubのプライベートレポジトリに格納されています。
-
-CCDKを取得するには、gitツールを用いて、そのgitレポジトリをcloneします。
-
-CCDKのドキュメントやサンプルコードは、開発チームがレポジトリに対して直接コミット/プッシュします。
-
-GitHubを利用している理由は、CCDKのアップデートを、より簡単かつ確実に、
-ご利用いただいている皆様に届けるためです。
-gitを利用することで、コピーはもちろんのこと、古いバージョンに戻したり、
-ブランチを作って独自の変更を加えてそれを管理したり、
-バグ修正の案をプル・リクエストというかたちでCCDKの開発チームに送ったり、
-といったことが非常に簡単にできるようになります。
-
-gitレポジトリのURLは、以下の通りです。
-
-```
-https://github.com/ShinraTech/CCDK
-```
-
-
-このURLは、ShinraTechというOrganization(組織)がCCDKという名称のレポジトリを所有していることを示しています。
-
-GitHubのShinraTechというOrganizationは、内部にOwnersとDevelopers
-という2つのTeamがあり、Ownersは主にシンラ・テクノロジーの開発スタッフが、
-DevelopersはCCDKを使っている開発会社や個人の開発者が参加しています。
-Developersチームは、CCDKを読み込むことができるようになっています。
-
-したがって、GitHubのアカウントを取得して、
-ShinraTechという組織のDevelopersチームに参加すれば、
-CCDKをダウンロードできるようになります。
-
-1.1 GitHubのアカウントを取得する
-1.2 シンラ・テクノロジーのメンバーにGitHubアカウント名を連絡する。
-連絡先はXXXXXXX. 連絡を受け取ったら、ShinraTechのDevelopersチームに追加します。
-1.3 GitHubのシステムから、チームに参加したという旨のメールが届いたら、登録完了です。
-以下のようなサブジェクトのメールを探してください。
-
-~~~
-kengonakajima added you to the developers team for ShinraTech
-~~~
-
-###2. gitツールを用いてCCDKレポジトリをダウンロードする。
+###1. gitツールを用いてCCDKレポジトリをダウンロードする。
 
 gitレポジトリの位置は以下です。
 
 ~~~
-git@github.com:ShinraTech/CCDK
+https://github.com/ShinraTech/CCDK
 ~~~
 
 このレポジトリをcloneすることでCCDKの全体が取得できます。
@@ -106,7 +62,7 @@ C:¥Users¥cloud¥Documents¥GitHub¥CCDK
 ~~~
 
 
-###3. RubyやPythonなどの必要な外部ツールをインストールする。
+###2. RubyやPythonなどの必要な外部ツールをインストールする。
 CCDKは、以下の外部ツールを利用しています。
 以下では、Windows版のみ説明します。Linux(UNIX)については後述します。
 
@@ -188,7 +144,7 @@ CCDK/externals/redis/msvs/Debug/redis-server.exe
 DebugとReleaseの両方をビルドしてください。
 
 
-###4. CCDKのサンプルプログラムの動作確認を行う。
+###3. CCDKのサンプルプログラムの動作確認を行う。
 
 1台のWindowsマシンだけで動作確認ができるプログラムは、以下のものがあります。
 
@@ -390,7 +346,7 @@ Channelcastのカウンタ値が増えていくのが見えたら完了です。
 
 
 
-###5. LinuxやMacOS Xでの動作確認
+###4. LinuxやMacOS Xでの動作確認
 バックエンドサーバーだけは、LinuxやMacOS X で動作させることができます。
 手順は以下の通りです。
 

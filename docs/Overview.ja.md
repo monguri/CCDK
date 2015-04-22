@@ -155,12 +155,11 @@ CCDKのテストサーバーでゲームが検証できれば、その次の段�
 CCDKの取得
 ====
 CCDKは、圧縮ファイルではなく、GitHubのgitレポジトリで配布しています。
-現在はプレビュー版のみをプライベートレポジトリ経由で配布しています。
 
 クローンするためのコマンドラインは
 
 ~~~
-git clone git@github.com:ShinraTech/CCDK
+git clone https://github.com/ShinraTech/CCDK
 ~~~
 
 です。クローンするだけでなく、自由にForkして活用することもできます。
