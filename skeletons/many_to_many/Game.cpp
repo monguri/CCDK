@@ -191,7 +191,7 @@ void Game::Render()
 	wsprintf(statmsg, L"Frame:%d  Ping:%d Channelcast:%d", m_framecnt, m_pong_recv_count, m_channelcast_notify_count );
 	m_spriteFont->DrawString(m_spriteBatch, statmsg, XMFLOAT2(10, 10));
 
-	m_spriteFont->DrawString(m_spriteBatch, L"Skeleton code for 1:1 games", XMFLOAT2(100, 100));
+	m_spriteFont->DrawString(m_spriteBatch, L"Skeleton code for N:N games", XMFLOAT2(100, 100));
 	m_spriteFont->DrawString(m_spriteBatch, L"Press P to play sound effect", XMFLOAT2(130, 160));
 	m_spriteFont->DrawString(m_spriteBatch, L"Press Q to quit", XMFLOAT2(130, 200));
 
