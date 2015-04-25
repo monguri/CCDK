@@ -5,7 +5,7 @@ The CCDK, or Community Cloud Development Kit, is designed to be a one-stop solut
 Inside the github repository located at ( <a href="https://github.com/ShinraTech/CCDK">https://github.com/ShinraTech/CCDK</a> ) you’ll find the CCDK’s documentation, source code, sample code, and required binaries.
 
 
-The CCDK is supported by Shinra Technologies via its official Facebook group and via GitHub. <a href="https://www.facebook.com/pages/Shinra-Community-CDK/1613401802228319">Facebookグループ</a> If you have any questions, issues, or comments, feel free to reach out to us here.
+The CCDK is supported by Shinra Technologies via its official Facebook group and via GitHub. <a href="https://www.facebook.com/pages/Shinra-Community-CDK/1613401802228319">Facebookグループ</a> If you have any questions, issues, or comments, feel free to reach out to us here. We also provide support in English at <a href="mailto:ccdk-en@shinra.com">ccdk-en@shinra.com.</a> 
 
 PLease familiarize yourself with the [FAQ](FAQ.en.md) find the answer to a number of frequently asked questions.
 
@@ -16,9 +16,6 @@ What you can do with the CCDK:
 
 
 1. Game staging and test play: The CCDK is designed to support 1:1, 1:N, and N:N game architectures, with the ability to test locally and simulate a streaming game on the Shinra platform (including local video streaming and latency simulation). You can also test with a backend server. (1:N support is a work in progress as of April 2015.)
-
-2. シンラの実環境に送るためのパッケージファイルを作成し、
-それが壊れていないことをローカルでテストプレイして確認する
 
 2. Shinra platform-ready: The CCDK can create a package that is ready to be deployed to a Shinra production server (to be supported in future versions), and can be tested for QA and compatibility locally.
 
@@ -44,7 +41,7 @@ The below illustration compares the Shinra core system (for production titles), 
 In the example running without Shinra, you can see a game process, running under a standard DirectX game server on the same machine. The game uses the CPU and GPU on the client’s machine, while the D3D9.dll that’s being used is the normal Microsoft version.
 
 
-![CoreSystem](coresystem.png)
+![CoreSystem](images/coresystem.png)
 
 The diagram above shows a game working on a Shinra production server.
 Both CPU and GPU machines are separate from each other inside a data center, connected via a +10Gbps high-speed link. The CPU machine is classified as the Game Server, while the GPU machine is defined as the Rendering Server.
@@ -53,9 +50,9 @@ The end user (or game player) is using a Shinra client, which transmits controll
 
 The rendering server receives the commands, creates a frame and encodes it with the GPU,  and then sends the frame back to the client via a TCP stream. This process forms the basis for Shinra remote rendering.
 
-<img src="mcs.png" width=400px>
+<img src="images/mcs.png" width=400px>
 
-The above diagram illustrates the MCS, or Minimal Cloud Set. Unlike the full production version of the Shinra system, the CPU and GPU machines are not separate, and rendering commands are not sent over the network.
+The above diagram illustrates the MCS, or the Minimal Cloud Set. Unlike the full production version of the Shinra system, the CPU and GPU machines are not separate, and rendering commands are not sent over the network.
 
 In this instance, the version of D3D9.dll uses the GPU on the same machine to perform rendering and video compression. And just as in the production version of the Shinra system, the client parses player input and sends it via TCP, and receives a video stream.
 
