@@ -15,6 +15,12 @@ CCDKドキュメント
 
 
 
+License notes
+====
+CCDKは、以下のソフトウェアを利用しています。
+
+- DirectX ToolKit : Copyright (c) 2015 Microsoft Corp
+
 
 
 
