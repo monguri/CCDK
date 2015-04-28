@@ -1,9 +1,7 @@
 # CCDK Overview
 The CCDK, or Community Cloud Development Kit, is designed to be a one-stop solution for developing a cloud game using Shinra technology.
 
-
 Inside the github repository located at ( <a href="https://github.com/ShinraTech/CCDK">https://github.com/ShinraTech/CCDK</a> ) you’ll find the CCDK’s documentation, source code, sample code, and required binaries.
-
 
 The CCDK is supported by Shinra Technologies via its official Facebook group and via GitHub. <a href="https://www.facebook.com/pages/Shinra-Community-CDK/1613401802228319">Facebookグループ</a> If you have any questions, issues, or comments, feel free to reach out to us here. We also provide support in English at <a href="mailto:ccdk-en@shinra.com">ccdk-en@shinra.com.</a> 
 
