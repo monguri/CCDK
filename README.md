@@ -3,7 +3,7 @@ Distribution of Shinra Community Cloud Development Kit.
 
 For English users:
 ====
-Please refer to docs/Overview.md.
+Please refer to docs/Overview.en.md.
 
 
 For Japanese users:
