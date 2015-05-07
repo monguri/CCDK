@@ -486,8 +486,9 @@ Ruby版メソッドは、常に2要素の配列を返し、0番目の要素が�
 【使用例】
 
 ~~~
+// version : メジャーバージョン, hashver : サブバージョン        
 unsigned int hashver;
-unsigned int version = someproto_sv_get_version(&hashver);  // version : メジャーバージョン, hashver : サブバージョン        
+unsigned int version = someproto_sv_get_version(&hashver);  
 ~~~
         
 
@@ -498,8 +499,8 @@ unsigned int version = someproto_sv_get_version(&hashver);  // version : メジ�
 サーバの過負荷やクラッシュに繋がります(DoS攻撃)。
 まず、通信バッファや帯域を圧迫させないためには異常に長いプロトコルは早い段階で破棄/切断する必要があります。
 gen.rbのサーバヘッダファイルにはすべてのプロトコルの中から一番長いものが
-```プロトコル名_MAX_RECV_RECORD_LENGTH``` として定義されている。
-これを ```vce_tcpcontext_protocol_set_maxlength``` 関数を使い設定することで異常に長いプロトコルをはじく事ができます。。
+```プロトコル名_MAX_RECV_RECORD_LENGTH``` として定義されています。
+これを ```vce_tcpcontext_protocol_set_maxlength``` 関数を使い設定することで異常に長いプロトコルをはじく事ができます。
 
 また、プロトコル毎に予期しない長さのデータが受信されたら ```プロトコル名_toolong_recv_warning```
 関数が呼び出されます。
