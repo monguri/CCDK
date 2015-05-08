@@ -466,6 +466,7 @@ Functions:
 <!-- make_funcdef start -->
 <a name="ARRAY_SCAN"></a>
 - <B>ARRAY_SCAN</B>
+
   概要 : VCEによって管理されている配列の全使用中要素をスキャンする
 
   カテゴリ : array
@@ -504,6 +505,7 @@ ARRAY_SCAN( memory_ind, c ){
   See also : <a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a><a href="#vce_init_array">vce_init_array</a>
 <a name="ARRAY_SCAN_TYPE"></a>
 - <B>ARRAY_SCAN_TYPE</B>
+
   概要 : ARRAY_SCAN を C++ で使うための変種
 
   カテゴリ : array
@@ -529,6 +531,7 @@ C++ においてはキャストが必要なためその処理がコンパイル�
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a>
 <a name="ELEMENTOF"></a>
 - <B>ELEMENTOF</B>
+
   概要 : 固定サイズの配列の要素数を返す(コンパイル時定数)。
 
   カテゴリ : util
@@ -555,6 +558,7 @@ C++ においてはキャストが必要なためその処理がコンパイル�
 
 <a name="FREE"></a>
 - <B>FREE</B>
+
   概要 : MALLOC関数で割りあてたメモリ領域を解放する。
 
   カテゴリ : util
@@ -573,6 +577,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#MALLOC">MALLOC</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="GET_16BIT_INT"></a>
 - <B>GET_16BIT_INT</B>
+
   概要 : メモリ領域から16ビットの整数値を取りだす。
 
   カテゴリ : util
@@ -591,6 +596,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_16BIT_NATIVEINT"></a>
 - <B>GET_16BIT_NATIVEINT</B>
+
   概要 : バッファから16ビット整数値を取りだす。
 
   カテゴリ : util
@@ -604,6 +610,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_32BIT_INT"></a>
 - <B>GET_32BIT_INT</B>
+
   概要 : メモリ領域から32ビット整数値を取りだすマクロ
 
   カテゴリ : util
@@ -623,6 +630,7 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_32BIT_NATIVEINT"></a>
 - <B>GET_32BIT_NATIVEINT</B>
+
   概要 : バッファから32ビット整数値を取りだす
 
   カテゴリ : util
@@ -636,6 +644,7 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_64BIT_INT"></a>
 - <B>GET_64BIT_INT</B>
+
   概要 : メモリ領域から64ビット整数値を取りだすマクロ
 
   カテゴリ : util
@@ -655,6 +664,7 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_64BIT_NATIVEINT"></a>
 - <B>GET_64BIT_NATIVEINT</B>
+
   概要 : バッファから64ビット整数値を取りだす
 
   カテゴリ : util
@@ -668,6 +678,7 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_8BIT_INT"></a>
 - <B>GET_8BIT_INT</B>
+
   概要 : メモリ領域から8ビットの整数値を取りだす
 
   カテゴリ : util
@@ -685,6 +696,7 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_8BIT_NATIVEINT"></a>
 - <B>GET_8BIT_NATIVEINT</B>
+
   概要 : バッファから8ビット整数値を取りだす
 
   カテゴリ : util
@@ -699,6 +711,7 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a>
 <a name="MALLOC"></a>
 - <B>MALLOC</B>
+
   概要 : malloc の wrapper. Cライブラリのmallocのラッパー
 
   カテゴリ : util
@@ -723,6 +736,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#FREE">FREE</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="MAX"></a>
 - <B>MAX</B>
+
   概要 : 2つの値を比較して大きい方の値を返す
 
   カテゴリ : util
@@ -748,6 +762,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#MIN">MIN</a>
 <a name="MIN"></a>
 - <B>MIN</B>
+
   概要 : 2つの値を比較して小さい方の値を返す
 
   カテゴリ : util
@@ -773,6 +788,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#MAX">MAX</a>
 <a name="SET_16BIT_INT"></a>
 - <B>SET_16BIT_INT</B>
+
   概要 : メモリ領域に16ビットの整数値をネットワークバイトオーダでコピーする
 
   カテゴリ : util
@@ -793,6 +809,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_16BIT_NATIVEINT"></a>
 - <B>SET_16BIT_NATIVEINT</B>
+
   概要 : 16ビット整数値を任意のバッファにコピーする
 
   カテゴリ : util
@@ -813,6 +830,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_32BIT_INT"></a>
 - <B>SET_32BIT_INT</B>
+
   概要 : メモリ領域に32ビットの整数値をネットワークバイトオーダでコピーする
 
   カテゴリ : util
@@ -834,6 +852,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_32BIT_NATIVEINT"></a>
 - <B>SET_32BIT_NATIVEINT</B>
+
   概要 : 32ビットの値を、任意のバッファにセットする
 
   カテゴリ : util
@@ -854,6 +873,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_64BIT_INT"></a>
 - <B>SET_64BIT_INT</B>
+
   概要 : メモリ領域に64ビットの整数値をネットワークバイトオーダでコピーする
 
   カテゴリ : util
@@ -875,6 +895,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_64BIT_NATIVEINT"></a>
 - <B>SET_64BIT_NATIVEINT</B>
+
   概要 : 64ビットの値を、任意のバッファにセットする
 
   カテゴリ : util
@@ -895,6 +916,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_8BIT_INT"></a>
 - <B>SET_8BIT_INT</B>
+
   概要 : メモリ領域に8ビットの整数値をコピーする
 
   カテゴリ : util
@@ -915,6 +937,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a>
 <a name="SET_8BIT_NATIVEINT"></a>
 - <B>SET_8BIT_NATIVEINT</B>
+
   概要 : 8ビットの整数値を任意のバッファにコピーする
 
   カテゴリ : util
@@ -935,6 +958,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="STRERR"></a>
 - <B>STRERR</B>
+
   概要 : VCEの最新エラーコードを文字列で得る
 
   カテゴリ : util
@@ -952,6 +976,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#vce_get_last_error">vce_get_last_error</a><a href="#vce_strerror">vce_strerror</a>
 <a name="vce_alloc_array_object"></a>
 - <B>vce_alloc_array_object</B>
+
   概要 : VCE配列の未使用要素を1個わりあてる
 
   カテゴリ : array
@@ -973,6 +998,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_array_object_inuse"></a>
 - <B>vce_array_object_inuse</B>
+
   概要 : VCE配列の要素が使用中かどうかを調べる
 
   カテゴリ : array
@@ -994,6 +1020,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object">vce_free_array_object</a>
 <a name="vce_atoi"></a>
 - <B>vce_atoi</B>
+
   概要 : 文字列を整数(int)に変換する。簡単な計算機能つき。
 
   カテゴリ : util
@@ -1037,6 +1064,7 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
 
 <a name="vce_binary_pack"></a>
 - <B>vce_binary_pack</B>
+
   概要 : 構造体に保存されているデータをpackして、バイト列にする (古い)
 
   カテゴリ : bin
@@ -1065,6 +1093,7 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
 
 <a name="vce_binary_pop_nb_i1"></a>
 - <B>vce_binary_pop_nb_i1</B>
+
   概要 : バッファから1バイト整数(char) を取りだす
 
   カテゴリ : bin
@@ -1092,6 +1121,7 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i1">vce_binary_push_nb_i1</a>
 <a name="vce_binary_pop_nb_i2"></a>
 - <B>vce_binary_pop_nb_i2</B>
+
   概要 : バッファから2バイト整数(short) を取りだす
 
   カテゴリ : bin
@@ -1119,6 +1149,7 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i2">vce_binary_push_nb_i2</a>
 <a name="vce_binary_pop_nb_i4"></a>
 - <B>vce_binary_pop_nb_i4</B>
+
   概要 : バッファから4バイト整数(int) を取りだす
 
   カテゴリ : bin
@@ -1146,6 +1177,7 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i4">vce_binary_push_nb_i4</a>
 <a name="vce_binary_pop_nb_i8"></a>
 - <B>vce_binary_pop_nb_i8</B>
+
   概要 : バッファから8バイト整数(VCEI64) を取りだす
 
   カテゴリ : bin
@@ -1173,6 +1205,7 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i8">vce_binary_push_nb_i8</a>
 <a name="vce_binary_pop_nb_ia1"></a>
 - <B>vce_binary_pop_nb_ia1</B>
+
   概要 : バッファから1バイト整数(char) の配列を取りだす
 
   カテゴリ : bin
@@ -1207,6 +1240,7 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia1">vce_binary_push_nb_ia1</a>
 <a name="vce_binary_pop_nb_ia2"></a>
 - <B>vce_binary_pop_nb_ia2</B>
+
   概要 : バッファから2バイト整数(short) の配列を取りだす
 
   カテゴリ : bin
@@ -1241,6 +1275,7 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia2">vce_binary_push_nb_ia2</a>
 <a name="vce_binary_pop_nb_ia4"></a>
 - <B>vce_binary_pop_nb_ia4</B>
+
   概要 : バッファから4バイト整数(int) の配列を取りだす
 
   カテゴリ : bin
@@ -1275,6 +1310,7 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia4">vce_binary_push_nb_ia4</a>
 <a name="vce_binary_pop_nb_ia8"></a>
 - <B>vce_binary_pop_nb_ia8</B>
+
   概要 : バッファから8バイト整数(int) の配列を取りだす
 
   カテゴリ : bin
@@ -1309,6 +1345,7 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia8">vce_binary_push_nb_ia8</a>
 <a name="vce_binary_pop_nb_stra"></a>
 - <B>vce_binary_pop_nb_stra</B>
+
   概要 : バッファから文字列の配列を取りだす
 
   カテゴリ : bin
@@ -1357,6 +1394,7 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_stra">vce_binary_push_nb_stra</a>
 <a name="vce_binary_push_nb_i1"></a>
 - <B>vce_binary_push_nb_i1</B>
+
   概要 : 1バイト整数(char) をバッファにpushする
 
   カテゴリ : bin
@@ -1386,6 +1424,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i1">vce_binary_pop_nb_i1</a>
 <a name="vce_binary_push_nb_i2"></a>
 - <B>vce_binary_push_nb_i2</B>
+
   概要 : 2バイト整数(short) をバッファにpushする
 
   カテゴリ : bin
@@ -1418,6 +1457,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i2">vce_binary_pop_nb_i2</a>
 <a name="vce_binary_push_nb_i4"></a>
 - <B>vce_binary_push_nb_i4</B>
+
   概要 : 4バイト整数(int) をバッファにpushする
 
   カテゴリ : bin
@@ -1450,6 +1490,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i4">vce_binary_pop_nb_i4</a>
 <a name="vce_binary_push_nb_i8"></a>
 - <B>vce_binary_push_nb_i8</B>
+
   概要 : 8バイト整数(VCEI64) をバッファにpushする
 
   カテゴリ : bin
@@ -1482,6 +1523,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i8">vce_binary_pop_nb_i8</a>
 <a name="vce_binary_push_nb_ia1"></a>
 - <B>vce_binary_push_nb_ia1</B>
+
   概要 : 1バイト整数(char)の配列をバッファに push する
 
   カテゴリ : bin
@@ -1514,6 +1556,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia1">vce_binary_pop_nb_ia1</a>
 <a name="vce_binary_push_nb_ia2"></a>
 - <B>vce_binary_push_nb_ia2</B>
+
   概要 : 2バイト整数(short)の配列をバッファに push する
 
   カテゴリ : bin
@@ -1547,6 +1590,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia2">vce_binary_pop_nb_ia2</a>
 <a name="vce_binary_push_nb_ia4"></a>
 - <B>vce_binary_push_nb_ia4</B>
+
   概要 : 4バイト整数(int)の配列をバッファに push する
 
   カテゴリ : bin
@@ -1580,6 +1624,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia4">vce_binary_pop_nb_ia4</a>
 <a name="vce_binary_push_nb_ia8"></a>
 - <B>vce_binary_push_nb_ia8</B>
+
   概要 : 8バイト整数(VCEI64)の配列をバッファに push する
 
   カテゴリ : bin
@@ -1613,6 +1658,7 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia8">vce_binary_pop_nb_ia8</a>
 <a name="vce_binary_push_nb_stra"></a>
 - <B>vce_binary_push_nb_stra</B>
+
   概要 : ヌル終端された文字列の配列をバッファに push する
 
   カテゴリ : bin
@@ -1650,6 +1696,7 @@ num が 0 のときは、 stra には NULL を指定することができる。
   See also : <a href="#vce_binary_pop_nb_stra">vce_binary_pop_nb_stra</a>
 <a name="vce_binary_unpack"></a>
 - <B>vce_binary_unpack</B>
+
   概要 : バッファのバイナリデータをunpackして構造体の配列にする(古い)
 
   カテゴリ : bin
@@ -1681,6 +1728,7 @@ unpackし、構造を持った状態に戻す。
   See also : <a href="#vce_binary_pack">vce_binary_pack</a>
 <a name="vce_conn_break_heartbeat"></a>
 - <B>vce_conn_break_heartbeat</B>
+
   概要 : コールバック関数内から、connのプロトコル処理を中止させる
 
   カテゴリ : tcp
@@ -1702,6 +1750,7 @@ unpackし、構造を持った状態に戻す。
   See also : <a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_conn_clear"></a>
 - <B>vce_conn_clear</B>
+
   概要 : conn_t型のインスタンスを初期化する
 
   カテゴリ : tcp
@@ -1719,6 +1768,7 @@ unpackし、構造を持った状態に戻す。
 
 <a name="vce_conn_close"></a>
 - <B>vce_conn_close</B>
+
   概要 : TCPコネクションを閉じて解放する。
 
   カテゴリ : tcp
@@ -1756,6 +1806,7 @@ vce_conn_set_timeout( co, 0 );
   See also : <a href="# vce_tcpcontext_connect"> vce_tcpcontext_connect</a><a href="# vce_tcpcontext_create"> vce_tcpcontext_create</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_close_tcpcontext_all"></a>
 - <B>vce_conn_close_tcpcontext_all</B>
+
   概要 : あるtcpが管理しているすべてのコネクションを切断する
 
   カテゴリ : tcp
@@ -1782,6 +1833,7 @@ verbose モードのときは1本コネクションを切るごとにログを�
   See also : <a href="#vce_tcpcontext_enable_accept">vce_tcpcontext_enable_accept</a>
 <a name="vce_conn_get_buffer"></a>
 - <B>vce_conn_get_buffer</B>
+
   概要 : conn_t の受信/送信バッファを得る
 
   カテゴリ : tcp
@@ -1818,6 +1870,7 @@ vce_tcpcontext_set_conn_parser 関数等をもちいて登録することがで�
   See also : <a href="#vce_conn_shrink_readbuf">vce_conn_shrink_readbuf</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_get_index"></a>
 - <B>vce_conn_get_index</B>
+
   概要 : TCPコネクション(conn_t)のVCE内でのindexを求める
 
   カテゴリ : tcp
@@ -1836,6 +1889,7 @@ vce_tcpcontext_set_conn_parser 関数等をもちいて登録することがで�
   See also : <a href="#vce_conn_get_struct_from_index">vce_conn_get_struct_from_index</a>
 <a name="vce_conn_get_local_addr_string"></a>
 - <B>vce_conn_get_local_addr_string</B>
+
   概要 : TCPコネクションのローカルアドレスとポートを文字列で得る
 
   カテゴリ : tcp
@@ -1860,6 +1914,7 @@ vce_conn_get_remote_addr_string 関数と同じである。
   See also : <a href="#vce_conn_get_remote_addr_string">vce_conn_get_remote_addr_string</a>
 <a name="vce_conn_get_local_ipv4_addr"></a>
 - <B>vce_conn_get_local_ipv4_addr</B>
+
   概要 : TCPコネクションのローカルIPv4アドレス(32bit)を得る
 
   カテゴリ : tcp
@@ -1885,6 +1940,7 @@ vce_conn_get_remote_addr_string 関数と同じである。
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_local_ipv4_addr_string"></a>
 - <B>vce_conn_get_local_ipv4_addr_string</B>
+
   概要 : TCPコネクションのローカルIPv4アドレスとポートを文字列で得る
 
   カテゴリ : tcp
@@ -1910,6 +1966,7 @@ vce_conn_get_local_addr_string 関数を使うことを推奨する。
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_local_ipv6_addr"></a>
 - <B>vce_conn_get_local_ipv6_addr</B>
+
   概要 : TCPコネクションのローカルIPv6アドレス(128bit)を得る
 
   カテゴリ : tcp
@@ -1937,6 +1994,7 @@ vce_conn_get_local_addr_string 関数を使うことを推奨する。
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_local_ipv6_addr_string"></a>
 - <B>vce_conn_get_local_ipv6_addr_string</B>
+
   概要 : TCPコネクションのローカルIPv6アドレスとポートを文字列で得る
 
   カテゴリ : tcp
@@ -1962,6 +2020,7 @@ vce_conn_get_local_addr_string 関数の使用を推奨する。
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_remote_addr_string"></a>
 - <B>vce_conn_get_remote_addr_string</B>
+
   概要 : TCPコネクションのリモートピアのアドレスとポートを文字列で得る
 
   カテゴリ : tcp
@@ -1991,6 +2050,7 @@ ipv6 では "." で区切られていることに注意。
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a>
 <a name="vce_conn_get_remote_ipv4_addr"></a>
 - <B>vce_conn_get_remote_ipv4_addr</B>
+
   概要 : TCPコネクションのリモートピアのIPv4アドレス(32bit)を得る
 
   カテゴリ : tcp
@@ -2016,6 +2076,7 @@ ipv6 では "." で区切られていることに注意。
 
 <a name="vce_conn_get_remote_ipv4_addr_string"></a>
 - <B>vce_conn_get_remote_ipv4_addr_string</B>
+
   概要 : TCPコネクションのリモートピアのIPv4アドレスとポートを文字列で得る
 
   カテゴリ : tcp
@@ -2042,6 +2103,7 @@ vce_conn_get_remote_addr 関数を用る。
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr"></a>
 - <B>vce_conn_get_remote_ipv6_addr</B>
+
   概要 : TCPコネクションのリモートピアのIPv6アドレス(128bit)を得る
 
   カテゴリ : tcp
@@ -2070,6 +2132,7 @@ vce_conn_get_remote_addr 関数を用る。
   See also : <a href="#vce_conn_get_local_ipv6_addr">vce_conn_get_local_ipv6_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr_string"></a>
 - <B>vce_conn_get_remote_ipv6_addr_string</B>
+
   概要 : TCPコネクションのリモートピアのIPv6アドレスとポートを文字列で得る
 
   カテゴリ : tcp
@@ -2092,6 +2155,7 @@ vce_conn_get_remote_addr 関数を用る。
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_stat"></a>
 - <B>vce_conn_get_stat</B>
+
   概要 : conn_t の統計情報を取得する
 
   カテゴリ : tcp
@@ -2125,6 +2189,7 @@ send_syscall を呼びだした回数。
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_get_stat">vce_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_conn_get_state_buffer"></a>
 - <B>vce_conn_get_state_buffer</B>
+
   概要 : conn_tの状態管理バッファへのポインタを返す
 
   カテゴリ : tcp
@@ -2147,6 +2212,7 @@ vce_tcpcontext_create の呼びだし時に状態のあるプロトコルを指�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_get_struct_from_index"></a>
 - <B>vce_conn_get_struct_from_index</B>
+
   概要 : TCPコネクションのindex値からconn_t構造体を得る。
 
   カテゴリ : tcp
@@ -2164,6 +2230,7 @@ vce_tcpcontext_create の呼びだし時に状態のあるプロトコルを指�
   See also : <a href="#vce_conn_get_index">vce_conn_get_index</a>
 <a name="vce_conn_get_tcpcontext"></a>
 - <B>vce_conn_get_tcpcontext</B>
+
   概要 : conn_t から、そのコネクションが属する tcpcontext を取りだす
 
   カテゴリ : tcp
@@ -2184,6 +2251,7 @@ VCE内に conn_t が初期化されるが、その conn_t は、
   See also : <a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_is_equal"></a>
 - <B>vce_conn_is_equal</B>
+
   概要 : ふたつのTCPコネクション(conn_t)が同じか調べる
 
   カテゴリ : tcp
@@ -2205,6 +2273,7 @@ VCE内に conn_t が初期化されるが、その conn_t は、
 
 <a name="vce_conn_is_valid"></a>
 - <B>vce_conn_is_valid</B>
+
   概要 : TCPコネクション(conn_t)が壊れているかどうか調べる。
 
   カテゴリ : tcp
@@ -2234,6 +2303,7 @@ VCE内に conn_t が初期化されるが、その conn_t は、
   See also : <a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_set_delay"></a>
 - <B>vce_conn_set_delay</B>
+
   概要 : クライアント、サーバー間の通信の遅延んをシミュレートsる。
 
   カテゴリ : core
@@ -2261,6 +2331,7 @@ VCE内に conn_t が初期化されるが、その conn_t は、
 
 <a name="vce_conn_set_parser"></a>
 - <B>vce_conn_set_parser</B>
+
   概要 : conn_t ごとに動的にプロトコルパーサを設定する
 
   カテゴリ : tcp
@@ -2291,6 +2362,7 @@ VCE内に conn_t が初期化されるが、その conn_t は、
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_set_timeout"></a>
 - <B>vce_conn_set_timeout</B>
+
   概要 : conn_t ごとにタイムアウト時間を設定変更する
 
   カテゴリ : tcp
@@ -2314,6 +2386,7 @@ vce_tcpcontext_create 関数のタイムアウト設定に準じるが，
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_show_stat"></a>
 - <B>vce_conn_show_stat</B>
+
   概要 : 使用中のすべてのコネクションの状態を表示する。
 
   カテゴリ : tcp
@@ -2360,6 +2433,7 @@ Win32GUI環境において標準エラー出力が使えない場合は本関数
 
 <a name="vce_conn_shrink_readbuf"></a>
 - <B>vce_conn_shrink_readbuf</B>
+
   概要 : conn_t の読みこみバッファを縮ませる
 
   カテゴリ : tcp
@@ -2382,6 +2456,7 @@ vce_conn_shrink_readbufを使って読みこみバッファの内容を削る必
 
 <a name="vce_conn_userdata_get_pointer"></a>
 - <B>vce_conn_userdata_get_pointer</B>
+
   概要 : conn_tに関連付けたポインタを取り出す
 
   カテゴリ : tcp
@@ -2396,6 +2471,7 @@ vce_conn_shrink_readbufを使って読みこみバッファの内容を削る必
 
 <a name="vce_conn_userdata_set_pointer"></a>
 - <B>vce_conn_userdata_set_pointer</B>
+
   概要 : conn_tにポインタを関連付ける
 
   カテゴリ : tcp
@@ -2414,6 +2490,7 @@ vce_conn_shrink_readbufを使って読みこみバッファの内容を削る必
 
 <a name="vce_conn_writable"></a>
 - <B>vce_conn_writable</B>
+
   概要 : TCPコネクションに書きこみが可能かどうかを調べる
 
   カテゴリ : tcp
@@ -2456,6 +2533,7 @@ TCPコネクションに何かを書きこみたいときは、この関数を�
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_write">vce_conn_write</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_write"></a>
 - <B>vce_conn_write</B>
+
   概要 : TCPコネクションにデータを生で書きこむ。
 
   カテゴリ : tcp
@@ -2501,6 +2579,7 @@ vce_conn_write が0を返す場合は、
   See also : <a href="#vce_conn_close">vce_conn_close</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_writed"></a>
 - <B>vce_conn_writed</B>
+
   概要 : connに書き込まれたデータがTCPコネクションに書き出されているかを調べる
 
   カテゴリ : tcp
@@ -2519,6 +2598,7 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
   See also : <a href="#vce_conn_valid">vce_conn_valid</a>
 <a name="vce_dump_buffer"></a>
 - <B>vce_dump_buffer</B>
+
   概要 : バイナリ配列をvce_erroutを用いてダンプする。
 
   カテゴリ : util
@@ -2539,6 +2619,7 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
   See also : <a href="#vce_errout">vce_errout</a>
 <a name="vce_end_all_array"></a>
 - <B>vce_end_all_array</B>
+
   概要 : 全てのVCE配列を解放する
 
   カテゴリ : array
@@ -2552,6 +2633,7 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_end_array"></a>
 - <B>vce_end_array</B>
+
   概要 : VCE配列を解放する。
 
   カテゴリ : array
@@ -2574,6 +2656,7 @@ FREE 関数の呼びだし状況がログ出力される。
   See also : <a href="#FREE">FREE</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_errout"></a>
 - <B>vce_errout</B>
+
   概要 : VCEのログ出力をする
 
   カテゴリ : core
@@ -2596,6 +2679,7 @@ vce_errout_config 関数によってログ出力ディレクトリが指定さ�
   See also : <a href="# vce_errout_set_another"> vce_errout_set_another</a><a href="# vce_verrout"> vce_verrout</a><a href="#vce_errout_config">vce_errout_config</a><a href="#vce_errout_v">vce_errout_v</a>
 <a name="vce_extract_data_from_hex_text"></a>
 - <B>vce_extract_data_from_hex_text</B>
+
   概要 : hextext 形式のASCIIテキストを、バイナリデータ配列に戻す
 
   カテゴリ : util
@@ -2624,6 +2708,7 @@ vce_errout_config 関数によってログ出力ディレクトリが指定さ�
   See also : <a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_finalize"></a>
 - <B>vce_finalize</B>
+
   概要 : VCEの解放を行なう。
 
   カテゴリ : core
@@ -2639,6 +2724,7 @@ vce_errout* を除いて，
 
 <a name="vce_free_array_object"></a>
 - <B>vce_free_array_object</B>
+
   概要 : VCE配列の要素を解放する
 
   カテゴリ : array
@@ -2659,6 +2745,7 @@ vce_errout* を除いて，
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_free_array_object_all"></a>
 - <B>vce_free_array_object_all</B>
+
   概要 : 配列の全要素を解放する(配列自体は解放しない)
 
   カテゴリ : array
@@ -2678,6 +2765,7 @@ vce_errout* を除いて，
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_maxnum"></a>
 - <B>vce_get_array_maxnum</B>
+
   概要 : 配列の最大要素数を返す
 
   カテゴリ : array
@@ -2693,6 +2781,7 @@ vce_errout* を除いて，
   See also : <a href="#vce_get_array_member_size">vce_get_array_member_size</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_member_size"></a>
 - <B>vce_get_array_member_size</B>
+
   概要 : 配列の各メンバのサイズを返す
 
   カテゴリ : array
@@ -2711,6 +2800,7 @@ vce_init_array の size 引数の値．
   See also : <a href="#vce_get_array_maxnum">vce_get_array_maxnum</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_index"></a>
 - <B>vce_get_array_object_index</B>
+
   概要 : VCE配列要素が配列の何番目に位置しているかを得る
 
   カテゴリ : array
@@ -2733,6 +2823,7 @@ VCE_EALIGNMENT を返す。
 
 <a name="vce_get_array_object_last"></a>
 - <B>vce_get_array_object_last</B>
+
   概要 : VCE配列の最後の要素を取りだす。
 
   カテゴリ : array
@@ -2753,6 +2844,7 @@ vce_alloc_array_object と本関数をつかえば、 FIFOのようなことが�
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_next"></a>
 - <B>vce_get_array_object_next</B>
+
   概要 : VCE配列の使用中要素の次の要素を取りだす
 
   カテゴリ : array
@@ -2775,6 +2867,7 @@ ARRAY_SCAN マクロを使用したほうが安全確実である。
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_pointer_by_index"></a>
 - <B>vce_get_array_object_pointer_by_index</B>
+
   概要 : VCE配列の要素をインデクスを指定して得る
 
   カテゴリ : array
@@ -2804,6 +2897,7 @@ NULLポインタを返す場合は、 vce_get_last_error を使ってエラー�
   See also : <a href="#vce_get_array_object_pointer_by_index_only_used">vce_get_array_object_pointer_by_index_only_used</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_pointer_by_index_only_used"></a>
 - <B>vce_get_array_object_pointer_by_index_only_used</B>
+
   概要 : VCE配列の指定したインデクスを持つ要素を得る(使用中の要素のみ)
 
   カテゴリ : array
@@ -2824,6 +2918,7 @@ NULLポインタを返す場合は、 vce_get_last_error を使ってエラー�
   See also : <a href="#vce_get_array_object_pointer_by_index">vce_get_array_object_pointer_by_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_top"></a>
 - <B>vce_get_array_object_top</B>
+
   概要 : 
 
   カテゴリ : array
@@ -2846,6 +2941,7 @@ ARRAY_SCAN マクロは、配列の要素のうち使用中のものすべてを
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a>
 <a name="vce_get_array_usenum"></a>
 - <B>vce_get_array_usenum</B>
+
   概要 : VCE配列の要素のうちいくつが使用中になっているかを数える
 
   カテゴリ : array
@@ -2863,6 +2959,7 @@ ARRAY_SCAN マクロは、配列の要素のうち使用中のものすべてを
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_current_utime"></a>
 - <B>vce_get_current_utime</B>
+
   概要 : 現在時刻を VCEI64型で得る
 
   カテゴリ : util
@@ -2882,6 +2979,7 @@ VCEはこの関数が返す値を、vce_heartbeat が呼びだされるごとに
   See also : <a href="#vce_set_internal_timer">vce_set_internal_timer</a>
 <a name="vce_get_ipv4_addr_by_name"></a>
 - <B>vce_get_ipv4_addr_by_name</B>
+
   概要 : ホスト名から IPv4アドレス(ネットワークバイトオーダ)を得る
 
   カテゴリ : util
@@ -2905,6 +3003,7 @@ PlanetWeb の場合は，現在は DNS解決に対応していない．
 
 <a name="vce_get_last_error"></a>
 - <B>vce_get_last_error</B>
+
   概要 : VCE内で最後に起こったエラー番号を取得する。
 
   カテゴリ : err
@@ -2934,6 +3033,7 @@ if( !t ){
   See also : <a href="#vce_strerror">vce_strerror</a>
 <a name="vce_get_netstat_string"></a>
 - <B>vce_get_netstat_string</B>
+
   概要 : VCE が管理しているすべての接続情報を文字列で取得する。
 
   カテゴリ : log
@@ -2986,6 +3086,7 @@ type=conn は、通常のコネクションをあらわす。
   See also : <a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_get_stat"></a>
 - <B>vce_get_stat</B>
+
   概要 : VCE 全体の動作状況記録を取得する
 
   カテゴリ : log
@@ -3028,6 +3129,7 @@ vce_errout や vce_errout0 を呼びだした回数。
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_get_tcp_packet_read_size"></a>
 - <B>vce_get_tcp_packet_read_size</B>
+
   概要 : 読み込みデータの圧縮時のサイズと展開時のサイズを取得する
 
   カテゴリ : tcp
@@ -3048,6 +3150,7 @@ vce_errout や vce_errout0 を呼びだした回数。
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_get_tcp_packet_write_size"></a>
 - <B>vce_get_tcp_packet_write_size</B>
+
   概要 : 書きこみデータの圧縮時のサイズと展開時のサイズを取得する
 
   カテゴリ : tcp
@@ -3068,6 +3171,7 @@ vce_errout や vce_errout0 を呼びだした回数。
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_heartbeat"></a>
 - <B>vce_heartbeat</B>
+
   概要 : VCEを能動的に呼びだし、I/O処理をさせる。
 
   カテゴリ : core
@@ -3103,6 +3207,7 @@ vce_set_heartbeat_wait_flag 関数を使ってsleep時間を調整すれば、
   See also : <a href="#vce_mainloop">vce_mainloop</a><a href="#vce_set_heartbeat_wait_flag">vce_set_heartbeat_wait_flag</a><a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_if_included_in_array"></a>
 - <B>vce_if_included_in_array</B>
+
   概要 : 配列のある要素が、正しく配列に含まれてるかどうかしらべる
 
   カテゴリ : array
@@ -3131,6 +3236,7 @@ vce_set_heartbeat_wait_flag 関数を使ってsleep時間を調整すれば、
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_index">vce_get_array_object_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_init_array"></a>
 - <B>vce_init_array</B>
+
   概要 : 新規にVCEの配列を初期化する。
 
   カテゴリ : array
@@ -3165,6 +3271,7 @@ VCE配列はVCEの処理の基盤ルーチンとして使用されている。<B
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#MALLOC">MALLOC</a><a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_end_array">vce_end_array</a><a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a>
 <a name="vce_init_limit_t"></a>
 - <B>vce_init_limit_t</B>
+
   概要 : vce_limit_t 構造体をデフォルト値に初期化する
 
   カテゴリ : core
@@ -3180,6 +3287,7 @@ VCE配列はVCEの処理の基盤ルーチンとして使用されている。<B
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_initialize"></a>
 - <B>vce_initialize</B>
+
   概要 : VCEを初期化する。
 
   カテゴリ : core
@@ -3217,6 +3325,7 @@ int main()
   See also : <a href="#vce_finalize">vce_finalize</a><a href="#vce_set_socket_library_ok">vce_set_socket_library_ok</a>
 <a name="vce_initialize_limited"></a>
 - <B>vce_initialize_limited</B>
+
   概要 : 限られたメモリ使用量で VCE を初期化する
 
   カテゴリ : core
@@ -3293,6 +3402,7 @@ int main(){
   See also : <a href="#vce_init_limit_t">vce_init_limit_t</a><a href="#vce_initialize">vce_initialize</a>
 <a name="vce_limit_clear"></a>
 - <B>vce_limit_clear</B>
+
   概要 : vce_limit_t型の構造体の初期化をする(-1のデフォルト値で初期化)
 
   カテゴリ : core
@@ -3310,6 +3420,7 @@ int main(){
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_mainloop"></a>
 - <B>vce_mainloop</B>
+
   概要 : VCEのメインループ関数。
 
   カテゴリ : core
@@ -3328,6 +3439,7 @@ int main(){
   See also : <a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_make_binary_array_from_hex"></a>
 - <B>vce_make_binary_array_from_hex</B>
+
   概要 : 16進数文字列を変換して、バイナリデータを含む配列を作る。
 
   カテゴリ : util
@@ -3354,6 +3466,7 @@ vce_make_hex_from_binary_array の逆関数．
   See also : <a href="#vce_make_hex_from_binary_array">vce_make_hex_from_binary_array</a>
 <a name="vce_make_binary_array_from_line"></a>
 - <B>vce_make_binary_array_from_line</B>
+
   概要 : ASCIIテキストの1行からバイナリデータの配列を出力する
 
   カテゴリ : util
@@ -3386,6 +3499,7 @@ vce_make_hex_from_binary_array の逆関数．
 
 <a name="vce_make_hex_from_binary_array"></a>
 - <B>vce_make_hex_from_binary_array</B>
+
   概要 : バイナリデータ配列から，単一のhex の文字列を作る
 
   カテゴリ : util
@@ -3422,6 +3536,7 @@ vce_make_hex_from_binary_array の逆関数．
   See also : <a href="#hextext">hextext</a><a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_make_hex_text_from_buffer"></a>
 - <B>vce_make_hex_text_from_buffer</B>
+
   概要 : バイナリデータ配列から、 hextext 形式のASCIIテキストを出力する。
 
   カテゴリ : util
@@ -3454,6 +3569,7 @@ vce_make_binary_array_from_hex 関数で元に戻すことができる．
   See also : <a href="#hextext">hextext</a><a href="#vce_extract_data_from_hex_text">vce_extract_data_from_hex_text</a><a href="#vce_make_binary_array_from_hex">vce_make_binary_array_from_hex</a>
 <a name="vce_protocol_acceptwatcher_deny"></a>
 - <B>vce_protocol_acceptwatcher_deny</B>
+
   概要 : すべてのコネクションを拒否するTCP(conn_t)のaccept監視関数
 
   カテゴリ : watcher
@@ -3474,6 +3590,7 @@ vce_make_binary_array_from_hex 関数で元に戻すことができる．
   See also : <a href="#vce_protocol_acceptwatcher_noop">vce_protocol_acceptwatcher_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_acceptwatcher_noop"></a>
 - <B>vce_protocol_acceptwatcher_noop</B>
+
   概要 : すべてのコネクションを受けいれる TCP(conn_t)のaccept 監視関数
 
   カテゴリ : watcher
@@ -3493,6 +3610,7 @@ NULL を指定したのと同じことになる。
   See also : <a href="#vce_protocol_acceptwatcher_deny">vce_protocol_acceptwatcher_deny</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_closewatcher_noop"></a>
 - <B>vce_protocol_closewatcher_noop</B>
+
   概要 : 何もしない、コネクション close 監視関数
 
   カテゴリ : watcher
@@ -3513,6 +3631,7 @@ NULL を指定したのと同じことになる。
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin16"></a>
 - <B>vce_protocol_parser_bin16</B>
+
   概要 : bin16 プロトコルのレコードを取りだしてコールバック関数を呼びだす
 
   カテゴリ : parser
@@ -3564,6 +3683,7 @@ int callback( conn_t *c, char *data, int len )
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin32"></a>
 - <B>vce_protocol_parser_bin32</B>
+
   概要 : bin32プロトコルのレコードを取りだしてコールバック関数を呼びだす
 
   カテゴリ : parser
@@ -3588,6 +3708,7 @@ BIN32DATA_MAX は vce.h で定義されている。
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_bin32">vce_protocol_unparser_bin32</a>
 <a name="vce_protocol_parser_text"></a>
 - <B>vce_protocol_parser_text</B>
+
   概要 : プロトコルを1行単位で取りだしてコールバック関数を呼びだす
 
   カテゴリ : parser
@@ -3612,6 +3733,7 @@ C言語の文字列に変換する必要がある。
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a>
 <a name="vce_protocol_parser_through"></a>
 - <B>vce_protocol_parser_through</B>
+
   概要 : レコード境界を切らずにコールバックを呼びだすプロトコルパーサ
 
   カテゴリ : parser
@@ -3634,6 +3756,7 @@ vce_protocol_parser_through はまさにそのために使用される。
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_through">vce_protocol_unparser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_dump"></a>
 - <B>vce_protocol_pcallback_dump</B>
+
   概要 : 普通のTCPコネクション用の、データをダンプするコールバック
 
   カテゴリ : pcallback
@@ -3659,6 +3782,7 @@ vce_protocol_parser_through はまさにそのために使用される。
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_bin16"></a>
 - <B>vce_protocol_pcallback_echo_bin16</B>
+
   概要 : conn_t上のbin16プロトコル用の、エコー・コールバック関数
 
   カテゴリ : pcallback
@@ -3694,6 +3818,7 @@ vce_protocol_parser_bin16 関数をプロトコルパーサとして登録して
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_text"></a>
 - <B>vce_protocol_pcallback_echo_text</B>
+
   概要 : conn_t 上の行指向テキストプロトコル用のエコーコールバック関数
 
   カテゴリ : pcallback
@@ -3716,6 +3841,7 @@ vce_protocol_parser_bin16 関数をプロトコルパーサとして登録して
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_unparser_text">vce_protocol_unparser_text</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_noop"></a>
 - <B>vce_protocol_pcallback_noop</B>
+
   概要 : 普通のTCPコネクション用の、何もしないプロトコルコールバック関数
 
   カテゴリ : pcallback
@@ -3745,6 +3871,7 @@ vce_protocol_parser_bin16 関数をプロトコルパーサとして登録して
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin16"></a>
 - <B>vce_protocol_unparser_bin16</B>
+
   概要 : bin16 プロトコルのレコードを、コネクションに対して書きこむ
 
   カテゴリ : parser
@@ -3788,6 +3915,7 @@ bin16プロトコルは、All or Nothing な送信をする。つまり、
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin32"></a>
 - <B>vce_protocol_unparser_bin32</B>
+
   概要 : BIN32プロトコルのレコードをひとつ、コネクション(conn_t)に書きこむ
 
   カテゴリ : parser
@@ -3816,6 +3944,7 @@ BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX 
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a>
 <a name="vce_protocol_unparser_text"></a>
 - <B>vce_protocol_unparser_text</B>
+
   概要 : テキストプロトコルのレコード(1行)をコネクションに書きこむ
 
   カテゴリ : parser
@@ -3841,6 +3970,7 @@ BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX 
   See also : <a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_through"></a>
 - <B>vce_protocol_unparser_through</B>
+
   概要 : TCPコネクションにデータをそのまま書き出す
 
   カテゴリ : parser
@@ -3863,6 +3993,7 @@ BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX 
   See also : <a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_read_plain_text_file"></a>
 - <B>vce_read_plain_text_file</B>
+
   概要 : プレインテキストファイルを読みこむ
 
   カテゴリ : util
@@ -3889,6 +4020,7 @@ vce_read_simple_config_file 関数をさらに単純にしたものである。
   See also : <a href="#vce_read_simple_config_file">vce_read_simple_config_file</a>
 <a name="vce_read_simple_config_file"></a>
 - <B>vce_read_simple_config_file</B>
+
   概要 : 単純なテキスト設定ファイルをコールバック関数を使って読みこむ
 
   カテゴリ : util
@@ -3936,6 +4068,7 @@ value に改行記号は含まれない。
   See also : <a href="#swp">swp</a><a href="#vce_copy_cstring_upto">vce_copy_cstring_upto</a><a href="#vp">vp</a>
 <a name="vce_replace_malloc_funcs"></a>
 - <B>vce_replace_malloc_funcs</B>
+
   概要 : VCE が使うmalloc関数を置きかえる
 
   カテゴリ : util
@@ -3964,6 +4097,7 @@ value に改行記号は含まれない。
 
 <a name="vce_set_heartbeat_wait_flag"></a>
 - <B>vce_set_heartbeat_wait_flag</B>
+
   概要 : vce_heartbeat の sleep時間 調節機構をon/off する
 
   カテゴリ : core
@@ -3991,6 +4125,7 @@ flag に1を設定すると、vce_heartbeat は、
   See also : <a href="#vce_heartbeat">vce_heartbeat</a>
 <a name="vce_set_mainloop_callback"></a>
 - <B>vce_set_mainloop_callback</B>
+
   概要 : vce_mainloopから呼びだすコールバック関数を設定する。
 
   カテゴリ : core
@@ -4027,6 +4162,7 @@ vce_mainloopを利用しつつもアプリケーションで並行に処理を�
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_mainloop">vce_mainloop</a>
 <a name="vce_set_read_write_log_mode"></a>
 - <B>vce_set_read_write_log_mode</B>
+
   概要 : VCEによるread/writeシステムコールの使用をログするかを設定する
 
   カテゴリ : core
@@ -4047,6 +4183,7 @@ vce_mainloopを利用しつつもアプリケーションで並行に処理を�
   See also : <a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="vce_set_socket_library_ok"></a>
 - <B>vce_set_socket_library_ok</B>
+
   概要 : VCE の下層の socket ライブラリが初期化できたことを VCE に通知する。
 
   カテゴリ : core
@@ -4081,6 +4218,7 @@ vce_initialize の呼びだし後に意味をもつので、
   See also : <a href="#vce_initialize">vce_initialize</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_set_verbose_mode"></a>
 - <B>vce_set_verbose_mode</B>
+
   概要 : verboseモード(うるさいモード)の設定をする
 
   カテゴリ : core
@@ -4108,6 +4246,7 @@ vce_initialize 関数の呼びだし前に呼びだすことができるよう�
 
 <a name="vce_show_array_usage"></a>
 - <B>vce_show_array_usage</B>
+
   概要 : VCE配列の状態をすべて出力する。
 
   カテゴリ : array
@@ -4136,6 +4275,7 @@ vce_initialize 関数の呼びだし前に呼びだすことができるよう�
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_snprintf"></a>
 - <B>vce_snprintf</B>
+
   概要 : libc の snprintf の wrapper
 
   カテゴリ : text
@@ -4167,6 +4307,7 @@ sprintf と同等の機能しか持っていない．
 
 <a name="vce_strerror"></a>
 - <B>vce_strerror</B>
+
   概要 : VCEエラーコードを文字列に変換する。
 
   カテゴリ : err
@@ -4186,6 +4327,7 @@ sprintf と同等の機能しか持っていない．
   See also : <a href="#vce_get_last_error">vce_get_last_error</a>
 <a name="vce_strerror_close_reason"></a>
 - <B>vce_strerror_close_reason</B>
+
   概要 : VCEエラーコード(CLOSE_REASON)を文字列に変換する。
 
   カテゴリ : err
@@ -4205,6 +4347,7 @@ sprintf と同等の機能しか持っていない．
 
 <a name="vce_tcpcontext_cleanup"></a>
 - <B>vce_tcpcontext_cleanup</B>
+
   概要 : TCPコンテキストを解放する。
 
   カテゴリ : tcp
@@ -4225,6 +4368,7 @@ vce_tcpcontext_cleanup 関数で解放せずに vce_tcpcontext_create を
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_conn_iterate"></a>
 - <B>vce_tcpcontext_conn_iterate</B>
+
   概要 : tcpcontext が保持しているすべてのconn_tに対して関数で処理する
 
   カテゴリ : 
@@ -4246,6 +4390,7 @@ vce_tcpcontext_cleanup 関数で解放せずに vce_tcpcontext_create を
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_connect"></a>
 - <B>vce_tcpcontext_connect</B>
+
   概要 : リモートにあるVCEサーバに接続し、TCPコネクションを1個確立する。
 
   カテゴリ : tcp
@@ -4288,6 +4433,7 @@ tcpcontext がノンブロッキングモードに設定されている場合と
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_count_connections"></a>
 - <B>vce_tcpcontext_count_connections</B>
+
   概要 : tcpcontext に属するコネクションの数を数える
 
   カテゴリ : tcp
@@ -4308,6 +4454,7 @@ NULL を指定すると，無視される．
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_create"></a>
 - <B>vce_tcpcontext_create</B>
+
   概要 : TCPコンテキストを初期化する。
 
   カテゴリ : tcp
@@ -4488,6 +4635,7 @@ tcpcontext の「受信バッファ量」と「送信バッファ量」
   See also : <a href="#vce_conn_get_state">vce_conn_get_state</a><a href="#vce_initialize">vce_initialize</a><a href="#vce_initialize_limited">vce_initialize_limited</a><a href="#vce_tcpcontext_cleanup">vce_tcpcontext_cleanup</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_enable_accept"></a>
 - <B>vce_tcpcontext_enable_accept</B>
+
   概要 : 新規に accept しないようにする
 
   カテゴリ : tcp
@@ -4512,6 +4660,7 @@ verbose モードのときはログを出力する(verbose mode only)。
   See also : <a href="#vce_tcpcontext_close_all_conn">vce_tcpcontext_close_all_conn</a>
 <a name="vce_tcpcontext_get_all_connection"></a>
 - <B>vce_tcpcontext_get_all_connection</B>
+
   概要 : tcpcontext に属するすべてのコネクションを得る
 
   カテゴリ : tcp
@@ -4534,6 +4683,7 @@ verbose モードのときはログを出力する(verbose mode only)。
   See also : <a href="#vce_tcpcontext_count_connections">vce_tcpcontext_count_connections</a>
 <a name="vce_tcpcontext_get_stat"></a>
 - <B>vce_tcpcontext_get_stat</B>
+
   概要 : tcpcontext の統計情報を取得する
 
   カテゴリ : tcp
@@ -4572,6 +4722,7 @@ vce_tcpcontext_connect が成功した回数。
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_tcpcontext_protocol_set_maxlength"></a>
 - <B>vce_tcpcontext_protocol_set_maxlength</B>
+
   概要 : パーサーが分割する最大の長さを設定する。
 
   カテゴリ : tcp
@@ -4600,6 +4751,7 @@ NULLの場合は呼ばれず接続を拒否する。
 
 <a name="vce_tcpcontext_set_accept_max"></a>
 - <B>vce_tcpcontext_set_accept_max</B>
+
   概要 : 一分間あたりの接続数を制限する
 
   カテゴリ : tcp
@@ -4633,6 +4785,7 @@ con_maxにゼロを設定すれば許可無しとなる。
 
 <a name="vce_tcpcontext_set_conn_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_acceptwatcher</B>
+
   概要 : TCPコンテキストに対して、指定されたaccept監視関数を使うように設定する
 
   カテゴリ : tcp
@@ -4660,6 +4813,7 @@ acceptwatcher が呼びだされる。
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a>
 <a name="vce_tcpcontext_set_conn_call_parser_per_heartbeat"></a>
 - <B>vce_tcpcontext_set_conn_call_parser_per_heartbeat</B>
+
   概要 : 1回の heartbeat で各コネクションのパーサが呼びだされる回数を調整する
 
   カテゴリ : tcp
@@ -4685,6 +4839,7 @@ acceptwatcher が呼びだされる。
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_set_conn_closewatcher"></a>
 - <B>vce_tcpcontext_set_conn_closewatcher</B>
+
   概要 : TCPコンテキストに対して、指定されたclose監視関数を使うように設定する
 
   カテゴリ : tcp
@@ -4789,6 +4944,7 @@ close watcher は呼びだされない．
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_finalizer"></a>
 - <B>vce_tcpcontext_set_conn_finalizer</B>
+
   概要 : TCPコンテキストに対して、コネクションのファイナライザを指定する。
 
   カテゴリ : tcp
@@ -4818,6 +4974,7 @@ closewatcher は呼びだされないが、 finalizer は呼びだされる点�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_set_conn_hiwater_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_hiwater_acceptwatcher</B>
+
   概要 : TCPコンテキストに，接続数が多いとき用のaccept監視関数をセットする
 
   カテゴリ : tcp
@@ -4860,6 +5017,7 @@ VCEでは，この数のことを「高水位設定値」"high water"と呼ん�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_kickip_array"></a>
 - <B>vce_tcpcontext_set_conn_kickip_array</B>
+
   概要 : 接続を拒否するIPアドレスの配列を設定する。
 
   カテゴリ : tcp
@@ -4882,6 +5040,7 @@ VCEでは，この数のことを「高水位設定値」"high water"と呼ん�
 
 <a name="vce_tcpcontext_set_conn_parser"></a>
 - <B>vce_tcpcontext_set_conn_parser</B>
+
   概要 : TCPコンテキストに対して、TCPコネクション(conn_t)用のパーサを設定する
 
   カテゴリ : tcp
@@ -4946,6 +5105,7 @@ vce_tcpcontext_set_conn_parser( t, parser, NULL );
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_tcpcontext_set_equal_io_splitrate"></a>
 - <B>vce_tcpcontext_set_equal_io_splitrate</B>
+
   概要 : 1回の heartbeat でネットワークへの送信をするコネクション数を調整する
 
   カテゴリ : tcp
@@ -4980,6 +5140,7 @@ VCE が確保している書きこみバッファにデータがたまってい�
 
 <a name="vce_tcpcontext_timeout_control"></a>
 - <B>vce_tcpcontext_timeout_control</B>
+
   概要 : TCPコンテキストのタイムアウト動作方式を設定する。
 
   カテゴリ : tcp
@@ -5018,6 +5179,7 @@ VCE がターゲットとしているリアルタイムアプリケーション�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_userdata_get_pointer"></a>
 - <B>vce_tcpcontext_userdata_get_pointer</B>
+
   概要 : tcpcontext_tに関連付けたポインタを取り出す
 
   カテゴリ : tcp
@@ -5032,6 +5194,7 @@ VCE がターゲットとしているリアルタイムアプリケーション�
 
 <a name="vce_tcpcontext_userdata_set_pointer"></a>
 - <B>vce_tcpcontext_userdata_set_pointer</B>
+
   概要 : tcpcontext_tにポインタを関連付ける
 
   カテゴリ : tcp
@@ -5050,6 +5213,7 @@ VCE がターゲットとしているリアルタイムアプリケーション�
 
 <a name="vce_utime_diff"></a>
 - <B>vce_utime_diff</B>
+
   概要 : struct timeval 型の時刻の差分を VCEI64 型で求める
 
   カテゴリ : util

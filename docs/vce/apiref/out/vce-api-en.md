@@ -415,6 +415,7 @@ Functions:
 <!-- make_funcdef start -->
 <a name="ARRAY_SCAN"></a>
 - <B>ARRAY_SCAN</B>
+
   Summary : Scan all in-use elements stored in VCE's array.
 
   Category : array
@@ -452,6 +453,7 @@ ARRAY_SCAN( memory_ind, c ){
   See also : <a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a><a href="#vce_init_array">vce_init_array</a>
 <a name="ARRAY_SCAN_TYPE"></a>
 - <B>ARRAY_SCAN_TYPE</B>
+
   Summary : A variety of ARRAY_SCAN macro fot use in C++ language
 
   Category : array
@@ -477,6 +479,7 @@ Consequently, the ARRAY_SCAN_TYPE macro is given the pointer variable type.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a>
 <a name="ELEMENTOF"></a>
 - <B>ELEMENTOF</B>
+
   Summary : Get number of elements of a fixed-size array.
 
   Category : util
@@ -503,6 +506,7 @@ Consequently, the ARRAY_SCAN_TYPE macro is given the pointer variable type.
 
 <a name="FREE"></a>
 - <B>FREE</B>
+
   Summary : Release a memory block allocated with MALLOC function.
 
   Category : util
@@ -521,6 +525,7 @@ It prints log message when vce_set_verbose_mode 1.
   See also : <a href="#MALLOC">MALLOC</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="GET_16BIT_INT"></a>
 - <B>GET_16BIT_INT</B>
+
   Summary : Get 16 bit integer value from buffer
 
   Category : util
@@ -542,6 +547,7 @@ VCE implements this macro as a function.
   See also : <a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_16BIT_NATIVEINT"></a>
 - <B>GET_16BIT_NATIVEINT</B>
+
   Summary : Get 16bit integer value from any buffer
 
   Category : util
@@ -558,6 +564,7 @@ VCE  implements this macro as a function.
   See also : <a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_32BIT_INT"></a>
 - <B>GET_32BIT_INT</B>
+
   Summary : A macro to get 32bit value from memory buffer.
 
   Category : util
@@ -579,6 +586,7 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_32BIT_NATIVEINT"></a>
 - <B>GET_32BIT_NATIVEINT</B>
+
   Summary : Get 32bit integer value from buffer
 
   Category : util
@@ -594,6 +602,7 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_64BIT_INT"></a>
 - <B>GET_64BIT_INT</B>
+
   Summary : A macro to get 64bit value from memory buffer.
 
   Category : util
@@ -615,6 +624,7 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_64BIT_NATIVEINT"></a>
 - <B>GET_64BIT_NATIVEINT</B>
+
   Summary : Get 64bit integer value from buffer
 
   Category : util
@@ -630,6 +640,7 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_8BIT_INT"></a>
 - <B>GET_8BIT_INT</B>
+
   Summary : Get 8-bit integer from buffer
 
   Category : util
@@ -647,6 +658,7 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_8BIT_NATIVEINT"></a>
 - <B>GET_8BIT_NATIVEINT</B>
+
   Summary : Get 8bit integer value from buffer
 
   Category : util
@@ -661,6 +673,7 @@ GET_16BIT_NATIVEINT and others.
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a>
 <a name="MALLOC"></a>
 - <B>MALLOC</B>
+
   Summary : A wrapper function for C library malloc().
 
   Category : util
@@ -687,6 +700,7 @@ It prints log message when vce_set_verbose_mode 1.
   See also : <a href="#FREE">FREE</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="MAX"></a>
 - <B>MAX</B>
+
   Summary : Compare 2 integer values and return bigger one.
 
   Category : util
@@ -714,6 +728,7 @@ for any types which accepts integer-comparison operator.
   See also : <a href="#MIN">MIN</a>
 <a name="MIN"></a>
 - <B>MIN</B>
+
   Summary : Compare 2 integer values and return bigger one.
 
   Category : util
@@ -742,6 +757,7 @@ types along with their unsigned types.
   See also : <a href="#MAX">MAX</a>
 <a name="SET_16BIT_INT"></a>
 - <B>SET_16BIT_INT</B>
+
   Summary : Copy 16-bit integer to buffer in network byte-order.
 
   Category : util
@@ -766,6 +782,7 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_16BIT_NATIVEINT"></a>
 - <B>SET_16BIT_NATIVEINT</B>
+
   Summary : Copy 16-bit integer value to any buffer
 
   Category : util
@@ -787,6 +804,7 @@ VCE implements this macro as a function.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_32BIT_INT"></a>
 - <B>SET_32BIT_INT</B>
+
   Summary : Copy 32-bit integer to buffer in network byte-order.
 
   Category : util
@@ -811,6 +829,7 @@ category for protocol analysis( they make it robust ).
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_32BIT_NATIVEINT"></a>
 - <B>SET_32BIT_NATIVEINT</B>
+
   Summary : copy 32bit integer value to any buffer
 
   Category : util
@@ -832,6 +851,7 @@ VCE implements this macro as a function.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_64BIT_INT"></a>
 - <B>SET_64BIT_INT</B>
+
   Summary : Copy 32-bit integer to buffer in network byte-order.
 
   Category : util
@@ -856,6 +876,7 @@ category for protocol analysis( they make it robust ).
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_64BIT_NATIVEINT"></a>
 - <B>SET_64BIT_NATIVEINT</B>
+
   Summary : copy 64bit integer value to any buffer
 
   Category : util
@@ -877,6 +898,7 @@ VCE implements this macro as a function.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_8BIT_INT"></a>
 - <B>SET_8BIT_INT</B>
+
   Summary : Copy 8-bit integer to buffer
 
   Category : util
@@ -898,6 +920,7 @@ maintaining consistency with 32 and 16 bit macro or others.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a>
 <a name="SET_8BIT_NATIVEINT"></a>
 - <B>SET_8BIT_NATIVEINT</B>
+
   Summary : Copy 8bit integer value to any buffer
 
   Category : util
@@ -918,6 +941,7 @@ maintaining consistency with SET_16BIT_NATIVEINT,SET_32BIT_NATIVEINT.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="STRERR"></a>
 - <B>STRERR</B>
+
   Summary : Get string of latest VCE error
 
   Category : util
@@ -934,6 +958,7 @@ maintaining consistency with SET_16BIT_NATIVEINT,SET_32BIT_NATIVEINT.
   See also : <a href="#vce_get_last_error">vce_get_last_error</a><a href="#vce_strerror">vce_strerror</a>
 <a name="vce_alloc_array_object"></a>
 - <B>vce_alloc_array_object</B>
+
   Summary : Allocate an unused element of a VCE array.
 
   Category : array
@@ -956,6 +981,7 @@ memory.
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_array_object_inuse"></a>
 - <B>vce_array_object_inuse</B>
+
   Summary : Know a VCE array object is currently used or not
 
   Category : array
@@ -978,6 +1004,7 @@ out of range )
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object">vce_free_array_object</a>
 <a name="vce_atoi"></a>
 - <B>vce_atoi</B>
+
   Summary : Convert C string into a int value with simple calcuration.
 
   Category : util
@@ -1022,6 +1049,7 @@ so it may be not performing stably-sometimes results make no sense.
 
 <a name="vce_binary_pack"></a>
 - <B>vce_binary_pack</B>
+
   Summary : Make a byte array from an array of structure. (obsolete)
 
   Category : bin
@@ -1051,6 +1079,7 @@ protocol processing.
 
 <a name="vce_binary_pop_nb_i1"></a>
 - <B>vce_binary_pop_nb_i1</B>
+
   Summary : Pop a 1-byte integer(char) from a buffer
 
   Category : bin
@@ -1078,6 +1107,7 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i1">vce_binary_push_nb_i1</a>
 <a name="vce_binary_pop_nb_i2"></a>
 - <B>vce_binary_pop_nb_i2</B>
+
   Summary : Pop a 2-byte integer(short) from a buffer
 
   Category : bin
@@ -1105,6 +1135,7 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i2">vce_binary_push_nb_i2</a>
 <a name="vce_binary_pop_nb_i4"></a>
 - <B>vce_binary_pop_nb_i4</B>
+
   Summary : Pop a 4-byte integer(int) from a buffer
 
   Category : bin
@@ -1132,6 +1163,7 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i4">vce_binary_push_nb_i4</a>
 <a name="vce_binary_pop_nb_i8"></a>
 - <B>vce_binary_pop_nb_i8</B>
+
   Summary : Pop a 8-byte integer(int) from a buffer
 
   Category : bin
@@ -1159,6 +1191,7 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i8">vce_binary_push_nb_i8</a>
 <a name="vce_binary_pop_nb_ia1"></a>
 - <B>vce_binary_pop_nb_ia1</B>
+
   Summary : Pop an array of 1-byte integer(char) from a buffer
 
   Category : bin
@@ -1194,6 +1227,7 @@ policy on binary operation.
   See also : <a href="#vce_binary_push_nb_ia1">vce_binary_push_nb_ia1</a>
 <a name="vce_binary_pop_nb_ia2"></a>
 - <B>vce_binary_pop_nb_ia2</B>
+
   Summary : Pop an array of 2-byte integer(short) from a buffer
 
   Category : bin
@@ -1230,6 +1264,7 @@ After being changed its order from network byte to native, data is stored.
   See also : <a href="#vce_binary_push_nb_ia2">vce_binary_push_nb_ia2</a>
 <a name="vce_binary_pop_nb_ia4"></a>
 - <B>vce_binary_pop_nb_ia4</B>
+
   Summary : Pop an array of 4-byte integer(int) from a buffer
 
   Category : bin
@@ -1266,6 +1301,7 @@ Having been changed its order from network byte to native, data is stored.
   See also : <a href="#vce_binary_push_nb_ia4">vce_binary_push_nb_ia4</a>
 <a name="vce_binary_pop_nb_ia8"></a>
 - <B>vce_binary_pop_nb_ia8</B>
+
   Summary : Pop an array of 8-byte integer(int) from a buffer
 
   Category : bin
@@ -1302,6 +1338,7 @@ Having been changed its order from network byte to native, data is stored.
   See also : <a href="#vce_binary_push_nb_ia8">vce_binary_push_nb_ia8</a>
 <a name="vce_binary_pop_nb_stra"></a>
 - <B>vce_binary_pop_nb_stra</B>
+
   Summary : Pop an array of strings from a buffer
 
   Category : bin
@@ -1352,6 +1389,7 @@ allocated by the application using this function.(refer to sample codes)
   See also : <a href="#vce_binary_push_nb_stra">vce_binary_push_nb_stra</a>
 <a name="vce_binary_push_nb_i1"></a>
 - <B>vce_binary_push_nb_i1</B>
+
   Summary : Push 1-byte integer(char) to a buffer
 
   Category : bin
@@ -1381,6 +1419,7 @@ You can fetch data by the corresponding vce_binary_pop_nb_i1function.
   See also : <a href="#vce_binary_pop_nb_i1">vce_binary_pop_nb_i1</a>
 <a name="vce_binary_push_nb_i2"></a>
 - <B>vce_binary_push_nb_i2</B>
+
   Summary : Push 2-byte integer(short) to a buffer
 
   Category : bin
@@ -1415,6 +1454,7 @@ Data is output on the network byte order.
   See also : <a href="#vce_binary_pop_nb_i2">vce_binary_pop_nb_i2</a>
 <a name="vce_binary_push_nb_i4"></a>
 - <B>vce_binary_push_nb_i4</B>
+
   Summary : Push 4-byte integer(int) to a buffer
 
   Category : bin
@@ -1449,6 +1489,7 @@ Data is output on the network in byte order.
   See also : <a href="#vce_binary_pop_nb_i4">vce_binary_pop_nb_i4</a>
 <a name="vce_binary_push_nb_i8"></a>
 - <B>vce_binary_push_nb_i8</B>
+
   Summary : Push 8-byte integer(VCEI64) to a buffer
 
   Category : bin
@@ -1483,6 +1524,7 @@ Data is output on the network in byte order.
   See also : <a href="#vce_binary_pop_nb_i8">vce_binary_pop_nb_i8</a>
 <a name="vce_binary_push_nb_ia1"></a>
 - <B>vce_binary_push_nb_ia1</B>
+
   Summary : Push an array of 1-byte integer(char) to a buffer
 
   Category : bin
@@ -1517,6 +1559,7 @@ it returns a negative error code
   See also : <a href="#vce_binary_pop_nb_ia1">vce_binary_pop_nb_ia1</a>
 <a name="vce_binary_push_nb_ia2"></a>
 - <B>vce_binary_push_nb_ia2</B>
+
   Summary : Push an array of 2-byte integer(short) to a buffer
 
   Category : bin
@@ -1552,6 +1595,7 @@ instead of destroying it.
   See also : <a href="#vce_binary_pop_nb_ia2">vce_binary_pop_nb_ia2</a>
 <a name="vce_binary_push_nb_ia4"></a>
 - <B>vce_binary_push_nb_ia4</B>
+
   Summary : Push an array of 4-byte integer(int) to a buffer
 
   Category : bin
@@ -1585,6 +1629,7 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
   See also : <a href="#vce_binary_pop_nb_ia4">vce_binary_pop_nb_ia4</a>
 <a name="vce_binary_push_nb_ia8"></a>
 - <B>vce_binary_push_nb_ia8</B>
+
   Summary : Push an array of 8-byte integer(VCEI64) to a buffer
 
   Category : bin
@@ -1618,6 +1663,7 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
   See also : <a href="#vce_binary_pop_nb_ia8">vce_binary_pop_nb_ia8</a>
 <a name="vce_binary_push_nb_stra"></a>
 - <B>vce_binary_push_nb_stra</B>
+
   Summary : Push null-terminated string array to a buffer
 
   Category : bin
@@ -1657,6 +1703,7 @@ character string. When num is 0, NULL can be designated as stra.
   See also : <a href="#vce_binary_pop_nb_stra">vce_binary_pop_nb_stra</a>
 <a name="vce_binary_unpack"></a>
 - <B>vce_binary_unpack</B>
+
   Summary : Unpack binary char array into an array of struct.(obsolete)
 
   Category : bin
@@ -1688,6 +1735,7 @@ It is mainly used for protocol processing.
   See also : <a href="#vce_binary_pack">vce_binary_pack</a>
 <a name="vce_conn_break_heartbeat"></a>
 - <B>vce_conn_break_heartbeat</B>
+
   Summary : PENDING
 
   Category : tcp
@@ -1700,6 +1748,7 @@ It is mainly used for protocol processing.
   See also : <a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_conn_clear"></a>
 - <B>vce_conn_clear</B>
+
   Summary : Initialize conn_t instance
 
   Category : tcp
@@ -1717,6 +1766,7 @@ Zero-clear with memset is not formal.
 
 <a name="vce_conn_close"></a>
 - <B>vce_conn_close</B>
+
   Summary : Close and release one TCP connection.
 
   Category : tcp
@@ -1756,6 +1806,7 @@ vce_conn_set_timeout( co, 0 );
   See also : <a href="# vce_tcpcontext_connect"> vce_tcpcontext_connect</a><a href="# vce_tcpcontext_create"> vce_tcpcontext_create</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_close_tcpcontext_all"></a>
 - <B>vce_conn_close_tcpcontext_all</B>
+
   Summary : Close all connections maintained by a tcpcontext.
 
   Category : tcp
@@ -1784,6 +1835,7 @@ In the verbose mode, a log is output upon every disconnection.
   See also : <a href="#vce_tcpcontext_enable_accept">vce_tcpcontext_enable_accept</a>
 <a name="vce_conn_get_buffer"></a>
 - <B>vce_conn_get_buffer</B>
+
   Summary : Get conn_t's read/write buffer.
 
   Category : tcp
@@ -1817,6 +1869,7 @@ by vce_tcpcontext_set_conn_parser function.
   See also : <a href="#vce_conn_shrink_readbuf">vce_conn_shrink_readbuf</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_get_index"></a>
 - <B>vce_conn_get_index</B>
+
   Summary : Get index number of conn_t in VCE library.
 
   Category : tcp
@@ -1837,6 +1890,7 @@ in your application.
   See also : <a href="#vce_conn_get_struct_from_index">vce_conn_get_struct_from_index</a>
 <a name="vce_conn_get_local_addr_string"></a>
 - <B>vce_conn_get_local_addr_string</B>
+
   Summary : Get local address and port number from conn_t by string
 
   Category : tcp
@@ -1861,6 +1915,7 @@ vce_conn_get_remote_addr_string function's.
   See also : <a href="#vce_conn_get_remote_addr_string">vce_conn_get_remote_addr_string</a>
 <a name="vce_conn_get_local_ipv4_addr"></a>
 - <B>vce_conn_get_local_ipv4_addr</B>
+
   Summary : Get 32-bit IPv4 local address from a TCP connection
 
   Category : tcp
@@ -1888,6 +1943,7 @@ It should be converted using ntohs, ntohl or others as you need.
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_local_ipv4_addr_string"></a>
 - <B>vce_conn_get_local_ipv4_addr_string</B>
+
   Summary : Get Ipv4 local peer address from a TCP connectin as a string
 
   Category : tcp
@@ -1917,6 +1973,7 @@ because we should persue protocol independency in our applications.
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_local_ipv6_addr"></a>
 - <B>vce_conn_get_local_ipv6_addr</B>
+
   Summary : Get 128-bit IPv6 local address from a TCP connection
 
   Category : tcp
@@ -1943,6 +2000,7 @@ Ignore this parameter if NULL is set.
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_local_ipv6_addr_string"></a>
 - <B>vce_conn_get_local_ipv6_addr_string</B>
+
   Summary : Get Ipv6 local address from a TCP connectin as a string
 
   Category : tcp
@@ -1968,6 +2026,7 @@ it is recommended to use vce_conn_get_local_addr_string function instead.
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_remote_addr_string"></a>
 - <B>vce_conn_get_remote_addr_string</B>
+
   Summary : Get remote peer address and port number from conn_t by string
 
   Category : tcp
@@ -2000,6 +2059,7 @@ string belongs is left to an application.
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a>
 <a name="vce_conn_get_remote_ipv4_addr"></a>
 - <B>vce_conn_get_remote_ipv4_addr</B>
+
   Summary : Get 32-bit IPv4 remote peer address from a TCP connection
 
   Category : tcp
@@ -2026,6 +2086,7 @@ so you use ntohs(), or ntohl() if you need them.
 
 <a name="vce_conn_get_remote_ipv4_addr_string"></a>
 - <B>vce_conn_get_remote_ipv4_addr_string</B>
+
   Summary : Get Ipv4 remote peer address from a TCP connectin as a string
 
   Category : tcp
@@ -2056,6 +2117,7 @@ vce_conn_get_remote_addr function.
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr"></a>
 - <B>vce_conn_get_remote_ipv6_addr</B>
+
   Summary : Get 128-bit IPv6 remote peer address from a TCP connection
 
   Category : tcp
@@ -2083,6 +2145,7 @@ You use ntohs(), or ntohl() functions in case you need them.
   See also : <a href="#vce_conn_get_local_ipv6_addr">vce_conn_get_local_ipv6_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr_string"></a>
 - <B>vce_conn_get_remote_ipv6_addr_string</B>
+
   Summary : Get Ipv6 remote peer address from a TCP connectin as a string
 
   Category : tcp
@@ -2106,6 +2169,7 @@ function.
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_stat"></a>
 - <B>vce_conn_get_stat</B>
+
   Summary : Get conn_t's statistics information
 
   Category : tcp
@@ -2139,6 +2203,7 @@ are invoked toward this connection.
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_get_stat">vce_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_conn_get_state_buffer"></a>
 - <B>vce_conn_get_state_buffer</B>
+
   Summary : Get pointer to conn_t's state buffer.
 
   Category : tcp
@@ -2163,6 +2228,7 @@ this returns a pointer to the buffer having the region of that size.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_get_struct_from_index"></a>
 - <B>vce_conn_get_struct_from_index</B>
+
   Summary : Get conn_t struct from index number.
 
   Category : tcp
@@ -2181,6 +2247,7 @@ from "session ID" in your application.
   See also : <a href="#vce_conn_get_index">vce_conn_get_index</a>
 <a name="vce_conn_get_tcpcontext"></a>
 - <B>vce_conn_get_tcpcontext</B>
+
   Summary : get tcpcontext_t from a conn_t
 
   Category : tcp
@@ -2202,6 +2269,7 @@ but seldom be used from an application.
   See also : <a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_is_equal"></a>
 - <B>vce_conn_is_equal</B>
+
   Summary : Check if two conn_t instances are the same
 
   Category : tcp
@@ -2225,6 +2293,7 @@ pointer and serial number.
 
 <a name="vce_conn_is_valid"></a>
 - <B>vce_conn_is_valid</B>
+
   Summary : Check if a TCP connection ( conn_t ) is broken or not.
 
   Category : tcp
@@ -2251,6 +2320,7 @@ you must use vce_conn_writable function all the time, not this function.
   See also : <a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_set_delay"></a>
 - <B>vce_conn_set_delay</B>
+
   Summary : pending
 
   Category : core
@@ -2275,6 +2345,7 @@ you must use vce_conn_writable function all the time, not this function.
 
 <a name="vce_conn_set_parser"></a>
 - <B>vce_conn_set_parser</B>
+
   Summary : Set protocl parser and callback function per conn_t basis
 
   Category : tcp
@@ -2306,6 +2377,7 @@ the debug mode, or to the control function, as well.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_set_timeout"></a>
 - <B>vce_conn_set_timeout</B>
+
   Summary : Change each conn_t's timeout length
 
   Category : tcp
@@ -2330,6 +2402,7 @@ if you want special high security in some situation.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_show_stat"></a>
 - <B>vce_conn_show_stat</B>
+
   Summary : Show stats of all active connections.
 
   Category : tcp
@@ -2380,6 +2453,7 @@ unavailable in Win32GUI environment.
 
 <a name="vce_conn_shrink_readbuf"></a>
 - <B>vce_conn_shrink_readbuf</B>
+
   Summary : shrink conn_t's read buffer
 
   Category : tcp
@@ -2401,6 +2475,7 @@ vce_conn_shrink_readbuf, after processing the contents of the read buffer.
 
 <a name="vce_conn_userdata_get_pointer"></a>
 - <B>vce_conn_userdata_get_pointer</B>
+
   Summary : 
 
   Category : tcp
@@ -2414,6 +2489,7 @@ vce_conn_shrink_readbuf, after processing the contents of the read buffer.
 
 <a name="vce_conn_userdata_set_pointer"></a>
 - <B>vce_conn_userdata_set_pointer</B>
+
   Summary : 
 
   Category : tcp
@@ -2429,6 +2505,7 @@ vce_conn_shrink_readbuf, after processing the contents of the read buffer.
 
 <a name="vce_conn_writable"></a>
 - <B>vce_conn_writable</B>
+
   Summary : Check if a TCP connection is ready to use (write).
 
   Category : tcp
@@ -2469,6 +2546,7 @@ when writing something into conn_t in your application.
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_write">vce_conn_write</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_write"></a>
 - <B>vce_conn_write</B>
+
   Summary : Write raw data into a TCP connection.
 
   Category : tcp
@@ -2525,6 +2603,7 @@ and calling vce_conn_close is perferable.
   See also : <a href="#vce_conn_close">vce_conn_close</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_writed"></a>
 - <B>vce_conn_writed</B>
+
   Summary : 
 
   Category : tcp
@@ -2539,6 +2618,7 @@ and calling vce_conn_close is perferable.
   See also : <a href="#vce_conn_valid">vce_conn_valid</a>
 <a name="vce_dump_buffer"></a>
 - <B>vce_dump_buffer</B>
+
   Summary : Dump binary data array using vce_errout.
 
   Category : util
@@ -2560,6 +2640,7 @@ This is so simple that displays dividing every 8 bytes in the buffer.
   See also : <a href="#vce_errout">vce_errout</a>
 <a name="vce_end_all_array"></a>
 - <B>vce_end_all_array</B>
+
   Summary : Release all VCE array.
 
   Category : array
@@ -2573,6 +2654,7 @@ This is so simple that displays dividing every 8 bytes in the buffer.
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_end_array"></a>
 - <B>vce_end_array</B>
+
   Summary : Release a VCE array.
 
   Category : array
@@ -2592,6 +2674,7 @@ vce_end_array function calls the FREE function inside it.
   See also : <a href="#FREE">FREE</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_errout"></a>
 - <B>vce_errout</B>
+
   Summary : Log output for VCE application
 
   Category : core
@@ -2611,6 +2694,7 @@ No argument is also acceptable.
   See also : <a href="# vce_errout_set_another"> vce_errout_set_another</a><a href="# vce_verrout"> vce_verrout</a><a href="#vce_errout_config">vce_errout_config</a><a href="#vce_errout_v">vce_errout_v</a>
 <a name="vce_extract_data_from_hex_text"></a>
 - <B>vce_extract_data_from_hex_text</B>
+
   Summary : Convert hextext format ASCII text into a binary data array.
 
   Category : util
@@ -2639,6 +2723,7 @@ after checking validity of contents of "buf".
   See also : <a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_finalize"></a>
 - <B>vce_finalize</B>
+
   Summary : Release all resources used by VCE.
 
   Category : core
@@ -2654,6 +2739,7 @@ undefined action except vce_errout*.
 
 <a name="vce_free_array_object"></a>
 - <B>vce_free_array_object</B>
+
   Summary : Free an element of a VCE array.
 
   Category : array
@@ -2675,6 +2761,7 @@ being released.
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_free_array_object_all"></a>
 - <B>vce_free_array_object_all</B>
+
   Summary : Free all elements in an array
 
   Category : array
@@ -2695,6 +2782,7 @@ initialization is planned (version 1 and later).
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_maxnum"></a>
 - <B>vce_get_array_maxnum</B>
+
   Summary : Get max number of array elements
 
   Category : array
@@ -2712,6 +2800,7 @@ Same as vce_init_array's "num" parameter.
   See also : <a href="#vce_get_array_member_size">vce_get_array_member_size</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_member_size"></a>
 - <B>vce_get_array_member_size</B>
+
   Summary : Get size of each members of an array
 
   Category : array
@@ -2731,6 +2820,7 @@ control routine.
   See also : <a href="#vce_get_array_maxnum">vce_get_array_maxnum</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_index"></a>
 - <B>vce_get_array_object_index</B>
+
   Summary : Get index number of an element in an VCE array.
 
   Category : array
@@ -2753,6 +2843,7 @@ subtracting the designated pointer from an array's top pointer.
 
 <a name="vce_get_array_object_last"></a>
 - <B>vce_get_array_object_last</B>
+
   Summary : Get last element of VCE array.
 
   Category : array
@@ -2774,6 +2865,7 @@ and extraction from the tail.
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_next"></a>
 - <B>vce_get_array_object_next</B>
+
   Summary : Get an VCE array element succeedinng given elemnt
 
   Category : array
@@ -2797,6 +2889,7 @@ The ARRAY_SCAN macro is safer and sure to use.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_pointer_by_index"></a>
 - <B>vce_get_array_object_pointer_by_index</B>
+
   Summary : Get a VCE array element by index number
 
   Category : array
@@ -2827,6 +2920,7 @@ the contents of an error may be known by using vce_get_last_error.
   See also : <a href="#vce_get_array_object_pointer_by_index_only_used">vce_get_array_object_pointer_by_index_only_used</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_pointer_by_index_only_used"></a>
 - <B>vce_get_array_object_pointer_by_index_only_used</B>
+
   Summary : Get a VCE array element by index number, which are being used
 
   Category : array
@@ -2848,6 +2942,7 @@ but you can select used elements using this function.
   See also : <a href="#vce_get_array_object_pointer_by_index">vce_get_array_object_pointer_by_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_top"></a>
 - <B>vce_get_array_object_top</B>
+
   Summary : 
 
   Category : array
@@ -2869,6 +2964,7 @@ applications to directly use the ARRAY_SCAN macro, not this function.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a>
 <a name="vce_get_array_usenum"></a>
 - <B>vce_get_array_usenum</B>
+
   Summary : Count how many
 
   Category : array
@@ -2887,6 +2983,7 @@ This function is really fast because it does not scan the array.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_current_utime"></a>
 - <B>vce_get_current_utime</B>
+
   Summary : Get current time by VCEI64 data type
 
   Category : util
@@ -2909,6 +3006,7 @@ VCE renews the return value each time vce_heartbeat is invoked.
   See also : <a href="#vce_set_internal_timer">vce_set_internal_timer</a>
 <a name="vce_get_ipv4_addr_by_name"></a>
 - <B>vce_get_ipv4_addr_by_name</B>
+
   Summary : Get network byte order IPv4 address from host name string
 
   Category : util
@@ -2931,6 +3029,7 @@ In PlanetWeb, this is not compatible with DNS resolving.
 
 <a name="vce_get_last_error"></a>
 - <B>vce_get_last_error</B>
+
   Summary : Get last error code occured inside VCE library.
 
   Category : err
@@ -2962,6 +3061,7 @@ if( !t ){
   See also : <a href="#vce_strerror">vce_strerror</a>
 <a name="vce_get_netstat_string"></a>
 - <B>vce_get_netstat_string</B>
+
   Summary : Get all connection information maintained by VCE in string format
 
   Category : log
@@ -3031,6 +3131,7 @@ because this function uses 200 bytes for each line at most.
   See also : <a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_get_stat"></a>
 - <B>vce_get_stat</B>
+
   Summary : Get overall VCE activity statistics information.
 
   Category : log
@@ -3079,6 +3180,7 @@ Number of invocation of vce_errout or vce_errout0.
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_get_tcp_packet_read_size"></a>
 - <B>vce_get_tcp_packet_read_size</B>
+
   Summary : PENDING
 
   Category : tcp
@@ -3098,6 +3200,7 @@ Number of invocation of vce_errout or vce_errout0.
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_get_tcp_packet_write_size"></a>
 - <B>vce_get_tcp_packet_write_size</B>
+
   Summary : PENDING
 
   Category : tcp
@@ -3117,6 +3220,7 @@ Number of invocation of vce_errout or vce_errout0.
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_heartbeat"></a>
 - <B>vce_heartbeat</B>
+
   Summary : 
 
   Category : core
@@ -3155,6 +3259,7 @@ depending on your application.
   See also : <a href="#vce_mainloop">vce_mainloop</a><a href="#vce_set_heartbeat_wait_flag">vce_set_heartbeat_wait_flag</a><a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_if_included_in_array"></a>
 - <B>vce_if_included_in_array</B>
+
   Summary : Test if given element is correctly included in a VCE array.
 
   Category : array
@@ -3184,6 +3289,7 @@ elements negative 1, the elements are arranged outside the range-an error.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_index">vce_get_array_object_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_init_array"></a>
 - <B>vce_init_array</B>
+
   Summary : Initialize a new VCE array.
 
   Category : array
@@ -3215,6 +3321,7 @@ vce_init_array function uses the MALLOC function internally.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#MALLOC">MALLOC</a><a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_end_array">vce_end_array</a><a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a>
 <a name="vce_init_limit_t"></a>
 - <B>vce_init_limit_t</B>
+
   Summary : Initialize vce_limit_t structure with default value.
 
   Category : core
@@ -3229,6 +3336,7 @@ you use vce_initialize_limited function.
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_initialize"></a>
 - <B>vce_initialize</B>
+
   Summary : Initialize VCE.
 
   Category : core
@@ -3268,6 +3376,7 @@ int main()
   See also : <a href="#vce_finalize">vce_finalize</a><a href="#vce_set_socket_library_ok">vce_set_socket_library_ok</a>
 <a name="vce_initialize_limited"></a>
 - <B>vce_initialize_limited</B>
+
   Summary : Initialize VCE with limited memory configuration
 
   Category : core
@@ -3350,6 +3459,7 @@ int main(){
   See also : <a href="#vce_init_limit_t">vce_init_limit_t</a><a href="#vce_initialize">vce_initialize</a>
 <a name="vce_limit_clear"></a>
 - <B>vce_limit_clear</B>
+
   Summary : Initialize vce_limit_t structure (Clear with default value -1 )
 
   Category : core
@@ -3366,6 +3476,7 @@ vce uses default settings in every configuration.
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_mainloop"></a>
 - <B>vce_mainloop</B>
+
   Summary : 
 
   Category : core
@@ -3386,6 +3497,7 @@ and will terminate.
   See also : <a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_make_binary_array_from_hex"></a>
 - <B>vce_make_binary_array_from_hex</B>
+
   Summary : Convert hex text into binary data array.
 
   Category : util
@@ -3418,6 +3530,7 @@ An inverse function is vce_make_hex_from_binary_array
   See also : <a href="#vce_make_hex_from_binary_array">vce_make_hex_from_binary_array</a>
 <a name="vce_make_binary_array_from_line"></a>
 - <B>vce_make_binary_array_from_line</B>
+
   Summary : Convert 1 line of ASCII text into a binary data array.
 
   Category : util
@@ -3454,6 +3567,7 @@ line is stored in "uselen" argument.
 
 <a name="vce_make_hex_from_binary_array"></a>
 - <B>vce_make_hex_from_binary_array</B>
+
   Summary : Make a hex string from a binary array
 
   Category : util
@@ -3493,6 +3607,7 @@ used by vce_make_hex_text_from_buffer internally.
   See also : <a href="#hextext">hextext</a><a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_make_hex_text_from_buffer"></a>
 - <B>vce_make_hex_text_from_buffer</B>
+
   Summary : Make hextext format ASCII text from a binary data array.
 
   Category : util
@@ -3528,6 +3643,7 @@ vce_make_binary_array_from_hex function.
   See also : <a href="#hextext">hextext</a><a href="#vce_extract_data_from_hex_text">vce_extract_data_from_hex_text</a><a href="#vce_make_binary_array_from_hex">vce_make_binary_array_from_hex</a>
 <a name="vce_protocol_acceptwatcher_deny"></a>
 - <B>vce_protocol_acceptwatcher_deny</B>
+
   Summary : accept watcher for TCP conn_t which denies all connection.
 
   Category : watcher
@@ -3548,6 +3664,7 @@ This function is for debugging.
   See also : <a href="#vce_protocol_acceptwatcher_noop">vce_protocol_acceptwatcher_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_acceptwatcher_noop"></a>
 - <B>vce_protocol_acceptwatcher_noop</B>
+
   Summary : accept() watcher for TCP conn_t which accepts all connection.
 
   Category : watcher
@@ -3564,6 +3681,7 @@ accepted without any limitation.
   See also : <a href="#vce_protocol_acceptwatcher_deny">vce_protocol_acceptwatcher_deny</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_closewatcher_noop"></a>
 - <B>vce_protocol_closewatcher_noop</B>
+
   Summary : TCP connection close watcher which does nothing
 
   Category : watcher
@@ -3584,6 +3702,7 @@ use this function because your source code will be more cleaner.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin16"></a>
 - <B>vce_protocol_parser_bin16</B>
+
   Summary : Get a bin16 record and call callback function.
 
   Category : parser
@@ -3636,6 +3755,7 @@ and <code>char *data</code> is for pointer to the buffer,
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin32"></a>
 - <B>vce_protocol_parser_bin32</B>
+
   Summary : Get a bin32 record and call callback function
 
   Category : parser
@@ -3663,6 +3783,7 @@ BIN32DATA_MAX is defined within vce.h.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_bin32">vce_protocol_unparser_bin32</a>
 <a name="vce_protocol_parser_text"></a>
 - <B>vce_protocol_parser_text</B>
+
   Summary : Get each line from stream and call protocol callback function
 
   Category : parser
@@ -3693,6 +3814,7 @@ vce_makecstr function.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a>
 <a name="vce_protocol_parser_through"></a>
 - <B>vce_protocol_parser_through</B>
+
   Summary : A protocol parser for calling callback without reading records.
 
   Category : parser
@@ -3714,6 +3836,7 @@ passing the input data to protocol callback function.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_through">vce_protocol_unparser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_dump"></a>
 - <B>vce_protocol_pcallback_dump</B>
+
   Summary : Protocol callback function for dumping data input from TCP connection
 
   Category : pcallback
@@ -3739,6 +3862,7 @@ This function is called as a "protocol callback function".
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_bin16"></a>
 - <B>vce_protocol_pcallback_echo_bin16</B>
+
   Summary : Echo callback function for normal TCP bin16 protocol
 
   Category : pcallback
@@ -3771,6 +3895,7 @@ for your debugging.
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_text"></a>
 - <B>vce_protocol_pcallback_echo_text</B>
+
   Summary : Echo callback function for normal TCP text line-based protocol
 
   Category : pcallback
@@ -3795,6 +3920,7 @@ Returns larger than zero if tramsmit is successful.
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_unparser_text">vce_protocol_unparser_text</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_noop"></a>
 - <B>vce_protocol_pcallback_noop</B>
+
   Summary : No-Operation callback function for normal TCP connection ( conn_t )
 
   Category : pcallback
@@ -3823,6 +3949,7 @@ temporarily.
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin16"></a>
 - <B>vce_protocol_unparser_bin16</B>
+
   Summary : Format data into bin16 protocol and write it to a connection.
 
   Category : parser
@@ -3866,6 +3993,7 @@ this funciton will return 22 (20 + 2 )  or minus error code.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin32"></a>
 - <B>vce_protocol_unparser_bin32</B>
+
   Summary : Write a BIN32 record to a conn_t instance
 
   Category : parser
@@ -3893,6 +4021,7 @@ You can send larger size packets, but at most BIN32DATA_MAX bytes.
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a>
 <a name="vce_protocol_unparser_text"></a>
 - <B>vce_protocol_unparser_text</B>
+
   Summary : write a text protocol line into conn_t
 
   Category : parser
@@ -3921,6 +4050,7 @@ so length of outgoing data is always 1 byte larger than original data.
   See also : <a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_through"></a>
 - <B>vce_protocol_unparser_through</B>
+
   Summary : Write data directly into a TCP connection.
 
   Category : parser
@@ -3944,6 +4074,7 @@ Returns minus error indicator value if any error occured.
   See also : <a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_read_plain_text_file"></a>
 - <B>vce_read_plain_text_file</B>
+
   Summary : Read plain text file by callback function
 
   Category : util
@@ -3966,6 +4097,7 @@ which is returned by the callback function.
   See also : <a href="#vce_read_simple_config_file">vce_read_simple_config_file</a>
 <a name="vce_read_simple_config_file"></a>
 - <B>vce_read_simple_config_file</B>
+
   Summary : Read simple text configuration file by callback function
 
   Category : util
@@ -3988,6 +4120,7 @@ which is returned by the callback function.
   See also : <a href="#swp">swp</a><a href="#vce_copy_cstring_upto">vce_copy_cstring_upto</a><a href="#vp">vp</a>
 <a name="vce_replace_malloc_funcs"></a>
 - <B>vce_replace_malloc_funcs</B>
+
   Summary : Replace malloc function used inside VCE.
 
   Category : util
@@ -4012,6 +4145,7 @@ Ignore if this parameter is set NULL.
 
 <a name="vce_set_heartbeat_wait_flag"></a>
 - <B>vce_set_heartbeat_wait_flag</B>
+
   Summary : Control vce_heartbeat's sleep timer adjustment.
 
   Category : core
@@ -4027,6 +4161,7 @@ Ignore if this parameter is set NULL.
   See also : <a href="#vce_heartbeat">vce_heartbeat</a>
 <a name="vce_set_mainloop_callback"></a>
 - <B>vce_set_mainloop_callback</B>
+
   Summary : 
 
   Category : core
@@ -4042,6 +4177,7 @@ Ignore if this parameter is set NULL.
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_mainloop">vce_mainloop</a>
 <a name="vce_set_read_write_log_mode"></a>
 - <B>vce_set_read_write_log_mode</B>
+
   Summary : Set log mode flag to print VCE's read/write system calls
 
   Category : core
@@ -4057,6 +4193,7 @@ Ignore if this parameter is set NULL.
   See also : <a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="vce_set_socket_library_ok"></a>
 - <B>vce_set_socket_library_ok</B>
+
   Summary : Notify VCE that underlying socket library is initialized .
 
   Category : core
@@ -4073,6 +4210,7 @@ otherwise 0.
   See also : <a href="#vce_initialize">vce_initialize</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_set_verbose_mode"></a>
 - <B>vce_set_verbose_mode</B>
+
   Summary : Configure verbose mode for entire VCE library.
 
   Category : core
@@ -4089,6 +4227,7 @@ otherwise 0.
 
 <a name="vce_show_array_usage"></a>
 - <B>vce_show_array_usage</B>
+
   Summary : Print all information about a VCE array.
 
   Category : array
@@ -4119,6 +4258,7 @@ work environment is Win32GUI where the standard error output is not usable.
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_snprintf"></a>
 - <B>vce_snprintf</B>
+
   Summary : wrapper function for libc's snprintf
 
   Category : text
@@ -4140,6 +4280,7 @@ work environment is Win32GUI where the standard error output is not usable.
 
 <a name="vce_strerror"></a>
 - <B>vce_strerror</B>
+
   Summary : Convert VCE error code into string.
 
   Category : err
@@ -4155,6 +4296,7 @@ work environment is Win32GUI where the standard error output is not usable.
   See also : <a href="#vce_get_last_error">vce_get_last_error</a>
 <a name="vce_strerror_close_reason"></a>
 - <B>vce_strerror_close_reason</B>
+
   Summary : Convert VCE CLOSE_REASON code into string.
 
   Category : err
@@ -4170,6 +4312,7 @@ work environment is Win32GUI where the standard error output is not usable.
 
 <a name="vce_tcpcontext_cleanup"></a>
 - <B>vce_tcpcontext_cleanup</B>
+
   Summary : Clean up a TCP context.
 
   Category : tcp
@@ -4187,6 +4330,7 @@ and client context .
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_conn_iterate"></a>
 - <B>vce_tcpcontext_conn_iterate</B>
+
   Summary : Call a function against every element of a tcpcontext_t
 
   Category : 
@@ -4206,6 +4350,7 @@ conn.
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_connect"></a>
 - <B>vce_tcpcontext_connect</B>
+
   Summary : Connect to a remote VCE server and set up a TCP connection.
 
   Category : tcp
@@ -4230,6 +4375,7 @@ To get detailed error , you'll use vce_get_last_error.
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_count_connections"></a>
 - <B>vce_tcpcontext_count_connections</B>
+
   Summary : Count number of connections maintained by a tcpcontext
 
   Category : tcp
@@ -4249,6 +4395,7 @@ It will be ignored if set NULL.
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_create"></a>
 - <B>vce_tcpcontext_create</B>
+
   Summary : Initialize and allocate a TCP context.
 
   Category : tcp
@@ -4326,6 +4473,7 @@ Return NULL pointer if any error.
   See also : <a href="#vce_conn_get_state">vce_conn_get_state</a><a href="#vce_initialize">vce_initialize</a><a href="#vce_initialize_limited">vce_initialize_limited</a><a href="#vce_tcpcontext_cleanup">vce_tcpcontext_cleanup</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_enable_accept"></a>
 - <B>vce_tcpcontext_enable_accept</B>
+
   Summary : PENDING
 
   Category : tcp
@@ -4345,6 +4493,7 @@ Deny all new TCPconnections if set 0.
   See also : <a href="#vce_tcpcontext_close_all_conn">vce_tcpcontext_close_all_conn</a>
 <a name="vce_tcpcontext_get_all_connection"></a>
 - <B>vce_tcpcontext_get_all_connection</B>
+
   Summary : get all connections included in a tcpcontext
 
   Category : tcp
@@ -4367,6 +4516,7 @@ This number must be larger than or equal to zero.
   See also : <a href="#vce_tcpcontext_count_connections">vce_tcpcontext_count_connections</a>
 <a name="vce_tcpcontext_get_stat"></a>
 - <B>vce_tcpcontext_get_stat</B>
+
   Summary : Get tcpcontext's statistics information
 
   Category : tcp
@@ -4386,6 +4536,7 @@ status information in this structure.
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_tcpcontext_protocol_set_maxlength"></a>
 - <B>vce_tcpcontext_protocol_set_maxlength</B>
+
   Summary : pending
 
   Category : tcp
@@ -4411,6 +4562,7 @@ TCP connection.
 
 <a name="vce_tcpcontext_set_accept_max"></a>
 - <B>vce_tcpcontext_set_accept_max</B>
+
   Summary : pending
 
   Category : tcp
@@ -4434,6 +4586,7 @@ TCP connection.
 
 <a name="vce_tcpcontext_set_conn_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_acceptwatcher</B>
+
   Summary : Make TCPcontext use specified accept watcher function
 
   Category : tcp
@@ -4453,6 +4606,7 @@ accepted connection conn_t.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a>
 <a name="vce_tcpcontext_set_conn_call_parser_per_heartbeat"></a>
 - <B>vce_tcpcontext_set_conn_call_parser_per_heartbeat</B>
+
   Summary : Adjust number of times of each conn_t parser call within a heartbeat
 
   Category : tcp
@@ -4471,6 +4625,7 @@ to this parameter.
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_set_conn_closewatcher"></a>
 - <B>vce_tcpcontext_set_conn_closewatcher</B>
+
   Summary : Make TCPcontext use specified close watcher function
 
   Category : tcp
@@ -4488,6 +4643,7 @@ to this parameter.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_finalizer"></a>
 - <B>vce_tcpcontext_set_conn_finalizer</B>
+
   Summary : Make TCPcontext use specified conn_t finalizer .
 
   Category : tcp
@@ -4508,6 +4664,7 @@ being closed.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_set_conn_hiwater_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_hiwater_acceptwatcher</B>
+
   Summary : Set a special high water accept watcher to a TCPcontext
 
   Category : tcp
@@ -4536,6 +4693,7 @@ You can compare it with pre-set max number of sessions.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_kickip_array"></a>
 - <B>vce_tcpcontext_set_conn_kickip_array</B>
+
   Summary : pending
 
   Category : tcp
@@ -4556,6 +4714,7 @@ TCP connection.
 
 <a name="vce_tcpcontext_set_conn_parser"></a>
 - <B>vce_tcpcontext_set_conn_parser</B>
+
   Summary : Make TCPcontext use specified parser function
 
   Category : tcp
@@ -4578,6 +4737,7 @@ data record from the connection.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_tcpcontext_set_equal_io_splitrate"></a>
 - <B>vce_tcpcontext_set_equal_io_splitrate</B>
+
   Summary : Configure number of connections to be flushed to network
 
   Category : tcp
@@ -4597,6 +4757,7 @@ one vce_heartbeat call.
 
 <a name="vce_tcpcontext_timeout_control"></a>
 - <B>vce_tcpcontext_timeout_control</B>
+
   Summary : Configure timeout operation on a tcpcontext_t.
 
   Category : tcp
@@ -4621,6 +4782,7 @@ sets this flag 1.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_userdata_get_pointer"></a>
 - <B>vce_tcpcontext_userdata_get_pointer</B>
+
   Summary : 
 
   Category : tcp
@@ -4634,6 +4796,7 @@ sets this flag 1.
 
 <a name="vce_tcpcontext_userdata_set_pointer"></a>
 - <B>vce_tcpcontext_userdata_set_pointer</B>
+
   Summary : 
 
   Category : tcp
@@ -4649,6 +4812,7 @@ sets this flag 1.
 
 <a name="vce_utime_diff"></a>
 - <B>vce_utime_diff</B>
+
   Summary : get differential time of "struct timeval" in VCEI64 type
 
   Category : util

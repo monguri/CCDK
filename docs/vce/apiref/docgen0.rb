@@ -641,7 +641,7 @@ end
 def make_funcdef_one(funcname,lng)
 #	left_w = 120
 	re  = "<a name=\"#{funcname}\"></a>\n"
-	re += "- <B>#{funcname}</B>\n"
+	re += "- <B>#{funcname}</B>\n\n"
 	sum = $h_summary["func.#{lng}.#{funcname}"]
     re += "  #{$h_def_summary_title[lng]} : #{sum}\n\n"
 	cat = $h_category["func..#{funcname}"]
