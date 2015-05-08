@@ -608,7 +608,7 @@ def make_categoryindex(lng)
 		allfuncs = $h_func_name.keys.sort
 		allfuncs.each { |fn|
 			if( $h_category[ "func..#{fn}" ] == i ) then
-				re += "1. <a href=\"##{fn}\">#{fn}</a>\n\n"
+				re += "1. <a href=\"##{fn}\">#{fn}</a>\n"
 			end
 		}
 		re += "\n"

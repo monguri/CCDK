@@ -202,45 +202,25 @@ arrayカテゴリの関数は、
 Functions:
 
 1. <a href="#ARRAY_SCAN">ARRAY_SCAN</a>
-
 1. <a href="#ARRAY_SCAN_TYPE">ARRAY_SCAN_TYPE</a>
-
 1. <a href="#vce_alloc_array_object">vce_alloc_array_object</a>
-
 1. <a href="#vce_array_object_inuse">vce_array_object_inuse</a>
-
 1. <a href="#vce_end_all_array">vce_end_all_array</a>
-
 1. <a href="#vce_end_array">vce_end_array</a>
-
 1. <a href="#vce_free_array_object">vce_free_array_object</a>
-
 1. <a href="#vce_free_array_object_all">vce_free_array_object_all</a>
-
 1. <a href="#vce_get_array_maxnum">vce_get_array_maxnum</a>
-
 1. <a href="#vce_get_array_member_size">vce_get_array_member_size</a>
-
 1. <a href="#vce_get_array_object_index">vce_get_array_object_index</a>
-
 1. <a href="#vce_get_array_object_last">vce_get_array_object_last</a>
-
 1. <a href="#vce_get_array_object_next">vce_get_array_object_next</a>
-
 1. <a href="#vce_get_array_object_pointer_by_index">vce_get_array_object_pointer_by_index</a>
-
 1. <a href="#vce_get_array_object_pointer_by_index_only_used">vce_get_array_object_pointer_by_index_only_used</a>
-
 1. <a href="#vce_get_array_object_top">vce_get_array_object_top</a>
-
 1. <a href="#vce_get_array_usenum">vce_get_array_usenum</a>
-
 1. <a href="#vce_if_included_in_array">vce_if_included_in_array</a>
-
 1. <a href="#vce_init_array">vce_init_array</a>
-
 1. <a href="#vce_show_array_usage">vce_show_array_usage</a>
-
 
 <a name="bin"></a>
 ### bin
@@ -253,45 +233,25 @@ gen.rb スタブジェネレータの出力コードではこの関数群を基�
 Functions:
 
 1. <a href="#vce_binary_pack">vce_binary_pack</a>
-
 1. <a href="#vce_binary_pop_nb_i1">vce_binary_pop_nb_i1</a>
-
 1. <a href="#vce_binary_pop_nb_i2">vce_binary_pop_nb_i2</a>
-
 1. <a href="#vce_binary_pop_nb_i4">vce_binary_pop_nb_i4</a>
-
 1. <a href="#vce_binary_pop_nb_i8">vce_binary_pop_nb_i8</a>
-
 1. <a href="#vce_binary_pop_nb_ia1">vce_binary_pop_nb_ia1</a>
-
 1. <a href="#vce_binary_pop_nb_ia2">vce_binary_pop_nb_ia2</a>
-
 1. <a href="#vce_binary_pop_nb_ia4">vce_binary_pop_nb_ia4</a>
-
 1. <a href="#vce_binary_pop_nb_ia8">vce_binary_pop_nb_ia8</a>
-
 1. <a href="#vce_binary_pop_nb_stra">vce_binary_pop_nb_stra</a>
-
 1. <a href="#vce_binary_push_nb_i1">vce_binary_push_nb_i1</a>
-
 1. <a href="#vce_binary_push_nb_i2">vce_binary_push_nb_i2</a>
-
 1. <a href="#vce_binary_push_nb_i4">vce_binary_push_nb_i4</a>
-
 1. <a href="#vce_binary_push_nb_i8">vce_binary_push_nb_i8</a>
-
 1. <a href="#vce_binary_push_nb_ia1">vce_binary_push_nb_ia1</a>
-
 1. <a href="#vce_binary_push_nb_ia2">vce_binary_push_nb_ia2</a>
-
 1. <a href="#vce_binary_push_nb_ia4">vce_binary_push_nb_ia4</a>
-
 1. <a href="#vce_binary_push_nb_ia8">vce_binary_push_nb_ia8</a>
-
 1. <a href="#vce_binary_push_nb_stra">vce_binary_push_nb_stra</a>
-
 1. <a href="#vce_binary_unpack">vce_binary_unpack</a>
-
 
 <a name="core"></a>
 ### core
@@ -306,33 +266,19 @@ vce_errout_?? 関数では、VCEアプリケーションのログ出力の操作
 Functions:
 
 1. <a href="#vce_conn_set_delay">vce_conn_set_delay</a>
-
 1. <a href="#vce_errout">vce_errout</a>
-
 1. <a href="#vce_finalize">vce_finalize</a>
-
 1. <a href="#vce_heartbeat">vce_heartbeat</a>
-
 1. <a href="#vce_init_limit_t">vce_init_limit_t</a>
-
 1. <a href="#vce_initialize">vce_initialize</a>
-
 1. <a href="#vce_initialize_limited">vce_initialize_limited</a>
-
 1. <a href="#vce_limit_clear">vce_limit_clear</a>
-
 1. <a href="#vce_mainloop">vce_mainloop</a>
-
 1. <a href="#vce_set_heartbeat_wait_flag">vce_set_heartbeat_wait_flag</a>
-
 1. <a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
-
 1. <a href="#vce_set_read_write_log_mode">vce_set_read_write_log_mode</a>
-
 1. <a href="#vce_set_socket_library_ok">vce_set_socket_library_ok</a>
-
 1. <a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
-
 
 <a name="err"></a>
 ### err
@@ -342,11 +288,8 @@ Functions:
 Functions:
 
 1. <a href="#vce_get_last_error">vce_get_last_error</a>
-
 1. <a href="#vce_strerror">vce_strerror</a>
-
 1. <a href="#vce_strerror_close_reason">vce_strerror_close_reason</a>
-
 
 <a name="log"></a>
 ### log
@@ -359,9 +302,7 @@ VCEログフォーマットについては、<a href="monitor.html">「VCEモニ
 Functions:
 
 1. <a href="#vce_get_netstat_string">vce_get_netstat_string</a>
-
 1. <a href="#vce_get_stat">vce_get_stat</a>
-
 
 <a name="parser"></a>
 ### parser
@@ -373,21 +314,13 @@ VCE ではこのようにレコード単位のプロトコル処理を基本と�
 Functions:
 
 1. <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a>
-
 1. <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a>
-
 1. <a href="#vce_protocol_parser_text">vce_protocol_parser_text</a>
-
 1. <a href="#vce_protocol_parser_through">vce_protocol_parser_through</a>
-
 1. <a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a>
-
 1. <a href="#vce_protocol_unparser_bin32">vce_protocol_unparser_bin32</a>
-
 1. <a href="#vce_protocol_unparser_text">vce_protocol_unparser_text</a>
-
 1. <a href="#vce_protocol_unparser_through">vce_protocol_unparser_through</a>
-
 
 <a name="pcallback"></a>
 ### pcallback
@@ -401,13 +334,9 @@ parser によってレコード単位に分割されたデータを処理する�
 Functions:
 
 1. <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a>
-
 1. <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a>
-
 1. <a href="#vce_protocol_pcallback_echo_text">vce_protocol_pcallback_echo_text</a>
-
 1. <a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a>
-
 
 <a name="tcp"></a>
 ### tcp
@@ -424,111 +353,58 @@ VCEにおける
 Functions:
 
 1. <a href="#vce_conn_break_heartbeat">vce_conn_break_heartbeat</a>
-
 1. <a href="#vce_conn_clear">vce_conn_clear</a>
-
 1. <a href="#vce_conn_close">vce_conn_close</a>
-
 1. <a href="#vce_conn_close_tcpcontext_all">vce_conn_close_tcpcontext_all</a>
-
 1. <a href="#vce_conn_get_buffer">vce_conn_get_buffer</a>
-
 1. <a href="#vce_conn_get_index">vce_conn_get_index</a>
-
 1. <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
-
 1. <a href="#vce_conn_get_local_ipv4_addr">vce_conn_get_local_ipv4_addr</a>
-
 1. <a href="#vce_conn_get_local_ipv4_addr_string">vce_conn_get_local_ipv4_addr_string</a>
-
 1. <a href="#vce_conn_get_local_ipv6_addr">vce_conn_get_local_ipv6_addr</a>
-
 1. <a href="#vce_conn_get_local_ipv6_addr_string">vce_conn_get_local_ipv6_addr_string</a>
-
 1. <a href="#vce_conn_get_remote_addr_string">vce_conn_get_remote_addr_string</a>
-
 1. <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
-
 1. <a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a>
-
 1. <a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
-
 1. <a href="#vce_conn_get_remote_ipv6_addr_string">vce_conn_get_remote_ipv6_addr_string</a>
-
 1. <a href="#vce_conn_get_stat">vce_conn_get_stat</a>
-
 1. <a href="#vce_conn_get_state_buffer">vce_conn_get_state_buffer</a>
-
 1. <a href="#vce_conn_get_struct_from_index">vce_conn_get_struct_from_index</a>
-
 1. <a href="#vce_conn_get_tcpcontext">vce_conn_get_tcpcontext</a>
-
 1. <a href="#vce_conn_is_equal">vce_conn_is_equal</a>
-
 1. <a href="#vce_conn_is_valid">vce_conn_is_valid</a>
-
 1. <a href="#vce_conn_set_parser">vce_conn_set_parser</a>
-
 1. <a href="#vce_conn_set_timeout">vce_conn_set_timeout</a>
-
 1. <a href="#vce_conn_show_stat">vce_conn_show_stat</a>
-
 1. <a href="#vce_conn_shrink_readbuf">vce_conn_shrink_readbuf</a>
-
 1. <a href="#vce_conn_userdata_get_pointer">vce_conn_userdata_get_pointer</a>
-
 1. <a href="#vce_conn_userdata_set_pointer">vce_conn_userdata_set_pointer</a>
-
 1. <a href="#vce_conn_writable">vce_conn_writable</a>
-
 1. <a href="#vce_conn_write">vce_conn_write</a>
-
 1. <a href="#vce_conn_writed">vce_conn_writed</a>
-
 1. <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
-
 1. <a href="#vce_get_tcp_packet_write_size">vce_get_tcp_packet_write_size</a>
-
 1. <a href="#vce_tcpcontext_cleanup">vce_tcpcontext_cleanup</a>
-
 1. <a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
-
 1. <a href="#vce_tcpcontext_count_connections">vce_tcpcontext_count_connections</a>
-
 1. <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
-
 1. <a href="#vce_tcpcontext_enable_accept">vce_tcpcontext_enable_accept</a>
-
 1. <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
-
 1. <a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
-
 1. <a href="#vce_tcpcontext_protocol_set_maxlength">vce_tcpcontext_protocol_set_maxlength</a>
-
 1. <a href="#vce_tcpcontext_set_accept_max">vce_tcpcontext_set_accept_max</a>
-
 1. <a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
-
 1. <a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
-
 1. <a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a>
-
 1. <a href="#vce_tcpcontext_set_conn_finalizer">vce_tcpcontext_set_conn_finalizer</a>
-
 1. <a href="#vce_tcpcontext_set_conn_hiwater_acceptwatcher">vce_tcpcontext_set_conn_hiwater_acceptwatcher</a>
-
 1. <a href="#vce_tcpcontext_set_conn_kickip_array">vce_tcpcontext_set_conn_kickip_array</a>
-
 1. <a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
-
 1. <a href="#vce_tcpcontext_set_equal_io_splitrate">vce_tcpcontext_set_equal_io_splitrate</a>
-
 1. <a href="#vce_tcpcontext_timeout_control">vce_tcpcontext_timeout_control</a>
-
 1. <a href="#vce_tcpcontext_userdata_get_pointer">vce_tcpcontext_userdata_get_pointer</a>
-
 1. <a href="#vce_tcpcontext_userdata_set_pointer">vce_tcpcontext_userdata_set_pointer</a>
-
 
 <a name="text"></a>
 ### text
@@ -542,7 +418,6 @@ Functions:
 
 1. <a href="#vce_snprintf">vce_snprintf</a>
 
-
 <a name="util"></a>
 ### util
 <p>utilカテゴリの関数群は、
@@ -552,75 +427,40 @@ VCEアプリケーションの開発をしていく時に有用である。
 Functions:
 
 1. <a href="#ELEMENTOF">ELEMENTOF</a>
-
 1. <a href="#FREE">FREE</a>
-
 1. <a href="#GET_16BIT_INT">GET_16BIT_INT</a>
-
 1. <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a>
-
 1. <a href="#GET_32BIT_INT">GET_32BIT_INT</a>
-
 1. <a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a>
-
 1. <a href="#GET_64BIT_INT">GET_64BIT_INT</a>
-
 1. <a href="#GET_64BIT_NATIVEINT">GET_64BIT_NATIVEINT</a>
-
 1. <a href="#GET_8BIT_INT">GET_8BIT_INT</a>
-
 1. <a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
-
 1. <a href="#MALLOC">MALLOC</a>
-
 1. <a href="#MAX">MAX</a>
-
 1. <a href="#MIN">MIN</a>
-
 1. <a href="#SET_16BIT_INT">SET_16BIT_INT</a>
-
 1. <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a>
-
 1. <a href="#SET_32BIT_INT">SET_32BIT_INT</a>
-
 1. <a href="#SET_32BIT_NATIVEINT">SET_32BIT_NATIVEINT</a>
-
 1. <a href="#SET_64BIT_INT">SET_64BIT_INT</a>
-
 1. <a href="#SET_64BIT_NATIVEINT">SET_64BIT_NATIVEINT</a>
-
 1. <a href="#SET_8BIT_INT">SET_8BIT_INT</a>
-
 1. <a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
-
 1. <a href="#STRERR">STRERR</a>
-
 1. <a href="#vce_atoi">vce_atoi</a>
-
 1. <a href="#vce_dump_buffer">vce_dump_buffer</a>
-
 1. <a href="#vce_extract_data_from_hex_text">vce_extract_data_from_hex_text</a>
-
 1. <a href="#vce_get_current_utime">vce_get_current_utime</a>
-
 1. <a href="#vce_get_ipv4_addr_by_name">vce_get_ipv4_addr_by_name</a>
-
 1. <a href="#vce_make_binary_array_from_hex">vce_make_binary_array_from_hex</a>
-
 1. <a href="#vce_make_binary_array_from_line">vce_make_binary_array_from_line</a>
-
 1. <a href="#vce_make_hex_from_binary_array">vce_make_hex_from_binary_array</a>
-
 1. <a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
-
 1. <a href="#vce_read_plain_text_file">vce_read_plain_text_file</a>
-
 1. <a href="#vce_read_simple_config_file">vce_read_simple_config_file</a>
-
 1. <a href="#vce_replace_malloc_funcs">vce_replace_malloc_funcs</a>
-
 1. <a href="#vce_utime_diff">vce_utime_diff</a>
-
 
 <a name="watcher"></a>
 ### watcher
@@ -630,11 +470,8 @@ Functions:
 Functions:
 
 1. <a href="#vce_protocol_acceptwatcher_deny">vce_protocol_acceptwatcher_deny</a>
-
 1. <a href="#vce_protocol_acceptwatcher_noop">vce_protocol_acceptwatcher_noop</a>
-
 1. <a href="#vce_protocol_closewatcher_noop">vce_protocol_closewatcher_noop</a>
-
 
 ## 全関数定義
 <!-- make_funcdef start -->
