@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../vce.css" type="text/css">
+<title> VCE-SDK ツールマニュアル </title>
+</head>
+<body>
+<h1> VCE-SDK ツールマニュアル </h1>
+<h2>各ツールの名前順目次</h2>
+<!-- make_tool_nameindex -->
+<ol>
+<li><a href="#bufsplice">bufsplice</a></li>
+<li><a href="#gen.rb">gen.rb</a></li>
+<li><a href="#shasum">shasum</a></li>
+<li><a href="#stderrback.rb">stderrback.rb</a></li>
+<li><a href="#swp">swp</a></li>
+<li><a href="#swpadm">swpadm</a></li>
+<li><a href="#vceprof.rb">vceprof.rb</a></li>
+</ol>
+<h2>各ツールの説明</h2>
+<!-- make_tooldef -->
+<a name="bufsplice"></a>
+<table id="tooldef">
+<tr><th colspan="2" id="tooldef_title">
+<B>bufsplice</B></th></tr>
+<tr><th>概要</th><td>ファイルの内容を短冊状に切り出して、stdoutに表示する</td></tr>
+<tr><th>対応OS</th><td>linux(32bit)</td></tr>
+<tr><th>使用法</th><td>bufsplice INFILE N M
+</td></tr>
+<tr><th>詳細説明</th><td>NバイトごとにMバイトを出力する。
+共有メモリのチェック用である。
+</td></tr>
+</table><br><br>
+<a name="gen.rb"></a>
+<table id="tooldef">
+<tr><th colspan="2" id="tooldef_title">
+<B>gen.rb</B></th></tr>
+<tr><th>概要</th><td>プロトコル処理用関数自動生成する</td></tr>
+<tr><th>対応OS</th><td>linux(32bit/64bit),win32</td></tr>
+<tr><th>使用法</th><td>ruby gen.rb [オプション] プロトコル定義ファイル名
+</td></tr>
+<tr><th>詳細説明</th><td>簡単な書式のプロトコル定義ファイルを読みこみ、Win32/UNIXでコンパイル可能な C言語ソースコード、Rubyから利用可能なRubyのソースコードを出力する。
+VCE上のRPCを簡単に実現するためのツールである。<br>
+詳細は、<a href="gen.html">gen.rb プロトコルジェネレータリファレンス</a>を参照。
+</td></tr>
+</table><br><br>
+<a name="shasum"></a>
+<table id="tooldef">
+<tr><th colspan="2" id="tooldef_title">
+<B>shasum</B></th></tr>
+<tr><th>概要</th><td>SHA-1 でファイルチェックサムを取得する</td></tr>
+<tr><th>対応OS</th><td>linux(32bit)</td></tr>
+<tr><th>使用法</th><td>shasum INFILE
+</td></tr>
+<tr><th>詳細説明</th><td><a href="vce-api.html#vce_sha1_file_checksum">vce_sha1_file_checksum関数</a>
+を用いてファイルのチェックサムを取得する。
+</td></tr>
+</table><br><br>
+<a name="stderrback.rb"></a>
+<table id="tooldef">
+<tr><th colspan="2" id="tooldef_title">
+<B>stderrback.rb</B></th></tr>
+<tr><th>概要</th><td>VCEのログ出力ファイルを自動的に圧縮</td></tr>
+<tr><th>対応OS</th><td>linux(32bit)</td></tr>
+<tr><th>使用法</th><td>ruby stderrback.rb ディレクトリ名
+</td></tr>
+<tr><th>詳細説明</th><td>指定したディレクトリの中のログファイル(stderr.N形式)で最新でないものを
+自動的に圧縮する。圧縮までしかしないので、
+圧縮されたものを取りだすのは手作業で取りだす。
+cron を使って一定時間ごとにチェックするようにしておけば便利である。
+gzip プログラムに依存している。
+</td></tr>
+</table><br><br>
+<a name="swp"></a>
+<table id="tooldef">
+<tr><th colspan="2" id="tooldef_title">
+<B>swp</B></th></tr>
+<tr><th>概要</th><td>コネクションスイッチ中継サーバ</td></tr>
+<tr><th>対応OS</th><td>linux(32bit/64bit),win32</td></tr>
+<tr><th>使用法</th><td>swp 設定ファイル サーバリスト
+</td></tr>
+<tr><th>詳細説明</th><td>アプリケーションのクライアントとサーバの間におく中継用サーバである。
+<pre>
+swp     (32bit Linux用)
+swp_64  (64bit Linux用)
+swp.exe (32bit Windows用)
+</pre>
+パケットの暗号化/復号化や圧縮/解凍の処理をswpが全て引き受けることによって、
+サーバのトランザクション処理性能を向上させることができる。
+また、swpを設置することによってサーバとクライアント間に一種のゲートウェイが
+介在することになるため、セキュリティが向上する。<br>
+swpにはスイッチング機能も備えているが、
+クライアント、サーバ間のレスポンスが良くなった現在では、
+ほとんどのアプリケーションではクライアント側でスイッチング機能を組込むことを
+推奨する。
+swpでスイッチングを行うことによりサーバ側により複雑なロジックが組込まれる
+ことになり、デバッグが困難になるからである。
+VCE 2.0 ではswpの仕様は大きく変る予定である。<br>
+詳細は、<a href="switch.html">SWP 機能解説</a>を参照。<br><br>
+<b>Windows版を使用するときの注意</b><br>
+Windowsでは、OSの仕様により、同じポートを使用して複数のswpを起動することができる(bind errorは発生しない)。起動時に注意が必要である。<br>
+</td></tr>
+</table><br><br>
+<a name="swpadm"></a>
+<table id="tooldef">
+<tr><th colspan="2" id="tooldef_title">
+<B>swpadm</B></th></tr>
+<tr><th>概要</th><td>swpのリモート操作用ツール</td></tr>
+<tr><th>対応OS</th><td>linux(32bit/64bit),win32</td></tr>
+<tr><th>使用法</th><td>swp 設定ファイル サーバリスト
+</td></tr>
+<tr><th>詳細説明</th><td><pre>
+swpadm     (32bit Linux用)
+swpadm_64  (64bit Linux用)
+swpadm.exe (32bit Windows用)
+</pre>
+詳細は、<a href="switch.html#swpadm">SWP 機能解説</a>を参照。
+</td></tr>
+<tr><th>使用例</th><td><pre>swpadm localhost 9002 key shutdown</pre>
+</td></tr>
+</table><br><br>
+<a name="vceprof.rb"></a>
+<table id="tooldef">
+<tr><th colspan="2" id="tooldef_title">
+<B>vceprof.rb</B></th></tr>
+<tr><th>概要</th><td>topコマンドの出力を画像化する。</td></tr>
+<tr><th>対応OS</th><td>linux(32bit)</td></tr>
+<tr><th>使用法</th><td>ruby vceprof.rb [サーバプログラム名]
+</td></tr>
+<tr><th>詳細説明</th><td>topコマンドの出力をgnuplotを使って画像にするスクリプト。ruby 1.8.0以上、gnuplot 3.5以上が必要。詳細は、<a href="vceprof.html">パフォーマンス計測ツール</a> を参照。
+</td></tr>
+<tr><th>使用例</th><td><pre>top -b -n240 -d1 -p15578 > vceprof.txt
+ruby vceprof.rb gmsv</pre>
+</td></tr>
+</table><br><br>
+<!-- make_tooldef end -->
+<BR><BR>
+<p><a href="index.html">indexに戻る</a><br></p>
+<div id="footer">
+Copyright 2000-2005 Community Engine Inc. All rights reserved.
+</div>
+</body>
+</html>
