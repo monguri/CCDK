@@ -111,8 +111,6 @@
 
 require "kconv"
 
-# 各種データ
-$s_translation_part_file = "translation_part.ringo"
 
 # まず設定ファイルを読みこむ
 $s_fileprefix = "docgen-"
@@ -168,7 +166,6 @@ $s_name = ""
 $s_lang = ""   
 $s_second_parm =""
 $i_argcount = 0
-$i_extract_translation_part = 0
 $s_primary_lang = ""
 
 
@@ -185,7 +182,6 @@ def main
 		exit 0
 	end
 
-    `rm -f #{$s_translation_part_file}`
 	i_lineno=0
 
 	File.open( "docgen.conf" ,"r" ).readlines.each { |i|
@@ -208,8 +204,6 @@ def main
 			}
         elsif( command == "primary_lang" ) then
             $s_primary_lang = tk.shift
-        elsif( command == "extract_translation_part" ) then
-            $i_extract_translation_part = tk.shift.to_i
 		elsif( command == "nkfopt" ) then
 			$s_nkfopt = tk.shift
 		elsif( command == "apidoctitle" ) then
@@ -759,8 +753,6 @@ def make_funcdef_one(funcname,lng)
 		re += "<tr><th></th><td>#{argdef}</td></tr>\n"
         if( argdef == "") then
             primlang_argdef = $h_argdef["func.#{$s_primary_lang}.#{funcname}.#{i}"]
-            output_translation_part("#{funcname} arg #{i}",
-                                    primlang_argdef )
         end
 	}
 
@@ -769,8 +761,6 @@ def make_funcdef_one(funcname,lng)
 	re += "<td>#{retd}</td></tr>\n"
     if( retd == "" ) then
         primlang_retd = $h_return[ "func.#{$s_primary_lang}.#{funcname}"]
-        output_translation_part( "#{funcname} Return definition",
-                                primlang_retd );
     end
 
 	desc = $h_description[ "func.#{lng}.#{funcname}" ]
@@ -778,8 +768,6 @@ def make_funcdef_one(funcname,lng)
 	re += "<td>#{desc}</td></tr>\n"
     if( desc == "" ) then
         primlang_desc = $h_description[ "func.#{$s_primary_lang}.#{funcname}"]
-        output_translation_part( "#{funcname} Description",
-                                primlang_desc );
     end
 	
 	smp = $h_sample[ "func.#{lng}.#{funcname}" ]
@@ -789,8 +777,6 @@ def make_funcdef_one(funcname,lng)
 	end
     if( smp == "" ) then
         primlang_smp = $h_sample[ "func.#{$s_primary_lang}.#{funcname}"]
-        output_translation_part( "#{funcname} Sample",
-                                primlang_smp );
     end
 
 	bugs = $h_bugs[ "func.#{lng}.#{funcname}" ]
@@ -800,8 +786,6 @@ def make_funcdef_one(funcname,lng)
 	end
     if( bugs == "" ) then
         primlang_bugs = $h_bugs[ "func.#{$s_primary_lang}.#{funcname}"]
-        output_translation_part( "#{funcname} Bugs",
-                                primlang_bugs );
     end
 
 	also = $h_also[ "func..#{funcname}" ]
@@ -1006,15 +990,6 @@ def get_http_equiv_encode( lng, nkfopt )
 end
 
 
-def output_translation_part( headline, string )
-    return if( $i_extract_translation_part == 0 ) 
-    f = File.open( $s_translation_part_file, "a+")
-    f.print "\n"
-    f.print "------------------------------------------------------\n"
-    f.print headline , "\n\n"
-    f.print string , "\n"
-    f.close
-end
 
 
 def do_Kconv( nkfopt, str )
