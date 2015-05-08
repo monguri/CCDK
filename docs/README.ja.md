@@ -8,7 +8,7 @@ CCDKドキュメント
 * [バックエンドサーバーの使い方](./Backend_Howto.ja.md)
 
 * VCEの使い方
-  * [VCE APIリファレンス](vce/apiref/out/ja/vce-api.html)
+  * [VCE APIリファレンス](vce/apiref/out/vce-api-ja.html)
   * [VCEエラーコードとエラーメッセージ](vce/ecode_ja.md)
   * [TCPコンテキスト](vce/tcpcontext_ja.md)
   * [VCE FAQ](vce/faq_ja.md)
