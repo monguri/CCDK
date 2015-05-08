@@ -47,16 +47,13 @@ VCEでは2通りの方法でエラーを判別します。
 - ```#define VCE_EPROTO_TOOLONG (-24)``` プロトコルの入力データが長すぎる
 - ```#define VCE_ENOCALLBACK (-25)``` コールバック関数が未定義である
 - ```#define VCE_ESUPPORT  (-26)``` 現在はサポートされていない
-- ```#define VCE_ECIRCSERIAL (-27)``` circ_tのシリアル番号が異なるためI/O不能
 - ```#define VCE_ECONNSERIAL (-28)``` conn_tのシリアル番号が異なるためI/O不能
 - ```#define VCE_EVECNOTREADY (-29)``` パケットベクトライザが準備できていない。
-- ```#define VCE_ENOCIRCPARENT (-30)``` 仮想回路が含まれているはずのTCPコネクションが存在しない
 - ```#define VCE_EALIGNMENT (-32)``` 指定されたオブジェクトのアラインメントがおかしい
 - ```#define VCE_EFORMAT (-33)``` 文字列のフォーマットが異常である
 - ```#define VCE_ESEARCH (-34)``` サーチエンジン内部エラー
 - ```#define VCE_ECONTENTLEN (-35)``` プロトコルのレコードのデータ部の長さがおかしい
 - ```#define VCE_ECONNINIT (-36)``` コネクション表が初期化されていない
-- ```#define VCE_EBADKEYLEN (-37 )``` 暗号化キーの長さがおかしい
 - ```#define VCE_EACCEPT (-38 )``` acceptシステムコールが失敗した
 - ```#define VCE_ESETSOCKOPT (-39)```  setsockoptシステムコールが失敗した
 - ```#define VCE_EACCESSFILE (-40)``` ファイルにアクセスできない
@@ -70,8 +67,7 @@ VCEでは2通りの方法でエラーを判別します。
 - ```#define VCE_EPROTO_BADCOMMAND (-50)``` そのようなプロトコルコマンドはない
 - ```#define VCE_EFOPEN_W (-51)``` 書きこみのためにファイルを開けない
 - ```#define VCE_ERENAME (-52)``` rename(2) システムコールが失敗した
-- ```#define VCE_ENOMORELOCK (-53)``` これ以上ロックを受けいれることができない
-- ```#define VCE_ENOTFOUND (-54)``` 何かが見つからない(vce_get_???_search)
+- ```#define VCE_ENOTFOUND (-54)``` 何かが見つからない
 - ```#define VCE_ELENTOOLONG (-55)``` 長さの指定が大きすぎ
 - ```#define VCE_EDATASHORT (-56)``` データ部分が短かすぎる
 - ```#define VCE_EOPENDIR (-57)``` ディレクトリを開くことができない
@@ -86,9 +82,6 @@ VCEでは2通りの方法でエラーを判別します。
 - ```#define VCE_ENOCRYPTO (-66)``` そのようなブロック鍵暗号アルゴリズムは存在しない
 - ```#define VCE_ETOOLONGNAME (-67)``` 指定された名前は、長すぎる
 - ```#define VCE_ESIZE (-68)``` 指定されたサイズは異常
-- ```#define VCE_ETASK (-69)``` 内部で使用するタスクを初期化できない
-- ```#define VCE_ETASKG (-70)``` 内部で使用するタスクグループを初期化できない
-- ```#define VCE_EMORESENDBUF (-77)``` より多くの送信バッファを必要としている。circ_t を利用している場合で、SWP への送信バッファが足りない場合に、書きこみ関数からこのエラーが返る。
 - ```#define VCE_EINIT (-78)``` VCE が初期化されていないのに VCE の関数を呼ぼうとした。
 - ```#define VCE_EARRAY (-79)``` VCE が内部で必要としている配列エンジンが不足している。vce_initialize_limited 関数で max_array メンバを調整するとよい。
 
@@ -112,9 +105,9 @@ OSの設定が不足している(ポートの問題や、空きメモリ、パ�
 
 - ```Fatal:1000 cannot initialize winsock``` Winsock を初期化できない
 - ```Fatal:1003 array table scarcity (init_array)``` 配列表の残り数が不足している。 vce_init_array の回数が多すぎる。 配列リークしていないかチェックせよ。
-- ```Fatal:1010 MALLOC fail (index=%d)``` MALLOC ( malloc のラッパ) が失敗してマスターバッファを確保できない。ほぼメモリ不足が原因。
-- ```Fatal:1011 MALLOC fail (index=%d)``` MALLOC ( malloc のラッパ) が失敗してエントリリストを確保できない。ほぼメモリ不足が原因。
-- ```Fatal:1012 MALLOC fail (index=%d)``` MALLOC ( malloc のラッパ) が失敗して使用リストを確保できない。ほぼメモリ不足が原因。
+- ```Fatal:1010 MALLOC fail (index=%d)``` MALLOC ( malloc のラッパ) が失敗してマスターバッファを確保できない。
+- ```Fatal:1011 MALLOC fail (index=%d)``` MALLOC ( malloc のラッパ) が失敗してエントリリストを確保できない。
+- ```Fatal:1012 MALLOC fail (index=%d)``` MALLOC ( malloc のラッパ) が失敗して使用リストを確保できない。
 - ```Fatal:1020 array full in %s``` 配列の空き要素がひとつもない。予期せずこれが出力されたときは vce_free_array_object し忘れを確認せよ
 - ```Fatal:1050 odd buffer size: %d``` バッファサイズが、「割りきれない数」になっている。
 - ```Fatal:1080 please set buffer with length of n*256 bytes.``` 256の倍数以外の長さをもつバッファです。
@@ -186,7 +179,7 @@ VCE が Fatal や Warning のメッセージを出力しているときに、そ
 - ```Note:10322 conn_t detected write error on fd %d (%s)``` TCPにおいて write が-1 を返した。errno の値を表示。
 - ```Note:10323 conn_t detected encryption negotiation error on fd %d error code:%d``` 暗号化セッションの初期化ネゴシエーションに失敗、セッション成立せず
 - ```Note:10326 conn_t detected protocol error on fd %d error code: %d``` プロトコル関数(vce_protocol_parser_bin16など)がエラーコード(負)を返した
-- ```Note:10342 allocated state buffer for conn.```	  コネクション(仮想回路ではない)に対して状態管理バッファを割りあてた。
+- ```Note:10342 allocated state buffer for conn.```	  コネクションに対して状態管理バッファを割りあてた。
 - ```Note:10345 vce_tcpcontext_create could allocate state buffer.``` vce_tcpcontext_create 関数は、無事に状態管理バッファをわりあてることができた。
 - ```Note:10347 freed state buffer for conn``` 状態管理バッファを解放できた。
 - ```Note:10400: vce: finalized``` VCEが正常に終了した。 vce_finalize 関数が成功すると出力される。
