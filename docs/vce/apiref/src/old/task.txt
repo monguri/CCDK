@@ -1,0 +1,400 @@
+#
+# document for VCE auto-generated reference [task.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: task.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_taskgroup_create
+<prototype>taskgroup_t vce_taskgroup_create( VCEI64 granu_us, int num, int worksize, int per_loop, char *name )
+<cat>task
+<arch>linux,win32,darwin
+<sum ja>VCE 内にタスクグループを初期化する。
+<sum en>Initialize task-group in VCE
+<arg>VCEI64 granu_us
+<argdef ja>
+タイマーチェックの解像度を設定する(マイクロ秒)。
+VCE はここで指定されているマイクロ秒ごとに、
+そのタスクグループに属するタスクについて、
+呼びだし時期がきているかどうか調べる。これを「インターバルチェック」という。
+</argdef>
+<argdef en>
+</argdef>
+<arg>int num
+<argdef ja>
+タスクグループに属するタスクの最大個数。
+</argdef>
+<arg>int worksize
+<argdef ja>
+各タスクのコールバック関数に引数として渡されるワークメモリ領域のサイズ。
+VCE 内部で1個のバッファを分割しているので、
+アラインメントが悪い場合は性能に関する警告が表示される場合がある。
+</argdef>
+<argdef en>
+</argdef>
+<arg>int per_loop
+<argdef ja>
+1回のインターバルチェックで時刻チェックをするアクティブなタスクの個数。
+1回のインターバルチェックで全部のタスクについてチェックすると、
+ある1回の vce_heartbeat のときに負荷が集中することになる。
+それを均一化するために、1回のインターバルチェックで時刻をチェックする
+アクティブなタスクの数を制限できる。
+タスクはラウンドロビンで、前から順番に処理される。
+したがって、 たとえば アクティブなタスク が 1000 で per_loop が 10 の場合、
+100 回の vce_heartbeat 呼びだしごとに1周、チェックがまわってくることになる。
+この設定は、呼びだし頻度や性能と直結しているので注意が必要である。
+</argdef>
+<argdef en>
+</argdef>
+<arg>char *name
+<argdef ja>
+タスクの名前
+</argdef>
+<argdef en>
+Name of this task.
+</argdef>
+<return ja>
+初期化に成功したら有効なポインタ、 失敗したらヌルポインタを返す
+返り値はポインタだが， taskgroup_t にtypedef されている．
+</return>
+<return en>
+Returns valid pointer if successful, otherwise NULL pointer.
+Please note that type of return values is taskgroup_t, which is
+typedef'ed.
+</return>
+<desc ja>
+VCE が持っているコールバックベースのタスク管理機構を初期化する。
+目的に応じて各パラメータを設定することが性能上重要である。
+以下に、アプリケーションの目的ごとにガイドラインを示す。
+<ul>
+<LI>サーバー集中型のゲームアプリケーションにおける、 NPCの動作<BR>
+granu=0 num=数千〜数万, per_loop=数百〜1000
+<LI>各クライアントに対して ping/pong を撃つ場合<BR>
+granu=100*1000, num=2000, per_loop=10<BR>
+</ul>
+通常の Intel マシンの場合、
+vce_heartbeat ごとに 10000 以上のタスクの時刻チェックをするような設定に
+してしまうと性能低下を招く恐れがあり、
+おそらくその設定は適切でない。
+そこでタスクの設定に関するパフォーマンスチューニングを可能にするために、
+vce_taskgroup_get_stat 関数でコールバック関数の呼びだし回数や
+チェック回数を取得できるようにした。
+これにより vce_heartbeat 関数の前後で取得した値を比較することができる。
+</desc>
+<desc en>
+</desc>
+<bugs ja>
+本関数はマイクロ秒単位のタイマが利用できる環境でしか精密には動作しない．
+したがって linux,win32 以外の環境ではは精密には動作しない．
+</bugs>
+<bugs en>
+</bugs>
+<also>vce_taskgroup_cleanup,vce_taskcontext_create,vce_set_verbose_mode,vce_heartbeat
+</func>
+
+<func>
+<name>vce_taskgroup_cleanup
+<prototype>void vce_taskgroup_cleanup( taskgroup_t tp )
+<arch>linux,win32,darwin
+<cat>task
+<sum ja>タスクグループを解放する
+<sum en>Free and clean up a task group
+<arg>taskgroup_t tp
+<argdef ja>
+解放したいタスクグループ
+</argdef>
+<argdef en>
+A task group to be freed.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+タスクグループを解放すると、すべてのタスクが停止する。
+</desc>
+<desc en>
+By freeing taskgroup, all related taskcontext will be stopped.
+</desc>
+<also>vce_taskgroup_create
+</func>
+
+<func>
+<name>vce_taskgroup_set_scan_log_mode
+<prototype>void vce_taskgroup_set_scan_log_mode( taskgroup_t tp, int v )
+<cat>task
+<sum ja>タスクのデバッグログ出力を調節する．
+<sum en>Configure taskgroup debug log output
+<arch>linux,win32,darwin
+<arg>taskgroup_t tp
+<argdef ja>
+設定対象の taskgroup
+</argdef>
+<argdef en>
+taget taskgroup
+</argdef>
+<arg>int v
+<argdef ja>
+0なら出力なし，非ゼロならあり
+</argdef>
+<argdef en>
+Output debug log if not zero. Quiet if zero.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+タスクグループは複数のタスクを管理していて，
+ラウンドロビン(順繰り)方式でタスクを起動していく．
+多くのアプリケーションにおいて，すべてのタスクが正しい頻度で
+起動されるかを調べるために，本当に期待した頻度で全タスクの
+スキャンが完了しているかを知りたいことが多い．
+本関数は，あるタスクグループに属しているすべてのタスクコンテキストの
+スキャンが終了するたびに1回づつ，スキャンが完了したことを示すログ
+を出力する．現在は以下のような文字列を出力する．
+<pre>
+[task TASKNAME scan complete]
+</desc>
+<desc en>
+</desc>
+<also>vce_taskgroup_create
+</func>
+
+<func>
+<name>vce_taskcontext_create
+<prototype>taskcontext_t vce_taskcontext_create( taskgroup_t tp, VCEI64 interval_us, int (*callback)( taskcontext_t tp, char *work, int len ), char *wk, int len )
+<arch>linux,win32,darwin
+<cat>task
+<sum ja>タスクを生成する。
+<sum en>Create a task context.
+<arg>taskgroup_t tp
+<argdef ja>
+作られたタスクが所属するタスクグループ
+</argdef>
+<argdef en>
+Specify a task group. New task will belong to this task group.
+</argdef>
+<arg>VCEI64 interval_us
+<argdef ja>
+タスクのコールバック関数が呼びだされる間隔(microseconds)．
+</argdef>
+<argdef en>
+Interval time(microseconds) of task callback function.
+Task callback function will be invocated this interval.
+</argdef>
+<arg>int (*callback)( taskcontext_t tp, char * work, int len )
+<argdef ja>
+タスクのコールバック関数。
+tp には、タスク自体が入る。work はワークメモリ領域のポインタ。
+len はワーク領域の長さ。
+このコールバック関数は、0をかえすと次回も呼びだされる。
+0より小さい値を返すと、2度と呼びだされることはなく、自動的に cleanup される。
+</argdef>
+<argdef en>
+</argdef>
+<arg>char *wk
+<argdef ja>
+ワーク領域を初期化するバッファの先頭アドレス。
+NULL を指定すると、ワーク領域をもつタスクの場合はゼロ初期化する。
+ワーク領域のないタスクの場合は何もしない。
+</argdef>
+<argdef en>
+</argdef>
+<arg>int len
+<argdef ja>
+ワーク領域の長さ。
+</argdef>
+<argdef en>
+Length of work area.
+</argdef>
+<desc ja>
+タスクグループに属するタスクを生成する。
+生成時に、ワーク領域を初期化することができる。
+</desc>
+<desc en>
+</desc>
+<also>vce_taskgroup_create
+</func>
+
+<func>
+<name>vce_taskcontext_cleanup
+<prototype>void vce_taskcontext_cleanup( taskcontext_t tp )
+<cat>task
+<arch>linux,win32,darwin
+<sum ja>タスクを解放する
+<sum en>Free and clean up task data structure
+<arg>taskcontext_t tp
+<argdef ja>
+解放したいタスク
+</argdef>
+<argdef en>
+A task to be freed
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+タスクを解放する。
+解放すると、コールバック関数は二度と呼ばれなくなる。
+</desc>
+<desc en>
+Free taskcontext.
+After this, task's callback function will never invoked.
+</desc>
+<also>vce_taskgroup_create,vce_taskcontext_create
+</func>
+
+<func>
+<name>vce_taskcontext_get_id
+<prototype>int vce_taskcontext_get_id( taskcontext_t tp )
+<arch>linux,win32,darwin
+<cat>task
+<sum ja>タスク の ID を得る
+<sum en>Get task's id
+<arg>taskcontext_t tp
+<argdef ja>
+ID を取得したい タスク
+</argdef>
+<argdef en>
+target task context.
+</argdef>
+<return ja>
+ID は整数値で返される。
+</return>
+<return en>
+ID of task context.
+</return>
+<desc ja>
+すべてのタスクは、異なる ID をもつ。
+</desc>
+<desc en>
+All task have identical ID.
+</desc>
+<also>vce_taskgroup_create,vce_taskcontext_create
+</func>
+
+<func>
+<name>vce_taskcontext_get_workmem
+<prototype>void *vce_taskcontext_get_workmem( taskcontext_t tp )
+<cat>task
+<arch>linux,win32,darwin
+<sum ja>タスクが持っているワーク領域を取得する
+<sum en>Get pointer to work memory of a task
+<arg>taskcontext_t tp
+<argdef ja>
+ワーク領域を取りだしたいタスク
+</argdef>
+<argdef en>
+target task context.
+</argdef>
+<return ja>
+ワーク領域へのポインタ。
+ワーク領域がない場合は、
+NULLポインタを返す。
+</return>
+<return en>
+Returns poitner to work area.
+Returns NULL pointer if no work area is used.
+</return>
+<desc ja>
+ワーク領域へのポインタを返すが、
+サイズに関してはあらかじめ vce_taskgroup_create
+関数で設定しているので、ここでは取りだせない。
+</desc>
+<desc en>
+</desc>
+<also>vce_taskgroup_create,vce_taskcontext_create
+</func>
+
+<func>
+<name>vce_taskgroup_get_stat
+<prototype>int vce_taskgroup_get_stat( taskgroup_t tp, taskgroup_stat_t *s )
+<cat>task
+<arch>linux,win32,darwin
+<sum ja>タスクグループの統計情報を得る
+<sum en>Get statistic information of a taskgroup
+<arg>taskgroup_t tp
+<argdef ja>
+情報を取りだしたいタスクグループ
+</argdef>
+<argdef en>
+target task group.
+</argdef>
+<arg>taskgroup_stat_t *s
+<argdef ja>
+取りだした情報を格納する構造体の先頭アドレス。
+</argdef>
+<argdef en>
+Top address of output status buffer.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+taskgroup_stat_t 構造体のポインタ。
+構造体のメンバの意味は、
+<ul>
+<LI>total_taskgroup_check_count<BR>
+そのタスクグループのインターバルチェックをした回数。
+<LI>total_taskcontext_check_count<BR>
+各タスクに対して時刻のチェックをした回数。
+<LI>total_taskcontext_call_count<BR>
+各タスクのコールバックを呼びだした回数。
+<LI>inuse_num<BR>
+そのグループのタスクの何個が使用されてるか。
+<LI>max_num<BR>
+そのグループに存在し得るタスク。
+</ul>
+</desc>
+<desc en>
+</desc>
+<also>vce_taskgroup_create
+</func>
+
+<func>
+<name>vce_taskcontext_get_elapsed_time
+<prototype>VCEI64 vce_taskcontext_get_elapsed_time( taskcontext_t )
+<cat>task
+<arch>linux,win32,darwin
+<sum ja>taskcontext_t を初期化してから現在までに経過した時間を得る
+<sum en>Get elapsed time from initialization of taskcontext_t
+<arg>taskcontext_t t
+<argdef ja>
+経過時間を取得したいタスク
+</argdef>
+<argdef en>
+target task context.
+</argdef>
+<return ja>
+経過時間(マイクロ秒を VCEI64 型に入れたもの)
+</return>
+<return en>
+Elapsed time(microseconds casted to VCEI64 type)
+</return>
+<desc ja>
+タスク初期化後に経過した時間をマイクロ秒で得る。
+マイクロ秒である理由は UNIX における timeval の最高精度がマイクロ秒
+だからである。実際の精度はマイクロ秒よりも粗いので注意が必要である。
+</desc>
+<desc en>
+</desc>
+<also>vce_taskcontext_create
+</func>
+

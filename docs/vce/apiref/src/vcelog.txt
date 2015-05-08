@@ -1,0 +1,707 @@
+#
+# document for VCE auto-generated reference [vcelog.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: vcelog.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_log_init
+<prototype>void vce_log_init( printf_func_t printf_func )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE Logの初期化を行う
+<sum en>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>printf_func_t printf_func
+<argdef ja>
+printf_funcには、ログ表示をするための関数
+printfと同じプロトタイプなので、vce_erroutを指定する場合は、(printf_func_t)vce_errout とキャストする必要があります。
+</argdef>
+<argdef en>
+</argdef>
+<desc ja>
+VCE Logの初期化を行います。
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_log_add_type
+<prototype>int vce_log_add_type( int type, char *tag )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>ログタイプを追加する
+<sum en>add log type
+<return ja>
+正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
+</return>
+<return en>
+Returns 0 if successful, otherwise minus error indicator value.
+</return>
+<arg>int type
+<argdef ja>
+ログタイプ番号(0〜31の値)
+</argdef>
+<arg>char *tag
+<argdef ja>
+ログタイプの名前を表す文字列
+</argdef>
+<desc ja>
+ログタイプを追加する。
+ログタイプは、ログの種類を表す文字列で、検索のキーとして利用される。
+</desc>
+<desc en>
+</desc>
+<also>vce_log_set_type_mask, vce_log_set_type_mask_by_name
+</func>
+
+<func>
+<name>vce_log_set_type_mask
+<prototype>void vce_log_set_type_mask( unsigned int mask )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>表示するログタイプを設定する
+<sum en>
+<return ja>
+なし
+</return>
+<return en>
+None.
+</return>
+<arg>unsigned int mask
+<argdef ja>
+表示するログタイプ
+</argdef>
+<argdef en>
+a log type to be enabled.
+</argdef>
+<desc ja>
+maskにはログタイプに対応するビットを立てた数値を指定する。
+</desc>
+<desc en>
+</desc>
+<also>vce_log_add_type, vce_log_set_type_mask_by_name
+</func>
+
+<func>
+<name>vce_log_set_type_mask_by_name
+<prototype>void vce_log_set_type_mask_by_name( char *name, int on_off )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>表示するログタイプを設定する
+<sum en>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>char *name
+<argdef ja>
+表示するログタイプの名前
+</argdef>
+<argdef en>
+a name of log type to be enabled.
+</argdef>
+<arg>int on_off
+<argdef ja>
+表示する/表示しない。マイナスなら反転させる
+</argdef>
+<argdef en>
+on/off
+</argdef>
+<desc ja>
+</desc>
+<desc en>
+</desc>
+<also>vce_log_add_type, vce_log_set_type_mask
+</func>
+
+<func>
+<name>vce_log_set_gettime_func
+<prototype>void vce_log_set_gettime_func( gettime_func_t gettime )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>時間を取得する関数を指定する
+<sum en>PENDING
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>gettime_func_t gettime
+<argdef ja>時間文字列取得用のコールバック関数
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>
+</desc>デフォルトは、vce_log_gettime_long である。
+<desc en>
+</desc>
+<also>vce_log_gettime_normal,vce_log_gettime_long,vce_log_gettime_short
+</func>
+
+
+<func>
+<name>vce_log_get_types
+<prototype>void vce_log_get_types( char *buf, int buf_len )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>logtype をスペース区切で取得する
+<sum en>PENDING
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>char *buf
+<argdef ja>出力先バッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int buf_len
+<argdef ja>出力先バッファの長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>vce_log_add_type で追加されたログタイプをスペース区切で取得する。
+</desc>
+<desc en>PENDING
+</desc>
+<also>vce_log_add_type,vce_log_set_type_mask,vce_log_set_type_mask_by_name
+</func>
+
+<func>
+<name>vce_log_gettime_normal
+<prototype>void vce_log_gettime_normal( char *buf, int len )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>時間を表す文字列を取得する
+<sum en>PENDING
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>char *buf
+<argdef ja>出力先バッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int len
+<argdef ja>出力先バッファの長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>時間を "MM/DD HH:mm:ss" の形式で取得する。
+</desc>
+<desc en>PENDING
+</desc>
+<also>vce_log_gettime_long,vce_log_gettime_short
+</func>
+
+<func>
+<name>vce_log_gettime_long
+<prototype>void vce_log_gettime_long( char *buf, int len )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>時間を表す文字列を取得する
+<sum en>PENDING
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>char *buf
+<argdef ja>出力先バッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int len
+<argdef ja>出力先バッファの長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>時間を "YYYY/MM/DD HH:mm:ss.sss" の形式で取得する。
+</desc>
+<desc en>PENDING
+</desc>
+<also>vce_log_gettime_normal,vce_log_gettime_short
+</func>
+
+<func>
+<name>vce_log_gettime_short
+<prototype>void vce_log_gettime_short( char *buf, int len )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>時間を表す文字列を取得する
+<sum en>PENDING
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>char *buf
+<argdef ja>出力先バッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int len
+<argdef ja>出力先バッファの長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>時間を "HH:mm:ss" の形式で取得する。
+</desc>
+<desc en>PENDING
+</desc>
+<also>vce_log_gettime_normal,vce_log_gettime_long
+</func>
+
+<func>
+<name>vce_log_vprint
+<prototype>void vce_log_vprint( int type, char *id, char *char_name, char *format, va_list va )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>VCEログフォーマットでログを出力する(va_list版)
+<sum en>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>int type
+<argdef ja>
+ログタイプ
+</argdef>
+<argdef en>
+log type
+</argdef>
+<arg>char *id
+<argdef ja>
+IDを表す文字列
+</argdef>
+<argdef en>
+an ID
+</argdef>
+<arg>char *char_name
+<argdef ja>
+キャラクター名を表す文字列
+</argdef>
+<argdef en>
+a character name
+</argdef>
+<arg>char *format
+<argdef ja>
+printf()と同様のフォーマット文字列
+</argdef>
+<argdef en>
+a format string.
+</argdef>
+<arg>va_list va
+<argdef ja>
+可変引数リスト
+</argdef>
+<argdef en>
+a parameter list
+</argdef>
+<desc ja>
+</desc>
+<desc en>
+</desc>
+<also>vce_log_print
+</func>
+
+<func>
+<name>vce_log_print
+<prototype>void vce_log_print( int type, char *id, char *char_name, char *format, ... )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>
+VCEログフォーマットでログを出力する
+</sum>
+<sum en>
+Print log with VCE Log Format.
+</sum>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>int type
+<argdef ja>
+ログタイプ
+</argdef>
+<argdef en>
+A log type
+</argdef>
+<arg>char *id
+<argdef ja>
+IDを表す文字列
+</argdef>
+<argdef en>
+An ID
+</argdef>
+<arg>char *char_name
+<argdef ja>
+キャラクター名を表す文字列
+</argdef>
+<argdef en>
+A character name
+</argdef>
+<arg>char *format
+<argdef ja>
+printf()と同様のフォーマット文字列
+</argdef>
+<argdef en>
+A format string
+</argdef>
+<desc ja>
+</desc>
+<desc en>
+</desc>
+<also>vce_log_vprint
+</func>
+
+<func>
+<name>vce_log_parse
+<prototype>void vce_log_parse( const char *line, int line_len, char *date, int date_len, char *type, int type_len, char *id, int id_len, char *name, int name_len, char *text, int text_len )
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>
+ログを解析する。
+</sum>
+<sum en>
+PENDING
+</sum>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>const char *line
+<argdef ja>
+解析したいログデータの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int line_len
+<argdef ja>
+解析したいログデータの長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>char *date
+<argdef ja>
+日付が格納されるバッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int date_len
+<argdef ja>
+日付出力の長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>char *type
+<argdef ja>
+ログタイプが格納されるバッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int type_len
+<argdef ja>
+ログタイプ出力の長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>char *id
+<argdef ja>
+IDが格納されるバッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int id_len
+<argdef ja>
+ID出力の長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>char *name
+<argdef ja>
+nameが格納されるバッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int name_len
+<argdef ja>
+name出力の長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>char *text
+<argdef ja>
+textが格納されるバッファの先頭アドレス
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>int text_len
+<argdef ja>
+text出力の長さ
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<desc ja>
+VCEログフォーマットに基くログから各情報を取り出す。VCEログフォーマットについては、<a href="monitor.html">「VCEモニタリング」</a>を参照。
+</desc>
+<desc en>
+</desc>
+<also>
+</func>
+
+<func>
+<name>vce_log_add_monitor_command
+<prototype>int vce_log_add_monitor_command(void)
+<cat>log
+<arch>linux,win32,ps2,darwin
+<sum ja>VCE Logに関連したモニターコマンドを追加する
+<sum en>
+<return ja>
+正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
+</return>
+<return en>
+Returns 0 if successful, otherwise minus error indicator value.
+</return>
+<desc ja>
+以下の二つのコマンドを追加する
+set_logmask, get_log_types
+</desc>
+<desc en>
+</desc>
+<also>
+</func>
+
+<func>
+<name>vce_logwriter_init
+<prototype>int vce_logwriter_init( int num )
+<cat>logwriter
+<arch>linux,win32,ps2,darwin
+<sum ja>Log writerを初期化する
+<sum en>
+<return ja>
+正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
+</return>
+<return en>
+Return 0 if successful, otherwise minus error indicator value.
+</return>
+<arg>int num
+<argdef ja>
+Log writerの数を指定する。通常は、一つで十分
+</argdef>
+<argdef en>
+a number of log writer.
+</argdef>
+<desc ja>
+</desc>
+<desc en>
+</desc>
+<also>vce_logwriter_connect
+</func>
+
+<func>
+<name>vce_logwriter_connect
+<prototype>logwriter_t *vce_logwriter_connect( char *addr, int port, int id )
+<cat>logwriter
+<arch>linux,win32,ps2,darwin
+<sum ja>ログライターをrsvに接続する
+<sum en>
+<return ja>
+作成されたlogwriterが返される。失敗した場合は、NULLが返る。
+</return>
+<return en>
+Returns created logwriter. Returns NULL if fail.
+</return>
+<arg>char *addr
+<argdef ja>
+接続先のアドレス
+</argdef>
+<argdef en>
+an address to connect.
+</argdef>
+<arg>int port
+<argdef ja>
+接続先のポート
+</argdef>
+<argdef en>
+a port number to connect.
+</argdef>
+<arg>int id
+<argdef ja>
+Log writerを識別するためのID。通常は、自分のサービスポートを指定します
+</argdef>
+<argdef en>
+An ID to identify. Normally a service port of program.
+</argdef>
+<desc ja>
+この関数を呼んだあとに、vce_logwriter_poll()を繰り返すことにより、ログライターがrsvにログを書き込めるようになります。
+ただし、それまでのログも一部はバッファにため込まれ、接続した瞬間に書き出されます。
+admsvの検索機能と連係させるには、IDには、サービスポート(admcli.exeのプロセスWindowのPortの項目にでる数値)を指定してください。この値をもとに、admsvはバインディングを行います。
+</desc>
+<desc en>
+</desc>
+<also>vce_logwriter_init, vce_logwriter_poll
+</func>
+
+<func>
+<name>vce_logwriter_poll
+<prototype>int vce_logwriter_poll
+<cat>logwriter
+<arch>linux,win32,ps2,darwin
+<sum ja>
+ログライター用のポーリングを行います
+</sun>
+<sum en>
+poll for logwriter.
+</sum>
+<return ja>
+正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
+</return>
+<return en>
+Returns 0 if sccessful, otherwise minus error indicator value.
+</return>
+<desc ja>
+vce_logwriter_connect()を呼んだ後に、この関数を定期的に呼ぶことで接続や、切断された際の再接続を行います。
+vce_heartbeat()の度に呼んで下さい。
+</desc>
+<desc en>
+</desc>
+<also>vce_logwriter_connect
+</func>
+
+<func>
+<name>vce_logwriter_printf
+<prototype>int vce_logwriter_printf( logwriter_t *w, const char *format, ... )
+<cat>logwriter
+<arch>linux,win32,ps2,darwin
+<sum ja>
+rsvにログを書き込む
+</sum>
+<sum en>
+Write a log to rsv.
+</sum>
+<return ja>
+正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
+</return>
+<return en>
+Returns 0 if sccessful, otherwise minus error indicator value.
+</return>
+<arg>logwriter_t *w
+<argdef ja>
+ログを書き込むlogwriter
+</argdef>
+<argdef en>
+A writing logwriter.
+</argdef>
+<arg>char *format
+<argdef ja>
+フォーマット文字列
+</argdef>
+<argdef en>
+A format string.
+</argdef>
+<desc ja>
+ログをrsvに書き込む。
+接続されていない場合は、バッファに入る限りはバッファにため込み、vce_logwriter_pollで接続した瞬間に書き込む。
+</desc>
+<desc en>
+</desc>
+<also>vce_logwriter_poll,vce_logwriter_vprintf
+</func>
+
+<func>
+<name>vce_logwriter_vprintf
+<prototype>int vce_logwriter_vprintf( logwriter_t *w, const char *format, va_list va )
+<cat>logwriter
+<arch>linux,win32,ps2,darwin
+<sum ja>
+vce_log_writer_printfのva_list版です。
+</sum>
+<sum en>
+a va_list version vce_log_writer_perintf.
+</sum
+<return ja>
+正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
+</return>
+<return en>
+Returns 0 if sccessful, otherwise minus error indicator value.
+</return>
+<arg>logwriter_t *w
+<argdef ja>
+ログを書き込むlogwriter
+</argdef>
+<argdef en>
+A writing logwriter.
+</argdef>
+<arg>char *format
+<argdef ja>
+フォーマット文字列
+</argdef>
+<argdef en>
+A format string.
+</argdef>
+<arg>va_list va
+<argdef ja>
+可変引数リスト
+</argdef>
+<argdef en>
+A parameter list
+</argdef>
+<desc ja>
+</desc>
+<desc en>
+</desc>
+<also>vce_logwriter_poll,vce_logwriter_printf
+</func>
+
+

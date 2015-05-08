@@ -1,0 +1,1344 @@
+#
+# document for VCE auto-generated reference [bin.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: bin.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+<func>
+<name>vce_binary_unpack
+<prototype>int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファのバイナリデータをunpackして構造体の配列にする(古い)
+<sum en>Unpack binary char array into an array of struct.(obsolete)
+<arg>struct bin_info *bi
+<argdef ja>
+bin_info構造体の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of bin_info structure
+</argdef>
+<arg>int bn
+<argdef ja>
+bin_info構造体の配列の要素数
+</argdef>
+<argdef en>
+Number of elements of bin_info structure array
+</argdef>
+<arg>char *inp
+<argdef ja>
+入力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+入力バッファの長さ(バイト数)
+</argdef>
+<argdef en>
+Length of input buffer (in bytes)
+</argdef>
+<return ja>
+成功したら実際にunpackした長さを返す。これは lenより小さい可能性がある。
+lenより大きいことはない。データが足りない場合は、
+VCE_EDATASHORTを返す。
+</return>
+<return en>
+Return length of processed data if successful.
+This can be smaller than parameter "len", but never bigger than "len".
+Returns VCE_EDATASHORT when input data is too short.
+</return>
+<desc ja>
+バイナリデータを、 bin_info 構造体の配列に指定されている通りに
+unpackし、構造を持った状態に戻す。
+主にプロトコル処理で使われる。
+</desc>
+<desc en>
+This unpacks binary data as specified by an array of the bin_info structure,
+and brings it back to the structured state.
+It is mainly used for protocol processing.
+</desc>
+<bugs ja>
+現在は バイナリpush/pop 関数群によって，置きかえられている．
+</bugs>
+<bugs en>
+This function is already replaced with binary push/pop functions.
+</bugs>
+<also>vce_binary_pack
+</func>
+
+<func>
+<name>vce_binary_pack
+<prototype>int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>構造体に保存されているデータをpackして、バイト列にする (古い)
+<sum en>Make a byte array from an array of structure. (obsolete)
+<arg>struct bin_info *bi
+<argdef ja>
+bin_info構造体の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of bin_info structure
+</argdef>
+<arg>int bn
+<argdef ja>
+bin_info構造体の要素数
+</argdef>
+<argdef en>
+Number of elements of bin_info structure array
+</argdef>
+<arg>char *outp
+<argdef ja>
+出力バッファ
+</argdef>
+<argdef en>
+Output buffer
+</argdef>
+<arg>int len
+<argdef ja>
+出力バッファの最大長(バイト数)
+</argdef>
+<argdef en>
+Length of output buffer ( in bytes)
+</argdef>
+<return ja>
+出力バッファに出力したバイト数
+</return>
+<return en>
+Number of bytes written in output buffer
+</return>
+<desc ja>
+bin_info 構造体に保存されている状態のデータをPackし、一連のバイト列に
+変換する。主にプロトコル処理で使われる。
+</desc>
+<desc en>
+It Packs data stored in the bin_info structure and converts it
+to a series of byte strings. This is mainly used for
+protocol processing.
+</desc>
+<bugs ja>
+現在は バイナリpush/pop 関数群によって，置きかえられている．
+</bugs>
+<bugs en>
+Now this function is already replaced with binary push/pop functions.
+</bugs>
+</func>
+
+<func>
+<name>vce_binary_push_nb_i1
+<prototype>int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>1バイト整数(char) をバッファにpushする
+<sum en>Push 1-byte integer(char) to a buffer
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>char c
+<argdef ja>
+出力する元データ
+</argdef>
+<argdef en>
+Source data which will be written into output buffer
+</argdef>
+<return ja>
+1バイト push することによって ofs が移動するので、
+あたらしい ofs の値を返す。 この関数の場合は常に ofs + 1 である。
+push できなかったときは、負のエラーコードを返す。
+</return>
+<return en>
+New offset value. This value is changed by pushing 1 byte.
+In this function, new value is always ofs + 1.
+Returns minus error indicator value when any error.
+</return>
+<desc ja>
+バイナリプロトコルを定義するときに使用されるバイナリ packer
+用関数群のひとつ。gen.rb によって使用される。
+対応する vce_binary_pop_nb_i1 関数で取りだすことができる。
+</desc>
+<desc en>
+This is one of function groups for binary packer that is used as
+defining binary protocol. This is used by gen.rb protocol generator.
+You can fetch data by the corresponding vce_binary_pop_nb_i1function.
+</desc>
+<also>vce_binary_pop_nb_i1
+</func>
+
+<func>
+<name>vce_binary_push_nb_i2
+<prototype>int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>2バイト整数(short) をバッファにpushする
+<sum en>Push 2-byte integer(short) to a buffer
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>short s
+<argdef ja>
+出力する元データ
+</argdef>
+<argdef en>
+Source data to be pushed
+</argdef>
+<return ja>
+2バイト push することによって ofs が移動するので、
+あたらしい ofs の値を返す。 この関数の場合は常に ofs + 2 である。
+push できなかったときは、負のエラーコードを返す。
+</return>
+<return en>
+This returns the new ofs value resulted from a movement of
+ofs through pushing 2 bytes.
+This particular function returns ofs + 2 all the time.
+When it fails to push, it returns a negative error code.
+</return>
+<desc ja>
+VCE のバイナリ packer のポリシー上、
+2バイト以上のデータをバッファに push するときは、
+絶対にデータを壊すことはしない。確実に全部のデータを push するか、
+完全に失敗するかどちらかである。
+対応する vce_binary_pop_nb_i2 関数で取りだすことができる。
+データは、ネットワークバイトオーダで出力される。
+</desc>
+<desc en>
+In compliance with VCE's binary packer policy,
+it will never destroy data as pushing data of 2 bytes or larger into a
+buffer.
+It will either push entire data certainly or fail completely.
+You can fetch data by corresponding
+vce_binary_pop_nb_i2 function.
+Data is output on the network byte order.
+</desc>
+<also>vce_binary_pop_nb_i2
+</func>
+
+<func>
+<name>vce_binary_push_nb_i4
+<prototype>int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>4バイト整数(int) をバッファにpushする
+<sum en>Push 4-byte integer(int) to a buffer
+
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>int i
+<argdef ja>
+出力する元データ
+</argdef>
+<argdef en>
+Source data to be pushed
+</argdef>
+<return ja>
+4バイト push することによって ofs が移動するので、
+あたらしい ofs の値を返す。 この関数の場合は常に ofs + 4 である。
+push できなかったときは、負のエラーコードを返す。
+</return>
+<return en>
+This function returns the new ofs value resulted
+from a movement of ofs through pushing 4 bytes.
+This particular function returns ofs + 4 all the time.
+When it fails to push, it returns a negative error code.
+</return>
+<desc ja>
+VCE のバイナリ packer のポリシー上、
+4バイト以上のデータをバッファに push するときは、
+絶対にデータを壊すことはしない。確実に全部のデータを push するか、
+完全に失敗するかどちらかである。
+対応する vce_binary_pop_nb_i4 関数で取りだすことができる。
+データは、ネットワークバイトオーダで出力される。
+</desc>
+<desc en>
+In compliance with VCE's binary packer policy,
+it will never destroy data as pushing data of 4 bytes or larger into a
+buffer.
+It will either push entire data certainly or fail completely.
+You can fetch data by corresponding
+vce_binary_pop_nb_I4 function.
+Data is output on the network in byte order.
+</desc>
+<also>vce_binary_pop_nb_i4
+</func>
+
+<func>
+<name>vce_binary_push_nb_i8
+<prototype>int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>8バイト整数(VCEI64) をバッファにpushする
+<sum en>Push 8-byte integer(VCEI64) to a buffer
+
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>VCEI64 i
+<argdef ja>
+出力する元データ
+</argdef>
+<argdef en>
+Source data to be pushed
+</argdef>
+<return ja>
+8バイト push することによって ofs が移動するので、
+あたらしい ofs の値を返す。 この関数の場合は常に ofs + 8 である。
+push できなかったときは、負のエラーコードを返す。
+</return>
+<return en>
+This function returns the new ofs value resulted
+from a movement of ofs through pushing 8 bytes.
+This particular function returns ofs + 8 all the time.
+When it fails to push, it returns a negative error code.
+</return>
+<desc ja>
+VCE のバイナリ packer のポリシー上、
+8バイト以上のデータをバッファに push するときは、
+絶対にデータを壊すことはしない。確実に全部のデータを push するか、
+完全に失敗するかどちらかである。
+対応する vce_binary_pop_nb_i8 関数で取りだすことができる。
+データは、ネットワークバイトオーダで出力される。
+</desc>
+<desc en>
+In compliance with VCE's binary packer policy,
+it will never destroy data as pushing data of 8 bytes or larger into a
+buffer.
+It will either push entire data certainly or fail completely.
+You can fetch data by corresponding
+vce_binary_pop_nb_i8 function.
+Data is output on the network in byte order.
+</desc>
+<also>vce_binary_pop_nb_i8
+</func>
+
+<func>
+<name>vce_binary_push_nb_ia1
+<prototype>int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>1バイト整数(char)の配列をバッファに push する
+<sum en>Push an array of 1-byte integer(char) to a buffer
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>char *ia
+<argdef ja>
+出力する1バイト整数(char)の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of char(1byte integer) type
+</argdef>
+<arg>int num
+<argdef ja>
+出力する配列の要素数
+</argdef>
+<argdef en>
+Number of elements being pushed
+</argdef>
+<return ja>
+出力することによって移動した、あたらしいオフセットを返す。
+出力に失敗した場合は負のエラーコードを返す。
+</return>
+<return en>
+Return new offset value.
+Return minus error code when failed to push.
+</return>
+<desc ja>
+char型の配列の中身を出力バッファに push する。
+対応する vce_binary_pop_nb_ia1 関数で取りだすことができる。
+出力バッファの長さが足りない場合は、データを壊さず、
+負のエラーコード(VCE_EFULL)を返す。
+</desc>
+<desc en>
+This pushes the contents of a char type array into the output buffer.
+You can fetch data by corresponding
+vce_binary_pop_nb_ia1 function.
+When length of the output buffer is shorter than needed,
+it returns a negative error code
+(VCE_EFULL), instead of destroying it.
+</desc>
+<also>vce_binary_pop_nb_ia1
+</func>
+
+<func>
+<name>vce_binary_push_nb_ia2
+<prototype>int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>2バイト整数(short)の配列をバッファに push する
+<sum en>Push an array of 2-byte integer(short) to a buffer
+
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>short *ia
+<argdef ja>
+出力する2バイト整数(short)の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of short(2byte integer) type
+</argdef>
+<arg>int num
+<argdef ja>
+出力する配列の要素数
+</argdef>
+<argdef en>
+Number of elements being pushed
+</argdef>
+<return ja>
+出力することによって移動した、あたらしいオフセットを返す。
+出力に失敗した場合は負のエラーコードを返す。
+</return>
+<return en>
+This returns the new offset which has moved through outputting.
+In case of output failure, it returns a negative error code.
+</return>
+<desc ja>
+short型の配列の中身を出力バッファに push する。
+対応する vce_binary_pop_nb_ia2 関数で取りだすことができる。
+データはすべてネットワークバイトオーダで保存される。
+出力バッファの長さが足りない場合は、データを壊さず、
+負のエラーコード(VCE_EFULL)を返す。
+</desc>
+<desc en>
+This pushes the contents of a short type array into the output buffer.
+You can fetch data by corresponding
+vce_binary_pop_nb_ia2 function.
+All data is saved in network byte order.
+When length of the output buffer is
+short, it returns a negative error code (VCE_EFULL),
+instead of destroying it.
+</desc>
+<also>vce_binary_pop_nb_ia2
+</func>
+
+<func>
+<name>vce_binary_push_nb_ia4
+<prototype>int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>4バイト整数(int)の配列をバッファに push する
+<sum en>Push an array of 4-byte integer(int) to a buffer
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>int *ia
+<argdef ja>
+出力する4バイト整数(int)の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of int(4byte integer) type
+</argdef>
+<arg>int num
+<argdef ja>
+出力する配列の要素数
+</argdef>
+<argdef en>
+Number of elements being pushed
+</argdef>
+<return ja>
+出力することによって移動した、あたらしいオフセットを返す。
+出力に失敗した場合は負のエラーコードを返す。
+</return>
+<return en>
+This returns the new offset which has moved through outputting.
+In case of output failure, it returns a negative error code.
+</return>
+<desc ja>
+int型の配列の中身を出力バッファに push する。
+対応する vce_binary_pop_nb_ia4 関数で取りだすことができる。
+データはすべてネットワークバイトオーダで保存される。
+出力バッファの長さが足りない場合は、データを壊さず、
+負のエラーコード(VCE_EFULL)を返す。
+</desc>
+<desc en>
+This pushes the contents of an int type array into the output buffer.
+You can fetch data by corresponding vce_binary_pop_nb_ia4 function.
+All data is saved in network byte order.
+When length of the output buffer is short,
+it returns a negative error code (VCE_EFULL), instead of destroying it.
+</desc>
+<also>vce_binary_pop_nb_ia4
+
+</func>
+
+<func>
+<name>vce_binary_push_nb_ia8
+<prototype>int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>8バイト整数(VCEI64)の配列をバッファに push する
+<sum en>Push an array of 8-byte integer(VCEI64) to a buffer
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>VCEI64 *ia
+<argdef ja>
+出力する8バイト整数(int)の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of int(4byte integer) type
+</argdef>
+<arg>int num
+<argdef ja>
+出力する配列の要素数
+</argdef>
+<argdef en>
+Number of elements being pushed
+</argdef>
+<return ja>
+出力することによって移動した、あたらしいオフセットを返す。
+出力に失敗した場合は負のエラーコードを返す。
+</return>
+<return en>
+This returns the new offset which has moved through outputting.
+In case of output failure, it returns a negative error code.
+</return>
+<desc ja>
+int型の配列の中身を出力バッファに push する。
+対応する vce_binary_pop_nb_ia8 関数で取りだすことができる。
+データはすべてネットワークバイトオーダで保存される。
+出力バッファの長さが足りない場合は、データを壊さず、
+負のエラーコード(VCE_EFULL)を返す。
+</desc>
+<desc en>
+This pushes the contents of an int type array into the output buffer.
+You can fetch data by corresponding vce_binary_pop_nb_ia8 function.
+All data is saved in network byte order.
+When length of the output buffer is short,
+it returns a negative error code (VCE_EFULL), instead of destroying it.
+</desc>
+<also>vce_binary_pop_nb_ia8
+
+</func>
+
+<func>
+<name>vce_binary_push_nb_stra
+<prototype>int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>ヌル終端された文字列の配列をバッファに push する
+<sum en>Push null-terminated string array to a buffer
+<arg>char *out
+<argdef ja>
+出力バッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際に出力する場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the output buffer
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<arg>char **stra
+<argdef ja>
+出力する元になる文字列へのポインタの配列。
+</argdef>
+<argdef en>
+An array of string pointers, which will be pushed into output buffer
+</argdef>
+<arg>int num
+<argdef ja>
+stra 引数で与える文字列へのポインタの配列の要素数。
+</argdef>
+<argdef en>
+Number of pointers contained in **stra argument
+</argdef>
+<arg>int eachmax
+<argdef ja>
+stra 引数で与える各文字列の最大長さ。
+文字列が一つでもこの長さに達するとエラーとなる。
+</argdef>
+<argdef en>
+Max length of each strings contained in **stra argument.
+If length of even one string goes longer than this value,
+this function will return error code.
+</argdef>
+<return ja>
+出力することによって移動した ofs の新しい値。
+バッファが一杯になったり、その他の理由で push に失敗した場合は
+負のエラーコードを返す。
+</return>
+<return en>
+The new ofs value which has moved through outputting.
+When it fails to push because a buffer is full or otherwise,
+it returns a negative error code.
+</return>
+<desc ja>
+文字列をバイナリデータに pack し、バッファに追加する。
+各文字列の最大文字数制限を可能にするために、
+eachmax という引数が追加されている。
+num が 0 のときは、 stra には NULL を指定することができる。
+</desc>
+<desc en>
+This packs a character string into binary data,
+and adds it to a buffer.
+The argument eachmax is added in order to
+enable a restriction on the maximum number of letters of each
+character string. When num is 0, NULL can be designated as stra.
+</desc>
+<also>vce_binary_pop_nb_stra
+</func>
+
+<func>
+<name>vce_binary_pop_nb_i1
+<prototype>int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから1バイト整数(char) を取りだす
+<sum en>Pop a 1-byte integer(char) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだしはじめる場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>char *out
+<argdef ja>
+取りだしたデータを格納するための char のポインタ
+</argdef>
+<argdef en>
+char pointer to store poped data.
+</argdef>
+<return ja>
+1バイト取りだすことによって移動する、新しい ofs の値
+</return>
+<return en>
+The new ofs value that moves through fetching one byte.
+</return>
+<desc ja>
+vce_binary_push_nb_i1 関数で pack したデータを取りだす。
+オフセットはつねに1進む。ただし、失敗した場合(データが足りないなど)は、
+負のエラーコードを返す。
+</desc>
+<desc en>
+This fetches data packed by vce_binary_push_nb_i1function.
+An offset advances by 1 all the time; however, it
+returns a negative error code in case of failure (such as data shortage).
+</desc>
+<also>vce_binary_push_nb_i1
+</func>
+
+<func>
+<name>vce_binary_pop_nb_i2
+<prototype>int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから2バイト整数(short) を取りだす
+<sum en>Pop a 2-byte integer(short) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだしはじめる場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>short *out
+<argdef ja>
+取りだしたデータを格納するための short のポインタ
+</argdef>
+<argdef en>
+short pointer to store poped data.
+</argdef>
+<return ja>
+2バイト取りだすことによって移動する、新しい ofs の値
+</return>
+<return en>
+The new ofs value that moves through fetching 2 bytes.
+</return>
+<desc ja>
+vce_binary_push_nb_i2 関数で pack したデータを取りだす。
+オフセットはつねに2進む。ただし、失敗した場合(データが足りないなど)は、
+負のエラーコードを返す。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_i2 function.
+An offset advances by 2 all the time; however, it
+returns a negative error code in case of failure (such as data shortage).
+</desc>
+<also>vce_binary_push_nb_i2
+</func>
+
+<func>
+<name>vce_binary_pop_nb_i4
+<prototype>int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから4バイト整数(int) を取りだす
+<sum en>Pop a 4-byte integer(int) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだしはじめる場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>int *out
+<argdef ja>
+取りだしたデータを格納するための int のポインタ
+</argdef>
+<argdef en>
+int pointer to store poped data.
+</argdef>
+<return ja>
+4バイト取りだすことによって移動する、新しい ofs の値
+</return>
+<return en>
+The new ofs value that moves through fetching 4 bytes.
+</return>
+<desc ja>
+vce_binary_push_nb_i4 関数で pack したデータを取りだす。
+オフセットはつねに4進む。ただし、失敗した場合(データが足りないなど)は、
+負のエラーコードを返す。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_i4 function.
+An offset advances by 4 all the time; however, it
+returns a negative error code in case of failure (such as data shortage).
+</desc>
+<also>vce_binary_push_nb_i4
+</func>
+
+<func>
+<name>vce_binary_pop_nb_i8
+<prototype>int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから8バイト整数(VCEI64) を取りだす
+<sum en>Pop a 8-byte integer(int) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだしはじめる場所の、バッファの先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>VCEI64 *out
+<argdef ja>
+取りだしたデータを格納するための VCEI64 のポインタ
+</argdef>
+<argdef en>
+int pointer to store poped data.
+</argdef>
+<return ja>
+8バイト取りだすことによって移動する、新しい ofs の値
+</return>
+<return en>
+The new ofs value that moves through fetching 8 bytes.
+</return>
+<desc ja>
+vce_binary_push_nb_i8 関数で pack したデータを取りだす。
+オフセットはつねに8進む。ただし、失敗した場合(データが足りないなど)は、
+負のエラーコードを返す。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_i8 function.
+An offset advances by 8 all the time; however, it
+returns a negative error code in case of failure (such as data shortage).
+</desc>
+<also>vce_binary_push_nb_i8
+</func>
+
+<func>
+<name>vce_binary_pop_nb_ia1
+<prototype>int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから1バイト整数(char) の配列を取りだす
+<sum en>Pop an array of 1-byte integer(char) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input data buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだす場所のバッファ先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>char *out
+<argdef ja>
+取りだしたデータを格納する char 型の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of char array to store poped data
+</argdef>
+<arg>int *outlen
+<argdef ja>
+値結果引数。引数として与えるときは、
+out 引数で指定する配列の要素数を受けとり、
+結果として、実際に埋めた要素数を返す。
+</argdef>
+<argdef en>
+value-result parameter. This parameter must contain number of elements
+of an array "out" when calling, and returns number of elements
+actually filled into "out".
+</argdef>
+<return ja>
+配列を取りだすことによって移動する、あたらしい ofs の値。
+取りだしに失敗したら負のエラーコードを返す。
+</return>
+<return en>
+The new ofs value that moves through fetching an array.
+It returns a negative error code as fetching fails.
+</return>
+<desc ja>
+vce_binary_push_nb_ia1 関数で pack したデータを取りだす。
+データが足りない場合や、取りだすための配列が小さすぎるなどの場合は、
+中途半端に取りだすことはせず、失敗をあらわす負のエラーコードを返す。
+これは VCE のバイナリ操作のポリシーとなっている。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_ia1 function.
+In case of data shortage, or that an array used
+for fetching is too small, it returns a negative error code
+indicating failure instead of fetching halfway. This is VCE's
+policy on binary operation.
+</desc>
+<also>vce_binary_push_nb_ia1
+</func>
+
+<func>
+<name>vce_binary_pop_nb_ia2
+<prototype>int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから2バイト整数(short) の配列を取りだす
+<sum en>Pop an array of 2-byte integer(short) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer.
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだす場所のバッファ先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>short *out
+<argdef ja>
+取りだしたデータを格納する short 型の配列の先頭アドレス
+</argdef>
+<argdef en>
+pointer to short array to save poped data.
+</argdef>
+<arg>int *outlen
+<argdef ja>
+値結果引数。値として、 out 引数で指定する配列の要素数を受けとり、
+結果として、実際に埋めた要素数を返す。
+</argdef>
+<argdef en>
+value-result parameter. This parameter must contain number of elements
+of an array "out" when calling, and returns number of elements
+actually filled into "out".
+</argdef>
+<return ja>
+配列を取りだすことによって移動する、あたらしい ofs の値。
+取りだしに失敗したら負のエラーコードを返す。
+</return>
+<return en>
+The new ofs value that moves through fetching an array.
+It returns a negative error code as fetching fails.
+</return>
+<desc ja>
+vce_binary_push_nb_ia2 関数で pack したデータを取りだす。
+データが足りない場合や、取りだすための配列が小さすぎるなどの場合は、
+中途半端に取りだすことはせず、失敗をあらわす負のエラーコードを返す。
+これは VCE のバイナリ操作のポリシーとなっている。
+データはネットワークバイトオーダからネイティブのオーダーに戻して格納される。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_ia2 function.
+In case of data shortage, or that an array used
+for fetching is too small, it returns a negative error code
+indicating failure instead of fetching halfway. This is VCE's
+policy on binary operation.
+After being changed its order from network byte to native, data is stored.
+</desc>
+<also>vce_binary_push_nb_ia2
+</func>
+
+<func>
+<name>vce_binary_pop_nb_ia4
+<prototype>int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから4バイト整数(int) の配列を取りだす
+<sum en>Pop an array of 4-byte integer(int) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだす場所のバッファ先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>int *out
+<argdef ja>
+取りだしたデータを格納する int 型の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of int array to store poped data
+</argdef>
+<arg>int *outlen
+<argdef ja>
+値結果引数。値として、 out 引数で指定する配列の要素数を受けとり、
+結果として、実際に埋めた要素数を返す。
+</argdef>
+<argdef en>
+value-result parameter. This parameter must contain number of elements
+of an array "out" when calling, and returns number of elements
+actually filled into "out".
+</argdef>
+<return ja>
+配列を取りだすことによって移動する、あたらしい ofs の値。
+取りだしに失敗したら負のエラーコードを返す。
+</return>
+<return en>
+The new ofs value that moves through fetching an array.
+It returns a negative error code as fetching fails.
+</return>
+<desc ja>
+vce_binary_push_nb_ia4 関数で pack したデータを取りだす。
+データが足りない場合や、取りだすための配列が小さすぎるなどの場合は、
+中途半端に取りだすことはせず、失敗をあらわす負のエラーコードを返す。
+これは VCE のバイナリ操作のポリシーとなっている。
+データはネットワークバイトオーダからネイティブのオーダーに戻して格納される。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_ia4 function.
+In case of data shortage, or that an array used
+for fetching is too small, it returns a negative
+error code indicating failure instead of fetching halfway.
+This is VCE's policy on binary operation.
+Having been changed its order from network byte to native, data is stored.
+</desc>
+<also>vce_binary_push_nb_ia4
+</func>
+
+<func>
+<name>vce_binary_pop_nb_ia8
+<prototype>int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから8バイト整数(int) の配列を取りだす
+<sum en>Pop an array of 8-byte integer(int) from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだす場所のバッファ先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>VCEI64 *out
+<argdef ja>
+取りだしたデータを格納する int 型の配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of int array to store poped data
+</argdef>
+<arg>int *outlen
+<argdef ja>
+値結果引数。値として、 out 引数で指定する配列の要素数を受けとり、
+結果として、実際に埋めた要素数を返す。
+</argdef>
+<argdef en>
+value-result parameter. This parameter must contain number of elements
+of an array "out" when calling, and returns number of elements
+actually filled into "out".
+</argdef>
+<return ja>
+配列を取りだすことによって移動する、あたらしい ofs の値。
+取りだしに失敗したら負のエラーコードを返す。
+</return>
+<return en>
+The new ofs value that moves through fetching an array.
+It returns a negative error code as fetching fails.
+</return>
+<desc ja>
+vce_binary_push_nb_ia8 関数で pack したデータを取りだす。
+データが足りない場合や、取りだすための配列が小さすぎるなどの場合は、
+中途半端に取りだすことはせず、失敗をあらわす負のエラーコードを返す。
+これは VCE のバイナリ操作のポリシーとなっている。
+データはネットワークバイトオーダからネイティブのオーダーに戻して格納される。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_ia8 function.
+In case of data shortage, or that an array used
+for fetching is too small, it returns a negative
+error code indicating failure instead of fetching halfway.
+This is VCE's policy on binary operation.
+Having been changed its order from network byte to native, data is stored.
+</desc>
+<also>vce_binary_push_nb_ia8
+</func>
+
+<func>
+<name>vce_binary_pop_nb_stra
+<prototype>int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )
+<cat>bin
+<arch>linux,win32,ps2,darwin
+<sum ja>バッファから文字列の配列を取りだす
+<sum en>Pop an array of strings from a buffer
+<arg>char *in
+<argdef ja>
+データを取りだすバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input buffer
+</argdef>
+<arg>int len
+<argdef ja>
+データを取りだすバッファの長さ
+</argdef>
+<argdef en>
+Length of input data buffer
+</argdef>
+<arg>int ofs
+<argdef ja>
+実際にデータを取りだす場所のバッファ先頭からのオフセット
+</argdef>
+<argdef en>
+Number of offset bytes from the beginning of the input buffer
+</argdef>
+<arg>char **out
+<argdef ja>
+取りだした文字列を格納するための、文字列へのポインタの配列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of pointer to char.
+</argdef>
+<arg>int *strnum
+<argdef ja>
+値結果引数。値として、 out 引数で指定する配列の要素数を受けとり、
+結果として、実際に埋めた要素数を返す。
+</argdef>
+<argdef en>
+value-result parameter. This parameter must contain number of elements
+of an array "out" when calling, and returns number of elements
+actually filled into "out".
+</argdef>
+<arg>int eachmax
+<argdef ja>
+結果として出力する各C言語文字列の最大の長さを指定する。
+</argdef>
+<argdef en>
+Max length of each strings saved in "out".
+</argdef>
+<return ja>
+配列を取りだすことによって移動する、あたらしい ofs の値。
+取りだしに失敗したら負のエラーコードを返す。
+</return>
+<return en>
+The new ofs value that moves through fetching an array.
+It returns a negative error code as fetching fails.
+</return>
+<desc ja>
+vce_binary_push_nb_stra 関数で pack したデータを取りだす。
+データが足りない場合や、取りだすための配列が小さすぎるなどの場合は、
+中途半端に取りだすことはせず、失敗をあらわす負のエラーコードを返す。
+これは VCE のバイナリ操作のポリシーとなっている。
+文字列は out 引数で指定される文字列配列にコピーされるため、
+本関数を使用するアプリケーションによってコピー用のメモリ領域が
+確保されている必要がある(サンプルコードを参照)。
+</desc>
+<desc en>
+This fetches data packed with vce_binary_push_nb_stra function.
+In case of data shortage, or that an array used for fetching is too
+small, it returns a negative error code indicating failure instead
+of fetching halfway.
+This is VCE's policy on binary operation.
+Since character strings are copied onto the character string array
+designated by the out argument, memory space for copying must be
+allocated by the application using this function.(refer to sample codes)
+</desc>
+<sample ja>
+  char *orig_data[] = { "foo", "bar" };
+  char packed[1000];
+  char buf[3][100];
+  char *out[3] = { buf[0] , buf[1], buf[2] }; // for を使ってもよい
+  int new_ofs,strnum,packed_len;
+  packed_len = vce_binary_push_nb_stra( packed, sizeof(packed), 0, orig_data, 3, 100 );
+  strnum = 3;
+  new_ofs = vce_binary_pop_nb_stra( packed, packed_len, 0, out,&strnum, 100 );
+</sample>
+<sample en>
+  char *orig_data[] = { "foo", "bar" };
+  char packed[1000];
+  char buf[3][100];
+  char *out[3] = { buf[0] , buf[1], buf[2] }; // you can use C's "for" here
+  int new_ofs,strnum,packed_len;
+  packed_len = vce_binary_push_nb_stra( packed, sizeof(packed), 0, orig_data, 3, 100 );
+  strnum = 3;
+  new_ofs = vce_binary_pop_nb_stra( packed, packed_len, 0, out,&strnum, 100 );
+</sample>
+<also>vce_binary_push_nb_stra
+</func>
+

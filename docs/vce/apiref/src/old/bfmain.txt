@@ -1,0 +1,74 @@
+#
+# document for VCE auto-generated reference [bfmain.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: bfmain.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<tool>
+<name>bf
+<arch>linux(32bit)
+<sum ja>複数のファイルを一度にパスワードを用いて暗号化する。
+<sum en>Encrypt many files by password.
+<usage ja>
+bf [-d] [-p パスワード] ファイル名 ファイル名 ...
+</usage>
+<usage en>
+bf [-d] [-p password] infile infile ...
+</usage>
+<desc ja>
+入力ファイルをパスワードを用いて暗号化する。
+暗号化にはBlowfishアルゴリズムを使用する。
+8バイト単位のブロック暗号である。
+<B>-d</B>オプションをつけるとデコードする。<BR>
+<B>-p</B>オプションがない場合は端末からパスワードの入力を求める
+(getpasswd).<BR>
+ファイルを暗号化しても元のファイルは消さない。
+暗号化すると、入力ファイル名の後ろに ".bf"をつけて別ファイルとして保存する。
+復号化の際は、暗号化時と同じパスワードを入力する必要がある。
+</desc>
+<desc en>
+This tool encrypts an input file by using a password.
+The Blowfish algorithm is used for encryption.
+It is a block encryption in 8-bytes unit. <BR>
+<B>-d</B> option decodes an encrypted file.<BR>
+If<B>-p</B> option is not specified,
+it prompts you to input a password (getpasswd). <BR>
+The original file is not deleted when its encryption is finished.
+The encrypted file will be saved with ".bf" added at the end of original
+file name.
+To decrypt an encrypted file,
+the same password used for encryption is required.
+</desc>
+<sample ja>
+<pre>
+bf somefile.txt somefile2.txt
+   ( enter password from terminal and do encryption )
+bf -d somefile.txt.bf somefile2.txt.bf
+   ( enter password from terminal and do decryption )
+</pre>
+</sample>
+<sample en>
+<pre>
+bf somefile.txt somefile2.txt
+   (enter a password at a terminal and do encryption)
+bf -d somefile.txt.bf somefile2.txt.bf
+   (enter a password at a terminal and do decryption)
+</pre>
+</sample>
+<bugs ja>
+TODO: 現在は、ファイルの内容を一旦メモリに展開してから暗号化するため、
+メモリに入りきらな大きなファイルを暗号化することはできない。
+</bugs>
+<bugs en>
+TODO: Since it enciphers after extracting the contents of a file into
+a memory, the file wouldn't be encrypted if the file is too big for
+total amount of available memory.
+</bugs>
+</tool>
+

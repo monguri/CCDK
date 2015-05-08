@@ -1,0 +1,265 @@
+#
+# document for VCE auto-generated reference [profiler.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: profiler.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+<func>
+<name>vce_profiler_init
+<prototype>int vce_profiler_init( int max_tags )
+<cat>profiler
+<arch>linux,darwin
+<sum ja>gettimeofday を使ったプロファイラ
+<sum en>profiler routines implemented by gettimeofday
+<arg>int max_tags
+<argdef ja>
+タグの最大数
+</argdef>
+<argdef en>
+Max number of profiler tags.
+</argdef>
+<return ja>
+初期化に成功したらゼロ，失敗したら負のエラーコード
+</return>
+<return en>
+Returns if initialization is successful.
+Returns minus error indicator value if failed.
+</return>
+<desc ja>
+VCE ではgettimeofday を使って，
+数十マイクロ秒の精度をもつプロファイリングを行なうことができるが，
+本関数はプロファイラの初期化を行なう．
+max_tags 引数を用いて，最大でいくつの時間計測を行なうかを決定する．
+これはvce_profiler_[in|out] 関数で指定するタグの種類数の事である．
+VCE プロファイラは vce_profiler_init するときに，配列エンジンと
+検索エンジンを1個づつ必要とするため， vce_initialize_limited 関数
+を使っている場合は注意が必要である．
+<BR><BR>
+VCE のプロファイラは「タグ」を使って動作する，
+アプリケーションレベルの実行時間計測を実装している．
+つまり，vce_profiler_in 関数を使ってタイマーを起動し，
+vce_profiler_out 関数で終了する．
+双方の関数ではおなじ「タグ」文字列を指定し，
+組となって動作する．したがって，複数の return を持つようなルーチン
+を profile するには，注意が必要である．
+また，各タグは独立しているので，
+同時に複数のプロファイルをすることも可能である．
+<BR><BR>
+VCE にこのようなプロファイリング機構を導入している理由は，
+<ul>
+<LI>動的に値をリセットしたり，取りだしたりする機能が標準の
+プロファイラに存在しない
+<LI>標準のプロファイリングは移植性に乏しい
+</ul>
+といったような事がある．
+</desc>
+<desc en>
+VCE can execute accurate profiling that have precision
+about several tens of microseconds by using the gettimeofday.
+This function initializes the profiler routine.
+By using the max_tags argument, maximum length of time measurement
+is determined.
+This indicates how many tags will be set at most, which are designated
+by the vce_profiler_[in|out] function.
+Inside vce_profiler_init, VCE profiler needs one VCE array and one
+VCE search engine.
+Please note that when you are using vce_initialize_limited function
+to save memory usage.
+
+VCE profiler operates based on "tag" information, and implements
+execution time measurement on an application level.
+In other words, VCE uses vce_profiler_in function to
+activate timer, and stops counting time with vce_profiler_out
+function.
+The same "tag" string is designated in both functions, and both
+functions operate in pair way.
+So, please be careful if you want to profile some C function
+that has two or more return(s) statement.
+In addition, multiple profiling at the
+same time is possible since each tag is independently count.
+
+VCE provides these profiling mechanism because:
+<ul>
+<LI>The standard profiler does not have a task to reset and fetch values
+during the program is running.
+<LI>Default profiler does not have good portability/compatibility.
+</ul>
+</desc>
+
+<sample ja>
+<pre>
+  int main(){
+  vce_profiler_init(100);
+  subroutine();
+  }
+  void subroutine()
+  {
+      vce_profiler_in( "subroutine"); // ここでタイマー開始
+      if( ... ){
+          vce_profiler_out( "subroutine" ); // ここでもout必要
+          return;
+      }
+      vce_profiler_out( "subroutine"); // ここでもout必要
+      return;
+  }
+</pre>  
+</sample>
+<sample en>
+<pre>
+  int main(){
+      vce_profiler_init(100);
+      subroutine();
+  }
+  void subroutine()
+  {
+      vce_profiler_in( "subroutine"); // Start timer
+      if( ... ){
+          vce_profiler_out( "subroutine" ); // Need _out here
+          return;
+      }
+      vce_profiler_out( "subroutine"); // Need _out here, too
+      return;
+  }
+</pre>  
+</sample>
+<bugs ja>
+vce_profiler_[in|out] 関数でgettimeofdayを直接使用しているが，
+おそらくこれによって標準のプロファイリングよりも若干遅くなる．
+</bugs>
+<bugs en>
+By using gettimeofday directly with vce_profiler_[in|out]
+function, it will probably get a bit slower than standard profiling.
+</bugs>
+<also>vce_profiler_cleanup,vce_profiler_in,vce_profiler_out,vce_initialize_limited
+</func>
+
+<func>
+<name>vce_profiler_cleanup
+<prototype>void vce_profiler_cleanup( void )
+<arch>linux,darwin
+<cat>profiler
+<sum ja>プロファイラを解放する
+<sum en>clean up all used memory by VCE profiler routines
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+VCE のプロファイラが使っているメモリをすべて解放する．
+</desc>
+<desc en>
+Release all resources occupied by VCE profiler.
+</desc>
+<also>vce_profiler_init
+</func>
+
+<func>
+<name>vce_profiler_in
+<prototype>int vce_profiler_in( char *tag )
+<cat>profiler
+<arch>linux,darwin
+<sum ja>コードのある部分のプロファイリングを開始する(タイマー起動)
+<sum en>start profiling in a code part(start timer)
+<arg>char *tag
+<argdef ja>
+タグ名を格納したバッファの先頭アドレス
+</argdef ja>
+<argdef en>
+Top address of string containing tag name .
+</argdef>
+<return ja>
+成功したらゼロを返す．失敗したら負のエラーコードを返す．
+</return>
+<return en>
+Returns zero if successful.
+Returns error code when any errors.
+</return>
+<desc ja>
+タグを指定してタイマーを起動する．
+本関数で開始したタイマーは，vce_profiler_out 関数を使って終了させることを
+忘れるといつまでの開始したままになってしまう．
+タイマーを開始したまま再び開始しようとすると，
+エラー(VCE_EALREADY)が返される．
+</desc>
+<desc en>
+This function activates a timer with a tag.
+When the timer started by this function is not stopped by
+vce_profiler_out function,
+it will remain being active.
+Trying to start the timer while the timer is being activated
+will return an error (VCE_EALREADY).
+</desc>
+<also>vce_profiler_init,vce_profiler_out
+</func>
+
+<func>
+<name>vce_profiler_out
+<prototype>int vce_profiler_out( char *tag )
+<cat>profiler
+<sum ja>vce_profiler_in で起動したタイマーを止める
+<sum en>stop timer invoked by vce_profiler_in
+<arg>char *tag
+<argdef ja>
+タグ名を格納したバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of string containing profiler tag name.
+</argdef>
+<return ja>
+エラーの場合は負のエラーコード，
+成功したらゼロ
+</return>
+<return en>
+Returns zero if successful.
+Returns minus error code when any error occured.
+</return>
+<desc ja>
+vce_profiler_in で指定したタグと同じタグを指定して，
+タイマーを停止させる．
+タイマーの計測結果は，プロファイラの中に蓄積され，
+回数や平均時間などが再計算される．
+</desc>
+<desc en>
+</desc>
+<also>vce_profiler_init,vce_profiler_in
+</func>
+
+<func>
+<name>vce_profiler_save_stats
+<prototype>void vce_profiler_save_stats( char *path )
+<cat>profiler
+<arch>linux,darwin
+<sum ja>VCEプロファイラの状態をファイルに出力する
+<sum en>print out VCE profiler status in a file
+<arg>char *path
+<argdef ja>
+ファイルのパス名
+</argdef>
+<argdef en>
+Path name of output file.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+VCE の vce_read_simple_config_file 関数が認識するフォーマットと同じ
+フォーマットを使って，現在の状態を出力する．
+</desc>
+<desc en>
+Print out current status of VCE internal profiler routines.
+This output is formatted same as vce_read_simple_config_file function.
+</desc>
+<also>vce_profiler_init
+</func>
+

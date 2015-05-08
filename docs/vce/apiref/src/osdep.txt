@@ -1,0 +1,140 @@
+#
+# document for VCE auto-generated reference [osdep.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: osdep.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_get_ipv4_addr_by_name
+<prototype>int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );
+<cat>util
+<arch>linux,win32,ps2,darwin
+<sum ja>ホスト名から IPv4アドレス(ネットワークバイトオーダ)を得る
+<sum en>Get network byte order IPv4 address from host name string
+<arg>unsigned int *a
+<argdef ja>
+IPv4アドレスのポインタ。出力に使われる。
+出力はネットワークバイトオーダのままである。in_addr 構造体の
+s_addr メンバそのもの。
+</argdef>
+<argdef en>
+Pointer to output IPv4 network byte-order address.
+equivalent to in_addr.s_addr.
+</argdef>
+<arg>char *s
+<argdef ja>
+ホスト名。"192.168.1.2" や "www.vce-lab.net" などが指定できる。
+</argdef>
+<argdef en>
+Hostname. "192.168.1.2" and "www.vce-lab.net" are acceptable.
+</argdef>
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns 0 if successful. Otherwise minus error indicator value.
+</return>
+<desc ja>
+UNIXの場合は inet_aton 、 gethostbyname の順に呼びだす。
+Win32の場合は、inet_addr, gethostbyname の順に呼びだす。
+PlanetWeb の場合は，現在は DNS解決に対応していない．
+</desc>
+<desc en>
+In UNIX systems, inet_aton(), and gethostbyname() are called sequently.
+In Win32 systems, inet_addr(), and gethostbyname() are called sequently.
+In PlanetWeb, this is not compatible with DNS resolving.
+</desc>
+</func>
+
+<func>
+<name>vce_snprintf
+<prototype>void vce_snprintf( char *out, int len, const char *format, ... )
+<cat>text
+<arch>linux,win32,ps2,darwin
+<sum ja>libc の snprintf の wrapper
+<sum en>wrapper function for libc's snprintf
+<arg>char *out
+<argdef ja>
+文字列を出力するバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of output string buffer.
+</argdef>
+<arg>int len
+<argdef ja>
+バッファの長さ
+</argdef>
+<argdef en>
+Length of output buffer.
+</argdef>
+<arg>char *format
+<argdef ja>
+フォーマット文字列
+</argdef>
+<argdef en>
+Format string
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+UNIX のlibc(glibc) に含まれている snprintf は、
+UNIX 以外の環境では、異なるインターフェイスを持っていたり、
+そもそも存在しなかったりする。 snprintf はバッファオーバーフロー攻撃を
+防ぐためには必要不可欠な関数なので、 VCE ではこれらのプラットフォームの
+コードを安全にするために、 vce_snprintf を使うことを推奨する。
+</desc>
+<desc en>
+</desc>
+<bugs ja>
+linux,win32 以外の環境においてはこの関数は
+sprintf と同等の機能しか持っていない．
+(バッファ管理のミスによりバッファーオーバーフロー攻撃される可能性がある)。
+そのためアプリケーション側で対処する必要がある．
+</bugs>
+<bugs en>
+</bugs>
+</func>
+
+
+
+<func>
+<name>vce_utime_diff
+<proottype>VCEI64 vce_utime_diff( struct timeval *before, struct timeval *after )
+<cat>util
+<arch>linux,darwin
+<sum ja>struct timeval 型の時刻の差分を VCEI64 型で求める
+<sum en>get differential time of "struct timeval" in VCEI64 type
+<arg>struct timeval *before
+<argdef ja>
+差分を求める時刻のうち、前のもの。
+</argdef>
+<argdef en>
+Previous time
+</argdef>
+<arg>struct timeval *after
+<argdef ja>
+差分を求める時刻のうち、後のもの。
+</argdef>
+<argdef en>
+Later time
+</argdef>
+<desc ja>
+時刻の差分をマイクロ秒に換算し、VCEI64 型に変換して返す。
+この関数は BSD カーネルの time_diff 関数とまったく同じだが、
+32ビットマシンで42億マイクロ秒(420秒)を越える時間を返せるように、
+VCEI64型としている。
+</desc>
+<desc en>
+</desc>
+</func>
+

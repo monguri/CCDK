@@ -1,0 +1,316 @@
+#
+# document for VCE auto-generated reference [pcallback.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: pcallback.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_protocol_pcallback_echo_bin16
+<prototype>int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )
+<cat>pcallback
+<arch>linux,win32,ps2,darwin
+<sum ja>conn_t上のbin16プロトコル用の、エコー・コールバック関数
+<sum en>Echo callback function for normal TCP bin16 protocol
+<arg>conn_t ct
+<argdef ja>
+エコーする対象となるコネクション。仮想回路(circ_t)ではない。
+</argdef>
+<argdef en>
+Processing conn_t. Note that this is not circ_t.
+</argdef>
+<arg>char *data
+<argdef ja>
+受信データの先頭アドレス
+</argdef>
+<argdef en>
+Top address of received data
+</argdef>
+<arg>int len
+<argdef ja>
+受信データの長さ(バイト数)
+</argdef>
+<argdef en>
+Length of received data
+</argdef>
+<return ja>
+入出力に失敗すると負のエラーコード(vce.h)を、成功すると
+送信バイト数を返す。
+</return>
+<return en>
+Returns minus value if error occured.
+Returns larger than zero if transmit is successful.
+</return>
+<desc ja>
+vce_tcpcontext_set_conn_parser 関数の呼びだし時に指定する，
+プロトコルコールバック関数である。
+
+本関数は、デフォルトでVCEに附属している
+コールバック関数で、入力された文字列を単純に出力にエコーバックする。
+
+本関数を使うためには、 vce_tcpcontext_set_conn_parser の呼びだし時に、
+vce_protocol_parser_bin16 関数をプロトコルパーサとして登録しておく
+必要がある。<BR>
+
+実際のアプリケーションにおいては、独自のコールバック関数を
+定義してクライアントからの入力を処理するが、本関数はテストのために
+使用することができる。<BR>
+</desc>
+<desc en>
+This function is a protocol callback function,
+which is specified when calling
+vce_tcpcontext_set_conn_parser function.
+This function echoes input data into output buffer as it is.
+To use this function, you have to have bin16 parser by
+vce_tcpcontext_set_conn_parser, and vce_protocol_parser_bin16.
+<BR>
+In actual application, you should use your original protocol
+callback function, but you may be able to use this echo function
+for your debugging.
+</desc>
+<also>vce_protocol_pcallback_noop,vce_protocol_pcallback_dump,vce_vecprotocol_pcallback_echo_bin16,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_pcallback_echo_text
+<prototype>int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )
+<cat>pcallback
+<arch>linux,win32,ps2,darwin
+<sum ja>conn_t 上の行指向テキストプロトコル用のエコーコールバック関数
+<sum en>Echo callback function for normal TCP text line-based protocol
+<arg>conn_t ct
+<argdef ja>
+入力を受けるコネクション
+</argdef>
+<argdef en>
+Processing conn_t.
+</argdef>
+<arg>char *data
+<argdef ja>
+入力データの先頭アドレス
+</argdef>
+<argdef en>
+Top address of received data
+</argdef>
+<arg>int len
+<argdef ja>
+入力データの長さ
+</argdef>
+<argdef en>
+Length of received data.
+</argdef>
+<return ja>
+入出力に失敗すると負のエラーコード、成功すると送信バイト数を返す
+</return>
+<return en>
+Returns minus error indicator value.
+Returns larger than zero if tramsmit is successful.
+</return>
+<desc ja>
+入力をそのまま出力にコピーして text プロトコルで書きだす。
+</desc>
+<desc en>
+Copies input data into output buffer using text protocol unparser
+( vce_protocol_unparser_text function).
+</desc>
+<also>vce_tcpcontext_create,vce_protocol_pcallback_echo_bin16,vce_protocol_unparser_text
+</func>
+
+<func>
+<name>vce_protocol_pcallback_noop
+<prototype>int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )
+<cat>pcallback
+<arch>linux,win32,ps2,darwin
+<sum ja>普通のTCPコネクション用の、何もしないプロトコルコールバック関数
+<sum en>No-Operation callback function for normal TCP connection ( conn_t )
+<arg>conn_t ct
+<argdef ja>
+入出力対象となるコネクション。仮想回路(circ_t)ではない。
+</argdef>
+<argdef en>
+Processing conn_t. Note that this is not circ_t.
+</argdef>
+<arg>char *data
+<argdef ja>
+入力データの先頭アドレス
+</argdef>
+<argdef en>
+Top address of received data.
+</argdef>
+<arg>int len
+<argdef ja>
+入力データの長さ(バイト数)
+</argdef>
+<argdef en>
+Length of received data (in bytes).
+</argdef>
+<return ja>
+送信しないので常に0を返す
+</return>
+<return en>
+Always returns zero, because this function transmits nothing.
+</return>
+<desc ja>
+本関数は vce_tcpcontext_set_conn_parser の呼びだし時に指定する
+プロトコルコールバック関数である．
+本関数は単にデータを捨てて何もしない．
+<BR>
+アプリケーションは実際には本関数を使用することはなく、
+独自のプロトコルコールバック関数を定義して入力データの処理をすることになる。
+サーバーを一時的に「殺す」ために使える．
+<BR>
+</desc>
+<desc en>
+This function will be specified as an argument to
+vce_tcpcontext_set_conn_parser function.
+This function just throws away all input data from the conn_t.
+In most cases your application don't use this funciton,
+but use your original protocol callback function made by yourself.
+You may be able to use this function to make your server be quiet
+temporarily.
+</desc>
+<also>vce_tcpcontext_create,vce_protocol_pcallback_echo_bin16,vce_protocol_pcallback_dump
+</func>
+
+<func>
+<name>vce_protocol_pcallback_dump
+<prototype>int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )
+<cat>pcallback
+<arch>linux,win32,ps2,darwin
+<sum ja>普通のTCPコネクション用の、データをダンプするコールバック
+<sum en>Protocol callback function for dumping data input from TCP connection
+<arg>conn_t ct
+<argdef ja>
+入出力対象となるTCPコネクション。仮想回路(circ_t)ではない。
+</argdef>
+<argdef en>
+Processing conn_t. Note that this is not a circ_t.
+</argdef>
+<arg>char *data
+<argdef ja>
+入力データへの先頭アドレス
+</argdef>
+<argdef en>
+Top address of received data.
+</argdef>
+<arg>int len
+<argdef ja>
+入力データの長さ(バイト数)
+</argdef>
+<argdef en>
+Length of received data.
+</argdef>
+<return ja>
+送信しないので常に0を返す
+</return>
+<return en>
+Always returns zero because this function tramsmits nothing.
+</return>
+<desc ja>
+conn_tに入力されたデータをすべて vce_dump_buffer 関数を使って
+ダンプする。アプリケーションのデバッグ用に作られた関数である。
+<BR>
+この関数は「プロトコルコールバック関数」である．
+</desc>
+<desc en>
+This function dumps all input data received by conn_t.
+This function is prepared for
+the purpose of debugging.
+This function is called as a "protocol callback function".
+</desc>
+<also>vce_tcpcontext_create,vce_protocol_pcallback_echo_bin16,vce_protocol_pcallback_noop
+</func>
+
+<func>
+<name>vce_vecprotocol_pcallback_echo_bin16
+<prototype>int vce_vecprotocol_pcallback_echo_bin16( circ_t ct, char *data, int len )
+<cat>pcallback
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライザ用の、エコーコールバック関数(bin16出力)
+<sum en>Echo callback function for packet-vectorizer protocol(bin16 output)
+<arg>circ_t
+<argdef ja>
+入出力対象の仮想回路(circ_t)
+</argdef>
+<argdef en>
+Processing circ_t. Note that this is not conn_t.
+</argdef>
+<arg>char *data
+<argdef ja>
+入力データの先頭アドレス
+</argdef>
+<argdef en>
+Top address of received data.
+</argdef>
+<arg>int len
+<argdef ja>
+入力データの長さ(バイト数)
+</argdef>
+<argdef en>
+Length of received data.
+</argdef>
+<return ja>
+送信できた長さを返す
+</return>
+<return en>
+Returns number of bytes tramsmitted.
+</return>
+<desc ja>
+VCEではパケットベクトライズを用いて1本のTCPコネクション(conn_t)の中に
+仮想回路(circ_t)を含めることができるが、本関数ではその仮想回路への
+入力をそのままエコーバックする。
+アプリケーションのデバッグ用に使用することができる。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_protocol_pcallback_echo_bin16,vce_protocol_pcallback_dump,vce_protocol_pcallback_noop
+</func>
+
+<func>
+<name>vce_vecprotocol_pcallback_echo_text
+<prototype>int vce_vecprotocol_pcallback_echo_text(circ_t ct,char*data,int len)
+<cat>pcallback
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライザ用の、text出力のエコーコールバック関数
+<sum en>Echo callback function for packet-vectorizer protocol (text output)
+<arg>circ_t ct
+<argdef ja>
+入出力対象となる仮想回路
+</argdef>
+<argdef en>
+Processing circ_t. Note that this is not a conn_t.
+</argdef>
+<arg>char *data
+<argdef ja>
+仮想回路からの入力データの先頭アドレス
+</argdef>
+<argdef en>
+Top address of received data.
+</argdef>
+<arg>int len
+<argdef ja>
+入力データの長さ
+</argdef>
+<argdef en>
+Length of received data.
+</argdef>
+<return ja>
+仮想回路に書きこめたデータの長さ
+</return>
+<return en>
+Number of bytes sent to the circ_t.
+</return>
+<desc ja>
+仮想回路用のエコーコールバック関数．text プロトコルでエコーする。
+</desc>
+<desc en>
+Echo callback function for circ_t, using text protocol.
+</desc>
+<also>vce_tcpcontext_create,vce_vecprotocol_pcallback_echo_bin16
+</func>
+

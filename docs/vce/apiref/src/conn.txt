@@ -1,0 +1,1743 @@
+#
+# document for VCE auto-generated reference [conn.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: conn.txt,v 1.4 2005/07/25 12:24:35 chiaki Exp $
+#
+
+<func>
+<name>vce_conn_set_delay
+<cat>core
+<arch>linux,win32,ps2,darwin
+<prototype>void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)
+<sum ja>クライアント、サーバー間の通信の遅延んをシミュレートsる。
+<sum en>pending
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>conn_t ct
+<argdef ja>
+遅延を設定する対象のコネクション
+</argdef>
+<argdef en>
+pending
+</argdef>
+<arg>int delay_min
+<argdef ja>
+遅延させる最低の時間。単位はミリ秒
+</argdef>
+<argdef en>
+pending
+</argdef>
+<arg>int delay_max
+<argdef ja>
+遅延させる最大の時間。単位はミリ秒
+</argdef>
+<argdef en>
+pending
+</argdef>
+<desc ja>
+受信（若しくは送信）するときにmin〜maxまでの間で平均的に遅れを発生させる。
+クライアント回線のラグタイムをシミュレートするときに使う。
+一度設定すると遅延時間をゼロに設定することはできなくなる。
+</desc>
+<desc en>
+pending
+</desc>
+<bugs ja>
+バッファサイズが通常の送受信バッファと同じサイズで受信したパケットに細かく
+時間等ヘッダが付加されるの上に遅延されるのでバッファが詰まりやすい。
+</bugs>
+<bugs en>
+pending
+</bugs>
+</func>
+
+<func>
+<name>vce_conn_close
+<prototype>void vce_conn_close( conn_t ct )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションを閉じて解放する。
+<sum en>Close and release one TCP connection.
+<arg>conn_t ct
+<argdef ja>
+閉じたいコネクションの conn_t
+</argdef>
+<argdef en>
+A TCP connection (conn_t) to be closed.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+TCPコネクションを閉じる。実際には、次のheartbeatで close 処理をするための
+フラグを立てるだけである。常に成功するが、すでに close フラグが立っている
+コネクションに対して本関数を呼びだした場合は、 verbose モードでは
+warning が出る。
+このように vce_heartbeat を呼びださない限り、
+実際にコネクションは閉じられないので注意が必要である。
+VCEライブラリによってcloseされたコネクションは、アプリケーションが次に
+write しようとしたときにエラーとして検出される。<BR>
+また、資源を解放する前に、vce_tcpcontext_create時に指定している
+closewatcherが呼びだされる。
+Tips として， vce_conn_close した直後にタイムアウト値を通常よりも短く
+設定しなおすことで，迅速な close 処理を期待できる．
+そうしない場合，もしコネクションにデータが残っていたら，
+デフォルトのタイムアウト時間を過ぎるまで，ずっとコネクションが残った
+ままになるからである(サンプルコードを参照)．
+引数が異常だった場合は VCE_EINVAL,
+すでに閇じられているのに，さらに閇じようとした場合は VCE_EALREADY が，
+vce_get_last_error で返される．
+</desc>
+<desc en>
+This closes a TCP connection.
+What it actually does is just to put up the flag for the closing in
+next heartbeat.
+It succeeds all the time, however, when this function is invoked
+for the connection with the close flag up, a warning is
+given in the verbose mode.
+Note that a connection will not actually be closed,
+unless vce_heartbeat is called.
+The connection closed by the VCE library will be detected
+as an error as an application attempts to write next time.
+Moreover, the closewatcher designated upon vce_tcpcontext_create
+is called before releasing resources.
+By resetting the time-out value shorter than a normal value
+right after vce_conn_close, speedy close processing would be expected.
+If not doing so, a connection will remain until the default time-out
+duration-time passes, should there left some data within a connection.
+(refer to sample codes) vce_get_last_error returns
+VCE_EINVAL and VCE_EALREADY,
+in case that an argument was abnormal and that additional
+close is attempted when it was already closed, respectively.
+</desc>
+<sample ja>
+// クローズ後，短いタイムアウト値を設定
+vce_conn_close( co );
+vce_conn_set_timeout( co, 0 );
+</sample>
+<sample en>
+// Set shorter time-out duration after closing conn_t
+vce_conn_close( co );
+vce_conn_set_timeout( co, 0 );
+</sample>
+<also>vce_conn_writable, vce_tcpcontext_connect, vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_conn_set_timeout
+<prototype>void vce_conn_set_timeout( conn_t c, int sec )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>conn_t ごとにタイムアウト時間を設定変更する
+<sum en>Change each conn_t's timeout length
+<arg>conn_t c
+<argdef ja>
+設定を変更したい conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>int sec
+<argdef ja>
+新しいタイムアウト値(秒)
+</argdef>
+<argdef en>
+new timeout value in seconds
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+デフォルトでは，各コネクションのタイムアウト値は，
+vce_tcpcontext_create 関数のタイムアウト設定に準じるが，
+本関数を用いて，コネクションごとのタイムアウトを自在に調整できる．
+アプリケーションの実行中に特にセキュリティを高めたい状況などに
+本関数を使って調整をするとよいだろう．
+</desc>
+<desc en>
+By default, time-out durations of respective connections
+comply with the time-out setting of the vce_tcpcontext_create function.
+The time-out duration depending on each connection can be adjusted without
+restriction through using this function.
+You can make use of this function in your application
+if you want special high security in some situation.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_conn_get_index
+<prototype>int vce_conn_get_index( conn_t c );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクション(conn_t)のVCE内でのindexを求める
+<sum en>Get index number of conn_t in VCE library.
+<arg>conn_t c
+<argdef ja>
+インデックス値を求めたいコネクション
+</argdef>
+<argdef en>
+target conn_t. retrieve index from this conn_t.
+</argdef>
+<return ja>
+インデックス値。エラーの場合は負のエラーコードを返す
+</return>
+<return en>
+Index number. Return minus value when error.
+</return>
+<desc ja>
+conn_t 構造体はVCE内部で1次元配列として管理されているので、
+その配列へのインデックスはconn_tを指定するために一意なものとして利用できる。
+したがって、「セッションID」のような用途に使える。
+</desc>
+<desc en>
+Index number can be uniquely used to specify conn_t,
+because the conn_t structure is maintained as a one-dimensional
+array inside VCE.
+Therefore, it may be used for the purposes such as the "session ID"
+in your application.
+</desc>
+<also>vce_conn_get_struct_from_index
+</func>
+
+<func>
+<name>vce_conn_get_struct_from_index
+<prototype>conn_t vce_conn_get_struct_from_index( int index );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのindex値からconn_t構造体を得る。
+<sum en>Get conn_t struct from index number.
+<arg>int index
+<argdef ja>
+インデックス値。前もって vce_conn_get_index 関数で得たindexを
+つかって構造体に戻す。
+</argdef>
+<argdef en>
+Index of the conn_t. You can get conn_t by specifying index
+number which is got by using vce_conn_get_index function.
+</argdef>
+<return ja>
+conn_t構造体そのもの。
+</return>
+<return en>
+retrieved conn_t
+</return>
+<desc ja>
+本関数は「セッションID」から構造体を取りだしたいときなどに使用する。
+</desc>
+<desc en>
+You can use this function when you want to get conn_t
+from "session ID" in your application.
+</desc>
+<also>vce_conn_get_index
+</func>
+
+<func>
+<name>vce_conn_get_state_buffer
+<prototype>void * vce_conn_get_state_buffer( conn_t c, int *len );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>conn_tの状態管理バッファへのポインタを返す
+<sum en>Get pointer to conn_t's state buffer.
+<arg>conn_t c
+<argdef ja>
+状態を取りだしたいコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>int *len
+<argdef ja>
+状態バッファの長さを返す。
+NULL を指定すると何もしない
+</argdef>
+<argdef en>
+Return length of state buffer.
+Do nothing if NULL is specified.
+</argdef>
+<return ja>
+値へのポインタ。状態のないプロトコルの場合NULLが返る
+</return>
+<return en>
+Pointer to state buffer.
+Returns NULL if stateless protocol.
+</return>
+<desc ja>
+状態のあるプロトコルの管理用バッファを返す。
+vce_tcpcontext_create の呼びだし時に状態のあるプロトコルを指定(statebuf_size)
+していれば、そのサイズの領域をもつバッファへのポインタを返す。
+コネクションスイッチングを使用している場合は
+vce_circ_get_state_buffer 関数を使ってポインタを得る必要がある。
+コネクションスイッチングを使っているのに本関数を使ってポインタを得た場合は
+返り値は未定義である。
+</desc>
+<desc en>
+This returns protocol state buffer attached to a conn_t.
+If the protocol with the state is designated (statebuf_size) upon
+invocation of vce_tcpcontext_create,
+this returns a pointer to the buffer having the region of that size.
+In case a switching proxy is used,
+a pointer has to be obtained using the
+vce_circ_get_state_buffer function.
+Returned value is not defined if you use this function
+when you are using connection switching.
+</desc>
+<also>vce_tcpcontext_create,vce_circ_get_state_buffer
+</func>
+
+<func>
+<name>vce_conn_break_heartbeat
+<prototype>void vce_conn_break_heartbeat()
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>コールバック関数内から、connのプロトコル処理を中止させる
+<sum en>PENDING
+<desc ja>
+conn_parserコールバック関数内で、この関数を呼ぶことでそのheartbeat内でのそのconnの
+プロトコル処理を中止する。
+同一heartbeat内で後続のパケットを処理したくない場合に使用する。たとえばマップの
+切り替えの際にいったんプロトコルの処理を停止して、フェードアウト、マップの読み込み、
+フェードインを行いたいときなどに利用する。
+<BR>
+これは、VCE-0.4.99以前のVCEでコールバック関数で０を返す場合に相当する。
+現在、その仕様は変更されたため、このAPIが追加された。
+<BR>
+コールバック関数外でこの関数を呼んでも、全く無意味である。
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_tcpcontext_set_conn_call_parser_per_heartbeat
+</func>
+
+<func>
+<name>vce_conn_write
+<prototype>int vce_conn_write( conn_t ct, char *b, size_t len );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションにデータを生で書きこむ。
+<sum en>Write raw data into a TCP connection.
+<arg>conn_t ct
+<argdef ja>
+書きこむ対象となる conn_t
+</argdef>
+<argdef en>
+target conn_t to write
+</argdef>
+<arg>char *b
+<argdef ja>
+書きこむデータ．
+</argdef>
+<argdef en>
+Pointer to data.
+</argdef>
+<arg>size_t len
+<argdef ja>
+書きこむデータの長さ．
+</argdef>
+<argdef en>
+Length of written data.
+</argdef>
+<return ja>
+1以上： 書きこみが成功した。<BR>
+0 : バッファがいっぱいになってしまっている。<BR>
+</return>
+<return en>
+Larger than 1: successful<BR>
+0 : Buffer full<BR>
+</return>
+<desc ja>
+生データを直接送信する。直接送信するといっても、VCEの内部的には、
+一旦TCPコネクション(conn_t)の内部に確保されている書きこみバッファに
+溜めてからフラッシュされる。したがって、一度に書きこめる量の最大は、
+vce_tcpcontext_create するときの書きこみバッファの長さによって決まる。
+暗号化や圧縮などの処理は自動的に内部で行なわれる。
+
+また、 vce_conn_write が負を返したら、もうそのコネクションは使えないので、
+すみやかに vce_conn_close するべきである。<BR><BR>
+<B>0が返ってくるなど、全部書きこめなかった場合の処理</B><BR>
+vce_conn_write が0を返す場合は、
+何らかの事情でソケットにデータが書きこめない状況になっている。
+これは通常はクライアント側がそれ以上読みこめないことを意味する。
+アプリケーションの内容がJPEGファイルなど大きなデータをやりとりする場合は、
+0を返してもvce_conn_close せずに処理を続けるべきだが、
+ゲームの操作パケットなど小さいデータの場合は、
+クライアントに問題が発生していると解釈して vce_conn_close したほうがよい。
+</desc>
+<desc en>
+This directly transmits raw data.
+Here direct transmission means that,
+data is stored in the write buffer allocated inside conn_t
+for a while, then is flushed in next vce_heartbeat().
+Consequently, the maximum amount allowed to write at a time
+will depend on length of write buffer upon vce_tcpcontext_create.
+Data encryption or compression are automatically done inside.
+
+Moreover, once vce_conn_write returns a negative value,
+the connection is no longer available. In this case you should
+immediately call vce_conn_close against the conn_t.
+<BR><BR>
+
+<B>In cases it fails to write : returning 0 for example</B><BR>
+
+In case vce_conn_write returns 0,
+any data cannot be written into a socket for some reason.
+This usually means that the client side can no longer read (down).
+When the contents of an application sends or receives
+large data such as JPEG files, a process must go on
+without calling vce_conn_close,
+even if it returns 0.
+However, if small data such as game operation packets is used,
+it should be deemed that some problem is occurring to a client
+and calling vce_conn_close is perferable.
+</desc>
+<sample ja>
+  // ゲームなど小さいパケットばかりを使う場合の vce_conn_close の使いかた
+  if( vce_writable( ct ) > 0 ){
+      int writel = vce_conn_write( ct, "hoge", 4 );
+      if( writel < 4 ){
+          vce_conn_close(ct);
+      }
+  }
+</sample>
+<sample en>
+  // how to use vce_conn_close: in cases like online games:
+  // always small packets are transmitted
+  if( vce_writable( ct ) > 0 ){
+      int writel = vce_conn_write( ct, "hoge", 4 );
+      if( writel < 4 ){
+          vce_conn_close(ct);
+      }
+  }
+
+</sample>
+
+<also>vce_conn_writable,vce_conn_close
+</func>
+
+<func>
+<name>vce_conn_writable
+<prototype>int vce_conn_writable( conn_t ct );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションに書きこみが可能かどうかを調べる
+<sum en>Check if a TCP connection is ready to use (write).
+<arg>conn_t ct
+<argdef ja>
+書きこみ可能かどうか調べる対象となるTCPコネクションをあらわす conn_t。
+ノンブロッキングのconnectをvce_tcpcontext_create するときに指定している
+場合は、コネクションが完成したかどうかも調べることができる。
+この関数はサーバーにおいてもクライアントにおいても使えるが、
+クライアントで使うことのほうがほとんどである。
+</argdef>
+<argdef en>
+A conn_t variable to be checked. If you're using nonblocking connect()
+option on vce_tcpcontext_create, you can check if TCP socket is
+established by calling this function. vce_conn_writable can be used
+in both server programs and client programs, but it's commonly used in
+client programs.
+</argdef>
+<return ja>
+ct が有効でない場合は VCE_EINVAL をかえす。
+ct がVCEの内部で初期化されている場合(つまり、コネクションがアプリケーション
+の知らないところで切れている場合)は VCE_ECONNSERIAL を返す。
+ct は有効だが、書きこみバッファに空きがないか、暗号鍵のネゴシエーション中
+の場合はゼロを返す。
+書きこみ可能な場合はプラスの値を返す。値の意味は、書きこみ可能なバイト数
+である。
+</return>
+<return en>
+Returns VCE_EINVAL if ct is not valid.
+Returns VCE_ECONNSERIAL if ct is not usable any more
+( the connection is cleared inside vce library. )
+Returns 0 if connection is active but there are no buffer space/under
+key negotiation.
+Returns >0 if writable. The value means how many bytes you can write into
+the socket.
+</return>
+<desc ja>
+アプリケーションプログラムにおいて
+TCPコネクションに何かを書きこみたいときは、この関数をつかって
+書きこみ可能かどうかを調べてから書きこむこと。
+</desc>
+<desc en>
+Use this function to check if writing is allowed,
+when writing something into conn_t in your application.
+</desc>
+<sample ja>
+<pre>
+  // ひたすらソケットに書きこみ続けるプログラム
+  tcpcontext_t t = vce_tcpontext_create( 0, ... );
+  conn_t new_con = vce_tcpcontext_connect( t, "localhost" , 80 );
+  while (1 ){
+      vce_heartbeat();
+      if( vce_conn_writable( new_con ) >= 4 ){
+          vce_conn_write( new_con, "test" , 4 );
+      } else {
+          // Aから一定時間たったら，失敗を通知
+      }
+  }
+</pre>
+</sample>
+<sample en>
+  // This program keeps writing in conn_t continuously
+  tcpcontext_t t = vce_tcpontext_create( 0, ... );
+  conn_t new_con = vce_tcpcontext_connect( t, "localhost" , 80 );
+  while (1 ){
+      vce_heartbeat();
+      if( vce_conn_writable( new_con ) >= 4 ){
+          vce_conn_write( new_con, "test" , 4 );
+      } else {
+          // Fail. too long time after starting connect().
+      }
+  }
+
+</sample>
+<also>vce_tcpcontext_connect,vce_conn_is_valid,vce_conn_write
+</func>
+
+<func>
+<name>vce_conn_writed
+<prototype>int vce_conn_writed( conn_t c )
+<sum ja>connに書き込まれたデータがTCPコネクションに書き出されているかを調べる
+<sum en>
+<cat>tcp
+<arg>conn_t c
+<argdef ja>
+調査対象の conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<return ja>
+バッファが全て書き出されていれば1, まだ書き出されていなければ0を返す．
+</return>
+<return en>
+</return>
+<desc ja>
+vce_conn_write()をされていても、まだTCPのコネクションにデータが書き出されている訳ではなく実際にはconnの持つバッファーに書き込まれている。
+VCEでは、vce_heartbeatを呼び出すことによって可能な限りデータを書き込む。実際にconnに書き込まれたデータが送信されてるかしらべるには、vce_conn_writed()を使用する必要がある。
+特に、connをcloseする直前にデータを書き込む場合、vce_conn_writed()で調べてからcloseしないと実際には送信されていない可能性がある。
+</desc>
+<desc en>
+</desc>
+<also>vce_conn_valid
+</func>
+
+<func>
+<name>vce_conn_show_stat
+<prototype>void vce_conn_show_stat( void )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>使用中のすべてのコネクションの状態を表示する。
+<sum en>Show stats of all active connections.
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+<pre>
+"=== SHOW CONNECTION STATISTICS ===\n"
+</pre>
+ではじまる、コネクションの個数と同じ行数の統計情報を出力する。
+以下は、表示される内容の説明である。
+<ul>
+<LI><B>A:</B><BR>
+コネクション構造体(conn_t)のアドレス
+<LI><B>Enc:</B><BR>
+暗号化しているなら1、そうでないなら0
+<LI><B>IP:</B><BR>
+IPアドレス:ポート番号。ポート番号は10進数である。
+<LI><B>Lst:</B><BR>
+最後にアクセスした時刻(time_t、システムタイム)
+<LI><B>I:</B><BR>
+VCEの管理index
+<LI><B>Sv:</b><BR>
+サーバコネクションなら1、クライアントコネクションなら0
+<LI><B>ER:</B><BR>
+暗号化前の読みこみバッファのアドレス
+<LI><B>EW:</B><BR>
+暗号化後の書きこみバッファのアドレス
+<LI><B>R:</B><BR>
+復号後の読みこみバッファのアドレス
+<LI><B>W:</B><BR>
+暗号化前の書きこみバッファのアドレス
+<LI><B>St:</B><BR>
+暗号ネゴシエーション状態。
+</ul>
+注意点としては，サイレントモードでコンパイルされているVCEライブラリ
+では，本関数は何も出力せず，VCE_ESUPPORT をラストエラーに設定する．
+</desc>
+<desc en>
+This outputs statistical information of the same number
+of lines as it of connection, starting with
+<pre>
+"=== SHOW CONNECTION STATISTICS ===\n".
+</pre>
+Descriptions of the contents to be displayed are as follows:
+
+<UL>
+<LI>A<BR>
+Address of the connection structure (conn_t)
+<LI>Enc<BR>
+1 if encrypted, otherwise 0
+<LI>IP<BR>
+IP address port number. The port number is in the decimal.
+<LI>Lst<BR>
+Last accessed time (time_t, system time)
+<LI>I<BR>
+VCE control index
+<LI>Sv<BR>
+1 for server connections, 0 for client connections.
+<LI>ER<BR>
+Read buffer address before encryption
+<LI>EW<BR>
+Write buffer address after encryption
+<LI>R<BR>
+Read buffer address after decryption
+<LI>W<BR>
+Write buffer address before encryption
+<LI>St<BR>
+Negotiating on encryption
+</ul>
+Note that this function outputs nothing with the VCE library
+compiled in the silent mode, and sets up
+VCE_ESUPPORT as the last error.
+</desc>
+<bugs ja>
+本関数は、標準エラー出力を利用するため、
+Win32GUI環境において標準エラー出力が使えない場合は本関数は使用できない。
+</bugs>
+<bugs en>
+Since this function uses standard error for output,
+this function cannot be used in case standard error output is
+unavailable in Win32GUI environment.
+</bugs>
+</func>
+
+<func>
+<name>vce_conn_get_remote_ipv4_addr
+<prototype>void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのリモートピアのIPv4アドレス(32bit)を得る
+<sum en>Get 32-bit IPv4 remote peer address from a TCP connection
+<arg>conn_t ct
+<argdef ja>
+処理対象となるコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>unsigned int *a
+<argdef ja>
+32ビットのIPv4アドレス(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+</argdef>
+<argdef en>
+Pointer to return 32bit integer(int) IP address.
+Output data will be network byte-ordered.
+Ignore this parameter if NULL is set.
+</argdef>
+<arg>unsigned short *p
+<argdef ja>
+ポート番号(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+</argdef>
+<argdef en>
+Pointer to return port number. Output data is network byte-ordered.
+Ignore this parameter if NULL is set.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+出力はネットワークバイトオーダとなっているので、
+必要に応じて、 ntohs, ntohl, などを使用して変換すること。
+</desc>
+<desc en>
+Output data is in network byte order,
+so you use ntohs(), or ntohl() if you need them.
+</desc>
+</func>
+
+<func>
+<name>vce_conn_get_local_ipv4_addr
+<prototype>void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのローカルIPv4アドレス(32bit)を得る
+<sum en>Get 32-bit IPv4 local address from a TCP connection
+<arg>conn_t ct
+<argdef ja>
+処理対象となるコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>unsigned int *a
+<argdef ja>
+32ビットのIPv4アドレス(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+</argdef>
+<argdef en>
+Pointer to 32bit integer(int) IP address.
+Output data is network byte-ordered.
+Ignore this parameter if NULL is set.
+</argdef>
+<arg>unsigned short *p
+<argdef ja>
+ポート番号(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+</argdef>
+<argdef en>
+Pointer to 16bit integer(short) port number.
+Output data is network byte-ordered.
+Ignore this parameter if NULL is set.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+出力はネットワークバイトオーダとなっているので、
+必要に応じて、 ntohs, ntohl, などを使用して変換すること。
+</desc>
+<desc en>
+Output data is in the network byte order.
+It should be converted using ntohs, ntohl or others as you need.
+</desc>
+<also>vce_conn_get_remote_ipv4_addr
+</func>
+
+<func>
+<name>vce_conn_get_remote_ipv6_addr
+<prototype>void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのリモートピアのIPv6アドレス(128bit)を得る
+<sum en>Get 128-bit IPv6 remote peer address from a TCP connection
+<arg>conn_t ct
+<argdef ja>
+処理対象となるコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *a
+<argdef ja>
+128ビットのIPv6アドレス(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+アドレスはネットワークバイトオーダで16バイトが、
+そのままバッファに格納される。したがってこのバッファには16バイト以上の
+メモリ領域を指定する必要がある。
+</argdef>
+<argdef en>
+Pointer to char array, which will contain 16bytes of IPv6 address.
+Ignore this parameter if NULL is set.
+Output data is network byte-ordered. You have to allocate more than 16bytes
+for this parameter.
+</argdef>
+<arg>unsigned short *p
+<argdef ja>
+ポート番号(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+</argdef>
+<argdef en>
+Pointer to 16bit integer(short) port number.
+Ignore this parameter if NULL is set.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+出力はネットワークバイトオーダとなっているので、
+必要に応じて、 ntohs, ntohl, などを使用して変換すること。
+</desc>
+<desc en>
+Output data is in network byte order.
+You use ntohs(), or ntohl() functions in case you need them.
+</desc>
+<also>vce_conn_get_local_ipv6_addr
+</func>
+
+<func>
+<name>vce_conn_get_local_ipv6_addr
+<prototype>void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのローカルIPv6アドレス(128bit)を得る
+<sum en>Get 128-bit IPv6 local address from a TCP connection
+<arg>conn_t ct
+<argdef ja>
+処理対象となるコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *a
+<argdef ja>
+128ビットのIPv6アドレス(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+アドレスはネットワークバイトオーダで16バイトが、
+そのままバッファに格納される。したがってこのバッファには16バイト以上の
+メモリ領域を指定する必要がある。
+</argdef>
+<argdef en>
+Pointer to char array, which will contain 16bytes of IPv6 address.
+Ignore this parameter if NULL is set.
+Output data is network byte-ordered. You have to allocate more than 16bytes
+for this parameter.
+</argdef>
+<arg>unsigned short *p
+<argdef ja>
+ポート番号(ネットワークバイトオーダ)
+を返すためのポインタ。NULLを指定すると出力しない。
+</argdef>
+<argdef en>
+Pointer to 16bit integer(short).
+Ignore this parameter if NULL is set.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+vce_conn_get_remote_ipv4_addr 関数の IPv6版．
+</desc>
+<desc en>
+This function is IPv6 version of vce_conn_get_remote_ipv4_addr function.
+</desc>
+<also>vce_conn_get_remote_ipv6_addr,vce_conn_get_remote_ipv4_addr
+</func>
+
+<func>
+<name>vce_conn_get_remote_ipv4_addr_string
+<prototype>char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのリモートピアのIPv4アドレスとポートを文字列で得る
+<sum en>Get Ipv4 remote peer address from a TCP connectin as a string
+<return ja>
+s のアドレスをそのまま返す
+</return>
+<return en>
+Return parameter "s" as it is
+</return>
+<arg>conn_t ct
+<argdef ja>
+処理対象となるコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *s
+<argdef ja>
+出力先文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer.
+</argdef>
+<arg>int max
+<argdef ja>
+出力先文字列の最大長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<desc ja>
+IPアドレスをログ出力用などで、文字列に変換したい時が多いが、
+この関数を使うと簡単に文字列を得ることができる。
+PS2 での開発環境では、
+出力バッファである s には、50バイト以上の長さのものを指定すること。
+これは、
+現在は PS2 のライブラリが snprintf をサポートしていないことが理由である。
+この関数は IPv4 専用であるため IPv6 コネクションには対応していない。
+プロトコル独立をめざすアプリケーションでは、
+vce_conn_get_remote_addr 関数を用る。
+</desc>
+<desc en>
+Converting IPv4 address into string is often demanded
+for purposes such as logging.
+In the “PlayStation(R)2”development environment,
+designate over 50 bytes as "s", the output buffer.
+This is because current "PlayStation(R)2” library does not have snprintf.
+Since this function is dedicated to IPv4, it is not compatible
+with the IPv6 connection.
+An application pursuing protocol independency should use
+vce_conn_get_remote_addr function.
+</desc>
+<also>vce_conn_get_remote_ipv4_addr,vce_conn_get_remote_addr
+</func>
+
+<func>
+<name>vce_conn_get_local_ipv4_addr_string
+<prototype>char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのローカルIPv4アドレスとポートを文字列で得る
+<sum en>Get Ipv4 local peer address from a TCP connectin as a string
+<return ja>
+s のアドレスをそのまま返す
+</return>
+<return en>
+Return parameter "s" as it is
+</return>
+<arg>conn_t ct
+<argdef ja>
+処理対象となるコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *s
+<argdef ja>
+出力先文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int max
+<argdef ja>
+出力先文字列の最大長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<desc ja>
+本関数は IPv4 専用で、ソケットのこちら側の端点のアドレスを求める。
+こちら側とは、本関数を呼びだしたプログラムが動作している側の端点である。
+本関数は IPv4 専用なので、プロトコル独立をめざすために、本関数ではなく
+vce_conn_get_local_addr_string 関数を使うことを推奨する。
+</desc>
+<desc en>
+This function is dedicated to IPv4 and determines an address
+of the end point on this side of the socket.
+"This side" means that the end point on the side where the program
+that invoked this function is running.
+Since this function is dedicated to IPv4,
+it is recommended to use vce_conn_get_local_addr_string
+function rather than this function,
+because we should persue protocol independency in our applications.
+</desc>
+<also>vce_conn_get_local_addr_string
+</func>
+
+<func>
+<name>vce_conn_get_remote_ipv6_addr_string
+<prototype>char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのリモートピアのIPv6アドレスとポートを文字列で得る
+<sum en>Get Ipv6 remote peer address from a TCP connectin as a string
+<return ja>
+s のアドレスをそのまま返す、エラーの場合は  NULL を返す
+</return>
+<return en>
+Return parameter "s" as it is, or NULL when error.
+</return>
+<arg>conn_t ct
+<argdef ja>
+処理対象となるコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *s
+<argdef ja>
+出力先文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int max
+<argdef ja>
+出力先文字列の最大長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<desc ja>
+vce_conn_get_remote_ipv4_addr_string 関数の IPv6版．
+</desc>
+<desc en>
+This function is IPv6 version of vce_conn_get_remote_ipv4_addr_string
+function.
+</desc>
+<also>vce_conn_get_remote_ipv6_addr,vce_conn_get_remote_addr,vce_conn_get_remote_ipv4_addr_string
+</func>
+
+<func>
+<name>vce_conn_get_local_ipv6_addr_string
+<prototype>char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのローカルIPv6アドレスとポートを文字列で得る
+<sum en>Get Ipv6 local address from a TCP connectin as a string
+<return ja>
+s のアドレスをそのまま返す, エラーの場合は  NULL を返す
+</return>
+<return en>
+Return parameter "s" as it is, or NULL when error.
+</return>
+<arg>conn_t ct
+<argdef ja>
+処理対象となる conn_t
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *s
+<argdef ja>
+出力先文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int max
+<argdef ja>
+出力先文字列の最大長さ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<desc ja>
+TCP ソケットのローカルアドレスを文字列で得る。文字列の形式は、
+vce_conn_get_remote_addr_string 関数と同じ。
+この関数は  IPv6 専用でプロトコル独立でないため、
+vce_conn_get_local_addr_string 関数の使用を推奨する。
+</desc>
+<desc en>
+This gets local address of a conn_t in a character string,
+in the format same as vce_conn_get_remote_addr_string's.
+Since this function is dedicated to IPv6 and protocol dependent,
+it is recommended to use vce_conn_get_local_addr_string function instead.
+</desc>
+<also>vce_conn_get_local_addr_string
+</func>
+
+<func>
+<name>vce_conn_get_remote_addr_string
+<prototype>char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのリモートピアのアドレスとポートを文字列で得る
+<sum en>Get remote peer address and port number from conn_t by string
+<return ja>
+ワーク領域(引数 s)をそのまま返す
+</return>
+<return en>
+Return buffer "s" as it is.
+</return>
+<arg>conn_t ct
+<argdef ja>
+アドレスを取得したいコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *s
+<argdef ja>
+結果文字列を格納するためのバッファ
+</argdef>
+<argdef en>
+Top address of output buffer.
+</argdef>
+<arg>int max
+<argdef ja>
+バッファのサイズ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<desc ja>
+プロトコル独立なアプリケーションにおいて、 conn_t のリモートピアのアドレスを
+文字列で取得する。現在 VCE は ipv4 と ipv6 に対応しているが、
+名前を逆引きせずに、 ipv4 では"192.168.0.1:1234" 、
+ipv6 では "fe80::2d0:b7ff:fec6:f4cd.5678" といった感じで返す。
+ipv4 では最後のポート番号を示すトークンが ":" で区切られているのに対し、
+ipv6 では "." で区切られていることに注意。
+返された文字列がどのプロトコルのものかを判定する処理はアプリケーションに
+任されている。
+</desc>
+<desc en>
+This gets remote peer address of conn_t in
+a protocol independent application in a character string.
+VCE is compatible with ipv4 and ipv6 at the moment,
+and returns like "192.168.0.1:1234" for IPV4,
+or "fe802d0b7fffec6f4cd.5678" for IPv6.
+It does not resolve DNS name.
+Note that the token indicating the last port number is
+divided by ":" for ipv4,
+whereas "." is used for ipv6.
+The process to determine to which protocol a returned character
+string belongs is left to an application.
+</desc>
+<also>vce_conn_get_remote_ipv4_addr_string,vce_conn_get_local_addr_string
+</func>
+
+<func>
+<name>vce_conn_get_local_addr_string
+<prototype>char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクションのローカルアドレスとポートを文字列で得る
+<sum en>Get local address and port number from conn_t by string
+<return ja>
+ワーク領域(引数 s)をそのまま返す
+</return>
+<return en>
+Return buffer "s" as it is.
+</return>
+<arg>conn_t ct
+<argdef ja>
+アドレスを取得したいコネクション
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>char *s
+<argdef ja>
+結果文字列を格納するためのバッファ
+</argdef>
+<argdef en>
+Top address of output buffer
+</argdef>
+<arg>int max
+<argdef ja>
+バッファのサイズ
+</argdef>
+<argdef en>
+Length of output buffer
+</argdef>
+<desc ja>
+conn_t のローカルアドレスを文字列で取得する。取得できる
+アドレスのフォーマットは、
+vce_conn_get_remote_addr_string 関数と同じである。
+</desc>
+<desc en>
+This obtains local address of conn_t in a character string.
+The address format allowed is the same as
+vce_conn_get_remote_addr_string function's.
+</desc>
+<also>vce_conn_get_remote_addr_string
+</func>
+
+<func>
+<name>vce_conn_close_tcpcontext_all
+<prototype>void vce_conn_close_tcpcontext_all( tcpcontext_t tp )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>あるtcpが管理しているすべてのコネクションを切断する
+<sum en>Close all connections maintained by a tcpcontext.
+<arg>tcpcontext_t tp
+<argdef ja>
+切断対象となるコネクションを管理している tcpcontext_t
+</argdef>
+<argdef en>
+Target tcpcontext, which contains one or more conn_t
+which will be closed by calling this function.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+すべてのコネクションを切断する。 closewatcher、 fainalizer は呼びだされる。
+切断は「切断フラグ」を立てて次以降の vce_heartbeat を使って
+実際の入出力をするため、本関数を呼びだした後は vce_heartbeat の呼びだしが
+かならず必要である。
+ゲームのサーバなどでは、サーバを正常に終了させるときには、
+まず本関数の前に、全部のクライアントに対して shutdown の旨を伝え、
+vce_tcpcontext_enable_accept 関数で新規の accept をブロックし、
+そのあとこの関数を呼びだしてコネクションを閉じるという段階を
+経るのが理想的である。
+tcpcontext が circ_t を管理している場合でも、
+本関数を使用してコネクションを切断すれば中継サーバが自動的に
+全クライアントとのコネクションを切断するため、
+問題なくコネクションを切断できる。
+なお、本関数はサーバでもクライアントでも同様に動作する。
+verbose モードのときは1本コネクションを切るごとにログを出力する(verbose).
+</desc>
+<desc en>
+This disconnects all connections parented by a TCPcontext.
+Closewatcher and fainalizer are invoked afterwords.
+You have to call vce_heartbeat after calling this function
+to finish I/O. That is because actual disconnection will be done
+in next vce_heartbeat (see vce_conn_close section).
+A online-game server, for instance, in ideal case it informs all the
+clients of its intention of shutdown first of all,
+then blocks a new accept with vce_tcpcontext_enable_accept
+function, and lastly closes a connection through invoking this function,
+in order to properly terminate the server.
+You can use this function even in a case that you are using circ_t,
+because relay server(swp) automatically disconnect connections with
+all the clients when it detects parent conn_t's closing.
+This function behaves the same on a server and client.
+In the verbose mode, a log is output upon every disconnection.
+</desc>
+<also>vce_tcpcontext_enable_accept
+</func>
+
+<func>
+<name>vce_conn_get_tcpcontext
+<prototype>tcpcontext_t vce_conn_get_tcpcontext( conn_t c )
+<sum ja>conn_t から、そのコネクションが属する tcpcontext を取りだす
+<sum en>get tcpcontext_t from a conn_t
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<arg>conn_t c
+<argdef ja>
+取りだしの対象となる conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<return ja>
+conn_t が属する tcpcontext_t
+</return>
+<return en>
+instance of tcpcontext_t, owner of parameter "c"
+</return>
+<desc ja>
+リモートにconnectするときや、新しいTCPのコネクションを受けいれた場合、
+VCE内に conn_t が初期化されるが、その conn_t は、
+かならず tcpcontext に関連づけられている。
+したがって conn_t から tcpcontext_t を取りだすことが可能である。
+この関数は主に VCE 内部で使用され、アプリケーションから使われることは少ない。
+</desc>
+<desc en>
+When connecting to a remote computer or accepting new TCP,
+conn_t is initialized within VCE.
+Such conn_t is always associated with tcpcontext.
+Therefore, tcpcontext can be extracted from conn_t.
+This function is mainly used within VCE internally,
+but seldom be used from an application.
+</desc>
+<also>vce_tcpcontext_connect,vce_circ_get_tcpcontext
+</func>
+
+<func>
+<name>vce_conn_is_valid
+<prototype>int vce_conn_is_valid( conn_t c )
+<sum ja>TCPコネクション(conn_t)が壊れているかどうか調べる。
+<sum en>Check if a TCP connection ( conn_t ) is broken or not.
+<cat>tcp
+<arg>conn_t c
+<argdef ja>
+調査対象の conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<return ja>
+無効なインスタンスなら0，有効なら1を返す．
+</return>
+<return en>
+Returns 1 if valid, or 0 if not valid.
+</return>
+<desc ja>
+VCE を使うアプリケーションでは，通常，VCEが返す conn_t を別のメモリ領域
+に記憶しておいて，後でその接続を呼びだすために使うことが多い．
+しかし，その時点では，その conn_t が指している VCE 内のオブジェクトは，
+すでに解放されて再利用されている可能性がある．
+本関数は，conn_t 型の serial メンバを使って，
+すでにその conn_t が再利用されて存在しなくなっているかどうかを調べる．
+また，本関数は， vce_tcpcontext_connect の返り値が正しいかどうかを調べる
+ためにも使われる．
+アプリケーションがあるコネクションに対して，
+まだ書きこみができるかどうかを随時調べたい場合には，
+常に vce_conn_writable 関数を使って調べるべきである．
+ブロッキングモードの vce_tcpcontext_connect関数で返された conn_t を
+本関数でテストする場合の詳細については，
+<a href="connect.html">クライアントからの接続</a>を参照．
+</desc>
+<desc en>
+VCEed applications often store conn_t's returned from VCE
+in a different memory region and use it afterwards for calling
+the connection again.
+However, at the point of time, the object within VCE
+that is referred by such conn_t may possibly have released and reused.
+This function checks if such conn_t has reused and is no longer
+existing, using the serial number of the conn_t type.
+This function is also used to check if the returned value from
+vce_tcpcontext_connect is correct or not.
+If you want to check you can write data into the conn_t,
+you must use vce_conn_writable function all the time, not this function.
+</desc>
+<also>vce_conn_writable,vce_tcpcontext_connect
+</func>
+
+<func>
+<name>vce_conn_is_equal
+<prototype>int vce_conn_is_equal( conn_t c1 , conn_t c2 )
+<cat>tcp
+<sum ja>ふたつのTCPコネクション(conn_t)が同じか調べる
+<sum en>Check if two conn_t instances are the same
+<arg>conn_t c1
+<argdef ja>
+調べる対象となるコネクションその1
+</argdef>
+<argdef en>
+first target
+</argdef>
+<arg>conn_t c2
+<argdef ja>
+調べる対象となるコネクションその2
+</argdef>
+<argdef en>
+second target
+</argdef>
+<return ja>
+等しい場合は1、等しくない場合は0を返す。
+</return>
+<return en>
+Returns 1 if equal. 0 if not.
+</return>
+<desc ja>
+ふたつのコネクションが等しいかどうか調べる。
+この二つのconn_tを使った書きこみと読みこみは全く同じ結果になる。
+具体的には同じポインタとシリアル番号を持っているコネクションとなる。
+</desc>
+<desc en>
+This checks if two connections are the same.
+Writing and reading using those two conn_t's will lead definitely the
+same results.
+In concrete, it will be the connection having the same
+pointer and serial number.
+</desc>
+</func>
+
+<func>
+<name>vce_conn_get_buffer
+<prototype>void vce_conn_get_buffer( conn_t c, char **rb, int  *rblen, char **wb, int *wblen )
+<cat>tcp
+<sum ja>conn_t の受信/送信バッファを得る
+<sum en>Get conn_t's read/write buffer.
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>conn_t c
+<argdef ja>
+バッファを取りだしたい conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>char **rb
+<argdef ja>
+読みこみバッファの先頭アドレスを格納したいポインタへのポインタ。
+読みこみバッファの先頭アドレスを返す
+</argdef>
+<argdef en>
+This parameter returns pointer to read buffer.
+</argdef>
+<arg>int *rblen
+<argdef ja>
+読みこみバッファの長さを格納したい int 型の変数へのポインタ。
+読みこみバッファの使用中の長さを返す。それは0以上の値を取る。
+</argdef>
+<argdef en>
+This parameter returns length of read buffer.
+You can get how many bytes of data can be read from this conn_t.
+</argdef>
+<arg>char **wb
+<argdef ja>
+書きこみバッファの先頭アドレスを格納したいポインタへのポインタ。
+書きこみバッファの先頭アドレスを返す
+</argdef>
+<argdef en>
+This parameter returns pointer to write buffer.
+</argdef>
+<arg>int *wblen
+<argdef ja>
+書きこみバッファの長さを格納したい int 型の変数へのポインタ。
+書きこみバッファの使用中の長さを返す。それは0以上の値を取る。
+</argdef>
+<argdef en>
+This parameter returns length of write buffer.
+You can get how many bytes of data can be written into this conn_t.
+</argdef>
+<desc ja>
+オリジナルのプロトコルパーサを定義したいアプリケーションは
+この関数を使って読みこみバッファを直接参照し、
+独自の動作を定義することができる。
+このようにして作った独自のプロトコルパーサは、
+vce_tcpcontext_set_conn_parser 関数等をもちいて登録することができる。
+</desc>
+<desc en>
+If your application needs an original protocol parser,
+you can define it by directly refering to the read/write buffer.
+Such original protocol parser can be registered
+by vce_tcpcontext_set_conn_parser function.
+</desc>
+<also>vce_tcpcontext_set_conn_parser,vce_conn_shrink_readbuf
+</func>
+
+<func>
+<name>vce_conn_shrink_readbuf
+<prototype>int vce_conn_shrink_readbuf( conn_t ct, int len )
+<arch>linux,win32,ps2,darwin
+<cat>tcp
+<sum ja>conn_t の読みこみバッファを縮ませる
+<sum en>shrink conn_t's read buffer
+<arg>conn_t ct
+<argdef ja>
+縮ませる読みこみバッファをもつ conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>int len
+<argdef ja>
+縮ませるながさ
+</argdef>
+<argdef en>
+Length to shrink
+</argdef>
+<return ja>
+縮ませることができた長さを返す。
+通常はlenがそのまま返る。
+</return>
+<return en>
+Shrinked length. When success, this will be same as parameter "len".
+</return>
+<desc ja>
+オリジナルのプロトコルパーサを定義する場合、
+読みこみバッファの内容を処理した後、
+vce_conn_shrink_readbufを使って読みこみバッファの内容を削る必要がある。
+</desc>
+<desc en>
+When defining an original protocol parser in your application,
+the contents of the read buffer must be deleted using
+vce_conn_shrink_readbuf, after processing the contents of the read buffer.
+</desc>
+</func>
+
+<func>
+<name>vce_conn_clear
+<prototype>void vce_conn_clear( conn_t *c )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>conn_t型のインスタンスを初期化する
+<sum en>Initialize conn_t instance
+<arg>conn_t *c
+<argdef ja>
+初期化するconn_tへのポインタ
+</argdef>
+<argdef en>
+pointer to a conn_t
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+初期化済みな conn_t を正式に作る唯一の方法である。 memset でゼロクリア
+しても、正式な方法ではない。
+</desc>
+<desc en>
+This is only way to correctly create an initialized conn_t.
+Zero-clear with memset is not formal.
+</desc>
+</func>
+
+<func>
+<name>vce_conn_get_stat
+<prototype>void vce_conn_get_stat( conn_t ct, conn_stat_t *st )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>conn_t の統計情報を取得する
+<sum en>Get conn_t's statistics information
+<arg>conn_t ct
+<argdef ja>
+情報を取得する対象となるコネクション(conn_t)
+</argdef>
+<argdef en>
+source conn_t
+</argdef>
+<arg>conn_stat_t *st
+<argdef ja>
+情報を取りだすために専用に用意されている conn_stat_t 型のインスタンスの
+先頭アドレス
+</argdef>
+<argdef en>
+Top address of an instance of conn_stat_t structure
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+TCPコネクションから統計情報を取りだす。
+取りだすために conn_stat_t 構造体が定義されている。
+以下はその構造体のメンバの説明である。
+<ul>
+<LI>recv_byte<BR>
+そのコネクションで受信した総バイト数。
+<LI>send_byte<BR>
+そのコネクションで送信した総バイト数。
+<LI>conn_write<BR>
+そのコネクションに対して vce_conn_write した回数
+<LI>recv_syscall, send_syscall<BR>
+そのコネクションに対してrecv() システムコールを呼びだした回数と、
+send_syscall を呼びだした回数。
+</ul>
+</desc>
+<desc en>
+This fetches statistical information from TCP connection.
+The conn_stat_t structure is defined for such extraction.
+Description of the structure members are as follows:
+
+<UL>
+<LI>recv_byte<BR>
+Total bytes received by this connection.
+<LI>send_byte<BR>
+Total bytes transmitted by this connection.
+<LI>conn_write<BR>
+Number of times vce_conn_write is made toward this connection.
+<LI>recv_syscall, send_syscall
+Number of times the recv()system call and send_syscall
+are invoked toward this connection.
+</ul>
+</desc>
+<also>vce_tcpcontext_get_stat,vce_get_stat,vce_conn_is_valid
+</func>
+
+<func>
+<name>vce_conn_set_alarmwatcher
+<prototype>time_t vce_conn_set_alarmwatcher( conn_t ct, int sec, int (*alarmwatcher)(conn_t c))
+<cat>watcher
+<arch>linux O,win32 X,ps2 X,darwin X
+<sum ja>conn_t ごとにアラーム時刻とコールバック関数を設定する
+<sum en>Set alarm and callback function per conn_t basis
+<arg>conn_t ct
+<argdef ja>
+設定したい conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>int sec
+<argdef ja>
+設定する秒
+</argdef>
+<argdef en>
+set the alarm clock for 'sec' add current time now.
+after the 'sec' seconds from this function use, callback function call.
+</argdef>
+<arg>int (*alarmwatcher)(conn_t c)
+<argdef ja>
+アラーム機能によって呼びだされるコールバック関数
+</argdef>
+<argdef en>
+Callback function. This function will be called by the alarm clock.
+</argdef>
+<return ja>
+本関数が呼ばれたグローバル時刻を返す。その値から、パラメータのsecを足した時刻がアラームの発生する時刻である。
+</return>
+<return en>
+Return value is global time, this function called global time.
+When you get alarm time, return value add sec parameter.
+</return>
+<desc ja>
+本関数を用いて、コネクションごとのアラームを設定できる。
+デフォルトでは各コネクションのアラームは設定されていないので、機能しない。
+本関数で、コールバック関数を指定したときに初めて機能する。
+1回コールバック関数が呼ばれるとアラームは自動的にリセットされる。
+再度アラームを使用したい場合は、本関数で再度アラームを指定しなければならない。
+再帰的にアラームを設定したい場合、コールバック関数内で本関数を用いてセットすればよい。
+
+＊注意点
+secに大きい値をセットすると、アラーム時刻を計算するときに、secとグローバル時間と加算によって、オーバーフローを起こすことがあるので、注意せよ。
+数分までを常用として使うべきで、２４時間を越えるような場合は、別の方法を考えた方がよいだろう。一定時間ごとに値が変化する場合や、制限時間の設定などに利用するとよい。
+
+</desc>
+<desc en>
+PENDING
+</desc>
+<sample ja>
+  // 最初にメイン関数や acceptwatcher などでセットする
+  // (これで初めて、60秒後に alarm がよばれる。)
+  vce_conn_set_alarmwatcher( ct, 60, alarm );
+
+  // 再帰的にアラームをセットする場合
+  int alarm( conn_t ct ){
+  
+      // 何かの処理
+      
+      vce_conn_set_alarmwatcher( ct, 60, alarm );
+      return 0;
+  }
+</sample>
+<sample en>
+PENDING
+</sample>
+<also>vce_circ_set_alarmwatcher
+</func>
+
+<func>
+<name>vce_conn_set_parser
+<prototype>void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>conn_t ごとに動的にプロトコルパーサを設定する
+<sum en>Set protocl parser and callback function per conn_t basis
+<arg>conn_t ct
+<argdef ja>
+設定したい conn_t
+</argdef>
+<argdef en>
+target conn_t
+</argdef>
+<arg>int (*parser)(conn_t)
+<argdef ja>
+パーサー関数． vce_protocol_parser_bin16 など．
+</argdef>
+<argdef en>
+parser function to be set. For example, vce_protocol_parser_bin16, and
+so on.
+</argdef>
+<arg>int (*pcallback)(conn_t c,char *d, int l )
+<argdef ja>
+パーサによって呼びだされるコールバック関数
+</argdef>
+<argdef en>
+Callback function. This function will be called by the protocol parser.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+プロトコル処理の都合上，
+コネクションごとに動的にパーサを変更したいことがある．
+本関数を使うと，コネクションごとに，動的にパーサとコールバックの両方を
+変更することができる．
+プロトコルのコールバック関数の処理の中で本関数を使って関数を変更した場合，
+次のパーサ呼びだしから，
+その変更が適用される．
+本関数は，たとえばプロトコルをデバッグモードに切りかえるときや
+管理用関数に切りかえたいときなどにも使用できる．
+</desc>
+<desc en>
+In some application, you may want to use
+different parsers in each connection.
+This function can change both parser and callback function dinamically.
+
+If you change any callback function inside protocol callback function,
+new callback function will be used after next parser call.
+
+This function may be used for switching a protocol to
+the debug mode, or to the control function, as well.
+</desc>
+<also>vce_protocol_parser_bin16,vce_protocol_parser_text,vce_protocol_parser_through,vce_tcpcontext_create,vce_tcpcontext_set_conn_parser
+</func>
+
+<func>
+<name>vce_conn_get_child_circ
+<prototype>int vce_conn_get_child_circ( conn_t c , circ_t *a, int max)
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja> 指定した conn_t に属するcirc_t を取得する。
+<sum en> Retrieves conn_t's child circ_t
+<arg>conn_t c
+<argdef ja>
+取得する元になるconn_t
+</argdef>
+<argdef en>
+Target conn_t
+</argdef>
+<arg>circ_t *a
+<argdef ja>
+配列を出力する先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of circ_t.
+</argdef>
+<arg>int max
+<argdef ja>
+配列の最大要素数
+</argdef>
+<argdef en>
+Max number of elements of array parameter "a".
+</argdef>
+<return ja>
+配列を埋めた数を返す(0以上の値)。
+</return>
+<return en>
+Number of elements filled in given array.
+This number must be larger than or equal to zero.
+</return>
+<desc ja>
+ひとつのconn_t に属する仮想回路を配列にコピーして出力する。
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_set_udp_connect_retry_interval
+<prototype>void vce_set_udp_connect_retry_interval(unsigned int msec)
+<cat>tcp
+<arch>linux,win32
+<sum ja>vce_udp_connect 接続したときの接続チェック間隔時間の設定
+<sum en>
+<arg>unsigned int msec
+<argdef ja>
+設定するミリ秒単位の間隔
+</argdef>
+<argdef en>
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+none
+</return>
+<desc ja>
+vce_udp_connect 接続したときの接続チェック間隔時間の設定する。
+</desc>
+<desc en>
+</desc>
+</func>
+
