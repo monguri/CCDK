@@ -602,13 +602,13 @@ def make_categoryindex(lng)
 		re += "### #{i}\n"
 		desc = $h_description[ "categorydesc.#{lng}.#{i}" ]
 		re += "<p>#{desc}</p>\n"
-		re += "Functions:\n"
+		re += "Functions:\n\n"
 
 		# href の集合をつくる
 		allfuncs = $h_func_name.keys.sort
 		allfuncs.each { |fn|
 			if( $h_category[ "func..#{fn}" ] == i ) then
-				re += "1. <a href=\"##{fn}\">#{fn}</a>\n"
+				re += "1. <a href=\"##{fn}\">#{fn}</a>\n\n"
 			end
 		}
 		re += "\n"
