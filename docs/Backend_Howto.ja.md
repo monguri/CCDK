@@ -1,4 +1,4 @@
-backend server Howto
+バックエンドサーバーの使い方
 ====
 
 バックエンドサーバーは、LinuxまたはMacOS X上で動作する、
