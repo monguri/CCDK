@@ -285,12 +285,7 @@ def main
 
 	$a_langs.each{ |lng|
 		# ディレクトリを整備
-		system( "mkdir -p #{$s_dirprefix}/#{lng}" )
-		system( "mkdir -p #{$s_dirprefix}/#{lng}/man")
-		system( "mkdir -p #{$s_dirprefix}/#{lng}/man/man1")
-		system( "mkdir -p #{$s_dirprefix}/#{lng}/man/man3")
-		system( "mkdir -p #{$s_dirprefix}/#{lng}/man/man5")
-		apifilename = "#{$s_dirprefix}/#{lng}/#{$s_fileprefix}-api.html"
+		apifilename = "#{$s_dirprefix}/#{$s_fileprefix}-api-#{lng}.md"
 		
 		apiref = make_api_reference( lng )
 		
@@ -571,11 +566,11 @@ end
 def make_categoryindexindex(lng)
 	allcats = $h_categorydesc_name.keys.sort
 
-	re = "<!-- make_categoryindexindex -->\n<ol>\n"
+	re = "<!-- make_categoryindexindex -->\n\n"
 	allcats.each{ |i|
-		re += "<li><a href=\"##{i}\">#{i}</a></li>\n" 
+		re += "- <a href=\"##{i}\">#{i}</a>\n" 
 	}
-	re += "</ol>\n"
+	re += "\n"
 	return re
 end
 
@@ -587,11 +582,11 @@ end
 def make_nameindex(lng)
 	allfuncs = $h_func_name.keys.sort
 
-	re = "<!-- make_nameindex -->\n<ol>\n"
+	re = "<!-- make_nameindex -->\n\n"
 	allfuncs.each{ |i|
-		re += "<li><a href=\"##{i}\">#{i}</a></li>\n" 
+		re += "1. <a href=\"##{i}\">#{i}</a>\n" 
 	}
-	re += "</ol>\n"
+	re += "\n"
 	return re
 end
 #####################################################################
@@ -604,22 +599,19 @@ def make_categoryindex(lng)
 	re = "<!-- make_categoryindex -->\n"
 	allcats.each { |i|
         re += "<a name=\"#{i}\"></a>\n"
-		re += "<h3>#{i}</h3>\n"
+		re += "### #{i}\n"
 		desc = $h_description[ "categorydesc.#{lng}.#{i}" ]
 		re += "<p>#{desc}</p>\n"
-		re += "<table id=\"categoryindex\">\n"
-		re += "<tr><td>Functions:</td></tr>\n"
-		re += "<tr><td>\n"
+		re += "Functions:\n"
+
 		# href の集合をつくる
 		allfuncs = $h_func_name.keys.sort
 		allfuncs.each { |fn|
 			if( $h_category[ "func..#{fn}" ] == i ) then
-				re += "<a href=\"##{fn}\">#{fn}</a><BR>\n"
+				re += "1. <a href=\"##{fn}\">#{fn}</a>\n"
 			end
 		}
-		re += "</td></tr>\n"
-#		re += "</table><BR><R>\n"
-		re += "</table>\n"
+		re += "\n"
 	}
 	return re
 end
@@ -641,67 +633,7 @@ def tagstrip( str)
 	
 end
 
-#####################################################################
-# 関数定義1個分を作る。(for man)
-# funcname: 関数名 lng: 言語
-#####################################################################
-def make_man_funcdef_one( funcname, lng)
-	manpage = 3
-	re = ".TH #{funcname} #{manpage} \"#{$h_apidoctitle[lng]}\"\n"
-	re += ".SH #{$h_def_summary_title[lng]}\n"
-	sum = tagstrip( $h_summary["func.#{lng}.#{funcname}"])
-	re += "#{funcname} \\- " + sum + "\n" if !sum.nil?
-	re += ".SH #{$h_def_category_title[lng]}\n"
-	cat = tagstrip( $h_category["func..#{funcname}"])
-	re += cat + "\n" if !cat.nil?
-	re += ".SH #{$h_def_arch_title[lng]}\n"
-	arch = tagstrip( $h_arch["func..#{funcname}"])
-	re += arch + "\n" if !arch.nil?
-	
-	re += ".SH #{$h_def_prototype_title[lng]}\n"
-	ptype = tagstrip( $h_prototype["func..#{funcname}"])
-	re += ptype + "\n" if !ptype.nil?
 
-	# ループをまわして引数定義をつくるのだ。
-	(1 .. 9999 ).each{ |i|
-		arg = $h_arg["func..#{funcname}.#{i}"]
-		argdef = tagstrip($h_argdef["func.#{lng}.#{funcname}.#{i}"])
-		break if( arg == nil || arg == "" )
-		re += ".SH arg #{i}\n"
-		re += ".I #{arg}\n"
-		re += "#{argdef}\n"
-	}
-	
-	re += ".SH #{$h_def_return_title[lng]}\n"
-	retd = tagstrip( $h_return["func.#{lng}.#{funcname}"])
-	re += retd + "\n" if !retd.nil?
-	
-	re += ".SH #{$h_def_description_title[lng]}\n"
-	desc = tagstrip( $h_description["func.#{lng}.#{funcname}"])
-	re += desc + "\n" if !desc.nil?
-	
-	smp = $h_sample[ "func.#{lng}.#{funcname}" ]
-	if( smp != nil and smp != "" ) then
-		re += ".SH #{$h_def_sample_title[lng]}\n"
-		smp = tagstrip( smp)
-		re += smp + "\n"
-	end
-	
-	bugs = $h_bugs[ "func.#{lng}.#{funcname}" ]
-	if( bugs != nil and bugs != "" ) then
-		re += ".SH #{$h_def_bugs_title[lng]}\n"
-		bugs = tagstrip( bugs)
-		re += bugs + "\n"
-	end
-	
-	also = $h_also[ "func.#{lng}.#{funcname}" ]
-	if( also != nil and also != "" ) then
-		re += ".SH #{$h_def_also_title[lng]}\n"
-		also = tagstrip( also)
-		re += also + "\n"
-	end
-	re
-end
 #####################################################################
 # 関数定義1個分を作る。
 # funcname: 関数名 lng: 言語
@@ -709,78 +641,50 @@ end
 def make_funcdef_one(funcname,lng)
 #	left_w = 120
 	re  = "<a name=\"#{funcname}\"></a>\n"
-	re += "<table id=\"funcdef\">\n"
-	re += "<tr><th colspan=\"2\" id=\"funcdef_title\">\n"
-	re += "#{funcname}</th></tr>\n"
+	re += "- <B>#{funcname}</B>\n"
 	sum = $h_summary["func.#{lng}.#{funcname}"]
-	re += "<tr><th>#{$h_def_summary_title[lng]}</th>"
-	re += "<td>#{sum}</td></tr>\n"
+    re += "#{$h_def_summary_title[lng]} : #{sum}\n"
 	cat = $h_category["func..#{funcname}"]
-	re += "<tr><th>#{$h_def_category_title[lng]}</th>"
-	re += "<td>#{cat}</td></tr>\n"
-	arch = $h_arch["func..#{funcname}"]
-	re += "<tr><th>#{$h_def_arch_title[lng]}</th>"
-	re += "<td>#{arch}</td></tr>\n"
+    re += "#{$h_def_category_title[lng]} : #{cat}\n"
 	ptype = $h_prototype["func..#{funcname}"]
-	re += "<tr><th>#{$h_def_prototype_title[lng]}</th>"
-	re += "<td><b>#{ptype}</b></td>\n"
+    re += "#{$h_def_prototype_title[lng]} : ```#{ptype}``` \n"
 
 	# ループをまわして引数定義をつくるのだ。
 	(1 .. 9999 ).each{ |i|
 		arg = $h_arg["func..#{funcname}.#{i}"]
 		argdef = $h_argdef["func.#{lng}.#{funcname}.#{i}"]
 		break if( arg == nil || arg == "" )
-		re += "<tr><th>arg #{i}</Th>"
-		re += "<td>#{arg}</td></tr>\n"
-		re += "<tr><th></th><td>#{argdef}</td></tr>\n"
-        if( argdef == "") then
-            primlang_argdef = $h_argdef["func.#{$s_primary_lang}.#{funcname}.#{i}"]
-        end
+        re += "  - arg #{i} : ```#{arg}```\n"
+		re += "    #{argdef}\n"
 	}
 
 	retd = $h_return[ "func.#{lng}.#{funcname}" ]
-	re += "<tr><th>#{$h_def_return_title[lng]}</th>"
-	re += "<td>#{retd}</td></tr>\n"
-    if( retd == "" ) then
-        primlang_retd = $h_return[ "func.#{$s_primary_lang}.#{funcname}"]
-    end
+    re += "  #{$h_def_return_title[lng]} : #{retd}\n"
+
 
 	desc = $h_description[ "func.#{lng}.#{funcname}" ]
-	re += "<tr><th>#{$h_def_description_title[lng]}</th>"
-	re += "<td>#{desc}</td></tr>\n"
-    if( desc == "" ) then
-        primlang_desc = $h_description[ "func.#{$s_primary_lang}.#{funcname}"]
-    end
+    re += "  #{$h_def_description_title[lng]} : #{desc}\n"
 	
 	smp = $h_sample[ "func.#{lng}.#{funcname}" ]
 	if( smp != nil and smp != "" ) then
-		re += "<tr><th>#{$h_def_sample_title[lng]}</th>"
-		re += "<td>#{smp}</td></tr>\n"
+      re += "  #{$h_def_sample_title[lng]} : #{smp}\n"
 	end
-    if( smp == "" ) then
-        primlang_smp = $h_sample[ "func.#{$s_primary_lang}.#{funcname}"]
-    end
 
 	bugs = $h_bugs[ "func.#{lng}.#{funcname}" ]
 	if( bugs != nil and bugs != "" ) then
-		re += "<tr><th>#{$h_def_bugs_title[lng]}</th>"
-		re += "<td>#{bugs}</td></tr>\n"
+	  re += "  #{$h_def_bugs_title[lng]} : #{bugs}\n"
 	end
-    if( bugs == "" ) then
-        primlang_bugs = $h_bugs[ "func.#{$s_primary_lang}.#{funcname}"]
-    end
+
 
 	also = $h_also[ "func..#{funcname}" ]
 	if( also != nil and also != "" ) then
-		re += "<tr><th>#{$h_def_also_title[lng]}</th>"
-		re += "<td>\n"
+		re += "  #{$h_def_also_title[lng]} : "
 		also.split( /,/ ).sort.each { |i|
-			re += "<a href=\"##{i}\">#{i}</a>\n"
+			re += "<a href=\"##{i}\">#{i}</a>"
 		}
-		re += "</td></tr>\n"
 	end
 
-	re  += "</table><br><br>\n"
+	re  += "\n"
 
 	return re
 end
@@ -808,46 +712,31 @@ end
 # APIリファレンスメインを出力する関数
 #####################################################################
 def make_api_reference( lng )
-	re  = "<html>\n"
-	re += "<head>\n"
-	re += get_http_equiv_encode( lng, $s_nkfopt );
-	re += "<link rel=\"stylesheet\" href=\"../vce.css\" type=\"text/css\">\n"
-	re += "<title> #{$h_apidoctitle[lng]} </title>\n"
-	re += "</head>\n"
-	re += "<body>\n"
+    # TOP
+	re  = "# #{$h_apidoctitle[lng]}\n"
+	re += "\n"
 
-	# ABSOLUTE HEADER
-	re += "<h1> #{$h_apidoctitle[lng]} </h1>\n"
 
     # CATEGORYINDEX_INDEX
-	re += "<h2>#{$h_categoryindexindextitle[lng]}</h2>\n"
+	re += "## #{$h_categoryindexindextitle[lng]}\n"
 	re += make_categoryindexindex(lng)
 
 	# NAMEINDEX
-	re += "<h2>#{$h_apinameindextitle[lng]}</h2>\n"
+	re += "## #{$h_apinameindextitle[lng]}\n"
 	re += make_nameindex(lng)
 
 	# CATEGORYINDEX
-	re += "<h2>#{$h_categoryindextitle[lng]}</h2>\n"
+	re += "## #{$h_categoryindextitle[lng]}\n"
 	re += make_categoryindex(lng)
 
 	# FUNCDEFBODY
-	re += "<h2>#{$h_funcdeftitle[lng]}</h2>\n"
+	re += "## #{$h_funcdeftitle[lng]}\n"
 	re += make_funcdef(lng)
 
-	re += "<p><a href=\"index.html\">#{$h_returntitle[lng]}</a><br></p>\n"
-
-	# GENERALINFO
-#	re += "<h2>#{$h_generalinfotitle[lng]}</h2>\n"
-#	re += make_generalinfo(lng)
 
 	# COPYRIGHT
-	re += "<div id=\"footer\">\n"
 	re += make_copyright(lng)
-	re += "</div>\n"
 
-	re += "</body>\n"
-	re += "</html>\n"
 
 	return re
 
