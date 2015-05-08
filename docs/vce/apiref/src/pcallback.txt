@@ -19,10 +19,10 @@
 <sum en>Echo callback function for normal TCP bin16 protocol
 <arg>conn_t ct
 <argdef ja>
-エコーする対象となるコネクション。仮想回路(circ_t)ではない。
+エコーする対象となるコネクション。
 </argdef>
 <argdef en>
-Processing conn_t. Note that this is not circ_t.
+Processing conn_t. 
 </argdef>
 <arg>char *data
 <argdef ja>
@@ -73,7 +73,7 @@ In actual application, you should use your original protocol
 callback function, but you may be able to use this echo function
 for your debugging.
 </desc>
-<also>vce_protocol_pcallback_noop,vce_protocol_pcallback_dump,vce_vecprotocol_pcallback_echo_bin16,vce_tcpcontext_create
+<also>vce_protocol_pcallback_noop,vce_protocol_pcallback_dump,vce_tcpcontext_create
 </func>
 
 <func>
@@ -130,10 +130,10 @@ Copies input data into output buffer using text protocol unparser
 <sum en>No-Operation callback function for normal TCP connection ( conn_t )
 <arg>conn_t ct
 <argdef ja>
-入出力対象となるコネクション。仮想回路(circ_t)ではない。
+入出力対象となるコネクション.
 </argdef>
 <argdef en>
-Processing conn_t. Note that this is not circ_t.
+Processing conn_t. 
 </argdef>
 <arg>char *data
 <argdef ja>
@@ -186,10 +186,10 @@ temporarily.
 <sum en>Protocol callback function for dumping data input from TCP connection
 <arg>conn_t ct
 <argdef ja>
-入出力対象となるTCPコネクション。仮想回路(circ_t)ではない。
+入出力対象となるTCPコネクション。
 </argdef>
 <argdef en>
-Processing conn_t. Note that this is not a circ_t.
+Processing conn_t. 
 </argdef>
 <arg>char *data
 <argdef ja>
@@ -224,93 +224,5 @@ the purpose of debugging.
 This function is called as a "protocol callback function".
 </desc>
 <also>vce_tcpcontext_create,vce_protocol_pcallback_echo_bin16,vce_protocol_pcallback_noop
-</func>
-
-<func>
-<name>vce_vecprotocol_pcallback_echo_bin16
-<prototype>int vce_vecprotocol_pcallback_echo_bin16( circ_t ct, char *data, int len )
-<cat>pcallback
-<arch>linux,win32,ps2,darwin
-<sum ja>パケットベクトライザ用の、エコーコールバック関数(bin16出力)
-<sum en>Echo callback function for packet-vectorizer protocol(bin16 output)
-<arg>circ_t
-<argdef ja>
-入出力対象の仮想回路(circ_t)
-</argdef>
-<argdef en>
-Processing circ_t. Note that this is not conn_t.
-</argdef>
-<arg>char *data
-<argdef ja>
-入力データの先頭アドレス
-</argdef>
-<argdef en>
-Top address of received data.
-</argdef>
-<arg>int len
-<argdef ja>
-入力データの長さ(バイト数)
-</argdef>
-<argdef en>
-Length of received data.
-</argdef>
-<return ja>
-送信できた長さを返す
-</return>
-<return en>
-Returns number of bytes tramsmitted.
-</return>
-<desc ja>
-VCEではパケットベクトライズを用いて1本のTCPコネクション(conn_t)の中に
-仮想回路(circ_t)を含めることができるが、本関数ではその仮想回路への
-入力をそのままエコーバックする。
-アプリケーションのデバッグ用に使用することができる。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_create,vce_protocol_pcallback_echo_bin16,vce_protocol_pcallback_dump,vce_protocol_pcallback_noop
-</func>
-
-<func>
-<name>vce_vecprotocol_pcallback_echo_text
-<prototype>int vce_vecprotocol_pcallback_echo_text(circ_t ct,char*data,int len)
-<cat>pcallback
-<arch>linux,win32,ps2,darwin
-<sum ja>パケットベクトライザ用の、text出力のエコーコールバック関数
-<sum en>Echo callback function for packet-vectorizer protocol (text output)
-<arg>circ_t ct
-<argdef ja>
-入出力対象となる仮想回路
-</argdef>
-<argdef en>
-Processing circ_t. Note that this is not a conn_t.
-</argdef>
-<arg>char *data
-<argdef ja>
-仮想回路からの入力データの先頭アドレス
-</argdef>
-<argdef en>
-Top address of received data.
-</argdef>
-<arg>int len
-<argdef ja>
-入力データの長さ
-</argdef>
-<argdef en>
-Length of received data.
-</argdef>
-<return ja>
-仮想回路に書きこめたデータの長さ
-</return>
-<return en>
-Number of bytes sent to the circ_t.
-</return>
-<desc ja>
-仮想回路用のエコーコールバック関数．text プロトコルでエコーする。
-</desc>
-<desc en>
-Echo callback function for circ_t, using text protocol.
-</desc>
-<also>vce_tcpcontext_create,vce_vecprotocol_pcallback_echo_bin16
 </func>
 

@@ -10,177 +10,6 @@
 # $Id: uselog.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
 #
 
-<func>
-<name>vce_errout_set_another
-<cat>core
-<arch>linux,win32,ps2,darwin
-<prototype>void vce_errout_set_another(void (*callback)(int vmode,const char *str))
-<sum ja>VCEのエラー出力先を変える
-<sum en>pending
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>void (*callback)(int vmode,const char *str)
-<argdef ja>
-引数にverbosemodeとnull終端された文字列を受け取る関数
-NULLを設定すれば関数は呼ばない。デフォルトはNULL
-</argdef>
-<argdef en>
-pending
-</argdef>
-<desc ja>
-vce_erroutでフォーマットされた文字列を標準出力以外の場所へ出力するときに使う。
-</desc>
-<desc en>
-pending
-</desc>
-<bugs ja>
-TODO: 現在はvce_erroutのみですべての出力が出るわけではない
-</bugs>
-<bugs en>
-pending
-</bugs>
-<also>vce_errout, vce_errout_config
-</func>
-
-<func>
-<name>vce_get_version
-<cat>core
-<arch>linux,win32,ps2,darwin
-<prototype>void vce_get_version( int *majv, int *minv , int *rel )
-<sum ja>VCEライブラリのバージョン番号を得る。
-<sum en>Get VCE's version numbers
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>int *majv
-<argdef ja>
-VCEのメジャーバージョン。 VCE-0.2.1 の場合は0.
-</argdef>
-<argdef en>
-Major version of VCE library. 0 if VCE version is "0.2.1".
-</argdef>
-<arg>int *minv
-<argdef ja>
-VCEのマイナーバージョン。VCE-0.2.1 の場合は2.
-</argdef>
-<argdef en>
-Minor version number of VCE. 2 if VCE version is "0.2.1".
-</argdef>
-<arg>int *rel
-<argdef ja>
-VCEのリリースバージョン。 VCE-0.2.1 の場合は1.
-</argdef>
-<argdef en>
-VCE's release version. 1 if VCE version is "0.2.1".
-</argdef>
-<desc ja>
-VCEライブラリには、バージョン番号が埋めこまれている。
-vce_get_version関数は、それらの番号をint値として得る。
-</desc>
-<desc en>
-The version number is embedded in the VCE library.
-The vce_get_version function gets those numbers as an int value.
-</desc>
-<sample ja>
-<pre>
-  #include "vce.h"
-  #include &lt;stdio.h&gt;
-  int main( int argc, char **argv )
-  {
-      int a,b,c;
-      vce_get_version( &amp;a, &amp;b, &amp;c );
-      printf( "%d %d %d\n", a,b,c );
-      return 0;
-  }
-</pre>
-</sample>
-</func>
-
-<func>
-<name>vce_errout_config
-<cat>core
-<arch>linux,win32,darwin
-<prototype>int vce_errout_config( const char *dirname, unsigned int rotate_size )
-<sum ja>vce_errout関数の出力ディレクトリを設定する。
-<sum en>Set output directory of vce_errout() function.
-<return ja>
-エラーなら負のvceのエラーコード。成功なら0を返す。
-現在は常に成功する。
-</return>
-<return en>
-Returns minus value (VCE error code ). 0 if successful.
-</return>
-<arg>char *dirname
-<argdef ja>
-ログの出力先ディレクトリ名。 512文字以下で指定すること。それを越えると、
-後ろが切りとられる。最後のスラッシュは付けても付けなくても正しく設定
-される。
-</argdef>
-<argdef en>
-Path string to the output directory.
-</argdef>
-<arg>unsigned int rotate_size
-<argdef ja>
-ログファイルを分割する単位となるサイズ．
-たとえば 100*1024 を指定すると 100KBごとに別のファイルに出力される．
-ゼロを指定すると，分割を行なわない．
-</argdef>
-<argdef en>
-Size of units of each divided log files.
-For example, when 100*1024 is specified,
-it will be output to another file every 100KB.
-It will not divide, if 0 is specified.
-</argdef>
-<desc ja>
-VCEのすべてのエラー出力が出力されるディレクトリを設定する。
-デフォルトではエラー出力はstderr(windowsではstdout)に出力される。
-vce_errout_config によりディレクトリが指定された後は、
-そのディレクトリの中に <code>stderr.プロセス番号.分割番号</code>
-というファイル名でエラー出力が保存される。
-プロセス番号は VCE を使用しているサーバのプロセス番号で，
-分割番号は，rotate_size の設定により 0から順にインクリメントされていく．
-ローテートの機能とログバックアップツールを併用してログを
-保存するのが定番の方法である．
-verboseモードが -1 のときは、まったく出力されない。
-</desc>
-<desc en>
-This sets up output directory for all VCE error output.
-Error will be output to stderr (stdout for Windows) by default.
-Designating a directory with vce_errout_config,
-error output is saved within the directory
-given the name
-<code>stderr.PROCESS_NUMBER.PARTITION_NUMBER</code>
-<BR>
-PROCESS_NUMBER is getpid() of the server process using VCE,
-and PARTITION_NUMBER starts from 0 and is incremented in turn,
-according to the configuration of rotate_size.
-It is standard to save logs using the rotation function and
-log backup tools together.
-No output at all when -1 is given to verbose mode.
-</desc>
-<sample ja>
-<pre>
-  vce_errout( "Testing.\n" );    // この出力は stderr へ
-  vce_errout_config( "/var/netgame1/error_output", 1000 );
-  vce_errout( "Testing again.\n" ); // この出力は1KBごとに上記ディレクトリへ
-</pre>  
-</sample>
-<sample en>
-<pre>
-  vce_errout( "Testing.\n" );    // Output this to stderr
-  vce_errout_config( "/var/netgame1/error_output", 1000 );
-  vce_errout( "Testing again.\n" ); // Output this to log directory divided each 1KB
-</pre>  
-</sample>
-<also>vce_errout
-</func>
 
 <func>
 <name>vce_set_verbose_mode
@@ -295,199 +124,10 @@ vce_errout_config 関数によってログ出力ディレクトリが指定さ�
 <also>vce_errout_config,vce_errout_v, vce_verrout, vce_errout_set_another
 </func>
 
-<func>
-<name>vce_verrout
-<prototype>int vce_verrout( const char *format, va_list arg )
-<cat>core
-<arch>linux,win32,ps2,darwin
-<sum ja>VCEのログ出力をする。可変引数ではなくva_listを引数に持った物。
-<sum en>Log output for VCE application
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>char *format
-<argdef ja>
-フォーマット文字列。 printf のものと同じ
-</argdef>
-<argdef en>
-Format string. Same as "printf" libc function.
-</argdef>
-<arg>va_list arg
-<argdef ja>
-va_listによる引数。
-</argdef>
-<argdef en>
-Argument list. from va_list.
-</argdef>
-<desc ja>
-文字列を標準エラー出力に表示する。仕様はvce_errout()と同じ。
-可変引数ではなく、va_listによる引数に対応したもの。
-</desc>
-<desc en>
-This outputs string to standard error output.
-However, when the log output directory is designated by
-vce_errout_config function,
-it also outputs to such directory and log file is automatically rotated.
-In some environment where the standard error output is not existing,
-it outputs to standard output.
-</desc>
-<also>vce_errout_config,vce_errout_v
-</func>
 
-<func>
-<name>vce_errout_v
-<prototype>int vce_errout_v( const char *format, ... )
-<cat>core
-<arch>linux,win32,ps2,darwin
-<sum ja>VCEが冗長モードのときにログ出力をする
-<sum en>Print log message when VCE is set verbose mode
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>char *format
-<argdef ja>
-フォーマット文字列。printf のものと全く同じ。
-</argdef>
-<argdef en>
-Format string. same as "printf" function.
-</argdef>
-<arg>...
-<argdef ja>
-0個以上の引数列。printf のものと全く同じ。
-</argdef>
-<argdef en>
-Argument list, same as "printf" function.
-No argument is also acceptable.
-</argdef>
-<desc ja>
-VCEがverboseモードになっているとき(すなわち、vce_set_verbose_mode(1)のとき)
-だけ出力される、
-vce_errout_config 関数でディレクトリが指定されている場合は、
-そのディレクトリに出力される。その場合にログは自動的にローテートする。
-verbose モードが -1 のときは、出力されない。
-出力される先は，vce_errout関数と同じ．
-</desc>
-<desc en>
-This outputs only when VCE is in verbose mode
-(i.e. in case of vce_set_verbose_mode(1) ).
-If a directory is designated with vce_errout_config function,
-this outputs to the directory (in this case logs are rotated
-automatically ).
-No output will be done when -1 is given to verbose mode.
-The output destination is same as the vce_errout function.
-</desc>
-<also>vce_errout_config,vce_errout
-</func>
 
-<func>
-<name>vce_errout0
-<prototype>int vce_errout0( const char *s )
-<cat>core
-<arch>linux,win32,ps2,darwin
-<sum ja>1個の文字列をログ出力する
-<sum en>Print a string to stderr, and debug-output when win32.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>char *s
-<argdef ja>
-出力したい文字列の先頭アドレス
-</argdef>
-<argdef en>
-Top address of string which will be printed out.
-</argdef>
-<desc ja>
-vce_errout と同じだが、vfprintf を使わない、単純なバージョンである。
-僅かに高速である。Win32環境の場合は、OutputDebugString 関数にも
-引数 s を渡す。
-verboseモードが-1のときは、出力されない。
-出力される先は，vce_errout 関数と同じである．
-</desc>
-<desc en>
-This is the simplified version identical with vce_errout
-not using vfprintf.
-This is slightly faster.
-In Win32 environment, it passes argument "s" to
-OutputDebugString function, as well.
-No output will be done when -1 is given to verbose mode.
-Destination is same as vce_errout function's.
-</desc>
-<also>vce_errout,vce_errout0_v
-</func>
 
-<func>
-<name>vce_errout0_v
-<prototype>int vce_errout0_v( const char *s )
-<cat>core
-<arch>linux,win32,ps2,darwin
-<sum ja>冗長モード時に1個の文字列をログ出力する
-<sum en>Print a string to stderr when verbose mode.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>char *s
-<argdef ja>
-出力したい文字列の先頭アドレス
-</argdef>
-<argdef en>
-Top address of string which will be printed out.
-</argdef>
-<desc ja>
-vce_errout_v と同じく冗長出力モード(verbose mode)のときだけ
-エラー出力する。ただし、引数列を指定できない。 また、
-win32環境の場合は、 OutputDebugString 関数にも引数 s を渡す。
-verboseモードが -1 のときは、出力されない。
-出力される先は， vce_errout 関数と同じである．
-</desc>
-<desc en>
-LIke as vce_errout_v, this outputs errors only when verbose mode.
-You cannot give any arguments to this function.
-In Win32 environment, it passes argument "s" to
-OutputDebugString function, as well.
-No output will be done when -1 is given to verbose mode.
-Destination is same as the vce_errout function.
-</desc>
-<also>vce_errout_v,vce_errout0
-</func>
 
-<func>
-<name>vce_save_statlog
-<prototype>int vce_save_statlog( char *path )
-<cat>log
-<arch>linux,win32,darwin
-<arg>char *path
-<argdef ja>
-ログを出力するファイルのパス
-</argdef>
-<argdef en>
-Pathname of log file.
-</argdef>
-<return ja>
-正常に終了したら0を、異常終了したら負のエラーコードを返す
-</return>
-<return en>
-Returns zero if successful, otherwise returns minus error indicator value.
-</return>
-<desc ja>
-VCEの動作状況を統計したテキストファイルを出力する。
-VCEがチューニングモードで動作しているときは、
-精密な時間計測の結果も出力される(Version 1.0で対応)。
-</desc>
-<desc en>
-</desc>
-</func>
 
 <func>
 <name>vce_get_stat
@@ -609,7 +249,7 @@ VCE が管理しているすべてのコネクションに関する情報を文�
 UNIXでいうところの、 netstat コマンドの出力に相当する内容となっている。
 各コネクションの情報は "PARAM=VALUE" をコンマで区切ってならべた内容で、
 1行あたり1コネクション(ソケット)となる。
-行の基本種類は "circ","conn","listen_circ", "listen_conn", の4種類がある。
+行の基本種類は "conn", "listen_conn", の2種類がある。
 "conn" の場合に表示される情報が最も種類が多い。
 <ul>
 <LI>"type=conn" の場合の情報<BR>
@@ -627,16 +267,7 @@ type=conn は、通常のコネクションをあらわす。
 <LI>timeo=NUM : タイムアウトまでの時間
 <LI>nego=NUM : 暗号ネゴシエーション状態
 </ul>
-<LI>"type=circ" の場合の情報<BR>
-type=circ は、仮想回路(circ_t)をあらわす。
-<UL>
-<LI>r=NUM : 読みこみバッファの長さ(暗号デコード済み)
-<LI>rem=STR : リモートアドレス。vce_circ_get_remote_addr_string の出力
-<LI>loc=STR : ローカルアドレス。親 conn_t のローカルアドレスを表示
-<LI>s=NUM : circ_t のシリアル番号
-<LI>last=NUM : 最後にアクセスのあった時刻
-</UL>
-<LI>"type=listen_circ", "type=listen_conn" の場合<BR>
+<LI>"type=listen_conn" の場合<BR>
 これらのタイプは、接続待ち状態の tcpcontext あたり1個、表示される。
 ほかのホストとつながっているコネクションをあらわしているわけではない。
 <UL>
@@ -655,8 +286,7 @@ by VCE in a string buffer.
 This looks like output of the UNIX netstat command.
 Information of respective connections are "PARAM=VALUE" separated
 with commas, and one line represents one connection (socket).
-Basic 4 types of lines are "circ","conn","listen_circ"
-and "listen_conn".
+Basic 2 types of lines are "conn" and "listen_conn".
 Types of information displayed in "conn" is the most various. 　
 
 <UL>
@@ -687,24 +317,7 @@ Remaining time till timeout
 Cipher negotiation state
 </ul>
 
-<li>In case of "type=circ"<BR>
-"type=circ" represents a virtual circuit (circ_t)
-<ul>
-<LI>r=NUM<BR>
-Length of reading buffer (plain)
-<LI>rem=STR<BR>
-Remote address, output of vce_circ_get_remote_addr_string
-<LI>loc=STR<BR>
-Local address, displays local address of its parent conn_t 　　
-<LI>s=NUM<BR>
-Serial number of circ_t
-<LI>s=NUM<BR>
-Serial number of circ_t
-<LI>last=NUM<BR>
-Date of last access
-</ul>
-
-<LI>In case of "type=listen_circ", and "type=listen_conn"<BR>
+<LI>In case of "type=listen_conn"<BR>
 One each of these types are displayed for respective
 waiting tcpcontexts, though not representing
 connections connected with other hosts.

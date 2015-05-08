@@ -104,46 +104,13 @@ arrayカテゴリの関数は、
 
 </categorydesc>
 
-<categorydesc>
-<name>search
-<desc ja>
-searchカテゴリの関数群は、「オンメモリの超高速検索」を実装している。
-すべて、「キー」から「値へのポインタ」を引きだすという感じで使う。
-キーには 32bit int, 2個の32bit int, 16文字までのstring の3種類を
-指定することができる。<BR>
-searchカテゴリの関数は汎用性のかわりに高速性が必要な場合に使うべきである。
-設定次第では100万エントリの中からの検索を数マイクロ秒で実行することができる。
-VCEの内部では、パケットベクトライザのIPアドレスからソケット番号への変換
-(sockhash)ルーチン内部で使用している。
-search関数群の性能が最大になるのは、数万の要素の中から検索する時である。<BR>
-値へのポインタは、配列の要素へのポインタとするのが最も使いやすいだろう。
-配列の要素へのポインタは、array カテゴリの関数を用いれば簡単に作ることが
-できるので、 arrayと search はよく併用される。
-<BR><BR>
-検索のアルゴリズムは、
-「有限数のハッシュテーブル」を用いて検索のスキャンループの回数を減らす
-方式である。
-単純に考えると、N要素の値を保存している場合、
-普通にキーから見つけだすには最大N回のループが必要だが、
-M要素のハッシュテーブルがあれば、ループ回数がM分の1となり検索が高速化される。
-よってたとえば100万個の値が保存されているデータベースの場合は、
-10万程度のハッシュサイズにしておくと平均ループ回数が10となり、
-性能は10万倍に向上する(ハッシュのサイズ倍になるとしてよい。)
-<BR><BR>
-またvce_init_*_search 関数はインデクスを再利用する．
-つまり，検索エンジンの生成と解放を繰りかえすと，
-同じindexが振られることがある．
-</desc>
-<desc en>
-</desc>
 
-</categorydesc>
 
 <categorydesc>
 <name>parser
 <desc ja>
 parserカテゴリに属する関数群は、
-conn_t コネクションまたは circ_t コネクションからの入力を
+conn_t コネクションからの入力を
 レコード単位に分割し、分割されたレコードごとにコールバック関数を呼びだす。
 VCE ではこのようにレコード単位のプロトコル処理を基本としている。
 </desc>
@@ -161,8 +128,6 @@ parser によってレコード単位に分割されたデータを処理する�
 このコールバック関数の内容はアプリケーション開発者によって定義されるが、
 エコーやダンプなど基本的な内容のコールバック関数はあらかじめ VCE
 に内蔵されているため、デバッグの目的に使用することができる。
-pcallback 関数には、 conn_t コネクション用のものと circ_t コネクション用
-のものとがある。
 </desc>
 <desc en>
 </desc>
@@ -172,34 +137,14 @@ pcallback 関数には、 conn_t コネクション用のものと circ_t コネ
 <categorydesc>
 <name>watcher
 <desc ja>
-watcher カテゴリの関数群は、conn_t または circ_t コネクションを
-新規に受けいれ(accept)したり、閉じられたりしたときにそれを検知するための
-コールバック関数群である。現在は acceptwatcher と closewatcher
-が存在する。
+watcher カテゴリの関数群は、conn_t を新規に受けいれ(accept)したり、閉じられたりしたときにそれを検知するための
+コールバック関数群である。現在は acceptwatcher と closewatcher が存在する。
 </desc>
 <desc en>
 </desc>
 </categorydesc>
 
 
-<categorydesc>
-<name>task
-<desc ja>
-task カテゴリの関数群は、コールバックを基本に動作する、
-プロセス内の擬似タスクを実現する。マイクロ秒(実際には vce_heartbeat の
-呼びだし頻度に影響される)単位のインターバルと、
-タイマーのチェック解像度を調節してサーバの負荷を自由にチューニングできる。
-VCE 自体によっても使われる他、アプリケーションからも、
-NPC を一定間隔で移動させたり、
-タイマー的な処理を繰りかえさせたりといった処理に使うことができる。
-コーディングは、まず vce_taskgroup_create を呼びだしてタスクグループを
-作成する。次に vce_taskcontext_create 関数により、
-各グループに属するタスクを生成する。
-グループ単位でタイマーチェックの解像度を設定できる。
-</desc>
-<desc en>
-</desc>
-</categorydesc>
 
 
 <categorydesc>
@@ -218,53 +163,6 @@ gen.rb スタブジェネレータの出力コードではこの関数群を基�
 
 
 <categorydesc>
-<name>profiler
-<desc ja>
-profiler カテゴリの関数群は，動的に動作設定と状態取得が可能な，
-プロファイリング(動作性能検査)ツールを提供する．
-マイクロ秒単位のタイマを必要とするため，
-現在では linux でのみサポートされている．
-内部的に gettimeofday を使用するため，プログラムの動作速度は，
-若干低下する．
-</desc>
-<desc en>
-</desc>
-</categorydesc>
-
-<categorydesc>
-<name>monitor
-<desc ja>
-monitor カテゴリの関数群は，
-常時稼働するサーバープロセスをリモートから監視，
-操作するための単純なAPIを提供する．
-モニター用関数群は大きくわけてサーバー用APIとクライアント用APIに
-わかれていて，
-監視されるプロセスではサーバー側(vce_monitor_server_???)関数を用い，
-監視するプロセスではクライアント側(vce_monitor_client_???)関数
-を用いることになる．
-つまり，監視する側から監視される側に対してTCPのセッションを張って
-情報を取得する構造をもっている．
-監視や操作はセキュリティを保つことが必要であるため，
-暗号化はもちろん，パスワードによる認証もサポートしている．
-機能や文字列フォーマットに関する詳細については，
-<a href="monitor.html">「VCEモニタリング」</a>を参照．
-</desc>
-</categorydesc>
-
-<categorydesc>
-<name>analyzer
-<desc ja>
-analyzer カテゴリの関数群は，
-gen.rbによって生成されたプロトコルの送信、受信部分にラップすることで
-各プロトコルの送信したbyte数、回数、送信に失敗したbyte数、回数などをチェックすることが
-できる。
-</desc>
-<desc en>
-PENDING
-</desc>
-</categorydesc>
-
-<categorydesc>
 <name>log
 <desc ja>
 logカテゴリに含まれる関数群は、
@@ -278,19 +176,6 @@ PENDING
 </desc>
 </categorydesc>
 
-<categorydesc>
-<name>logwriter
-<desc ja>
-logwriter カテゴリに含まれる関数群は、
-ログを収集するリモートサーバ(rsv)にログを転送するための関数の集まりである。
-転送するログは、VCEログフォーマットに基いている。
-モニター機能やログフォーマットに関する詳細については、
-<a href="monitor.html">「VCEモニタリング」</a>を参照。
-</desc>
-<desc en>
-PENDING
-</desc>
-</categorydesc>
 
 
 
@@ -298,7 +183,7 @@ PENDING
 <name>vce.h
 <sum ja>C言語 VCEヘッダファイル
 <sum en>VCE header file for C language
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <desc ja>
 vce.h はVCEgg APIのすべての関数のプロトタイプ宣言や、
 extern変数宣言を含む。<BR><BR>
@@ -364,81 +249,7 @@ to use functions with a C linkage.
 </desc>
 </file>
 
-#<file>
-#<name>vce.so
-#<arch>linux
-#<sum ja>オブジェクト指向スクリプト言語Ruby用拡張共有ライブラリファイル
-#<sum en>Shared extention library file for Ruby
-#<desc ja>
-#VCEをオブジェクト指向スクリプト言語 Ruby 用の拡張ライブラリとして利用
-#するための共有ライブラリ。Rubyからvce.so を利用するには、
-#rubyの拡張ライブラリ検索パスに含まれるディレクトリに、
-#vce.so を置き、
-#<pre>
-#require "vce"
-#</pre>
-#という文を書く。プログラミングに関しては、VCE/Ruby APIリファレンスと、
-#サンプルコードを参照。
-#</desc>
-#<desc en>
-#vce.so is a shared library that allows developers to use VCE
-#as an extension library for the object oriented script language "Ruby".
-#To use vce.so from Ruby, place "vce.so" under the directory included in the
-#search path for Ruby's extension library, and write 
-#<pre>
-#require "vce"
-#</pre>
-#As for programming, refer to "VCE/Ruby/API Reference" and
-#provided sample codes.
-#</desc>
-#</file>
 
-
-<file>
-<name>vcewin32.lib
-<arch>win32
-<sum ja>Windows 98/NT/2000/XP/Vista 用静的リンクライブラリファイル
-<sum en>VCE for Windows 98/NT/2000/XP/Vista static-link library file
-<desc ja>
-vcewin32.lib は、Win32環境用のライブラリファイルである。
-コンパイルには VisualStudio .NET 2003 を使用している。
-基本的にVCEの機能のほとんどが含まれている。
-<BR>
-vcewin32.lib のVCEパッケージ内のファイル名は、
-<pre>
-vcewin32_1_0_0.lib
-vcewin32_1_0_0mt.lib
-vcewin32_1_0_0mfc.lib
-</pre>
-のようになっており、<BR>
-最後にmtが付いている場合は、マルチスレッド用ライブラリ、<BR>
-mfcが付いている場合は、MFC対応版ライブラリ である。<BR>
-常にバージョンに関する混同をなくすため、
-このファイル名をできるだけ変更せずに利用することが望ましい。
-どうしても開発プロジェクトにおいてファイル名を変更をしたくない場合は、
-windowsショートカットを作成して利用すればよい。<BR><BR>
-<b>Visual Studio .NET 2003 で使用する場合の注意：</b><BR>
-vcewin32.lib をリンクする場合は、プロジェクト設定のランタイムライブラリを
- シングルスレッドに、
-vcewin32_mt.lib の場合は、マルチスレッドに設定しなくてはいけない。<br>
-</desc>
-<desc en>
-vcewin32.lib is the library file for Win32 environment.
- VisualStudio 6.0 is used for compilation.
- Basically it includes most of the VCE's functions.  <BR> 
-The file name of vcewin32.lib  in the VCE package is 
-<pre>
-vcewin32_1_0_0.lib
-vcewin32_1_0_0mt.lib
-vcewin32_1_0_0mfc.lib
-</pre>
-It is recommended not to change this file name as much as possible to avoid
-confusion on the versions.  If you do not wish to change the file name for a
-development project, simply create a Window shortcut.  The file including "mt"
-in the file name is the library to link with a multi-thread
-version of the C library.  
-</desc>
-</file>
 
 
 <tool>
@@ -465,160 +276,3 @@ This tool easily implements RPC on VCE.
 </tool>
 
 
-<tool>
-<name>swp
-<arch>linux(32bit/64bit),win32
-<sum ja>コネクションスイッチ中継サーバ
-<sum en>relay server
-<usage ja>
-swp 設定ファイル サーバリスト
-</usage>
-<usage en>
-swp CONFIG_FILE SWITCHTABLE_FILE
-</usage>
-<desc ja>
-アプリケーションのクライアントとサーバの間におく中継用サーバである。
-<pre>
-swp     (32bit Linux用)
-swp_64  (64bit Linux用)
-swp.exe (32bit Windows用)
-</pre>
-パケットの暗号化/復号化や圧縮/解凍の処理をswpが全て引き受けることによって、
-サーバのトランザクション処理性能を向上させることができる。
-また、swpを設置することによってサーバとクライアント間に一種のゲートウェイが
-介在することになるため、セキュリティが向上する。<br>
-swpにはスイッチング機能も備えているが、
-クライアント、サーバ間のレスポンスが良くなった現在では、
-ほとんどのアプリケーションではクライアント側でスイッチング機能を組込むことを
-推奨する。
-swpでスイッチングを行うことによりサーバ側により複雑なロジックが組込まれる
-ことになり、デバッグが困難になるからである。
-VCE 2.0 ではswpの仕様は大きく変る予定である。<br>
-詳細は、<a href="switch.html">SWP 機能解説</a>を参照。<br><br>
-<b>Windows版を使用するときの注意</b><br>
-Windowsでは、OSの仕様により、同じポートを使用して複数のswpを起動することができる(bind errorは発生しない)。起動時に注意が必要である。<br>
-</desc>
-<desc en>
-PENDING
-</desc>
-</tool>
-
-<tool>
-<name>swpadm
-<arch>linux(32bit/64bit),win32
-<sum ja>swpのリモート操作用ツール
-<sum en>a tool for swp remote operation
-<usage ja>
-swp 設定ファイル サーバリスト
-</usage>
-<usage en>
-swpadm ホスト名 ポート キー 引数1 引数2 引数3 ...
-</usage>
-<desc ja>
-<pre>
-swpadm     (32bit Linux用)
-swpadm_64  (64bit Linux用)
-swpadm.exe (32bit Windows用)
-</pre>
-詳細は、<a href="switch.html#swpadm">SWP 機能解説</a>を参照。
-</desc>
-<desc en>
-PENDING
-</desc>
-<sample ja>
-<pre>swpadm localhost 9002 key shutdown</pre>
-</sample>
-<sample en>
-<pre>swpadm localhost 9002 key shutdown</pre>
-</sample>
-</tool>
-
-
-<tool>
-<name>stderrback.rb
-<arch>linux(32bit)
-<sum ja>VCEのログ出力ファイルを自動的に圧縮
-<sum en>Automatically compress VCE's log files
-<usage ja>
-ruby stderrback.rb ディレクトリ名
-</usage>
-<usage en>
-ruby stderrback.rb DIRNAME
-</usage>
-<desc ja>
-指定したディレクトリの中のログファイル(stderr.N形式)で最新でないものを
-自動的に圧縮する。圧縮までしかしないので、
-圧縮されたものを取りだすのは手作業で取りだす。
-cron を使って一定時間ごとにチェックするようにしておけば便利である。
-gzip プログラムに依存している。
-</desc>
-<update ja>2000年8月
-<update en>2000Aug
-</tool>
-
-<tool>
-<name>bufsplice
-<arch>linux(32bit)
-<sum ja>ファイルの内容を短冊状に切り出して、stdoutに表示する
-<sum en>PENDING
-<usage ja>
-bufsplice INFILE N M
-</usage>
-<usage en>
-bufsplice INFILE N M
-</usage>
-<desc ja>
-NバイトごとにMバイトを出力する。
-共有メモリのチェック用である。
-</desc>
-<desc en>
-PENDING
-</desc en>
-</tool>
-
-<tool>
-<name>shasum
-<arch>linux(32bit)
-<sum ja>SHA-1 でファイルチェックサムを取得する
-<sum en>PENDING
-<usage ja>
-shasum INFILE
-</usage>
-<usage en>
-shasum INFILE
-</usage>
-<desc ja>
-<a href="vce-api.html#vce_sha1_file_checksum">vce_sha1_file_checksum関数</a>
-を用いてファイルのチェックサムを取得する。
-</desc>
-<desc en>
-PENDING
-</desc>
-</tool>
-
-<tool>
-<name>vceprof.rb
-<arch>linux(32bit)
-<sum ja>topコマンドの出力を画像化する。
-<sum en>PENDING
-<usage ja>
-ruby vceprof.rb [サーバプログラム名]
-</usage>
-<usage en>
-PENDING
-</usage>
-<desc ja>
-topコマンドの出力をgnuplotを使って画像にするスクリプト。ruby 1.8.0以上、gnuplot 3.5以上が必要。詳細は、<a href="vceprof.html">パフォーマンス計測ツール</a> を参照。
-</desc>
-<desc en>
-PENDING
-</desc>
-<sample ja>
-<pre>top -b -n240 -d1 -p15578 > vceprof.txt
-ruby vceprof.rb gmsv</pre>
-</sample>
-<sample en>
-<pre>top -b -n240 -d1 -p15578 > vceprof.txt
-ruby vceprof.rb gmsv</pre>
-</sample>
-</tool>

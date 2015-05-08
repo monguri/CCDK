@@ -94,31 +94,17 @@ or Linux default value 1000.
 <argdef ja>
 ネットワークからの読みこみバッファの最大長。
 この最大長は、1個のTCPコネクションの読みこみバッファの長さである。
-VCEが独自に定義している仮想回路(circ)の読みこみバッファの長さではない。
-暗号化コネクションを使う場合は、この値を1024以上にしておく必要がある。
 </argdef>
 <argdef en>
 Max length of receiving data from network.
 This length is used by each TCP sessions ( conn_t ).
-This length is not used by each circ_t.
-You have to set this argument larger than 1024 when you want to use
-encryption.
 </argdef>
 <arg>size_t wblen
 <argdef ja>
-書きこみバッファの数。これはTCPコネクション(ソケット)の書きこみバッファ
-であり、仮想回路の書きこみバッファではない。
-暗号化コネクションを使う場合は
-この値は1024以上を指定しなければならない。
-特に，swpを使う場合はパフォーマンスのため最低でも1MBを指定すること．
+書きこみバッファの数。
 </argdef>
 <argdef en>
 Max length of outgoing data to network.
-This length is used by each TCP sessions ( conn_t ),
-not by circ_t.
-You have to set larger than 1024 if you want to use encryption.
-Especially, if you use swp(switching proxy), you have to set
-larger than 1MB(1024*1024).
 </argdef>
 <arg>int timeout
 <argdef ja>
@@ -205,7 +191,6 @@ TCP_NODELAYオプションによって、OSがTCPパケットをネットワー�
 <argdef ja>
 状態をもつプロトコルの場合、この引数に0より大きい値を指定し、
 状態管理のための領域をVCEに管理させることができる。
-ベクトライザを使う場合は vce_circ_get_state, 使わない場合は
 vce_conn_get_state 関数を使用することにより、
 状態管理領域へのポインタを取得することができる。
 </argdef>
@@ -245,7 +230,7 @@ tcpcontext の「受信バッファ量」と「送信バッファ量」
 「受信バッファ」に関しても同様だが，
 暗号を使う場合に独特の注意点がある．
 それは，VCEは，heartbeatが呼びだされてから次の heartbeat
-が呼びだされるまでの間に conn_write (circ_write) された
+が呼びだされるまでの間に conn_write された
 データに関しては，ひとつにまとめて暗号化することがある点だ．
 たとえば，次のheartbeat呼びだしまでの期間に，
 サーバーが1KBのデータを20回送ると， 20KBが1個の塊として暗号化され，
@@ -292,76 +277,10 @@ tcpcontext の「受信バッファ量」と「送信バッファ量」
   }
 </pre>
 </sample>
-<also>vce_tcpcontext_cleanup,vce_tcpcontext_connect,vce_circ_get_state,vce_conn_get_state,vce_tcpcontext_set_conn_parser,vce_tcpcontext_set_circ_parser,vce_tcpcontext_set_conn_acceptwatcher,vce_tcpcontext_set_circ_acceptwatcher,vce_tcpcontext_set_conn_closewatcher,vce_tcpcontext_set_circ_closewatcher,vce_initialize,vce_initialize_limited
+<also>vce_tcpcontext_cleanup,vce_tcpcontext_connect,vce_conn_get_state,vce_tcpcontext_set_conn_parser,vce_tcpcontext_set_conn_acceptwatcher,vce_tcpcontext_set_conn_closewatcher,vce_initialize,vce_initialize_limited
 </func>
 
-<func>
-<name>vce_tcpcontext_set_compress
-<prototype>void vce_tcpcontext_set_compress( tcpcontext_t tp , unsigned long size )
-<cat>tcp
-<arch>linux,win32
-<sum ja>TCPコンテキストに対して、圧縮解凍機能を初期化し、ワークサイズを指定する
-<sum en>PENDING
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-圧縮解凍を行うTCPコンテキストのポインタ
-</argdef>
-<argdef en>
-PENDING
-</argdef>
-<arg>unsigned long size
-<argdef ja>
-圧縮解凍のためのワークサイズ
-</argdef>
-<argdef en>
-PENDING
-</argdef>
-<desc ja>
-圧縮機能を使用する場合、この関数で初期化、ワークバッファのサイズの指定を
-行う。
-ワークサイズには、送受信するときのデータの最大値(圧縮前のサイズ)を指定する。
-32MBまでの値を設定できる。
-</desc>
-<desc en>
-PENDING
-</desc>
-<also>vce_tcpcontext_reset_compress
-</func>
 
-<func>
-<name>vce_tcpcontext_reset_compress
-<prototype>void vce_tcpcontext_reset_compress( tcpcontext_t tp )
-<cat>tcp
-<arch>linux,win32
-<sum ja>TCPコンテキストに対して、圧縮解凍機能をOFFにする
-<sum en>
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-圧縮解凍機能解除するTCPコンテキストのポインタ
-</argdef>
-<argdef en>
-PENDING
-</argdef>
-<desc ja>
-圧縮機能を解除する。
-</desc>
-<desc en>
-PENDING
-</desc>
-<also>vce_tcpcontext_set_compress
-</func>
 
 <func>
 <name>vce_tcpcontext_set_conn_finalizer
@@ -407,48 +326,10 @@ closewatcher は呼びだされないが、 finalizer は呼びだされる点�
 </desc>
 <desc en>
 </desc>
-<also>vce_tcpcontext_create,vce_tcpcontext_set_circ_finalizer
+<also>vce_tcpcontext_create
 </func>
 
-<func>
-<name>vce_tcpcontext_set_circ_finalizer
-<prototype>void vce_tcpcontext_set_circ_finalizer( tcpcontext_t tp, void (*fin)(circ_t) )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコンテキストに対して、仮想回路のファイナライザを指定する。
-<sum en>Make TCPcontext use specified circ_t finalizer.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-ファイナライザを指定するTCPコンテキストのポインタ
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg>void *fin(circ_t to_be_finalized )
-<argdef ja>
-ファイナライザ関数へのポインタ。 to_be_finalized は、
-解放されようとしている仮想回路をあらわす。
-</argdef>
-<argdef en>
-Pointer to finalizer function.
-"to_be_finalized" parameter stands for a circ_t that is being closed.
-</argdef>
-<desc ja>
-TCPコンテキストが管理している仮想回路が解放されようとしているときに
-1回だけ呼びだされるファイナライザを指定する。
-この関数は主にRubyやJavaなど、他の言語用のwrapperライブラリのために
-用意されている。アプリケーションからは、closewatcher を使うので十分である。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_finalizer
-</func>
+
 
 <func>
 <name>vce_tcpcontext_timeout_control
@@ -558,14 +439,9 @@ VCEでは、標準的な方法でレコード境界を判定するためのデ�
 vce_protocol_parser_bin16            標準的なbin16パーサ
 vce_protocol_parser_text             改行記号をレコード境界とするパーサ
 vce_protocol_parser_through          何も処理せず、そのまま渡すパーサ
-vce_protocol_parser_vecmain_server   vecproxy用パーサ
 </pre>
 以上の2つのパーサを実装しているので、通常のアプリケーションでは、
 これらのパーサを利用すればよい。
-またパケットベクトライズ(中継サーバ)を使用する場合は、
-vce_protocol_parser_vecmain_server をパーサに指定し、
-さらに vce_tcpcontext_set_circ_parser も呼びだして
-circ_t 用のパーサを指定することも必要である。<BR>
 また、 pcallback はパーサによって呼びだされるコールバック関数で、
 引数として data, len を用いてレコードの中身(レコード境界を除く)
 を与える。これも単純なものはVCEに標準添付されていて、
@@ -599,66 +475,9 @@ vce_tcpcontext_set_conn_parser( t, parser, NULL );
 </desc>
 <desc en>
 </desc>
-<also>vce_tcpcontext_create,vce_tcpcontext_set_circ_parser,vce_tcpcontext_set_conn_call_parser_per_heartbeat
+<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_call_parser_per_heartbeat
 </func>
 
-<func>
-<name>vce_tcpcontext_set_circ_parser
-<prototype>void vce_tcpcontext_set_circ_parser( tcpcontext_t tp, int (*parser)(circ_t), int (*pcallback)(circ_t,char*,int))
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコネクションが仮想回路に対して使うパーサ関数を設定する。
-<sum en>Make TCPcontext use parser function when parsing data from circ_t.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定対象となるTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext
-</argdef>
-<arg>int (*parser)(circ_t c)
-<argdef ja>
-パーサ関数へのポインタ
-</argdef>
-<argdef en>
-Pointer to parser function.
-</argdef>
-<arg>int (*circcallback)(circ_t circ, char *data , int len )
-<argdef ja>
-パーサが呼びだすコールバック関数へのポインタ
-</argdef>
-<argdef en>
-Pointer to callback function which is called by parser function
-when a data record is received.
-</argdef>
-<desc ja>
-仮想回路にデータが来た場合にそれをパースして仮想回路用のコールバック
-関数を呼びだすためのパーサと、そのパーサが呼びだすコールバック関数を
-同時に設定する。現在は、標準のパーサとして、
-<pre>
-vce_vecprotocol_parser_bin16
-vce_vecprotocol_parser_text
-vce_vecprotocol_parser_through
-</pre>
-がVCEに含まれている。
-また、VCEに標準添付されているコールバック関数は
-<pre>
-vce_vecprotocol_pcallback_echo_bin16  仮想回路上でbin16プロトコルを使う
-vce_vecprotocol_pcallback_echo_text  仮想回路上で改行レコードを使う
-vce_vecprotocol_pcallback_echo_through 仮想回路上でデータをそのままecho
-</pre>
-がある。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_create
-</func>
 
 <func>
 <name>vce_tcpcontext_set_conn_acceptwatcher
@@ -774,94 +593,6 @@ VCEでは，この数のことを「高水位設定値」"high water"と呼ん�
 </func>
 
 <func>
-<name>vce_tcpcontext_set_circ_acceptwatcher
-<prototype>void vce_tcpcontext_set_circ_acceptwatcher( tcpcontext_t tp, int (*aw)(circ_t) )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコネクションに対して、仮想回路の新規接続監視関数を設定する。
-<sum en>Make TCPcontext use speficied function when new circ_t is accepted.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定対象となるTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext
-</argdef>
-<arg>int (*aw)(circ_t c )
-<argdef ja>
-新規接続監視関数へのポインタ。 circ_t はあたらしく接続を受けいれた
-circ_t である．
-</argdef>
-<argdef en>
-Pointer to accept watcher function.
-Parameter "c" stands for a newly accepted TCP connection.
-</argdef>
-<desc ja>
-TCPcontextが新しい仮想回路を受けいれるたびにこの関数(aw)を呼びだすように
-設定する。アプリケーションにおいて新規接続をすべてログしたり、
-状態バッファを初期化したりしたいときに役だてることができる。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_create
-</func>
-
-<func>
-<name>vce_tcpcontext_set_circ_hiwater_acceptwatcher
-<prototype>void vce_tcpcontext_set_circ_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(circ_t, int))
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコンテキストに，仮想回路の接続数が多いとき用のaccept監視関数をセットする
-<sun en>Set a special high water accept watcher function to a circ_t TCPcontext.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定対象となるTCPcontext
-</argdef>
-<argdef en>
-Target TCPcontext
-</argdef>
-<arg>int water
-<argdef ja>
-高水位を示す数．
-この数値を越えるとデフォルトのものにかわって，
-本関数で設定した接続監視関数が呼びだされる．
-</argdef>
-<argdef en>
-This number specifies high water number of concurrent sessions.
-</argdef>
-<arg>int (*aw)(circ_t *c, int num )
-<argdef ja>
-高水位状態のとき用の接続監視関数．
-</argdef>
-<argdef en>
-Special accept watcher function for high water.
-</argdef>
-<desc ja>
-本関数は， vce_tcpcontext_set_conn_hiwater_acceptwatcher 関数の
-circ_t版である．詳細な動作については，
-その関数とまったく同様の動作をする．
-</desc>
-<desc en>
-This function is circ_t version of
-vce_tcpcontext_set_conn_hiwater_acceptwatcher function.
-Please look at its description.
-</desc>
-<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_hiwater_acceptwatcher
-</func>
-
-<func>
 <name>vce_tcpcontext_set_conn_closewatcher
 <prototype>void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )
 <cat>tcp
@@ -890,8 +621,7 @@ reason には， CLOSE_REASON 列挙体で定義されている定数が代入�
 </argdef>
 <desc ja>
 何らかの理由で接続がcloseされてしまったときに1回だけ呼びだされる関数。
-VCEではこのように呼びだされる関数は close watcher と呼ばれ，
-conn_t でも circ_t でも同様に使われる．
+VCEではこのように呼びだされる関数は close watcher と呼ばれる。
 アプリケーション開発者がこの関数本体を定義する
 ことによって、ソケットが閉じられたことをログしたりできる。
 close watcher は呼びだされるときの原因に応じて reason 引数に，
@@ -981,46 +711,6 @@ close watcher は呼びだされない．
 <also>vce_tcpcontext_create,vce_tcpcontext_set_conn_acceptwatcher
 </func>
 
-<func>
-<name>vce_tcpcontext_set_circ_closewatcher
-<prototype>void vce_tcpcontext_set_circ_closewatcher( tcpcontext_t tp, int (*cw)(circ_t,CLOSE_REASON) )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコンテキストに対して、仮想回路がcloseしたときの監視関数を設定する
-<sum en>Make TCPcontext use specified function when circ_t is closed.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定対象となるTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg>int (*cw)(circ_t c, CLOSE_REASON reason )
-<argdef ja>
-close監視関数へのポインタ。reasonはクローズされた理由． vce.hで
-列挙体は定義されている．
-</argdef>
-<argdef en>
-Pointer to close watcher function. Parameter "reason"
-indicates why the connection is closed. You can consult "vce.h"
-for CLOSE_REASON enum type.
-</argdef>
-<desc ja>
-仮想回路が切断されたときに呼びだされるコールバック関数を設定する。
-アプリケーション以外の理由で強制的に切断されたときの処理などに使用する
-ことができる。
-クローズの理由を reason 引数から推定することができる．
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_closewatcher
-</func>
 
 <func>
 <name>vce_tcpcontext_cleanup
@@ -1269,48 +959,6 @@ tcpcontext がノンブロッキングモードに設定されている場合と
 <also>vce_tcpcontext_create,vce_conn_is_valid,vce_conn_writable
 </func>
 
-<func>
-<name>vce_tcpcontext_get_all_circuit
-<prototype>int vce_tcpcontext_get_all_circuit( tcpcontext_t tt , circ_t *a, int max);
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>tcpcontext に属するすべての仮想回路を得る
-<sum en>get all circuits included in a tcpcontext
-<arg>tcpcontext_t tt
-<argdef ja>
-処理対象のtcpcontext
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg>circ_t *a
-<argdef ja>
-配列を出力する先頭アドレス
-</argdef>
-<argdef en>
-Top address of an array of circ_t.
-</argdef>
-<arg>int max
-<argdef ja>
-配列の最大要素数
-</argdef>
-<argdef en>
-Max number of elements of array parameter "a".
-</argdef>
-<return ja>
-配列を埋めた数を返す(0以上の値)。
-</return>
-<return en>
-Number of elements filled in given array.
-This number must be larger than or equal to zero.
-</return>
-<desc ja>
-ひとつのtcpcontext に属する仮想回路を配列にコピーして出力する。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_count_connections
-</func>
 
 <func>
 <name>vce_tcpcontext_get_all_connection
@@ -1357,7 +1005,7 @@ This number must be larger than or equal to zero.
 
 <func>
 <name>vce_tcpcontext_count_connections
-<prototype>int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn, int *circ )
+<prototype>int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )
 <cat>tcp
 <arch>linux,win32,ps2,darwin
 <sum ja>tcpcontext に属するコネクションの数を数える
@@ -1378,14 +1026,6 @@ NULL を指定すると，無視される．
 Top address of return buffer.
 It will be ignored if set NULL.
 </argdef>
-<arg>int *circ
-<argdef ja>
-circ_t コネクションの数を返すためのバッファの先頭アドレス．
-NULL を指定すると，無視される．
-</argdef>
-<argdef en>
-Top address of return buffer. It will be ignored if set NULL.
-</argdef>
 <return ja>
 正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
 </return>
@@ -1394,558 +1034,16 @@ Returns 0 if successful, otherwise minus error indicator value.
 </return>
 <desc ja>
 1個の tcpcontext が管理しているコネクションの数を数える．
-conn_t と circ_t を別々に数える．
 </desc>
 <desc en>
 </desc>
-<also>vce_tcpcontext_get_all_connection,vce_tcpcontext_get_all_circuit
+<also>vce_tcpcontext_get_all_connection
 </func>
 
-<func>
-<name>vce_tcpcontext_is_circ_mode
-<prototype>int vce_tcpcontext_is_circ_mode( tcpcontext_t tp )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコンテキストが、仮想回路用か普通のコネクション用かを調べる
-<sum en>Check if a TCP context is set up for circ or conn.
-<return ja>
-circ(仮想回路)用のTCPコンテキストだったら1、そうでないなら0を返す。
-</return>
-<return en>
-Returns 1 if this TCPcontext is configured circ_t mode,
-otherwise returns 0.
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-調査対象となる TCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<desc ja>
-VCEをRuby,Javaなどの言語で利用できるようにするための拡張ライブラリを作る
-場合に、TCPコンテキストのポインタからTCPコンテキストの種類を得るための
-関数である。通常のアプリケーションからは使うことは少ないだろう
-(あらかじめ種類はアプリケーションプログラム側でわかっているはずなので。)
-</desc>
-<desc en>
-</desc>
-</func>
 
-<func>
-<name>vce_tcpcontext_add_ipv4_filter
-<prototype>int vce_tcpcontext_add_conn_ipv4_filter( tcpcontext_t tp, const char *net, const char *mask, int policy )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>サーバのTCPコンテキストに接続できるconn_tのIPアドレスをフィルタする
-<sum en>Filter IP address of comming conn_t connection to TCPcontext.
-<return ja>
-成功した場合は0、失敗した場合は負のエラーコードを返す。
-</return>
-<return en>
-Returns 0 if successful, otherwise returns minus error indicating code.
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-フィルタを追加するTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext which will have new filter configuration.
-</argdef>
-<arg>char *net
-<argdef ja>
-送信元ネットワークアドレス。 "192.168.1.0" のような文字列を指定する。
-FQDNを指定すると内部でDNSを使用して名前を解決する。
-なおDNSは初期化時に１回だけなので負荷は少ない。
-アクセスチェック時に DNS を引きなおすことはない。
-</argdef>
-<argdef en>
-</argdef>
-<arg>char *mask
-<argdef ja>
-ネットマスクを指定する。 "255.255.255.0" のような文字列を指定する。
-</argdef>
-<argdef en>
-Set netmask. For example, "255.255.255.0" is acceptable.
-</argdef>
-<arg>int policy
-<argdef ja>
-FILTER_POLICY_ACCEPT, FILTER_POLICY_DENY, FILTER_POLICY_LOG を OR 演算
-することによって指定する。通常は、
-<pre>
- FILTER_POLICY_ACCEPT
- FILTER_POLICY_DENY
- FILTER_POLICY_ACCEPT | FILTER_POLICY_LOG
- FILTER_POLICY_DENY | FILTER_POLICY_LOG
-</pre>
-の4種類のうちのどれかである。ほかにもオプションを付けていく場合は、
-OR演算子で連結していく。
-</argdef>
-<argdef en>
-</argdef>
-<desc ja>
-TCPコンテキストのIPソースアドレスフィルターの動作については、
-tcp のカテゴリ説明を参照。
-重要な点は、
-フィルタをひとつも設定していない状態ではすべての接続を受けいれるが、
-ひとつでも設定した時点で、デフォルトの動作が変化してすべての接続を
-受けいれなくなる点である。これは設定ミスによるセキュリティホールを
-最小限に食いとめるためである。
-</desc>
-<desc en>
-</desc>
-<bugs ja>
-現在IPフィルタは、128個まで設定できるようになっている。
-</bugs>
-<bugs en>
-Currently, 128 IP filter can be set at most.
-</bugs>
-<also>vce_tcpcontext_add_circ_ipv4_filter,vce_tcpcontext_delete_conn_ipv4_filter,vce_tcpcontext_delete_circ_ipv4_filter
-</func>
 
-<func>
-<name>vce_tcpcontext_delete_conn_ipv4_filter
-<prototype>int vce_tcpcontext_delete_conn_ipv4_filter( tcpcontext_t tp, const char *net, const char *mask )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>conn_tに対して設定されているIPフィルタを取りのぞく
-<sum en>Remove IP filter configuration for conn_t.
-<return ja>
-成功したら0、失敗した負のエラーコードを返す。
-</return>
-<return en>
-Returns 0 if successful, otherwise minus error indicating code.
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-フィルタを削除するTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg>char *net
-<argdef ja>
-削除するフィルタのネットワークアドレス
-</argdef>
-<argdef en>
-Network address of a filter which will be removed.
-</argdef>
-<arg>char *mask
-<argdef ja>
-削除するフィルタのネットマスク
-</argdef>
-<argdef en>
-Netmask of a filter which will be removed.
-</argdef>
-<desc ja>
-vce_tcpcontext_add_conn_ipv4_filter 関数で設定したフィルタの設定と
-全く同じ設定値を用いて、フィルタを取りのぞく。
-設定値がみつからない場合や引数が無効な場合は、負のエラーコードを返す。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_add_conn_ipv4_filter
-</func>
 
-<func>
-<name>vce_tcpcontext_add_circ_ipv4_filter
-<prototype>int vce_tcpcontext_add_circ_ipv4_filter( tcpcontext_t tp, const char *net, const char *mask, int policy )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>サーバのTCPコンテキストに接続できるcirc_tのIPアドレスをフィルタする
-<sum en>Filter IP address of comming circ_t connection to TCPcontext.
-<return ja>
-成功した場合は0、失敗した場合は負のエラーコードを返す。
-</return>
-<return en>
-Returns 0 if successful, otherwise minus error indicating code.
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-フィルタを追加するTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg>char *net
-<argdef ja>
-送信元クライアントのネットワークアドレス。
-"192.168.1.0"のような文字列を指定する。
-内部でDNSを使用するのでFQDN を指定してもよい。
-なおDNSは初期化時に１回だけなので負荷は少ない。
-</argdef>
-<argdef en>
-</argdef>
-<arg>char *mask
-<argdef ja>
-ネットマスクを指定する。 "255.255.255.0" のような文字列を指定する。
-</argdef>
-<argdef en>
-Netmask. For example, "255.255.255.0" is acceptable.
-</argdef>
-<arg>int policy
-<argdef ja>
-FILTER_POLICY_ACCEPT, FILTER_POLICY_DENY, FILTER_POLICY_LOG を OR 演算
-することによって指定する。通常は、
-<pre>
-FILTER_POLICY_ACCEPT
-FILTER_POLICY_DENY
-FILTER_POLICY_ACCEPT | FILTER_POLICY_LOG
-FILTER_POLICY_DENY | FILTER_POLICY_LOG
-</pre>
-の4種類のうちのどれかである。ほかにもオプションを付けていく場合は、
-OR演算子で連結していく。
-</argdef>
-<argdef en>
-</argdef>
-<desc ja>
-基本的な動作は、 vce_tcpcontext_add_conn_ipv4_filter と同じだが、
-中継サーバに接続する仮想回路に対する設定である点が異なる。
-</desc>
-<desc en>
-</desc>
-<bugs ja>
-現在のIPフィルタ設定の最大個数は、128個までとなっている。
-</bugs>
-<bugs en>
-Currently, 128 IP filters are set at most.
-</bugs>
-<also>vce_tcpcontext_add_conn_ipv4_filter
-</func>
 
-<func>
-<name>vce_tcpcontext_delete_circ_ipv4_filter
-<prototype>int vce_tcpcontext_delete_circ_ipv4_filter( tcpcontext_t tp, const char *net, const char *mask )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>circ_t に対して設定されているIPフィルタを取りのぞく
-<sum en>Remove IP filter configuration for circ_t.
-<return ja>
-成功したら0、失敗したら負のエラーコードを返す。
-</return>
-<return en>
-Returns 0 if successful, otherwise minus error indicating code.
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-フィルタを削除するTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg>char *net
-<argdef ja>
-削除するフィルタのネットワークアドレス
-</argdef>
-<argdef en>
-Network address of a filter which will be removed from the tcpcontext.
-</argdef>
-<arg>char *mask
-<argdef ja>
-削除するフィルタのネットマスク
-</argdef>
-<argdef en>
-Netmask of a filter to be removed.
-</argdef>
-<desc ja>
-vce_tcpcontext_add_circ_ipv4_filter 関数で指定したフィルタの設定と
-全く同じ設定値を用いて、フィルタを取りのぞく。
-設定値がみつからない場合や引数が無効な場合は、負のエラーコードを返す。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_add_circ_ipv4_filter
-</func>
-
-<func>
-<name>vce_tcpcontext_clear_conn_ipv4_filter
-<prototype>void vce_tcpcontext_clear_conn_ipv4_filter( tcpcontext_t tp )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコンテキストに設定されているconn_t用のIPフィルタ設定を初期化する
-<sum en>Clear IP address filters for conn_t set in a TCP context.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定を抹消するTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<desc ja>
-TCPコンテキストに設定されている、通常のコネクション(conn_t)に対する
-IPソースアドレスフィルタを初期化し、デフォルトの状態に戻す。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_add_conn_ipv4_filter
-</func>
-
-<func>
-<name>vce_tcpcontext_clear_circ_ipv4_filter
-<prototype>void vce_tcpcontext_clear_circ_ipv4_filter( tcpcontext_t tp )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコンテキストに設定されているcirc_t用のIPフィルタ設定を初期化する
-<sum en>Clear IP address filters for circ_t set in a TCP context.
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定を抹消するTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<desc ja>
-TCPコンテキストに設定されている、仮想回路(circ_t)のIPフィルタ設定を初期化し、
-デフォルトの状態に戻す。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_add_circ_ipv4_filter
-</func>
-
-<func>
-<name>vce_tcpcontext_use_filter_file
-<prototype>int vce_tcpcontext_use_filter_file( tcpcontext_t tp, const char *path )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>TCPコンテキストのIPフィルタの設定をファイルから入力する
-<sum en>Read a text file and configure TCPcontext's IP filter
-<return ja>
-成功したら0、失敗したら負のエラーコードを返す
-</return>
-<return en>
-Returns 0 if successful, otherwise minus error indicating code.
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定するTCPコンテキスト
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg>char *path
-<argdef ja>
-ファイルのパス
-</argdef>
-<argdef en>
-Pathname of the configuration file.
-</argdef>
-<desc ja>
-テキストの設定ファイルからIPフィルターの設定を読みこんで、
-TCPコンテキストのフィルター設定を完全に行なう。
-conn_t, circ_t 両方とも128個づつのフィルター設定が可能である。
-内部的には、 vce_tcpcontext_add_conn_ipv4_filter,
-vce_tcpcontext_add_circ_ipv4_filter の2関数を呼びだすだけである。
-本関数が認識できるファイルフォーマットは以下の通り。
-<pre>
-CONTYPE NETWORK NETMASK BASEPOLICY POLICY POLICY ...
-# 行頭のシャープ記号の後は、コメントを書くことができる
-# 行頭が空白文字の行も読みとばされる。
-conn # このように行頭を空けて設定を書くことはできない
-</pre>
-すべてのトークンをスペース(0x20)で区切り、トークンは
-先頭から最低4個(BASEPOLICYまでが)必要である。 VCE C言語APIにおいては、
-FILTER_POLICYは OR記号で連結していくSyntaxとなっているので、
-POLICYトークンは最低1個から、オプションの数だけ増えていくことができる。
-ただし現在は3種類だけである。以下の説明においては、シングルクォートは
-設定ファイル中には含まれないことに注意。
-<pre>
-CONTYPE : 'conn' または 'circ' を指定する。
-NETWORK : '192.168.1.0' や 'lan.some-game.net' などネットワークアドレス
-NETMASK : '255.255.255.0' などネットマスクを指定する。
-BASEPOLICY : accept もしくは deny を指定する。
-POLICY : 現在は log を指定可能である。
-</pre>
-以下にconnをlocalhostからの接続に限る場合の設定例を示す。
-<pre>
-conn localhost 255.255.255.255 accept
-</pre>
-以下は、connはLAN からのみ接続可能でログし(中継サーバの使用を意識している)、
-circは日本(202.と 210.)に限定するがログしない場合の設定を示す。
-<pre>
-conn 192.168.1.0 255.255.255.0 accept log
-circ 210.0.0.0 255.0.0.0 accept
-circ 202.0.0.0 255.0.0.0 accept
-</pre>
-有効な1行あたり1下位の vce_tcpcontext_add_circ_ipv4_filter または
-vce_tcpcontext_add_conn_ipv4_filter 関数が呼びだされるので、
-vce_tcpcontext_add_circ_ipv4_filter,vce_tcpcontext_add_conn_ipv4_filter の
-2関数の特徴通り、設定ファイルの設定行が一つでも有効になっていれば
-基本的にすべての接続がデフォルトでDENYになることに注意が必要である。
-また本関数を呼びだすとまず最初にすべての設定をクリアしてから、
-ファイルの中身を実行する。既存の設定が存在する場合は注意が必要である。
-ただし、ファイルの中身にフォーマット異常が発見された場合は、
-クリアも設定も一切されない。
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_add_conn_ipv4_filter,vce_tcpcontext_add_circ_ipv4_filter
-</func>
-
-<func>
-<name>vce_tcpcontext_set_conn_safety_read
-<prototype>int vce_tcpcontext_set_conn_safety_read( tcpcontext_t tp, int per )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>connコネクションの「安全な読みこみ」を設定する
-<sum en>Set conn "safe read" mode.
-<return ja>
-正常終了の場合0、エラーが発生した場合は負のエラーコードを返す。
-</return>
-<return en>
-Returns 0 if successful, otherwise minus error indicating code.
-</return>
-<arg>tcpcontext_t tp
-<argdef ja>
-設定したい TCP コンテキスト。
-クライアントでもサーバーでもどちらでも、「安全な読みこみ」機能は有効。
-</argdef>
-<argdef en>
-Target TCPcontext.
-"safety read" operation can be activated in both server TCPcontext
-and client TCPcontext.
-</argdef>
-<arg>int per
-<argdef ja>
-書きこみ(送信)バッファのパーセントを0から100の値で指定。
-負や101以上の値を指定するとエラーとなる。
-書きこみバッファがこのパーセント<b>以上</B>空いているとき<B>だけ</B>、
-読みこみ処理をする。読みこみ処理とは、ソケットからの読みこみと、
-パーサやコールバック関数の呼びだしである。
-0を指定すると、常に読みこみ処理をし、100を指定すると、
-書きこみバッファが完全に空の場合だけ読みこみ処理をする。
-</argdef>
-<argdef en>
-</argdef>
-<desc ja>
-ネットワークアプリケーションにおいて、
-送信のためのバッファが一杯になっている場合は、
-以下のような状況が考えられる。
-<ol>
-<LI>クライアントが処理を継続できない状態になった。
-<LI>経路の途中に障害が発生し、通信が遅延している。
-<LI>そもそもデータを送る量が多すぎる。
-</ol>
-VCEでは、「レコード」単位でコールバックを呼びだすプロトコルを主にターゲット
-としているが、そのようなプロトコルをデザインする場合、
-以下の状況がかならず発生する。
-<ol>
-<LI>サーバにおいて、クライアントから要求を受けとった。
-<LI>それを処理し、クライアントへ処理結果を送りかえす。
-<LI>しかし、送信バッファが一杯のため、送信できない。
-</ol>
-この例では、受信して処理した結果を返せないため、
-処理の全体(クライアントに通知するまで)が完了できないままになってしまう。
-これを防ぐには、以下のような順番で処理すればよい。
-<OL>
-<LI>サーバにおいて、書きこみバッファに空きがあるか調べる。
-<LI>空きがあるなら要求を受信する。
-<LI>それを処理し、クライアントへ処理結果を返す。
-</ol>
-このような定型的な処理をVCEに任せてしまうために、
-vce_tcpcontext_set_conn_safety_read,  vce_tcpcontext_set_circ_safety_read
-の2関数が用意されている。
-これらの関数を使用すれば、読みこみの前に書きこみバッファの空きを
-確認するので、アプリケーション側で、
-書きこめなかった場合の処理をする必要がなくなる。
-この関数は、どのようなタイミングで呼びだしても、効果をもつ。
-VCEでは以上の機能を「安全な読みこみ(safe read)」と名付ける。
-受信と送信のサイズ差があまりないアプリケーションで送信バッファが
-比較的小さい場合は  per の値は50?80程度がよく、
-送信バッファが十分に大きい場合は10?20でよい。
-デフォルトでは、 per の値は0であり、
-書きこみバッファの空きがないときでも読みこみ処理を行なう。
-</desc>
-<desc en>
-</desc>
-</func>
-
-<func>
-<name>vce_tcpcontext_set_read_delay
-<prototype>void vce_tcpcontext_set_read_delay( tcpcontext_t tp, int min_delay_ms, int max_delay_ms , int distrib )
-<arch>linux,win32,darwin
-<cat>tcp
-<sum ja>クライアント、サーバー間の通信の遅延をシミュレートする
-<sum en>Emulate transportation delay on connections
-<arg>tcpcontext_t tp
-<argdef ja>
-遅延をシミュレートするコネクションを管理するtcpcontext
-</argdef>
-<argdef en>
-Target TCPcontext
-</argdef>
-<arg>int min_delay_ms
-<argdef ja>
-最小の遅延(ミリ秒)
-</argdef>
-Minimum latency in milliseconds
-<argdef en>
-</argdef>
-<arg>int max_delay_ms
-<argdef ja>
-最大の遅延(ミリ秒)
-</argdef>
-<argdef en>
-Maximum latency in milliseconds
-</argdef>
-<arg>int distrib
-<argdef ja>
-遅延の分布。0だと、遅延はminの値に毎回完全に一致する。
-1だと、minとmaxの間がまんべんなく分布する。
-2だと、ほとんどがmin付近となる(2次)
-3だと、もっとほとんどがmin付近となる(3次)
-<Pre>
-delay = min + (max-min)*(( random() % 100 / 100.0 ) ^ distrib )
-</pre>
-0未満や5以上など、意味が薄い値を指定したときは、
-verboseモードの場合警告を表示する。
-</argdef>
-<argdef en>
-</argdef>
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<desc ja>
-VCEを使ったアプリケーションを開発するときにはLANを使用するが、
-実際のインターネットの遅延をLANで再現したい場合もある。
-そのような場合に、本関数を使うとその遅延をシミュレートすることができる。
-本関数は、読みこみバッファのデータをパースしてcollbackを呼びだすタイミング
-を制御して、アプリケーションにとっての遅延を再現する。
-たとえば、普通のダイヤルアップのユーザーが体験する、
-200ミリ秒から500ミリ秒の遅延が発生するようなネットワークを再現するには、
-<pre>
-vce_tcpcontext_set_read_delay( t, 200, 500 ,2 );
-</pre>
-などといった設定をすればよい。
-注意点としては、vce_heartbeat を十分頻繁に呼びだせない場合は、
-遅延の設定値を小さくしても意味がなくなる事である。
-</desc>
-<desc en>
-</desc>
-<bugs ja>
-現在実装されている遅延シミュレータは非常に単純なものであり、
-将来はもっと本格的な遅延シミュレータをサポートする予定である。
-その場合は本関数の引数が増えるか、設定値の意味が変化する可能性がある。
-</bugs>
-<bugs en>
-</bugs>
-<also>vce_tcpcontext_create
-</func>
 
 <func>
 <name>vce_tcpcontext_enable_accept
@@ -2021,9 +1119,8 @@ TCPコンテキストが内部的に管理している統計情報を取得す�
 この情報はデバッグやログなど幅広く活用される。
 以下はtcpcontext_stat_t構造体メンバの説明である。
 <ul>
-<LI>current_conn, current_circ<BR>
-現在活動中のコネクションの数。 current_conn は conn_t の数で、
-current_circ は circ_t の数である。
+<LI>current_conn<BR>
+現在活動中のコネクションの数。 
 <LI>recv_byte, send_byte<BR>
 合計の送受信バイト数
 <LI>recv_syscall, recv_syscall_e<BR>
@@ -2044,44 +1141,7 @@ vce_tcpcontext_connect が成功した回数。
 <also>vce_get_stat,vce_conn_get_stat
 </func>
 
-<func>
-<name>vce_tcpcontext_circ_iterate
-<prototype>int vce_tcpcontext_circ_iterate( tcpcontext_t tt, int (*func)(circ_t c) )
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja>tcpcontext_t が保持している仮想回路(circ_t)の各要素を関数で処理する
-<sum en>Call a function against every circ_t elements in a tcpcontext_t
-<arg>tcpcontext_t tt
-<argdef ja>
-処理したい tcpcontext_t
-</argdef>
-<argdef en>
-Target TCPcontext.
-</argdef>
-<arg> int (*func)( circ_t c )
-<argdef ja>
-tcpcontext_t が持っている各 circ_t に対して、指定した関数を呼びだす。
-</argdef>
-<argdef en>
-</argdef>
-<return ja>
-tcpcontext_t が仮想回路に対応していないなどの場合は負のエラーコード、
-正常終了の場合はゼロを返す。
-</return>
-<return en>
-Returns 0 if successful, otherwise minus error indicating code.
-Tipical cases are that the TCPcontext is not configured
-for processing circ_t.
-</return>
-<desc ja>
-コールバック関数の引数には、仮想回路の各要素が与えられる。
-コールバック関数が負を返すとループを途中で終了する。
-0以上の値を返すとループを継続する．
-</desc>
-<desc en>
-</desc>
-<also>vce_tcpcontext_conn_iterate
-</func>
+
 
 <func>
 <name>vce_tcpcontext_conn_iterate
@@ -2117,7 +1177,7 @@ Returns 0 if successful, otherwise minus error indicating code.
 </desc>
 <desc en>
 </desc>
-<also>vce_tcpcontext_circ_iterate,vce_tcpcontext_get_all_connection
+<also>vce_tcpcontext_get_all_connection
 </func>
 
 <func>
@@ -2243,40 +1303,6 @@ conn_tにある値を付加したいときに使う
 </func>
 
 
-<func>
-<name>vce_circ_userdata_set_pointer
-<prototype>void vce_circ_userdata_set_pointer(circ_t ct,void *p);
-<cat>tcp
-<arch> all
-<sum ja>circ_tにポインタを関連付ける
-<arg>circ_t ct
-<argdef ja>
-対象のcirc_t
-</argdef>
-<arg>void *p
-<argdef ja>
-ポインタ
-</argdef>
-<desc ja>
-circ_tにある値を付加したいときに使う
-</desc>
-<return ja>none
-</return>
-</func>
-
-<func>
-<name>vce_circ_userdata_get_pointer
-<prototype>void *vce_circ_userdata_set_pointer(circ_t ct);
-<cat>tcp
-<arch> all
-<sum ja>circ_tに関連付けたポインタを取り出す
-<arg>circ_t ct
-<argdef ja>
-対象のcirc_t
-</argdef>
-<return ja>関連付けたポインタ。NULLなら何も無いか失敗
-</return>
-</func>
 
 <func>
 <name>vce_tcpcontext_userdata_set_pointer

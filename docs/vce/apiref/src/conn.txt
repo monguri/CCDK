@@ -282,23 +282,14 @@ Returns NULL if stateless protocol.
 状態のあるプロトコルの管理用バッファを返す。
 vce_tcpcontext_create の呼びだし時に状態のあるプロトコルを指定(statebuf_size)
 していれば、そのサイズの領域をもつバッファへのポインタを返す。
-コネクションスイッチングを使用している場合は
-vce_circ_get_state_buffer 関数を使ってポインタを得る必要がある。
-コネクションスイッチングを使っているのに本関数を使ってポインタを得た場合は
-返り値は未定義である。
 </desc>
 <desc en>
 This returns protocol state buffer attached to a conn_t.
 If the protocol with the state is designated (statebuf_size) upon
 invocation of vce_tcpcontext_create,
 this returns a pointer to the buffer having the region of that size.
-In case a switching proxy is used,
-a pointer has to be obtained using the
-vce_circ_get_state_buffer function.
-Returned value is not defined if you use this function
-when you are using connection switching.
 </desc>
-<also>vce_tcpcontext_create,vce_circ_get_state_buffer
+<also>vce_tcpcontext_create
 </func>
 
 <func>
@@ -367,7 +358,6 @@ Larger than 1: successful<BR>
 一旦TCPコネクション(conn_t)の内部に確保されている書きこみバッファに
 溜めてからフラッシュされる。したがって、一度に書きこめる量の最大は、
 vce_tcpcontext_create するときの書きこみバッファの長さによって決まる。
-暗号化や圧縮などの処理は自動的に内部で行なわれる。
 
 また、 vce_conn_write が負を返したら、もうそのコネクションは使えないので、
 すみやかに vce_conn_close するべきである。<BR><BR>
@@ -387,7 +377,6 @@ data is stored in the write buffer allocated inside conn_t
 for a while, then is flushed in next vce_heartbeat().
 Consequently, the maximum amount allowed to write at a time
 will depend on length of write buffer upon vce_tcpcontext_create.
-Data encryption or compression are automatically done inside.
 
 Moreover, once vce_conn_write returns a negative value,
 the connection is no longer available. In this case you should
@@ -1182,10 +1171,6 @@ None
 vce_tcpcontext_enable_accept 関数で新規の accept をブロックし、
 そのあとこの関数を呼びだしてコネクションを閉じるという段階を
 経るのが理想的である。
-tcpcontext が circ_t を管理している場合でも、
-本関数を使用してコネクションを切断すれば中継サーバが自動的に
-全クライアントとのコネクションを切断するため、
-問題なくコネクションを切断できる。
 なお、本関数はサーバでもクライアントでも同様に動作する。
 verbose モードのときは1本コネクションを切るごとにログを出力する(verbose).
 </desc>
@@ -1200,9 +1185,6 @@ clients of its intention of shutdown first of all,
 then blocks a new accept with vce_tcpcontext_enable_accept
 function, and lastly closes a connection through invoking this function,
 in order to properly terminate the server.
-You can use this function even in a case that you are using circ_t,
-because relay server(swp) automatically disconnect connections with
-all the clients when it detects parent conn_t's closing.
 This function behaves the same on a server and client.
 In the verbose mode, a log is output upon every disconnection.
 </desc>
@@ -1244,7 +1226,7 @@ Therefore, tcpcontext can be extracted from conn_t.
 This function is mainly used within VCE internally,
 but seldom be used from an application.
 </desc>
-<also>vce_tcpcontext_connect,vce_circ_get_tcpcontext
+<also>vce_tcpcontext_connect
 </func>
 
 <func>
@@ -1541,77 +1523,6 @@ are invoked toward this connection.
 <also>vce_tcpcontext_get_stat,vce_get_stat,vce_conn_is_valid
 </func>
 
-<func>
-<name>vce_conn_set_alarmwatcher
-<prototype>time_t vce_conn_set_alarmwatcher( conn_t ct, int sec, int (*alarmwatcher)(conn_t c))
-<cat>watcher
-<arch>linux O,win32 X,ps2 X,darwin X
-<sum ja>conn_t ごとにアラーム時刻とコールバック関数を設定する
-<sum en>Set alarm and callback function per conn_t basis
-<arg>conn_t ct
-<argdef ja>
-設定したい conn_t
-</argdef>
-<argdef en>
-target conn_t
-</argdef>
-<arg>int sec
-<argdef ja>
-設定する秒
-</argdef>
-<argdef en>
-set the alarm clock for 'sec' add current time now.
-after the 'sec' seconds from this function use, callback function call.
-</argdef>
-<arg>int (*alarmwatcher)(conn_t c)
-<argdef ja>
-アラーム機能によって呼びだされるコールバック関数
-</argdef>
-<argdef en>
-Callback function. This function will be called by the alarm clock.
-</argdef>
-<return ja>
-本関数が呼ばれたグローバル時刻を返す。その値から、パラメータのsecを足した時刻がアラームの発生する時刻である。
-</return>
-<return en>
-Return value is global time, this function called global time.
-When you get alarm time, return value add sec parameter.
-</return>
-<desc ja>
-本関数を用いて、コネクションごとのアラームを設定できる。
-デフォルトでは各コネクションのアラームは設定されていないので、機能しない。
-本関数で、コールバック関数を指定したときに初めて機能する。
-1回コールバック関数が呼ばれるとアラームは自動的にリセットされる。
-再度アラームを使用したい場合は、本関数で再度アラームを指定しなければならない。
-再帰的にアラームを設定したい場合、コールバック関数内で本関数を用いてセットすればよい。
-
-＊注意点
-secに大きい値をセットすると、アラーム時刻を計算するときに、secとグローバル時間と加算によって、オーバーフローを起こすことがあるので、注意せよ。
-数分までを常用として使うべきで、２４時間を越えるような場合は、別の方法を考えた方がよいだろう。一定時間ごとに値が変化する場合や、制限時間の設定などに利用するとよい。
-
-</desc>
-<desc en>
-PENDING
-</desc>
-<sample ja>
-  // 最初にメイン関数や acceptwatcher などでセットする
-  // (これで初めて、60秒後に alarm がよばれる。)
-  vce_conn_set_alarmwatcher( ct, 60, alarm );
-
-  // 再帰的にアラームをセットする場合
-  int alarm( conn_t ct ){
-  
-      // 何かの処理
-      
-      vce_conn_set_alarmwatcher( ct, 60, alarm );
-      return 0;
-  }
-</sample>
-<sample en>
-PENDING
-</sample>
-<also>vce_circ_set_alarmwatcher
-</func>
 
 <func>
 <name>vce_conn_set_parser
@@ -1673,71 +1584,4 @@ the debug mode, or to the control function, as well.
 <also>vce_protocol_parser_bin16,vce_protocol_parser_text,vce_protocol_parser_through,vce_tcpcontext_create,vce_tcpcontext_set_conn_parser
 </func>
 
-<func>
-<name>vce_conn_get_child_circ
-<prototype>int vce_conn_get_child_circ( conn_t c , circ_t *a, int max)
-<cat>tcp
-<arch>linux,win32,ps2,darwin
-<sum ja> 指定した conn_t に属するcirc_t を取得する。
-<sum en> Retrieves conn_t's child circ_t
-<arg>conn_t c
-<argdef ja>
-取得する元になるconn_t
-</argdef>
-<argdef en>
-Target conn_t
-</argdef>
-<arg>circ_t *a
-<argdef ja>
-配列を出力する先頭アドレス
-</argdef>
-<argdef en>
-Top address of an array of circ_t.
-</argdef>
-<arg>int max
-<argdef ja>
-配列の最大要素数
-</argdef>
-<argdef en>
-Max number of elements of array parameter "a".
-</argdef>
-<return ja>
-配列を埋めた数を返す(0以上の値)。
-</return>
-<return en>
-Number of elements filled in given array.
-This number must be larger than or equal to zero.
-</return>
-<desc ja>
-ひとつのconn_t に属する仮想回路を配列にコピーして出力する。
-</desc>
-<desc en>
-</desc>
-</func>
-
-<func>
-<name>vce_set_udp_connect_retry_interval
-<prototype>void vce_set_udp_connect_retry_interval(unsigned int msec)
-<cat>tcp
-<arch>linux,win32
-<sum ja>vce_udp_connect 接続したときの接続チェック間隔時間の設定
-<sum en>
-<arg>unsigned int msec
-<argdef ja>
-設定するミリ秒単位の間隔
-</argdef>
-<argdef en>
-</argdef>
-<return ja>
-なし
-</return>
-<return en>
-none
-</return>
-<desc ja>
-vce_udp_connect 接続したときの接続チェック間隔時間の設定する。
-</desc>
-<desc en>
-</desc>
-</func>
 

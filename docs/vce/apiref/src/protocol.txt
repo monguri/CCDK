@@ -108,8 +108,7 @@ if data record is complete and could call protocol callback function.
 target conn_t
 </argdef>
 <desc ja>
-vce_protocol_parser_bin16 関数は、conn_t (circ_tではない) 用の
-レコード検出関数である。
+vce_protocol_parser_bin16 関数は、conn_t 用のレコード検出関数である。
 bin16 と呼ばれるプロトコルのレコードを取りだす。
 レコードを検出するたびに、
 vce_tcpcontext_create 関数の呼びだし時に指定しているコールバック関数を
@@ -147,7 +146,7 @@ int callback( conn_t *c, char *data, int len )
 </desc>
 <desc en>
 vce_protocol_parser_bin16 function detects and fetches data record
-from raw data sent to a conn_t (not a circ_t).
+from raw data sent to a conn_t.
 It fetches a protocol record that is named bin16.
 Each time a record is detected, a callback function is called.
 The callback function is set when vce_tcpcontext_create.
@@ -182,7 +181,7 @@ and <code>char *data</code> is for pointer to the buffer,
 <code>int len</code> is length of the input buffer.
 
 </desc>
-<also>vce_protocol_unparser_bin16,vce_tcpcontext_create,vce_vecprotocol_parser_bin16,vce_protocol_parser_text,vce_protocol_parser_bin32
+<also>vce_protocol_unparser_bin16,vce_tcpcontext_create,vce_protocol_parser_text,vce_protocol_parser_bin32
 </func>
 
 <func>
