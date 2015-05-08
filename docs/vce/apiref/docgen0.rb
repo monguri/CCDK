@@ -29,8 +29,6 @@
 #
 # 結局、存在するタグをまとめると、
 #
-# <file> ... </file>
-# <tool> ... </tool>
 # <func> ... </func>
 # <categorydesc> ... </categorydesc> <catd> ... </catd>
 #
@@ -124,22 +122,16 @@ $h_langs = {}
 $s_nkfopt = "-s"
 
 $h_apidoctitle = {}  # ドキュメントのタイトル、APIマニュアル用
-$h_tooldoctitle = {} # TOOLマニュアル用
-$h_filedoctitle = {} # FILEマニュアル用
 
 $h_categoryindexindextitle = {} # カテゴリのリスト用
 $h_apinameindextitle = {}  # 名前順目次のタイトル APIマニュアル用
-$h_toolnameindextitle = {} # TOOLマニュアル用
-$h_filenameindextitle = {} # FILEマニュアル用
 $h_categoryindextitle = {} # カテゴリIndexタイトル(API用)
 $h_funcdeftitle = {}    # 各関数の詳細説明部分用タイトル ( API用)
-$h_tooldeftitle = {}    # 各ツールの (以下同文)
-$h_filedeftitle = {}    # 各ファイルの(以下同文)
 $h_returntitle = {} 
 $h_generalinfotitle = {}
 $h_copyright = {}
 
-# file,tool,func,categorydesc各def中の表の見出し
+# func,categorydesc各def中の表の見出し
 $h_def_summary_title = {}
 $h_def_category_title = {}
 $h_def_prototype_title = {}
@@ -157,8 +149,6 @@ $h_def_usage_title = {}
 # ドキュメントの内容を記憶しておくハッシュたち
 #
 $h_func_name = {}     # "単に関数名"
-$h_tool_name = {}     # "単にツール名"
-$h_file_name = {}     # "単にファイル名"
 $h_categorydesc_name = {}  # 単にカテゴリ名"
 $h_category = {}          # 無言語。 "RUNMODE..NAME"
 $h_summary = {}           # 有言語。 "RUNMODE.LANG.NAME"
@@ -225,36 +215,18 @@ def main
 		elsif( command == "apidoctitle" ) then
 			test_lang(  l = tk.shift , "apidoctitle" )
 			$h_apidoctitle.store( l, tk.join(" "))
-		elsif( command == "tooldoctitle" ) then
-			test_lang( l = tk.shift , "tooldoctitle" )
-			$h_tooldoctitle.store(l,tk.join(" " ))
-		elsif( command == "filedoctitle" ) then
-			test_lang( l = tk.shift , "filedoctitle" )
-			$h_filedoctitle.store( l, tk.join( " " ))
 		elsif( command == "categoryindexindextitle" ) then
 			test_lang( l = tk.shift , "cateogryindexindextitle" )
 			$h_categoryindexindextitle.store(l,tk.join(" "))
 		elsif( command == "apinameindextitle" ) then
 			test_lang( l = tk.shift , "apinameindextitle" )
 			$h_apinameindextitle.store( l, tk.join(" "))
-		elsif( command == "toolnameindextitle" ) then
-			test_lang( l = tk.shift, "toolnameindextitle" )
-			$h_toolnameindextitle.store( l, tk.join( " " ))
-		elsif( command == "filenameindextitle" ) then
-			test_lang( l = tk.shift, "filenameindextitle" )
-			$h_filenameindextitle.store( l, tk.join(" "))
 		elsif( command == "categoryindextitle" ) then
 			test_lang( l = tk.shift , "cateogryindextitle" )
 			$h_categoryindextitle.store(l,tk.join(" "))
 		elsif( command == "funcdeftitle" ) then
 			test_lang( l = tk.shift , "funcdeftitle" )
 			$h_funcdeftitle.store(l,tk.join(" " ))
-		elsif( command == "tooldeftitle" ) then
-			test_lang( l = tk.shift , "tooldeftitle" )
-			$h_tooldeftitle.store(l, tk.join( " " ))
-		elsif( command == "filedeftitle" ) then
-			test_lang( l = tk.shift , "filedeftitle" )
-			$h_filedeftitle.store( l, tk.join( " " ))
 		elsif( command == "returntitle" ) then
 			test_lang( l = tk.shift , "returntitle" )
 			$h_returntitle.store(l,tk.join(" "))
@@ -325,12 +297,8 @@ def main
 		system( "mkdir -p #{$s_dirprefix}/#{lng}/man/man3")
 		system( "mkdir -p #{$s_dirprefix}/#{lng}/man/man5")
 		apifilename = "#{$s_dirprefix}/#{lng}/#{$s_fileprefix}-api.html"
-		toolfilename = "#{$s_dirprefix}/#{lng}/#{$s_fileprefix}-tool.html"
-		filefilename = "#{$s_dirprefix}/#{lng}/#{$s_fileprefix}-files.html"
 		
 		apiref = make_api_reference( lng )
-		toolref = make_tool_reference( lng )
-		filesref = make_file_reference( lng )
 		
 		allfuncs = $h_func_name.keys.sort
 		allfuncs.each { |i|
@@ -349,41 +317,6 @@ def main
 				exit 1
 			end
 		}
-		alltools = $h_tool_name.keys.sort
-		alltools.each { |i|
-			toolmanref = make_man_tooldef_one(i,lng)
-			toolmanfilename = "#{$s_dirprefix}/#{lng}/man/man1/#{i}.1"
-			begin
-				STDERR.print( "Writing #{lng} TOOL man document #{i}\n" )
-				out = File.open( toolmanfilename, "w" )
-				out.write(toolmanref)
-				out.close
-				system( "nkf -w #{toolmanfilename} > /tmp/docgen0.tmp" )
-				system( "mv /tmp/docgen0.tmp #{toolmanfilename}" )
-				system( "gzip #{toolmanfilename}" )
-			rescue
-				STDERR.print( "docgen0.rb: cannot open file #{$!}" )
-				exit 1
-			end
-			
-		}
-		allfiles = $h_file_name.keys.sort
-		allfiles.each{ |i|
-			filemanref = make_man_filedef_one(i,lng)
-			filemanfilename = "#{$s_dirprefix}/#{lng}/man/man5/#{i}.5"
-			begin
-				STDERR.print( "Writing #{lng} FILE man document #{i}\n" )
-				out = File.open( filemanfilename, "w" )
-				out.write(filemanref)
-				out.close
-				system( "nkf -w #{filemanfilename} > /tmp/docgen0.tmp" )
-				system( "mv /tmp/docgen0.tmp #{filemanfilename}" )
-				system( "gzip #{filemanfilename}" )
-			rescue
-				STDERR.print( "docgen0.rb: cannot open file #{$!}" )
-				exit 1
-			end
-		}
 
 		begin
 			STDERR.print( "Writing #{lng} API document\n" )
@@ -392,20 +325,6 @@ def main
 			out.close
 			system( "nkf #{$s_nkfopt} #{apifilename} > /tmp/docgen0.tmp" )
 			system( "mv /tmp/docgen0.tmp #{apifilename}" )
-
-			STDERR.print( "Writing #{lng} TOOL document\n" )
-			out = File.open( toolfilename , "w" )
-			out.write( toolref )
-			out.close
-			system( "nkf #{$s_nkfopt} #{toolfilename} > /tmp/docgen0.tmp" )
-			system( "mv /tmp/docgen0.tmp #{toolfilename}" )
-
-			STDERR.print( "Writing #{lng} FILES document \n" )
-			out = File.open( filefilename , "w" )
-			out.write( filesref )
-			out.close
-			system( "nkf #{$s_nkfopt} #{filefilename} > /tmp/docgen0.tmp" )
-			system( "mv /tmp/docgen0.tmp #{filefilename}" )
 		rescue
 			STDERR.print( "docgen0.rb: cannot open file #{$!}" )
 			exit 1
@@ -425,7 +344,7 @@ end
 
 def test_4runmode(r,n)
 	if( r == "out" ) then
-		raise( "#{n} has to be inside func|file|tool|categorydesc tag." )
+		raise( "#{n} has to be inside func|categorydesc tag." )
 	end
 end
 def test_subrunmode(subr,shouldbe,tag)
@@ -440,7 +359,7 @@ end
 
 def parse_all_lines( all_lines )
 	# runmode の推移
-	# out -> func|file|tool|categorydesc -> out
+	# out -> func|categorydesc -> out
 	runmode = "out"
 	subrunmode = "out"
 	part_content = ""         # 複数行にわたる時のコンテンツ
@@ -492,34 +411,6 @@ def parse_all_lines( all_lines )
 			STDERR.print( "-Func '#{$s_name}'\n" )
 			$h_func_name[ $s_name ] = $s_name
 
-		when "tool"
-			if( runmode != "out" ) then
-				raise "cannot nest <tool> or parse error."
-			else
-				runmode = "tool"
-			end
-			part_content = ""
-
-		when "/tool"
-			raise "unmatched </tool>." if( runmode != "tool" )
-			runmode = "out"
-			STDERR.print( "-Tool '#{$s_name}'\n" )
-			$h_tool_name[$s_name] = $s_name
-
-		when "file"
-			if( runmode != "out" ) then
-				raise "cannot nest <file> or parse error."
-			else 
-				runmode = "file"
-			end
-			part_content = ""
-
-		when "/file"
-			raise "unmatched </file>." if( runmode != "file" )
-			runmode = "out"
-			STDERR.print( "-File '#{$s_name}'\n" )
-			$h_file_name[$s_name] = $s_name
-
 		when "categorydesc" , "catdesc"
 			if( runmode != "out" ) then
 				raise "cannot nest <categorydesc> or parse error." 
@@ -537,7 +428,7 @@ def parse_all_lines( all_lines )
 		when "name"
 			# name はすべてのモードの時に有効。
 			if( runmode == "out" ) then
-				raise "<name> tag has to be in func|file|tool|categorydesc."
+				raise "<name> tag has to be in func|categorydesc."
 			end
 			$s_name = tagline_text
 
@@ -995,285 +886,7 @@ def make_api_reference( lng )
 	return re
 
 end
-#####################################################################
-# TOOLreference を作る。(for man)
-# funcname: 関数名 lng: 言語
-#####################################################################
-def make_man_tooldef_one( toolname, lng)
-	manpage = 1
-	re = ".TH #{toolname} #{manpage} \"#{$h_tooldoctitle[lng]}\"\n"
-	
-	re += ".SH #{$h_def_summary_title[lng]}\n"
-	sum = tagstrip( $h_summary["tool.#{lng}.#{toolname}"])
-	re += "#{toolname} \\- " + sum + "\n" if !sum.nil?
-	
-	re += ".SH #{$h_def_arch_title[lng]}\n"
-	arch = tagstrip( $h_arch["tool..#{toolname}"])
-	re += arch + "\n" if !arch.nil?
-	
-	re += ".SH #{$h_def_usage_title[lng]}\n"
-	u = tagstrip( $h_usage["tool.#{lng}.#{toolname}"])
-	re += u + "\n" if !u.nil?
-	
-	re += ".SH #{$h_def_description_title[lng]}\n"
-	desc = tagstrip( $h_description["tool.#{lng}.#{toolname}"])
-	re += desc + "\n" if !desc.nil?
-	
-	smp = $h_sample[ "tool.#{lng}.#{toolname}" ]
-	if( smp != nil and smp != "" ) then
-		re += ".SH #{$h_def_sample_title[lng]}\n"
-		smp = tagstrip( smp)
-		re += smp + "\n"
-	end
-	
-	bugs = $h_bugs[ "tool.#{lng}.#{toolname}" ]
-	if( bugs != nil and bugs != "" ) then
-		re += ".SH #{$h_def_bugs_title[lng]}\n"
-		bugs = tagstrip( bugs)
-		re += bugs + "\n"
-	end
-	
-	also = $h_also[ "tool.#{lng}.#{toolname}" ]
-	if( also != nil and also != "" ) then
-		re += ".SH #{$h_def_also_title[lng]}\n"
-		also = tagstrip( also)
-		re += also + "\n"
-	end
-	re
-end
-#####################################################################
-# TOOL リファレンスメインを出力する関数
-# TOOL リファレンスは、TOOLごとに1個のtableを作り、それを並べた
-# ものであるとする。
-#####################################################################
-def make_tooldef_one(toolname,lng)
-#	left_w=120
-	re  = "<a name=\"#{toolname}\"></a>\n"
-	re += "<table id=\"tooldef\">\n"
-	re += "<tr><th colspan=\"2\" id=\"tooldef_title\">\n"
-	re += "<B>#{toolname}</B></th></tr>\n"
-	sum = $h_summary[ "tool.#{lng}.#{toolname}"]
-	re += "<tr><th>#{$h_def_summary_title[lng]}</th><td>#{sum}</td></tr>\n"
-	arch = $h_arch["tool..#{toolname}"]
-	re += "<tr><th>#{$h_def_arch_title[lng]}</th>"
-	re += "<td>#{arch}</td></tr>\n"
-	u = $h_usage[ "tool.#{lng}.#{toolname}" ]
-	re += "<tr><th>#{$h_def_usage_title[lng]}</th><td>#{u}</td></tr>\n"
-	desc = $h_description[ "tool.#{lng}.#{toolname}" ]
-	re += "<tr><th>#{$h_def_description_title[lng]}</th>"
-	re += "<td>#{desc}</td></tr>\n"
-	
-	smp = $h_sample[ "tool.#{lng}.#{toolname}" ]
-	if( smp != nil and smp != "" ) then
-		re += "<tr><th>#{$h_def_sample_title[lng]}</th>"
-		re += "<td>#{smp}</td></tr>\n"
-	end
-	bugs = $h_bugs[ "tool.#{lng}.#{toolname}" ]
-	if( bugs != nil and bugs != "" ) then
-		re += "<tr><th>#{$h_def_bugs_title[lng]}</th>"
-		re += "<td>#{bugs}</td></tr>\n"
-	end
 
-	also = $h_also[ "tool..#{toolname}" ]
-	if( also != nil and also != "" ) then
-		re += "<tr><th>#{$h_def_also_title[lng]}</th>"
-		re += "<td>#{bugs}</td></tr>\n"
-	end
-	
-	re += "</table><br><br>\n"
-	
-	return re
-end
-def make_tool_nameindex(lng)
-	alltools = $h_tool_name.keys.sort
-	re  = "<!-- make_tool_nameindex -->\n<ol>\n"
-	alltools.each { |i|
-		re += "<li><a href=\"##{i}\">#{i}</a></li>\n"
-	}
-	re += "</ol>\n"
-	return re
-end
-
-def make_tooldef(lng)
-	alltools = $h_tool_name.keys.sort
-	re  = "<!-- make_tooldef -->\n"
-	alltools.each { |i|
-		re += make_tooldef_one(i,lng)
-		
-	}
-	re += "<!-- make_tooldef end -->\n<BR><BR>\n"
-	return re
-end
-def make_tool_reference(lng)
-	re  = "<html>\n"
-	re += "<head>\n"
-	re += get_http_equiv_encode( lng, $s_nkfopt );
-	re += "<link rel=\"stylesheet\" href=\"../vce.css\" type=\"text/css\">\n"
-	re += "<title> #{$h_tooldoctitle[lng]} </title>\n"
-	re += "</head>\n"
-	re += "<body>\n"
-	
-	# ABSOLUTE HEADER
-	re += "<h1> #{$h_tooldoctitle[lng]} </h1>\n"
-	
-	# NAMEINDEX
-	re += "<h2>#{$h_toolnameindextitle[lng]}</h2>\n"
-	re += make_tool_nameindex(lng)
-
-	# TOOLDEFBODY
-	re += "<h2>#{$h_tooldeftitle[lng]}</h2>\n"
-	re += make_tooldef(lng)
-
-	re += "<p><a href=\"index.html\">#{$h_returntitle[lng]}</a><br></p>\n"
-
-	# GENERALINFO
-#	re += "<h2>#{$h_generalinfotitle[lng]}</h2>\n"
-#	re += make_generalinfo(lng)
-
-	# COPYRIGHT
-	re += "<div id=\"footer\">\n"
-	re += make_copyright(lng)
-	re += "</div>\n"
-
-	re += "</body>\n"
-	re += "</html>\n"
-
-	return re
-end
-
-#####################################################################
-# FILEreference を作る。(for man)
-# funcname: 関数名 lng: 言語
-#####################################################################
-def make_man_filedef_one( filename, lng)
-	manpage = 1
-	re = ".TH #{filename} #{manpage} \"#{$h_filedoctitle[lng]}\"\n"
-	
-	re += ".SH #{$h_def_summary_title[lng]}\n"
-	sum = tagstrip( $h_summary["file.#{lng}.#{filename}"])
-	re += "#{filename} \\- " + sum + "\n" if !sum.nil?
-	
-	re += ".SH #{$h_def_arch_title[lng]}\n"
-	arch = tagstrip( $h_arch["file..#{filename}"])
-	re += arch + "\n" if !arch.nil?
-	
-	re += ".SH #{$h_def_description_title[lng]}\n"
-	desc = tagstrip( $h_description["file.#{lng}.#{filename}"])
-	re += desc + "\n" if !desc.nil?
-	
-	smp = $h_sample[ "file.#{lng}.#{filename}" ]
-	if( smp != nil and smp != "" ) then
-		re += ".SH #{$h_def_sample_title[lng]}\n"
-		smp = tagstrip( smp)
-		re += smp + "\n"
-	end
-	
-	bugs = $h_bugs[ "file.#{lng}.#{filename}" ]
-	if( bugs != nil and bugs != "" ) then
-		re += ".SH #{$h_def_bugs_title[lng]}\n"
-		bugs = tagstrip( bugs)
-		re += bugs + "\n"
-	end
-	
-	also = $h_also[ "file.#{lng}.#{filename}" ]
-	if( also != nil and also != "" ) then
-		re += ".SH #{$h_def_also_title[lng]}\n"
-		also = tagstrip( also)
-		re += also + "\n"
-	end
-	re
-end
-#####################################################################
-# FILE リファレンスメインを出力する関数
-# FILE リファレンスもほかと同様に、tableを並べたものにする。
-#
-#####################################################################
-def make_filedef_one(filename,lng)
-#	left_w = 120
-	re  = "<a name=\"#{filename}\"></a>\n"
-	re += "<table id=\"filedef\">\n"
-	re += "<tr><th colspan=\"2\" id=\"filedef_title\">\n"
-	re += "<B>#{filename}</B></th></tr>\n"
-	sum = $h_summary["file.#{lng}.#{filename}"]
-	re += "<tr><th>#{$h_def_summary_title[lng]}</th><td>#{sum}</td></tr>\n"
-	arch = $h_arch["file..#{filename}"]
-	re += "<tr><th>#{$h_def_arch_title[lng]}</th>"
-	re += "<td>#{arch}</td></tr>\n"
-	desc = $h_description[ "file.#{lng}.#{filename}"]
-	re += "<tr><th>#{$h_def_description_title[lng]}</th>"
-	re += "<td>#{desc}</td></tr>\n"
-
-	smp = $h_sample[ "file.#{lng}.#{filename}"]
-	if( smp != nil and smp != "") then
-		re += "<tr><th>#{$h_def_sample_title[lng]}</th>"
-		re += "<td>#{smp}</td></tr>\n"
-	end
-
-	bugs = $h_bugs[ "file.#{lng}.#{filename}"]
-	if( bugs != nil and bugs != "" ) then
-		re += "<tr><th>#{$h_def_bugs_title[lng]}</th>"
-		re += "<td>#{bugs}</td></tr>\n"
-	end
-	
-	re += "</table><br><br>\n"
-
-	return re
-
-end
-def make_filedef(lng)
-	allfiles = $h_file_name.keys.sort
-	re  = "<!-- make_filedef -->\n"
-	allfiles.each{ |i|
-		re += make_filedef_one(i,lng)
-	}
-	re += "<!-- make_filedef end -->\n<BR><BR>"
-	return re
-end
-def make_file_nameindex(lng)
-	allfiles = $h_file_name.keys.sort
-	re  = "<!-- make_file_nameindex -->\n<ol>\n"
-	allfiles.each{ |i|
-		re += "<li><a href=\"##{i}\">#{i}</a></li>\n"
-	}
-	re += "</ol>\n"
-	return re
-end
-def make_file_reference(lng)
-	re  = "<html>\n"
-	re += "<head>\n"
-	re += get_http_equiv_encode( lng, $s_nkfopt );
-	re += "<link rel=\"stylesheet\" href=\"../vce.css\" type=\"text/css\">\n"
-	re += "<title> #{$h_filedoctitle[lng]} </title>\n"
-	re += "</head>\n"
-	re += "<body>\n"
-	
-	# ABSOLUTE HEADER
-	re += "<h1>#{$h_filedoctitle[lng]} </h1>\n"
-
-	# NAMEINDEX
-	re += "<h2>#{$h_filenameindextitle[lng]}</h2>\n"
-	re += make_file_nameindex(lng)
-	
-	# FILEDEFBODY
-	re += "<h2>#{$h_filedeftitle[lng]}</h2>\n"
-	re += make_filedef(lng)
-
-	re += "<p><a href=\"index.html\">#{$h_returntitle[lng]}</a><br></p>\n"
-
-	# GENERALINFO
-#	re += "<h2>#{$h_generalinfotitle[lng]}</h2>\n"
-#	re += make_generalinfo(lng)
-
-	# COPYRIGHT
-	re += "<div id=\"footer\">\n"
-	re += make_copyright(lng)
-	re += "</div>\n"
-
-	re += "</body>\n"
-	re += "</html>\n"
-
-	return re
-end
 
 #
 #
@@ -1292,14 +905,14 @@ def omit_useless(fn,lines)
 		end
 		ret = nil
 
-		if( i =~ /^(.+):[0-9]+:\s*<(func|tool|file|categorydesc)>/ ) then
+		if( i =~ /^(.+):[0-9]+:\s*<(func|categorydesc)>/ ) then
 			if( intag.empty? ) then
 				intag = $2
 				i
 			else
 				raise "prep: <#{$2}> inside <#{intag}> : #{i}"
 			end
-		elsif( i =~ /^(.+):[0-9]+:\s*<\/(func|tool|file|categorydesc)>/ ) then
+		elsif( i =~ /^(.+):[0-9]+:\s*<\/(func|categorydesc)>/ ) then
 			if( intag != $2 ) then
 				raise "prep: </#{$2}> outside <#{intag}> : #{i}"
 			else
