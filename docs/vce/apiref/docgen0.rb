@@ -643,11 +643,11 @@ def make_funcdef_one(funcname,lng)
 	re  = "<a name=\"#{funcname}\"></a>\n"
 	re += "- <B>#{funcname}</B>\n"
 	sum = $h_summary["func.#{lng}.#{funcname}"]
-    re += "#{$h_def_summary_title[lng]} : #{sum}\n"
+    re += "  #{$h_def_summary_title[lng]} : #{sum}\n\n"
 	cat = $h_category["func..#{funcname}"]
-    re += "#{$h_def_category_title[lng]} : #{cat}\n"
+    re += "  #{$h_def_category_title[lng]} : #{cat}\n\n"
 	ptype = $h_prototype["func..#{funcname}"]
-    re += "#{$h_def_prototype_title[lng]} : ```#{ptype}``` \n"
+    re += "  #{$h_def_prototype_title[lng]} : ```#{ptype}``` \n\n"
 
 	# ループをまわして引数定義をつくるのだ。
 	(1 .. 9999 ).each{ |i|

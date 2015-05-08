@@ -466,9 +466,12 @@ Functions:
 <!-- make_funcdef start -->
 <a name="ARRAY_SCAN"></a>
 - <B>ARRAY_SCAN</B>
-概要 : VCEによって管理されている配列の全使用中要素をスキャンする
-カテゴリ : array
-関数プロトタイプ : ```ARRAY_SCAN( int arraydescriptor, void* pointer )``` 
+  概要 : VCEによって管理されている配列の全使用中要素をスキャンする
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```ARRAY_SCAN( int arraydescriptor, void* pointer )``` 
+
   - arg 1 : ```int arraydescriptor```
     VCEの管理する配列にアクセスするための識別値。
 この値は、 vce_init_array の返り値を保存しておいたものが使われる。
@@ -501,9 +504,12 @@ ARRAY_SCAN( memory_ind, c ){
   See also : <a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a><a href="#vce_init_array">vce_init_array</a>
 <a name="ARRAY_SCAN_TYPE"></a>
 - <B>ARRAY_SCAN_TYPE</B>
-概要 : ARRAY_SCAN を C++ で使うための変種
-カテゴリ : array
-関数プロトタイプ : ```ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )``` 
+  概要 : ARRAY_SCAN を C++ で使うための変種
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )``` 
+
   - arg 1 : ```int arraydescriptor```
     VCE の配列にアクセスするための識別値
 
@@ -523,9 +529,12 @@ C++ においてはキャストが必要なためその処理がコンパイル�
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a>
 <a name="ELEMENTOF"></a>
 - <B>ELEMENTOF</B>
-概要 : 固定サイズの配列の要素数を返す(コンパイル時定数)。
-カテゴリ : util
-関数プロトタイプ : ```int ELEMENTOF(x)``` 
+  概要 : 固定サイズの配列の要素数を返す(コンパイル時定数)。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int ELEMENTOF(x)``` 
+
   - arg 1 : ```x```
     任意のC言語配列 (ポインタではない)
 
@@ -546,9 +555,12 @@ C++ においてはキャストが必要なためその処理がコンパイル�
 
 <a name="FREE"></a>
 - <B>FREE</B>
-概要 : MALLOC関数で割りあてたメモリ領域を解放する。
-カテゴリ : util
-関数プロトタイプ : ```void FREE( void *p )``` 
+  概要 : MALLOC関数で割りあてたメモリ領域を解放する。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void FREE( void *p )``` 
+
   - arg 1 : ```void *p```
     解放するメモリ領域の先頭アドレス
 
@@ -561,9 +573,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#MALLOC">MALLOC</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="GET_16BIT_INT"></a>
 - <B>GET_16BIT_INT</B>
-概要 : メモリ領域から16ビットの整数値を取りだす。
-カテゴリ : util
-関数プロトタイプ : ```unsigned short GET_16BIT_INT( char *p )``` 
+  概要 : メモリ領域から16ビットの整数値を取りだす。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```unsigned short GET_16BIT_INT( char *p )``` 
+
   - arg 1 : ```char *p```
     取りだしたい値がネットワークバイトオーダで格納されているバッファの先頭
 アドレス
@@ -576,9 +591,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_16BIT_NATIVEINT"></a>
 - <B>GET_16BIT_NATIVEINT</B>
-概要 : バッファから16ビット整数値を取りだす。
-カテゴリ : util
-関数プロトタイプ : ```short GET_16BIT_NATIVEINT( char *p )``` 
+  概要 : バッファから16ビット整数値を取りだす。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```short GET_16BIT_NATIVEINT( char *p )``` 
+
   返り値 : 取りだしたshort値
 
   詳細説明 : ntohs, htons などをつかわない、取りだしマクロである。
@@ -586,9 +604,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_32BIT_INT"></a>
 - <B>GET_32BIT_INT</B>
-概要 : メモリ領域から32ビット整数値を取りだすマクロ
-カテゴリ : util
-関数プロトタイプ : ```unsigned int GET_32BIT_INT( char *p )``` 
+  概要 : メモリ領域から32ビット整数値を取りだすマクロ
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```unsigned int GET_32BIT_INT( char *p )``` 
+
   - arg 1 : ```char *p```
     取りだす元になるバッファの先頭アドレス
 
@@ -602,9 +623,12 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_32BIT_NATIVEINT"></a>
 - <B>GET_32BIT_NATIVEINT</B>
-概要 : バッファから32ビット整数値を取りだす
-カテゴリ : util
-関数プロトタイプ : ```int GET_32BIT_NATIVEINT( char *p )``` 
+  概要 : バッファから32ビット整数値を取りだす
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int GET_32BIT_NATIVEINT( char *p )``` 
+
   返り値 : 取りだしたint値
 
   詳細説明 : ntohl, htonl 等をつかわない取りだしマクロである。
@@ -612,9 +636,12 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_64BIT_INT"></a>
 - <B>GET_64BIT_INT</B>
-概要 : メモリ領域から64ビット整数値を取りだすマクロ
-カテゴリ : util
-関数プロトタイプ : ```VCEI64 GET_64BIT_INT( char *p )``` 
+  概要 : メモリ領域から64ビット整数値を取りだすマクロ
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```VCEI64 GET_64BIT_INT( char *p )``` 
+
   - arg 1 : ```char *p```
     取りだす元になるバッファの先頭アドレス
 
@@ -628,9 +655,12 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_64BIT_NATIVEINT"></a>
 - <B>GET_64BIT_NATIVEINT</B>
-概要 : バッファから64ビット整数値を取りだす
-カテゴリ : util
-関数プロトタイプ : ```int GET_64BIT_NATIVEINT( char *p )``` 
+  概要 : バッファから64ビット整数値を取りだす
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int GET_64BIT_NATIVEINT( char *p )``` 
+
   返り値 : 取りだしたint値
 
   詳細説明 : ntohl, htonl 等をつかわない取りだしマクロである。
@@ -638,9 +668,12 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_8BIT_INT"></a>
 - <B>GET_8BIT_INT</B>
-概要 : メモリ領域から8ビットの整数値を取りだす
-カテゴリ : util
-関数プロトタイプ : ```unsigned char GET_8BIT_INT( char *b )``` 
+  概要 : メモリ領域から8ビットの整数値を取りだす
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```unsigned char GET_8BIT_INT( char *b )``` 
+
   - arg 1 : ```char *b```
     取りだす値が格納されているバッファの先頭アドレス
 
@@ -652,9 +685,12 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_8BIT_NATIVEINT"></a>
 - <B>GET_8BIT_NATIVEINT</B>
-概要 : バッファから8ビット整数値を取りだす
-カテゴリ : util
-関数プロトタイプ : ```char GET_8BIT_NATIVEINT( char *p )``` 
+  概要 : バッファから8ビット整数値を取りだす
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```char GET_8BIT_NATIVEINT( char *p )``` 
+
   返り値 : 取りだした8ビット値
 
   詳細説明 : GET_32BIT_NATIVEINT,GET_16BIT_NATIVEINTなどと整合性のあるコードを書くため
@@ -663,9 +699,12 @@ bin カテゴリの関数群を使うべきである。
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a>
 <a name="MALLOC"></a>
 - <B>MALLOC</B>
-概要 : malloc の wrapper. Cライブラリのmallocのラッパー
-カテゴリ : util
-関数プロトタイプ : ```void *MALLOC( size_t size )``` 
+  概要 : malloc の wrapper. Cライブラリのmallocのラッパー
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void *MALLOC( size_t size )``` 
+
   - arg 1 : ```size_t size```
     割りあてるメモリのサイズ(バイト数)
 
@@ -684,9 +723,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#FREE">FREE</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="MAX"></a>
 - <B>MAX</B>
-概要 : 2つの値を比較して大きい方の値を返す
-カテゴリ : util
-関数プロトタイプ : ```int MAX(int a, int b)``` 
+  概要 : 2つの値を比較して大きい方の値を返す
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int MAX(int a, int b)``` 
+
   - arg 1 : ```int a```
     比較する片方の値。プロトタイプではintになっているが、
 実際はマクロで定義されているので、比較演算子が使える型であればどんな型でも
@@ -706,9 +748,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#MIN">MIN</a>
 <a name="MIN"></a>
 - <B>MIN</B>
-概要 : 2つの値を比較して小さい方の値を返す
-カテゴリ : util
-関数プロトタイプ : ```int MIN(int a, int b )``` 
+  概要 : 2つの値を比較して小さい方の値を返す
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int MIN(int a, int b )``` 
+
   - arg 1 : ```int a```
     比較する片方の値。プロトタイプではintになっているが、
 実際はマクロで定義されているので、比較演算子が使える型であればどんな型でも
@@ -728,9 +773,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#MAX">MAX</a>
 <a name="SET_16BIT_INT"></a>
 - <B>SET_16BIT_INT</B>
-概要 : メモリ領域に16ビットの整数値をネットワークバイトオーダでコピーする
-カテゴリ : util
-関数プロトタイプ : ```void SET_16BIT_INT( char *b, unsigned short i )``` 
+  概要 : メモリ領域に16ビットの整数値をネットワークバイトオーダでコピーする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_16BIT_INT( char *b, unsigned short i )``` 
+
   - arg 1 : ```char *b```
     コピーする先のバッファの先頭アドレス
 
@@ -745,9 +793,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_16BIT_NATIVEINT"></a>
 - <B>SET_16BIT_NATIVEINT</B>
-概要 : 16ビット整数値を任意のバッファにコピーする
-カテゴリ : util
-関数プロトタイプ : ```void SET_16BIT_NATIVEINT( char *p, short i )``` 
+  概要 : 16ビット整数値を任意のバッファにコピーする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_16BIT_NATIVEINT( char *p, short i )``` 
+
   - arg 1 : ```char *p```
     コピーする先のバッファの先頭アドレス
 
@@ -762,9 +813,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_32BIT_INT"></a>
 - <B>SET_32BIT_INT</B>
-概要 : メモリ領域に32ビットの整数値をネットワークバイトオーダでコピーする
-カテゴリ : util
-関数プロトタイプ : ```void SET_32BIT_INT( char *b, unsigned int i )``` 
+  概要 : メモリ領域に32ビットの整数値をネットワークバイトオーダでコピーする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_32BIT_INT( char *b, unsigned int i )``` 
+
   - arg 1 : ```char *b```
     値をコピーする先のメモリの先頭アドレス
 
@@ -780,9 +834,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_32BIT_NATIVEINT"></a>
 - <B>SET_32BIT_NATIVEINT</B>
-概要 : 32ビットの値を、任意のバッファにセットする
-カテゴリ : util
-関数プロトタイプ : ```void SET_32BIT_NATIVEINT( char *p, int i )``` 
+  概要 : 32ビットの値を、任意のバッファにセットする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_32BIT_NATIVEINT( char *p, int i )``` 
+
   - arg 1 : ```char *p```
     コピーする先のバッファの先頭アドレス
 
@@ -797,9 +854,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_64BIT_INT"></a>
 - <B>SET_64BIT_INT</B>
-概要 : メモリ領域に64ビットの整数値をネットワークバイトオーダでコピーする
-カテゴリ : util
-関数プロトタイプ : ```void SET_64BIT_INT( char *b, VCEI64 i )``` 
+  概要 : メモリ領域に64ビットの整数値をネットワークバイトオーダでコピーする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_64BIT_INT( char *b, VCEI64 i )``` 
+
   - arg 1 : ```char *b```
     値をコピーする先のメモリの先頭アドレス
 
@@ -815,9 +875,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_64BIT_NATIVEINT"></a>
 - <B>SET_64BIT_NATIVEINT</B>
-概要 : 64ビットの値を、任意のバッファにセットする
-カテゴリ : util
-関数プロトタイプ : ```void SET_64BIT_NATIVEINT( char *p, VCEI64 i )``` 
+  概要 : 64ビットの値を、任意のバッファにセットする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_64BIT_NATIVEINT( char *p, VCEI64 i )``` 
+
   - arg 1 : ```char *p```
     コピーする先のバッファの先頭アドレス
 
@@ -832,9 +895,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_8BIT_INT"></a>
 - <B>SET_8BIT_INT</B>
-概要 : メモリ領域に8ビットの整数値をコピーする
-カテゴリ : util
-関数プロトタイプ : ```void SET_8BIT_INT( char *b, unsigned char i )``` 
+  概要 : メモリ領域に8ビットの整数値をコピーする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_8BIT_INT( char *b, unsigned char i )``` 
+
   - arg 1 : ```char *b```
     コピーする先のバッファの先頭アドレス
 
@@ -849,9 +915,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a>
 <a name="SET_8BIT_NATIVEINT"></a>
 - <B>SET_8BIT_NATIVEINT</B>
-概要 : 8ビットの整数値を任意のバッファにコピーする
-カテゴリ : util
-関数プロトタイプ : ```void SET_8BIT_NATIVEINT( char *p, char i )``` 
+  概要 : 8ビットの整数値を任意のバッファにコピーする
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void SET_8BIT_NATIVEINT( char *p, char i )``` 
+
   - arg 1 : ```char *P```
     コピーする先のバッファの先頭アドレス
 
@@ -866,9 +935,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="STRERR"></a>
 - <B>STRERR</B>
-概要 : VCEの最新エラーコードを文字列で得る
-カテゴリ : util
-関数プロトタイプ : ```char *STRERR``` 
+  概要 : VCEの最新エラーコードを文字列で得る
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```char *STRERR``` 
+
   返り値 : 出力の文字列へのポインタ。
 
   詳細説明 : STRERRの定義は
@@ -880,9 +952,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#vce_get_last_error">vce_get_last_error</a><a href="#vce_strerror">vce_strerror</a>
 <a name="vce_alloc_array_object"></a>
 - <B>vce_alloc_array_object</B>
-概要 : VCE配列の未使用要素を1個わりあてる
-カテゴリ : array
-関数プロトタイプ : ```void * vce_alloc_array_object( int index )``` 
+  概要 : VCE配列の未使用要素を1個わりあてる
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void * vce_alloc_array_object( int index )``` 
+
   - arg 1 : ```int index```
     VCE配列を特定するための配列デスクリプタ
 
@@ -898,9 +973,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_array_object_inuse"></a>
 - <B>vce_array_object_inuse</B>
-概要 : VCE配列の要素が使用中かどうかを調べる
-カテゴリ : array
-関数プロトタイプ : ```int vce_array_object_inuse( int index, void *p )``` 
+  概要 : VCE配列の要素が使用中かどうかを調べる
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_array_object_inuse( int index, void *p )``` 
+
   - arg 1 : ```int index```
     配列ディスクリプタ
 
@@ -916,9 +994,12 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object">vce_free_array_object</a>
 <a name="vce_atoi"></a>
 - <B>vce_atoi</B>
-概要 : 文字列を整数(int)に変換する。簡単な計算機能つき。
-カテゴリ : util
-関数プロトタイプ : ```int vce_atoi( char *p )``` 
+  概要 : 文字列を整数(int)に変換する。簡単な計算機能つき。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int vce_atoi( char *p )``` 
+
   - arg 1 : ```char *p```
     変換する文字列。
 
@@ -956,9 +1037,12 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
 
 <a name="vce_binary_pack"></a>
 - <B>vce_binary_pack</B>
-概要 : 構造体に保存されているデータをpackして、バイト列にする (古い)
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )``` 
+  概要 : 構造体に保存されているデータをpackして、バイト列にする (古い)
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )``` 
+
   - arg 1 : ```struct bin_info *bi```
     bin_info構造体の配列の先頭アドレス
 
@@ -981,9 +1065,12 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
 
 <a name="vce_binary_pop_nb_i1"></a>
 - <B>vce_binary_pop_nb_i1</B>
-概要 : バッファから1バイト整数(char) を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)``` 
+  概要 : バッファから1バイト整数(char) を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1005,9 +1092,12 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i1">vce_binary_push_nb_i1</a>
 <a name="vce_binary_pop_nb_i2"></a>
 - <B>vce_binary_pop_nb_i2</B>
-概要 : バッファから2バイト整数(short) を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )``` 
+  概要 : バッファから2バイト整数(short) を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1029,9 +1119,12 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i2">vce_binary_push_nb_i2</a>
 <a name="vce_binary_pop_nb_i4"></a>
 - <B>vce_binary_pop_nb_i4</B>
-概要 : バッファから4バイト整数(int) を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )``` 
+  概要 : バッファから4バイト整数(int) を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1053,9 +1146,12 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i4">vce_binary_push_nb_i4</a>
 <a name="vce_binary_pop_nb_i8"></a>
 - <B>vce_binary_pop_nb_i8</B>
-概要 : バッファから8バイト整数(VCEI64) を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )``` 
+  概要 : バッファから8バイト整数(VCEI64) を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1077,9 +1173,12 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
   See also : <a href="#vce_binary_push_nb_i8">vce_binary_push_nb_i8</a>
 <a name="vce_binary_pop_nb_ia1"></a>
 - <B>vce_binary_pop_nb_ia1</B>
-概要 : バッファから1バイト整数(char) の配列を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )``` 
+  概要 : バッファから1バイト整数(char) の配列を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1108,9 +1207,12 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia1">vce_binary_push_nb_ia1</a>
 <a name="vce_binary_pop_nb_ia2"></a>
 - <B>vce_binary_pop_nb_ia2</B>
-概要 : バッファから2バイト整数(short) の配列を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )``` 
+  概要 : バッファから2バイト整数(short) の配列を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1139,9 +1241,12 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia2">vce_binary_push_nb_ia2</a>
 <a name="vce_binary_pop_nb_ia4"></a>
 - <B>vce_binary_pop_nb_ia4</B>
-概要 : バッファから4バイト整数(int) の配列を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )``` 
+  概要 : バッファから4バイト整数(int) の配列を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1170,9 +1275,12 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia4">vce_binary_push_nb_ia4</a>
 <a name="vce_binary_pop_nb_ia8"></a>
 - <B>vce_binary_pop_nb_ia8</B>
-概要 : バッファから8バイト整数(int) の配列を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )``` 
+  概要 : バッファから8バイト整数(int) の配列を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1201,9 +1309,12 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_ia8">vce_binary_push_nb_ia8</a>
 <a name="vce_binary_pop_nb_stra"></a>
 - <B>vce_binary_pop_nb_stra</B>
-概要 : バッファから文字列の配列を取りだす
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )``` 
+  概要 : バッファから文字列の配列を取りだす
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )``` 
+
   - arg 1 : ```char *in```
     データを取りだすバッファの先頭アドレス
 
@@ -1246,9 +1357,12 @@ out 引数で指定する配列の要素数を受けとり、
   See also : <a href="#vce_binary_push_nb_stra">vce_binary_push_nb_stra</a>
 <a name="vce_binary_push_nb_i1"></a>
 - <B>vce_binary_push_nb_i1</B>
-概要 : 1バイト整数(char) をバッファにpushする
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )``` 
+  概要 : 1バイト整数(char) をバッファにpushする
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1272,9 +1386,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i1">vce_binary_pop_nb_i1</a>
 <a name="vce_binary_push_nb_i2"></a>
 - <B>vce_binary_push_nb_i2</B>
-概要 : 2バイト整数(short) をバッファにpushする
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )``` 
+  概要 : 2バイト整数(short) をバッファにpushする
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1301,9 +1418,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i2">vce_binary_pop_nb_i2</a>
 <a name="vce_binary_push_nb_i4"></a>
 - <B>vce_binary_push_nb_i4</B>
-概要 : 4バイト整数(int) をバッファにpushする
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )``` 
+  概要 : 4バイト整数(int) をバッファにpushする
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1330,9 +1450,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i4">vce_binary_pop_nb_i4</a>
 <a name="vce_binary_push_nb_i8"></a>
 - <B>vce_binary_push_nb_i8</B>
-概要 : 8バイト整数(VCEI64) をバッファにpushする
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )``` 
+  概要 : 8バイト整数(VCEI64) をバッファにpushする
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1359,9 +1482,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_i8">vce_binary_pop_nb_i8</a>
 <a name="vce_binary_push_nb_ia1"></a>
 - <B>vce_binary_push_nb_ia1</B>
-概要 : 1バイト整数(char)の配列をバッファに push する
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )``` 
+  概要 : 1バイト整数(char)の配列をバッファに push する
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1388,9 +1514,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia1">vce_binary_pop_nb_ia1</a>
 <a name="vce_binary_push_nb_ia2"></a>
 - <B>vce_binary_push_nb_ia2</B>
-概要 : 2バイト整数(short)の配列をバッファに push する
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )``` 
+  概要 : 2バイト整数(short)の配列をバッファに push する
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1418,9 +1547,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia2">vce_binary_pop_nb_ia2</a>
 <a name="vce_binary_push_nb_ia4"></a>
 - <B>vce_binary_push_nb_ia4</B>
-概要 : 4バイト整数(int)の配列をバッファに push する
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )``` 
+  概要 : 4バイト整数(int)の配列をバッファに push する
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1448,9 +1580,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia4">vce_binary_pop_nb_ia4</a>
 <a name="vce_binary_push_nb_ia8"></a>
 - <B>vce_binary_push_nb_ia8</B>
-概要 : 8バイト整数(VCEI64)の配列をバッファに push する
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )``` 
+  概要 : 8バイト整数(VCEI64)の配列をバッファに push する
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1478,9 +1613,12 @@ push できなかったときは、負のエラーコードを返す。
   See also : <a href="#vce_binary_pop_nb_ia8">vce_binary_pop_nb_ia8</a>
 <a name="vce_binary_push_nb_stra"></a>
 - <B>vce_binary_push_nb_stra</B>
-概要 : ヌル終端された文字列の配列をバッファに push する
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )``` 
+  概要 : ヌル終端された文字列の配列をバッファに push する
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )``` 
+
   - arg 1 : ```char *out```
     出力バッファの先頭アドレス
 
@@ -1512,9 +1650,12 @@ num が 0 のときは、 stra には NULL を指定することができる。
   See also : <a href="#vce_binary_pop_nb_stra">vce_binary_pop_nb_stra</a>
 <a name="vce_binary_unpack"></a>
 - <B>vce_binary_unpack</B>
-概要 : バッファのバイナリデータをunpackして構造体の配列にする(古い)
-カテゴリ : bin
-関数プロトタイプ : ```int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )``` 
+  概要 : バッファのバイナリデータをunpackして構造体の配列にする(古い)
+
+  カテゴリ : bin
+
+  関数プロトタイプ : ```int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )``` 
+
   - arg 1 : ```struct bin_info *bi```
     bin_info構造体の配列の先頭アドレス
 
@@ -1540,9 +1681,12 @@ unpackし、構造を持った状態に戻す。
   See also : <a href="#vce_binary_pack">vce_binary_pack</a>
 <a name="vce_conn_break_heartbeat"></a>
 - <B>vce_conn_break_heartbeat</B>
-概要 : コールバック関数内から、connのプロトコル処理を中止させる
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_break_heartbeat()``` 
+  概要 : コールバック関数内から、connのプロトコル処理を中止させる
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_break_heartbeat()``` 
+
   返り値 : 
   詳細説明 : conn_parserコールバック関数内で、この関数を呼ぶことでそのheartbeat内でのそのconnの
 プロトコル処理を中止する。
@@ -1558,9 +1702,12 @@ unpackし、構造を持った状態に戻す。
   See also : <a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_conn_clear"></a>
 - <B>vce_conn_clear</B>
-概要 : conn_t型のインスタンスを初期化する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_clear( conn_t *c )``` 
+  概要 : conn_t型のインスタンスを初期化する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_clear( conn_t *c )``` 
+
   - arg 1 : ```conn_t *c```
     初期化するconn_tへのポインタ
 
@@ -1572,9 +1719,12 @@ unpackし、構造を持った状態に戻す。
 
 <a name="vce_conn_close"></a>
 - <B>vce_conn_close</B>
-概要 : TCPコネクションを閉じて解放する。
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_close( conn_t ct )``` 
+  概要 : TCPコネクションを閉じて解放する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_close( conn_t ct )``` 
+
   - arg 1 : ```conn_t ct```
     閉じたいコネクションの conn_t
 
@@ -1606,9 +1756,12 @@ vce_conn_set_timeout( co, 0 );
   See also : <a href="# vce_tcpcontext_connect"> vce_tcpcontext_connect</a><a href="# vce_tcpcontext_create"> vce_tcpcontext_create</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_close_tcpcontext_all"></a>
 - <B>vce_conn_close_tcpcontext_all</B>
-概要 : あるtcpが管理しているすべてのコネクションを切断する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_close_tcpcontext_all( tcpcontext_t tp )``` 
+  概要 : あるtcpが管理しているすべてのコネクションを切断する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_close_tcpcontext_all( tcpcontext_t tp )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     切断対象となるコネクションを管理している tcpcontext_t
 
@@ -1629,9 +1782,12 @@ verbose モードのときは1本コネクションを切るごとにログを�
   See also : <a href="#vce_tcpcontext_enable_accept">vce_tcpcontext_enable_accept</a>
 <a name="vce_conn_get_buffer"></a>
 - <B>vce_conn_get_buffer</B>
-概要 : conn_t の受信/送信バッファを得る
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_get_buffer( conn_t c, char **rb, int  *rblen, char **wb, int *wblen )``` 
+  概要 : conn_t の受信/送信バッファを得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_get_buffer( conn_t c, char **rb, int  *rblen, char **wb, int *wblen )``` 
+
   - arg 1 : ```conn_t c```
     バッファを取りだしたい conn_t
 
@@ -1662,9 +1818,12 @@ vce_tcpcontext_set_conn_parser 関数等をもちいて登録することがで�
   See also : <a href="#vce_conn_shrink_readbuf">vce_conn_shrink_readbuf</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_get_index"></a>
 - <B>vce_conn_get_index</B>
-概要 : TCPコネクション(conn_t)のVCE内でのindexを求める
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_conn_get_index( conn_t c );``` 
+  概要 : TCPコネクション(conn_t)のVCE内でのindexを求める
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_conn_get_index( conn_t c );``` 
+
   - arg 1 : ```conn_t c```
     インデックス値を求めたいコネクション
 
@@ -1677,9 +1836,12 @@ vce_tcpcontext_set_conn_parser 関数等をもちいて登録することがで�
   See also : <a href="#vce_conn_get_struct_from_index">vce_conn_get_struct_from_index</a>
 <a name="vce_conn_get_local_addr_string"></a>
 - <B>vce_conn_get_local_addr_string</B>
-概要 : TCPコネクションのローカルアドレスとポートを文字列で得る
-カテゴリ : tcp
-関数プロトタイプ : ```char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )``` 
+  概要 : TCPコネクションのローカルアドレスとポートを文字列で得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     アドレスを取得したいコネクション
 
@@ -1698,9 +1860,12 @@ vce_conn_get_remote_addr_string 関数と同じである。
   See also : <a href="#vce_conn_get_remote_addr_string">vce_conn_get_remote_addr_string</a>
 <a name="vce_conn_get_local_ipv4_addr"></a>
 - <B>vce_conn_get_local_ipv4_addr</B>
-概要 : TCPコネクションのローカルIPv4アドレス(32bit)を得る
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+  概要 : TCPコネクションのローカルIPv4アドレス(32bit)を得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となるコネクション
 
@@ -1720,9 +1885,12 @@ vce_conn_get_remote_addr_string 関数と同じである。
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_local_ipv4_addr_string"></a>
 - <B>vce_conn_get_local_ipv4_addr_string</B>
-概要 : TCPコネクションのローカルIPv4アドレスとポートを文字列で得る
-カテゴリ : tcp
-関数プロトタイプ : ```char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+  概要 : TCPコネクションのローカルIPv4アドレスとポートを文字列で得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となるコネクション
 
@@ -1742,9 +1910,12 @@ vce_conn_get_local_addr_string 関数を使うことを推奨する。
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_local_ipv6_addr"></a>
 - <B>vce_conn_get_local_ipv6_addr</B>
-概要 : TCPコネクションのローカルIPv6アドレス(128bit)を得る
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+  概要 : TCPコネクションのローカルIPv6アドレス(128bit)を得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となるコネクション
 
@@ -1766,9 +1937,12 @@ vce_conn_get_local_addr_string 関数を使うことを推奨する。
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_local_ipv6_addr_string"></a>
 - <B>vce_conn_get_local_ipv6_addr_string</B>
-概要 : TCPコネクションのローカルIPv6アドレスとポートを文字列で得る
-カテゴリ : tcp
-関数プロトタイプ : ```char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+  概要 : TCPコネクションのローカルIPv6アドレスとポートを文字列で得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となる conn_t
 
@@ -1788,9 +1962,12 @@ vce_conn_get_local_addr_string 関数の使用を推奨する。
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_remote_addr_string"></a>
 - <B>vce_conn_get_remote_addr_string</B>
-概要 : TCPコネクションのリモートピアのアドレスとポートを文字列で得る
-カテゴリ : tcp
-関数プロトタイプ : ```char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )``` 
+  概要 : TCPコネクションのリモートピアのアドレスとポートを文字列で得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     アドレスを取得したいコネクション
 
@@ -1814,9 +1991,12 @@ ipv6 では "." で区切られていることに注意。
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a>
 <a name="vce_conn_get_remote_ipv4_addr"></a>
 - <B>vce_conn_get_remote_ipv4_addr</B>
-概要 : TCPコネクションのリモートピアのIPv4アドレス(32bit)を得る
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+  概要 : TCPコネクションのリモートピアのIPv4アドレス(32bit)を得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となるコネクション
 
@@ -1836,9 +2016,12 @@ ipv6 では "." で区切られていることに注意。
 
 <a name="vce_conn_get_remote_ipv4_addr_string"></a>
 - <B>vce_conn_get_remote_ipv4_addr_string</B>
-概要 : TCPコネクションのリモートピアのIPv4アドレスとポートを文字列で得る
-カテゴリ : tcp
-関数プロトタイプ : ```char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+  概要 : TCPコネクションのリモートピアのIPv4アドレスとポートを文字列で得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となるコネクション
 
@@ -1859,9 +2042,12 @@ vce_conn_get_remote_addr 関数を用る。
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr"></a>
 - <B>vce_conn_get_remote_ipv6_addr</B>
-概要 : TCPコネクションのリモートピアのIPv6アドレス(128bit)を得る
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+  概要 : TCPコネクションのリモートピアのIPv6アドレス(128bit)を得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となるコネクション
 
@@ -1884,9 +2070,12 @@ vce_conn_get_remote_addr 関数を用る。
   See also : <a href="#vce_conn_get_local_ipv6_addr">vce_conn_get_local_ipv6_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr_string"></a>
 - <B>vce_conn_get_remote_ipv6_addr_string</B>
-概要 : TCPコネクションのリモートピアのIPv6アドレスとポートを文字列で得る
-カテゴリ : tcp
-関数プロトタイプ : ```char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+  概要 : TCPコネクションのリモートピアのIPv6アドレスとポートを文字列で得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     処理対象となるコネクション
 
@@ -1903,9 +2092,12 @@ vce_conn_get_remote_addr 関数を用る。
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_stat"></a>
 - <B>vce_conn_get_stat</B>
-概要 : conn_t の統計情報を取得する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_get_stat( conn_t ct, conn_stat_t *st )``` 
+  概要 : conn_t の統計情報を取得する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_get_stat( conn_t ct, conn_stat_t *st )``` 
+
   - arg 1 : ```conn_t ct```
     情報を取得する対象となるコネクション(conn_t)
 
@@ -1933,9 +2125,12 @@ send_syscall を呼びだした回数。
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_get_stat">vce_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_conn_get_state_buffer"></a>
 - <B>vce_conn_get_state_buffer</B>
-概要 : conn_tの状態管理バッファへのポインタを返す
-カテゴリ : tcp
-関数プロトタイプ : ```void * vce_conn_get_state_buffer( conn_t c, int *len );``` 
+  概要 : conn_tの状態管理バッファへのポインタを返す
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void * vce_conn_get_state_buffer( conn_t c, int *len );``` 
+
   - arg 1 : ```conn_t c```
     状態を取りだしたいコネクション
 
@@ -1952,9 +2147,12 @@ vce_tcpcontext_create の呼びだし時に状態のあるプロトコルを指�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_get_struct_from_index"></a>
 - <B>vce_conn_get_struct_from_index</B>
-概要 : TCPコネクションのindex値からconn_t構造体を得る。
-カテゴリ : tcp
-関数プロトタイプ : ```conn_t vce_conn_get_struct_from_index( int index );``` 
+  概要 : TCPコネクションのindex値からconn_t構造体を得る。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```conn_t vce_conn_get_struct_from_index( int index );``` 
+
   - arg 1 : ```int index```
     インデックス値。前もって vce_conn_get_index 関数で得たindexを
 つかって構造体に戻す。
@@ -1966,9 +2164,12 @@ vce_tcpcontext_create の呼びだし時に状態のあるプロトコルを指�
   See also : <a href="#vce_conn_get_index">vce_conn_get_index</a>
 <a name="vce_conn_get_tcpcontext"></a>
 - <B>vce_conn_get_tcpcontext</B>
-概要 : conn_t から、そのコネクションが属する tcpcontext を取りだす
-カテゴリ : tcp
-関数プロトタイプ : ```tcpcontext_t vce_conn_get_tcpcontext( conn_t c )``` 
+  概要 : conn_t から、そのコネクションが属する tcpcontext を取りだす
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```tcpcontext_t vce_conn_get_tcpcontext( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     取りだしの対象となる conn_t
 
@@ -1983,9 +2184,12 @@ VCE内に conn_t が初期化されるが、その conn_t は、
   See also : <a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_is_equal"></a>
 - <B>vce_conn_is_equal</B>
-概要 : ふたつのTCPコネクション(conn_t)が同じか調べる
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_conn_is_equal( conn_t c1 , conn_t c2 )``` 
+  概要 : ふたつのTCPコネクション(conn_t)が同じか調べる
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_conn_is_equal( conn_t c1 , conn_t c2 )``` 
+
   - arg 1 : ```conn_t c1```
     調べる対象となるコネクションその1
 
@@ -2001,9 +2205,12 @@ VCE内に conn_t が初期化されるが、その conn_t は、
 
 <a name="vce_conn_is_valid"></a>
 - <B>vce_conn_is_valid</B>
-概要 : TCPコネクション(conn_t)が壊れているかどうか調べる。
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_conn_is_valid( conn_t c )``` 
+  概要 : TCPコネクション(conn_t)が壊れているかどうか調べる。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_conn_is_valid( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     調査対象の conn_t
 
@@ -2027,9 +2234,12 @@ VCE内に conn_t が初期化されるが、その conn_t は、
   See also : <a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_set_delay"></a>
 - <B>vce_conn_set_delay</B>
-概要 : クライアント、サーバー間の通信の遅延んをシミュレートsる。
-カテゴリ : core
-関数プロトタイプ : ```void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)``` 
+  概要 : クライアント、サーバー間の通信の遅延んをシミュレートsる。
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)``` 
+
   - arg 1 : ```conn_t ct```
     遅延を設定する対象のコネクション
 
@@ -2051,9 +2261,12 @@ VCE内に conn_t が初期化されるが、その conn_t は、
 
 <a name="vce_conn_set_parser"></a>
 - <B>vce_conn_set_parser</B>
-概要 : conn_t ごとに動的にプロトコルパーサを設定する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))``` 
+  概要 : conn_t ごとに動的にプロトコルパーサを設定する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))``` 
+
   - arg 1 : ```conn_t ct```
     設定したい conn_t
 
@@ -2078,9 +2291,12 @@ VCE内に conn_t が初期化されるが、その conn_t は、
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_set_timeout"></a>
 - <B>vce_conn_set_timeout</B>
-概要 : conn_t ごとにタイムアウト時間を設定変更する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_set_timeout( conn_t c, int sec )``` 
+  概要 : conn_t ごとにタイムアウト時間を設定変更する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_set_timeout( conn_t c, int sec )``` 
+
   - arg 1 : ```conn_t c```
     設定を変更したい conn_t
 
@@ -2098,9 +2314,12 @@ vce_tcpcontext_create 関数のタイムアウト設定に準じるが，
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_show_stat"></a>
 - <B>vce_conn_show_stat</B>
-概要 : 使用中のすべてのコネクションの状態を表示する。
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_show_stat( void )``` 
+  概要 : 使用中のすべてのコネクションの状態を表示する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_show_stat( void )``` 
+
   返り値 : なし
 
   詳細説明 : <pre>
@@ -2141,9 +2360,12 @@ Win32GUI環境において標準エラー出力が使えない場合は本関数
 
 <a name="vce_conn_shrink_readbuf"></a>
 - <B>vce_conn_shrink_readbuf</B>
-概要 : conn_t の読みこみバッファを縮ませる
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_conn_shrink_readbuf( conn_t ct, int len )``` 
+  概要 : conn_t の読みこみバッファを縮ませる
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_conn_shrink_readbuf( conn_t ct, int len )``` 
+
   - arg 1 : ```conn_t ct```
     縮ませる読みこみバッファをもつ conn_t
 
@@ -2160,9 +2382,12 @@ vce_conn_shrink_readbufを使って読みこみバッファの内容を削る必
 
 <a name="vce_conn_userdata_get_pointer"></a>
 - <B>vce_conn_userdata_get_pointer</B>
-概要 : conn_tに関連付けたポインタを取り出す
-カテゴリ : tcp
-関数プロトタイプ : ```void *vce_conn_userdata_set_pointer(conn_t ct);``` 
+  概要 : conn_tに関連付けたポインタを取り出す
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void *vce_conn_userdata_set_pointer(conn_t ct);``` 
+
   - arg 1 : ```conn_t ct```
     対象のconn_t
 
@@ -2171,9 +2396,12 @@ vce_conn_shrink_readbufを使って読みこみバッファの内容を削る必
 
 <a name="vce_conn_userdata_set_pointer"></a>
 - <B>vce_conn_userdata_set_pointer</B>
-概要 : conn_tにポインタを関連付ける
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_conn_userdata_set_pointer(conn_t ct,void *p);``` 
+  概要 : conn_tにポインタを関連付ける
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_conn_userdata_set_pointer(conn_t ct,void *p);``` 
+
   - arg 1 : ```conn_t ct```
     対象のconn_t
 
@@ -2186,9 +2414,12 @@ vce_conn_shrink_readbufを使って読みこみバッファの内容を削る必
 
 <a name="vce_conn_writable"></a>
 - <B>vce_conn_writable</B>
-概要 : TCPコネクションに書きこみが可能かどうかを調べる
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_conn_writable( conn_t ct );``` 
+  概要 : TCPコネクションに書きこみが可能かどうかを調べる
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_conn_writable( conn_t ct );``` 
+
   - arg 1 : ```conn_t ct```
     書きこみ可能かどうか調べる対象となるTCPコネクションをあらわす conn_t。
 ノンブロッキングのconnectをvce_tcpcontext_create するときに指定している
@@ -2225,9 +2456,12 @@ TCPコネクションに何かを書きこみたいときは、この関数を�
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_write">vce_conn_write</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_write"></a>
 - <B>vce_conn_write</B>
-概要 : TCPコネクションにデータを生で書きこむ。
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_conn_write( conn_t ct, char *b, size_t len );``` 
+  概要 : TCPコネクションにデータを生で書きこむ。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_conn_write( conn_t ct, char *b, size_t len );``` 
+
   - arg 1 : ```conn_t ct```
     書きこむ対象となる conn_t
 
@@ -2267,9 +2501,12 @@ vce_conn_write が0を返す場合は、
   See also : <a href="#vce_conn_close">vce_conn_close</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_writed"></a>
 - <B>vce_conn_writed</B>
-概要 : connに書き込まれたデータがTCPコネクションに書き出されているかを調べる
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_conn_writed( conn_t c )``` 
+  概要 : connに書き込まれたデータがTCPコネクションに書き出されているかを調べる
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_conn_writed( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     調査対象の conn_t
 
@@ -2282,9 +2519,12 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
   See also : <a href="#vce_conn_valid">vce_conn_valid</a>
 <a name="vce_dump_buffer"></a>
 - <B>vce_dump_buffer</B>
-概要 : バイナリ配列をvce_erroutを用いてダンプする。
-カテゴリ : util
-関数プロトタイプ : ```void vce_dump_buffer( char *buf, int len )``` 
+  概要 : バイナリ配列をvce_erroutを用いてダンプする。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void vce_dump_buffer( char *buf, int len )``` 
+
   - arg 1 : ```char *buf```
     ダンプしたいデータの先頭アドレス
 
@@ -2299,9 +2539,12 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
   See also : <a href="#vce_errout">vce_errout</a>
 <a name="vce_end_all_array"></a>
 - <B>vce_end_all_array</B>
-概要 : 全てのVCE配列を解放する
-カテゴリ : array
-関数プロトタイプ : ```void vce_end_all_array( void )``` 
+  概要 : 全てのVCE配列を解放する
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void vce_end_all_array( void )``` 
+
   返り値 : なし
 
   詳細説明 : すべてのVCE配列に対して vce_end_array を呼びだす。
@@ -2309,9 +2552,12 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_end_array"></a>
 - <B>vce_end_array</B>
-概要 : VCE配列を解放する。
-カテゴリ : array
-関数プロトタイプ : ```int vce_end_array( int index )``` 
+  概要 : VCE配列を解放する。
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_end_array( int index )``` 
+
   - arg 1 : ```int index```
     配列を特定する配列デスクリプタ。
 vce_init_array の返り値である。
@@ -2328,9 +2574,12 @@ FREE 関数の呼びだし状況がログ出力される。
   See also : <a href="#FREE">FREE</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_errout"></a>
 - <B>vce_errout</B>
-概要 : VCEのログ出力をする
-カテゴリ : core
-関数プロトタイプ : ```int vce_errout( const char *format, ... )``` 
+  概要 : VCEのログ出力をする
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```int vce_errout( const char *format, ... )``` 
+
   - arg 1 : ```char *format```
     フォーマット文字列。 printf のものと同じ
 
@@ -2347,9 +2596,12 @@ vce_errout_config 関数によってログ出力ディレクトリが指定さ�
   See also : <a href="# vce_errout_set_another"> vce_errout_set_another</a><a href="# vce_verrout"> vce_verrout</a><a href="#vce_errout_config">vce_errout_config</a><a href="#vce_errout_v">vce_errout_v</a>
 <a name="vce_extract_data_from_hex_text"></a>
 - <B>vce_extract_data_from_hex_text</B>
-概要 : hextext 形式のASCIIテキストを、バイナリデータ配列に戻す
-カテゴリ : util
-関数プロトタイプ : ```int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )``` 
+  概要 : hextext 形式のASCIIテキストを、バイナリデータ配列に戻す
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )``` 
+
   - arg 1 : ```char *buf```
     入力となるASCIIテキストの先頭アドレス
 
@@ -2372,9 +2624,12 @@ vce_errout_config 関数によってログ出力ディレクトリが指定さ�
   See also : <a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_finalize"></a>
 - <B>vce_finalize</B>
-概要 : VCEの解放を行なう。
-カテゴリ : core
-関数プロトタイプ : ```int vce_finalize( void )``` 
+  概要 : VCEの解放を行なう。
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```int vce_finalize( void )``` 
+
   返り値 : 正常に終了できた場合は0、異常な場合は負のエラーコードを返す。
 
   詳細説明 : VCEが使用していたすべての資源を解放する。
@@ -2384,9 +2639,12 @@ vce_errout* を除いて，
 
 <a name="vce_free_array_object"></a>
 - <B>vce_free_array_object</B>
-概要 : VCE配列の要素を解放する
-カテゴリ : array
-関数プロトタイプ : ```int vce_free_array_object( int index , void *p )``` 
+  概要 : VCE配列の要素を解放する
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_free_array_object( int index , void *p )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2401,9 +2659,12 @@ vce_errout* を除いて，
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_free_array_object_all"></a>
 - <B>vce_free_array_object_all</B>
-概要 : 配列の全要素を解放する(配列自体は解放しない)
-カテゴリ : array
-関数プロトタイプ : ```void vce_free_array_object_all( int index )``` 
+  概要 : 配列の全要素を解放する(配列自体は解放しない)
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void vce_free_array_object_all( int index )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2417,9 +2678,12 @@ vce_errout* を除いて，
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_maxnum"></a>
 - <B>vce_get_array_maxnum</B>
-概要 : 配列の最大要素数を返す
-カテゴリ : array
-関数プロトタイプ : ```int vce_get_array_maxnum( int index )``` 
+  概要 : 配列の最大要素数を返す
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_get_array_maxnum( int index )``` 
+
   - arg 1 : ```int index```
     情報を取得したい配列のindex
 
@@ -2429,9 +2693,12 @@ vce_errout* を除いて，
   See also : <a href="#vce_get_array_member_size">vce_get_array_member_size</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_member_size"></a>
 - <B>vce_get_array_member_size</B>
-概要 : 配列の各メンバのサイズを返す
-カテゴリ : array
-関数プロトタイプ : ```int vce_get_array_member_size( int index )``` 
+  概要 : 配列の各メンバのサイズを返す
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_get_array_member_size( int index )``` 
+
   - arg 1 : ```int index```
     情報を取得したい配列の index
 
@@ -2444,9 +2711,12 @@ vce_init_array の size 引数の値．
   See also : <a href="#vce_get_array_maxnum">vce_get_array_maxnum</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_index"></a>
 - <B>vce_get_array_object_index</B>
-概要 : VCE配列要素が配列の何番目に位置しているかを得る
-カテゴリ : array
-関数プロトタイプ : ```int vce_get_array_object_index( int index , void *p )``` 
+  概要 : VCE配列要素が配列の何番目に位置しているかを得る
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_get_array_object_index( int index , void *p )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2463,9 +2733,12 @@ VCE_EALIGNMENT を返す。
 
 <a name="vce_get_array_object_last"></a>
 - <B>vce_get_array_object_last</B>
-概要 : VCE配列の最後の要素を取りだす。
-カテゴリ : array
-関数プロトタイプ : ```void * vce_get_array_object_last( int index )``` 
+  概要 : VCE配列の最後の要素を取りだす。
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void * vce_get_array_object_last( int index )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2480,9 +2753,12 @@ vce_alloc_array_object と本関数をつかえば、 FIFOのようなことが�
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_next"></a>
 - <B>vce_get_array_object_next</B>
-概要 : VCE配列の使用中要素の次の要素を取りだす
-カテゴリ : array
-関数プロトタイプ : ```void * vce_get_array_object_next( int index , void *p )``` 
+  概要 : VCE配列の使用中要素の次の要素を取りだす
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void * vce_get_array_object_next( int index , void *p )``` 
+
   - arg 1 : ```int index```
     配列を特定する配列デスクリプタ
 
@@ -2499,9 +2775,12 @@ ARRAY_SCAN マクロを使用したほうが安全確実である。
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_pointer_by_index"></a>
 - <B>vce_get_array_object_pointer_by_index</B>
-概要 : VCE配列の要素をインデクスを指定して得る
-カテゴリ : array
-関数プロトタイプ : ```void *vce_get_array_object_pointer_by_index( int index, int objindex )``` 
+  概要 : VCE配列の要素をインデクスを指定して得る
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void *vce_get_array_object_pointer_by_index( int index, int objindex )``` 
+
   - arg 1 : ```int index```
     VCE配列を特定するための配列ディスクリプタ
 
@@ -2525,9 +2804,12 @@ NULLポインタを返す場合は、 vce_get_last_error を使ってエラー�
   See also : <a href="#vce_get_array_object_pointer_by_index_only_used">vce_get_array_object_pointer_by_index_only_used</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_pointer_by_index_only_used"></a>
 - <B>vce_get_array_object_pointer_by_index_only_used</B>
-概要 : VCE配列の指定したインデクスを持つ要素を得る(使用中の要素のみ)
-カテゴリ : array
-関数プロトタイプ : ```void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )``` 
+  概要 : VCE配列の指定したインデクスを持つ要素を得る(使用中の要素のみ)
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2542,9 +2824,12 @@ NULLポインタを返す場合は、 vce_get_last_error を使ってエラー�
   See also : <a href="#vce_get_array_object_pointer_by_index">vce_get_array_object_pointer_by_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_top"></a>
 - <B>vce_get_array_object_top</B>
-概要 : 
-カテゴリ : array
-関数プロトタイプ : ```void * vce_get_array_object_top( int index )``` 
+  概要 : 
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```void * vce_get_array_object_top( int index )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2561,9 +2846,12 @@ ARRAY_SCAN マクロは、配列の要素のうち使用中のものすべてを
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a>
 <a name="vce_get_array_usenum"></a>
 - <B>vce_get_array_usenum</B>
-概要 : VCE配列の要素のうちいくつが使用中になっているかを数える
-カテゴリ : array
-関数プロトタイプ : ```int vce_get_array_usenum( int index )``` 
+  概要 : VCE配列の要素のうちいくつが使用中になっているかを数える
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_get_array_usenum( int index )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2575,9 +2863,12 @@ ARRAY_SCAN マクロは、配列の要素のうち使用中のものすべてを
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_current_utime"></a>
 - <B>vce_get_current_utime</B>
-概要 : 現在時刻を VCEI64型で得る
-カテゴリ : util
-関数プロトタイプ : ```VCEI64 vce_get_current_utime( void )``` 
+  概要 : 現在時刻を VCEI64型で得る
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```VCEI64 vce_get_current_utime( void )``` 
+
   返り値 : 現在時刻。
 UNIX環境においては、 gettimeofday  関数により得られた
 timeval 構造体の値を VCEI64 に変換した値を返す。
@@ -2591,9 +2882,12 @@ VCEはこの関数が返す値を、vce_heartbeat が呼びだされるごとに
   See also : <a href="#vce_set_internal_timer">vce_set_internal_timer</a>
 <a name="vce_get_ipv4_addr_by_name"></a>
 - <B>vce_get_ipv4_addr_by_name</B>
-概要 : ホスト名から IPv4アドレス(ネットワークバイトオーダ)を得る
-カテゴリ : util
-関数プロトタイプ : ```int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );``` 
+  概要 : ホスト名から IPv4アドレス(ネットワークバイトオーダ)を得る
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );``` 
+
   - arg 1 : ```unsigned int *a```
     IPv4アドレスのポインタ。出力に使われる。
 出力はネットワークバイトオーダのままである。in_addr 構造体の
@@ -2611,9 +2905,12 @@ PlanetWeb の場合は，現在は DNS解決に対応していない．
 
 <a name="vce_get_last_error"></a>
 - <B>vce_get_last_error</B>
-概要 : VCE内で最後に起こったエラー番号を取得する。
-カテゴリ : err
-関数プロトタイプ : ```int vce_get_last_error(void);``` 
+  概要 : VCE内で最後に起こったエラー番号を取得する。
+
+  カテゴリ : err
+
+  関数プロトタイプ : ```int vce_get_last_error(void);``` 
+
   返り値 : エラーコードの値。
 
   詳細説明 : この関数で取得されるエラー番号はすべて vce.h に定義されている。
@@ -2637,9 +2934,12 @@ if( !t ){
   See also : <a href="#vce_strerror">vce_strerror</a>
 <a name="vce_get_netstat_string"></a>
 - <B>vce_get_netstat_string</B>
-概要 : VCE が管理しているすべての接続情報を文字列で取得する。
-カテゴリ : log
-関数プロトタイプ : ```void vce_get_netstat_string( char *buf, int maxlen )``` 
+  概要 : VCE が管理しているすべての接続情報を文字列で取得する。
+
+  カテゴリ : log
+
+  関数プロトタイプ : ```void vce_get_netstat_string( char *buf, int maxlen )``` 
+
   - arg 1 : ```char *buf```
     出力先文字列
 
@@ -2686,9 +2986,12 @@ type=conn は、通常のコネクションをあらわす。
   See also : <a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_get_stat"></a>
 - <B>vce_get_stat</B>
-概要 : VCE 全体の動作状況記録を取得する
-カテゴリ : log
-関数プロトタイプ : ```void vce_get_stat( vce_stat_t *v )``` 
+  概要 : VCE 全体の動作状況記録を取得する
+
+  カテゴリ : log
+
+  関数プロトタイプ : ```void vce_get_stat( vce_stat_t *v )``` 
+
   - arg 1 : ```vce_stat_t *v```
     記録を格納する vce_stat_t 構造体へのポインタ
 
@@ -2725,9 +3028,12 @@ vce_errout や vce_errout0 を呼びだした回数。
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_get_tcp_packet_read_size"></a>
 - <B>vce_get_tcp_packet_read_size</B>
-概要 : 読み込みデータの圧縮時のサイズと展開時のサイズを取得する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_get_tcp_packet_read_size(int *original, int *processing)``` 
+  概要 : 読み込みデータの圧縮時のサイズと展開時のサイズを取得する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_get_tcp_packet_read_size(int *original, int *processing)``` 
+
   - arg 1 : ```int *original```
     展開したデータサイズを返すためのバッファの先頭アドレス。
 
@@ -2742,9 +3048,12 @@ vce_errout や vce_errout0 を呼びだした回数。
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_get_tcp_packet_write_size"></a>
 - <B>vce_get_tcp_packet_write_size</B>
-概要 : 書きこみデータの圧縮時のサイズと展開時のサイズを取得する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_get_tcp_packet_write_size(int *original, int *processing)``` 
+  概要 : 書きこみデータの圧縮時のサイズと展開時のサイズを取得する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_get_tcp_packet_write_size(int *original, int *processing)``` 
+
   - arg 1 : ```int *original```
     展開したデータサイズを返すためのバッファの先頭アドレス。
 
@@ -2759,9 +3068,12 @@ vce_errout や vce_errout0 を呼びだした回数。
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_heartbeat"></a>
 - <B>vce_heartbeat</B>
-概要 : VCEを能動的に呼びだし、I/O処理をさせる。
-カテゴリ : core
-関数プロトタイプ : ```void vce_heartbeat( void )``` 
+  概要 : VCEを能動的に呼びだし、I/O処理をさせる。
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_heartbeat( void )``` 
+
   返り値 : なし
 
   詳細説明 : VCEのI/O処理ルーチンを1回動かす。vce_mainloopではこの関数をずっと
@@ -2791,9 +3103,12 @@ vce_set_heartbeat_wait_flag 関数を使ってsleep時間を調整すれば、
   See also : <a href="#vce_mainloop">vce_mainloop</a><a href="#vce_set_heartbeat_wait_flag">vce_set_heartbeat_wait_flag</a><a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_if_included_in_array"></a>
 - <B>vce_if_included_in_array</B>
-概要 : 配列のある要素が、正しく配列に含まれてるかどうかしらべる
-カテゴリ : array
-関数プロトタイプ : ```int vce_if_included_in_array( int index, void *p )``` 
+  概要 : 配列のある要素が、正しく配列に含まれてるかどうかしらべる
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_if_included_in_array( int index, void *p )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -2816,9 +3131,12 @@ vce_set_heartbeat_wait_flag 関数を使ってsleep時間を調整すれば、
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_index">vce_get_array_object_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_init_array"></a>
 - <B>vce_init_array</B>
-概要 : 新規にVCEの配列を初期化する。
-カテゴリ : array
-関数プロトタイプ : ```int vce_init_array ( size_t size , int num , char *nm )``` 
+  概要 : 新規にVCEの配列を初期化する。
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_init_array ( size_t size , int num , char *nm )``` 
+
   - arg 1 : ```size_t size```
     配列の要素のサイズ(バイト数)
 
@@ -2847,9 +3165,12 @@ VCE配列はVCEの処理の基盤ルーチンとして使用されている。<B
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#MALLOC">MALLOC</a><a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_end_array">vce_end_array</a><a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a>
 <a name="vce_init_limit_t"></a>
 - <B>vce_init_limit_t</B>
-概要 : vce_limit_t 構造体をデフォルト値に初期化する
-カテゴリ : core
-関数プロトタイプ : ``` void vce_init_limit_t( vce_limit_t *t )``` 
+  概要 : vce_limit_t 構造体をデフォルト値に初期化する
+
+  カテゴリ : core
+
+  関数プロトタイプ : ``` void vce_init_limit_t( vce_limit_t *t )``` 
+
   返り値 : なし
 
   詳細説明 : vce_initialize_limited 関数に与える構造体引数である vce_limit_t を
@@ -2859,9 +3180,12 @@ VCE配列はVCEの処理の基盤ルーチンとして使用されている。<B
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_initialize"></a>
 - <B>vce_initialize</B>
-概要 : VCEを初期化する。
-カテゴリ : core
-関数プロトタイプ : ```int vce_initialize( void )``` 
+  概要 : VCEを初期化する。
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```int vce_initialize( void )``` 
+
   返り値 : 正常に初期化できた場合は0、そうでない場合は負のエラーコード(vce.h)。
 
   詳細説明 : VCEの関数を呼びだす前に必ず呼びださなければならない初期化関数である。
@@ -2893,9 +3217,12 @@ int main()
   See also : <a href="#vce_finalize">vce_finalize</a><a href="#vce_set_socket_library_ok">vce_set_socket_library_ok</a>
 <a name="vce_initialize_limited"></a>
 - <B>vce_initialize_limited</B>
-概要 : 限られたメモリ使用量で VCE を初期化する
-カテゴリ : core
-関数プロトタイプ : ```int vce_initialize_limited( vce_limit_t *lim )``` 
+  概要 : 限られたメモリ使用量で VCE を初期化する
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```int vce_initialize_limited( vce_limit_t *lim )``` 
+
   - arg 1 : ```vce_limit_t *lim```
     設定情報を含んだ vce_limit_t 構造体へのポインタ．
 
@@ -2966,9 +3293,12 @@ int main(){
   See also : <a href="#vce_init_limit_t">vce_init_limit_t</a><a href="#vce_initialize">vce_initialize</a>
 <a name="vce_limit_clear"></a>
 - <B>vce_limit_clear</B>
-概要 : vce_limit_t型の構造体の初期化をする(-1のデフォルト値で初期化)
-カテゴリ : core
-関数プロトタイプ : ```void vce_limit_clear( vce_limit_t *t )``` 
+  概要 : vce_limit_t型の構造体の初期化をする(-1のデフォルト値で初期化)
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_limit_clear( vce_limit_t *t )``` 
+
   返り値 : なし
 
   詳細説明 : vce_initialize_limited 関数の引数として与えられるvce_limit_t型の
@@ -2980,9 +3310,12 @@ int main(){
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_mainloop"></a>
 - <B>vce_mainloop</B>
-概要 : VCEのメインループ関数。
-カテゴリ : core
-関数プロトタイプ : ```int vce_mainloop(void)``` 
+  概要 : VCEのメインループ関数。
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```int vce_mainloop(void)``` 
+
   返り値 : なし
 
   詳細説明 : この関数を呼びだすことにより、CPUをVCEに渡す。
@@ -2995,9 +3328,12 @@ int main(){
   See also : <a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_make_binary_array_from_hex"></a>
 - <B>vce_make_binary_array_from_hex</B>
-概要 : 16進数文字列を変換して、バイナリデータを含む配列を作る。
-カテゴリ : util
-関数プロトタイプ : ```void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )``` 
+  概要 : 16進数文字列を変換して、バイナリデータを含む配列を作る。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )``` 
+
   - arg 1 : ```char *out```
     バイナリデータ出力先の先頭アドレス
 
@@ -3018,9 +3354,12 @@ vce_make_hex_from_binary_array の逆関数．
   See also : <a href="#vce_make_hex_from_binary_array">vce_make_hex_from_binary_array</a>
 <a name="vce_make_binary_array_from_line"></a>
 - <B>vce_make_binary_array_from_line</B>
-概要 : ASCIIテキストの1行からバイナリデータの配列を出力する
-カテゴリ : util
-関数プロトタイプ : ```void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )``` 
+  概要 : ASCIIテキストの1行からバイナリデータの配列を出力する
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )``` 
+
   - arg 1 : ```char *line```
     入力行
 
@@ -3047,9 +3386,12 @@ vce_make_hex_from_binary_array の逆関数．
 
 <a name="vce_make_hex_from_binary_array"></a>
 - <B>vce_make_hex_from_binary_array</B>
-概要 : バイナリデータ配列から，単一のhex の文字列を作る
-カテゴリ : util
-関数プロトタイプ : ```int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)``` 
+  概要 : バイナリデータ配列から，単一のhex の文字列を作る
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)``` 
+
   - arg 1 : ```char *out```
     出力先バッファの先頭アドレス
 
@@ -3080,9 +3422,12 @@ vce_make_hex_from_binary_array の逆関数．
   See also : <a href="#hextext">hextext</a><a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_make_hex_text_from_buffer"></a>
 - <B>vce_make_hex_text_from_buffer</B>
-概要 : バイナリデータ配列から、 hextext 形式のASCIIテキストを出力する。
-カテゴリ : util
-関数プロトタイプ : ```int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )``` 
+  概要 : バイナリデータ配列から、 hextext 形式のASCIIテキストを出力する。
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )``` 
+
   - arg 1 : ```char *buf```
     入力となるバイナリデータの先頭アドレス
 
@@ -3109,9 +3454,12 @@ vce_make_binary_array_from_hex 関数で元に戻すことができる．
   See also : <a href="#hextext">hextext</a><a href="#vce_extract_data_from_hex_text">vce_extract_data_from_hex_text</a><a href="#vce_make_binary_array_from_hex">vce_make_binary_array_from_hex</a>
 <a name="vce_protocol_acceptwatcher_deny"></a>
 - <B>vce_protocol_acceptwatcher_deny</B>
-概要 : すべてのコネクションを拒否するTCP(conn_t)のaccept監視関数
-カテゴリ : watcher
-関数プロトタイプ : ```int vce_protocol_acceptwatcher_deny( conn_t c )``` 
+  概要 : すべてのコネクションを拒否するTCP(conn_t)のaccept監視関数
+
+  カテゴリ : watcher
+
+  関数プロトタイプ : ```int vce_protocol_acceptwatcher_deny( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     サーバの tcpcontext が新規に accept した(受けいれた)コネクションを
 あらわす conn_t
@@ -3126,9 +3474,12 @@ vce_make_binary_array_from_hex 関数で元に戻すことができる．
   See also : <a href="#vce_protocol_acceptwatcher_noop">vce_protocol_acceptwatcher_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_acceptwatcher_noop"></a>
 - <B>vce_protocol_acceptwatcher_noop</B>
-概要 : すべてのコネクションを受けいれる TCP(conn_t)のaccept 監視関数
-カテゴリ : watcher
-関数プロトタイプ : ```int vce_protocol_acceptwatcher_noop( conn_t c )``` 
+  概要 : すべてのコネクションを受けいれる TCP(conn_t)のaccept 監視関数
+
+  カテゴリ : watcher
+
+  関数プロトタイプ : ```int vce_protocol_acceptwatcher_noop( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     サーバの tcpcontext が新規に accept した(受けいれた)コネクションを
 あらわす conn_t
@@ -3142,9 +3493,12 @@ NULL を指定したのと同じことになる。
   See also : <a href="#vce_protocol_acceptwatcher_deny">vce_protocol_acceptwatcher_deny</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_closewatcher_noop"></a>
 - <B>vce_protocol_closewatcher_noop</B>
-概要 : 何もしない、コネクション close 監視関数
-カテゴリ : watcher
-関数プロトタイプ : ```int vce_protocol_closewatcher_noop( conn_t c )``` 
+  概要 : 何もしない、コネクション close 監視関数
+
+  カテゴリ : watcher
+
+  関数プロトタイプ : ```int vce_protocol_closewatcher_noop( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     閉じられようとしているコネクション(閉じる直前)
 
@@ -3159,9 +3513,12 @@ NULL を指定したのと同じことになる。
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin16"></a>
 - <B>vce_protocol_parser_bin16</B>
-概要 : bin16 プロトコルのレコードを取りだしてコールバック関数を呼びだす
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_parser_bin16( conn_t c )``` 
+  概要 : bin16 プロトコルのレコードを取りだしてコールバック関数を呼びだす
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_parser_bin16( conn_t c )``` 
+
   - arg 1 : ```conn_t ct```
     レコードがきているかどうか検査する対象のコネクション構造体。
 
@@ -3207,9 +3564,12 @@ int callback( conn_t *c, char *data, int len )
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin32"></a>
 - <B>vce_protocol_parser_bin32</B>
-概要 : bin32プロトコルのレコードを取りだしてコールバック関数を呼びだす
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_parser_bin32( conn_t c )``` 
+  概要 : bin32プロトコルのレコードを取りだしてコールバック関数を呼びだす
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_parser_bin32( conn_t c )``` 
+
   - arg 1 : ```conn_t ct```
     レコード検査をする対象となるコネクション構造体(conn_t)
 
@@ -3228,9 +3588,12 @@ BIN32DATA_MAX は vce.h で定義されている。
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_bin32">vce_protocol_unparser_bin32</a>
 <a name="vce_protocol_parser_text"></a>
 - <B>vce_protocol_parser_text</B>
-概要 : プロトコルを1行単位で取りだしてコールバック関数を呼びだす
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_parser_text( conn_t c )``` 
+  概要 : プロトコルを1行単位で取りだしてコールバック関数を呼びだす
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_parser_text( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     レコード取りだし対象となるコネクション
 
@@ -3249,9 +3612,12 @@ C言語の文字列に変換する必要がある。
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a>
 <a name="vce_protocol_parser_through"></a>
 - <B>vce_protocol_parser_through</B>
-概要 : レコード境界を切らずにコールバックを呼びだすプロトコルパーサ
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_parser_through( conn_t ct )``` 
+  概要 : レコード境界を切らずにコールバックを呼びだすプロトコルパーサ
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_parser_through( conn_t ct )``` 
+
   - arg 1 : ```conn_t ct```
     データを受けとるTCPコネクション(conn_t)
 
@@ -3268,9 +3634,12 @@ vce_protocol_parser_through はまさにそのために使用される。
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_through">vce_protocol_unparser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_dump"></a>
 - <B>vce_protocol_pcallback_dump</B>
-概要 : 普通のTCPコネクション用の、データをダンプするコールバック
-カテゴリ : pcallback
-関数プロトタイプ : ```int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )``` 
+  概要 : 普通のTCPコネクション用の、データをダンプするコールバック
+
+  カテゴリ : pcallback
+
+  関数プロトタイプ : ```int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     入出力対象となるTCPコネクション。
 
@@ -3290,9 +3659,12 @@ vce_protocol_parser_through はまさにそのために使用される。
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_bin16"></a>
 - <B>vce_protocol_pcallback_echo_bin16</B>
-概要 : conn_t上のbin16プロトコル用の、エコー・コールバック関数
-カテゴリ : pcallback
-関数プロトタイプ : ```int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )``` 
+  概要 : conn_t上のbin16プロトコル用の、エコー・コールバック関数
+
+  カテゴリ : pcallback
+
+  関数プロトタイプ : ```int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     エコーする対象となるコネクション。
 
@@ -3322,9 +3694,12 @@ vce_protocol_parser_bin16 関数をプロトコルパーサとして登録して
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_text"></a>
 - <B>vce_protocol_pcallback_echo_text</B>
-概要 : conn_t 上の行指向テキストプロトコル用のエコーコールバック関数
-カテゴリ : pcallback
-関数プロトタイプ : ```int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )``` 
+  概要 : conn_t 上の行指向テキストプロトコル用のエコーコールバック関数
+
+  カテゴリ : pcallback
+
+  関数プロトタイプ : ```int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     入力を受けるコネクション
 
@@ -3341,9 +3716,12 @@ vce_protocol_parser_bin16 関数をプロトコルパーサとして登録して
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_unparser_text">vce_protocol_unparser_text</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_noop"></a>
 - <B>vce_protocol_pcallback_noop</B>
-概要 : 普通のTCPコネクション用の、何もしないプロトコルコールバック関数
-カテゴリ : pcallback
-関数プロトタイプ : ```int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )``` 
+  概要 : 普通のTCPコネクション用の、何もしないプロトコルコールバック関数
+
+  カテゴリ : pcallback
+
+  関数プロトタイプ : ```int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )``` 
+
   - arg 1 : ```conn_t ct```
     入出力対象となるコネクション.
 
@@ -3367,9 +3745,12 @@ vce_protocol_parser_bin16 関数をプロトコルパーサとして登録して
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin16"></a>
 - <B>vce_protocol_unparser_bin16</B>
-概要 : bin16 プロトコルのレコードを、コネクションに対して書きこむ
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )``` 
+  概要 : bin16 プロトコルのレコードを、コネクションに対して書きこむ
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )``` 
+
   - arg 1 : ```conn_t ct```
     書きこみ対象のコネクション
 
@@ -3407,9 +3788,12 @@ bin16プロトコルは、All or Nothing な送信をする。つまり、
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin32"></a>
 - <B>vce_protocol_unparser_bin32</B>
-概要 : BIN32プロトコルのレコードをひとつ、コネクション(conn_t)に書きこむ
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )``` 
+  概要 : BIN32プロトコルのレコードをひとつ、コネクション(conn_t)に書きこむ
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     書きこみ対象のコネクション
 
@@ -3432,9 +3816,12 @@ BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX 
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a>
 <a name="vce_protocol_unparser_text"></a>
 - <B>vce_protocol_unparser_text</B>
-概要 : テキストプロトコルのレコード(1行)をコネクションに書きこむ
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_unparser_text( conn_t ct, char *data, int len )``` 
+  概要 : テキストプロトコルのレコード(1行)をコネクションに書きこむ
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_unparser_text( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     書きこむ対象となるコネクション
 
@@ -3454,9 +3841,12 @@ BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX 
   See also : <a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_through"></a>
 - <B>vce_protocol_unparser_through</B>
-概要 : TCPコネクションにデータをそのまま書き出す
-カテゴリ : parser
-関数プロトタイプ : ```int vce_protocol_unparser_through( conn_t ct, char *data, int len)``` 
+  概要 : TCPコネクションにデータをそのまま書き出す
+
+  カテゴリ : parser
+
+  関数プロトタイプ : ```int vce_protocol_unparser_through( conn_t ct, char *data, int len)``` 
+
   - arg 1 : ```conn_t ct```
     データを出力するコネクション
 
@@ -3473,9 +3863,12 @@ BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX 
   See also : <a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_read_plain_text_file"></a>
 - <B>vce_read_plain_text_file</B>
-概要 : プレインテキストファイルを読みこむ
-カテゴリ : util
-関数プロトタイプ : ```int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))``` 
+  概要 : プレインテキストファイルを読みこむ
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))``` 
+
   - arg 1 : ```char *filename```
     読みこむファイル名
 
@@ -3496,9 +3889,12 @@ vce_read_simple_config_file 関数をさらに単純にしたものである。
   See also : <a href="#vce_read_simple_config_file">vce_read_simple_config_file</a>
 <a name="vce_read_simple_config_file"></a>
 - <B>vce_read_simple_config_file</B>
-概要 : 単純なテキスト設定ファイルをコールバック関数を使って読みこむ
-カテゴリ : util
-関数プロトタイプ : ```int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )``` 
+  概要 : 単純なテキスト設定ファイルをコールバック関数を使って読みこむ
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )``` 
+
   - arg 1 : ```char *filename```
     読みこむファイル名
 
@@ -3540,9 +3936,12 @@ value に改行記号は含まれない。
   See also : <a href="#swp">swp</a><a href="#vce_copy_cstring_upto">vce_copy_cstring_upto</a><a href="#vp">vp</a>
 <a name="vce_replace_malloc_funcs"></a>
 - <B>vce_replace_malloc_funcs</B>
-概要 : VCE が使うmalloc関数を置きかえる
-カテゴリ : util
-関数プロトタイプ : ```void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))``` 
+  概要 : VCE が使うmalloc関数を置きかえる
+
+  カテゴリ : util
+
+  関数プロトタイプ : ```void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))``` 
+
   - arg 1 : ```void * (*a)(size_t)```
     メモリ割りあて関数へのポインタ。NULLを指定すると置きかえない。
 
@@ -3565,9 +3964,12 @@ value に改行記号は含まれない。
 
 <a name="vce_set_heartbeat_wait_flag"></a>
 - <B>vce_set_heartbeat_wait_flag</B>
-概要 : vce_heartbeat の sleep時間 調節機構をon/off する
-カテゴリ : core
-関数プロトタイプ : ```void vce_set_heartbeat_wait_flag( int flag )``` 
+  概要 : vce_heartbeat の sleep時間 調節機構をon/off する
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_set_heartbeat_wait_flag( int flag )``` 
+
   - arg 1 : ```int flag```
     0なら調節機構を off,1 なら on になる。
 
@@ -3589,9 +3991,12 @@ flag に1を設定すると、vce_heartbeat は、
   See also : <a href="#vce_heartbeat">vce_heartbeat</a>
 <a name="vce_set_mainloop_callback"></a>
 - <B>vce_set_mainloop_callback</B>
-概要 : vce_mainloopから呼びだすコールバック関数を設定する。
-カテゴリ : core
-関数プロトタイプ : ```void vce_set_mainloop_callback( int (*f)(void) )``` 
+  概要 : vce_mainloopから呼びだすコールバック関数を設定する。
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_set_mainloop_callback( int (*f)(void) )``` 
+
   - arg 1 : ```int (*f)(void)```
     コールバック関数へのポインタ
 
@@ -3622,9 +4027,12 @@ vce_mainloopを利用しつつもアプリケーションで並行に処理を�
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_mainloop">vce_mainloop</a>
 <a name="vce_set_read_write_log_mode"></a>
 - <B>vce_set_read_write_log_mode</B>
-概要 : VCEによるread/writeシステムコールの使用をログするかを設定する
-カテゴリ : core
-関数プロトタイプ : ```void vce_set_read_write_log_mode( int mode )``` 
+  概要 : VCEによるread/writeシステムコールの使用をログするかを設定する
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_set_read_write_log_mode( int mode )``` 
+
   - arg 1 : ```int mode```
     1ならログする、0ならログしない。
 
@@ -3639,9 +4047,12 @@ vce_mainloopを利用しつつもアプリケーションで並行に処理を�
   See also : <a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="vce_set_socket_library_ok"></a>
 - <B>vce_set_socket_library_ok</B>
-概要 : VCE の下層の socket ライブラリが初期化できたことを VCE に通知する。
-カテゴリ : core
-関数プロトタイプ : ```void vce_set_socket_library_ok( int flag )``` 
+  概要 : VCE の下層の socket ライブラリが初期化できたことを VCE に通知する。
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_set_socket_library_ok( int flag )``` 
+
   - arg 1 : ```int flag```
     初期化フラグ。初期化できていたら1、そうでないなら0。
 
@@ -3670,9 +4081,12 @@ vce_initialize の呼びだし後に意味をもつので、
   See also : <a href="#vce_initialize">vce_initialize</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_set_verbose_mode"></a>
 - <B>vce_set_verbose_mode</B>
-概要 : verboseモード(うるさいモード)の設定をする
-カテゴリ : core
-関数プロトタイプ : ```void vce_set_verbose_mode( int mode )``` 
+  概要 : verboseモード(うるさいモード)の設定をする
+
+  カテゴリ : core
+
+  関数プロトタイプ : ```void vce_set_verbose_mode( int mode )``` 
+
   - arg 1 : ```int mode```
     1以上なら verboseモードとなる。 0なら通常モード。
 -1なら、「絶対に出力しない」モード。
@@ -3694,9 +4108,12 @@ vce_initialize 関数の呼びだし前に呼びだすことができるよう�
 
 <a name="vce_show_array_usage"></a>
 - <B>vce_show_array_usage</B>
-概要 : VCE配列の状態をすべて出力する。
-カテゴリ : array
-関数プロトタイプ : ```int vce_show_array_usage( int index , int show_all )``` 
+  概要 : VCE配列の状態をすべて出力する。
+
+  カテゴリ : array
+
+  関数プロトタイプ : ```int vce_show_array_usage( int index , int show_all )``` 
+
   - arg 1 : ```int index```
     配列を特定するための配列デスクリプタ
 
@@ -3719,9 +4136,12 @@ vce_initialize 関数の呼びだし前に呼びだすことができるよう�
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_snprintf"></a>
 - <B>vce_snprintf</B>
-概要 : libc の snprintf の wrapper
-カテゴリ : text
-関数プロトタイプ : ```void vce_snprintf( char *out, int len, const char *format, ... )``` 
+  概要 : libc の snprintf の wrapper
+
+  カテゴリ : text
+
+  関数プロトタイプ : ```void vce_snprintf( char *out, int len, const char *format, ... )``` 
+
   - arg 1 : ```char *out```
     文字列を出力するバッファの先頭アドレス
 
@@ -3747,9 +4167,12 @@ sprintf と同等の機能しか持っていない．
 
 <a name="vce_strerror"></a>
 - <B>vce_strerror</B>
-概要 : VCEエラーコードを文字列に変換する。
-カテゴリ : err
-関数プロトタイプ : ```char *vce_strerror( int ecode );``` 
+  概要 : VCEエラーコードを文字列に変換する。
+
+  カテゴリ : err
+
+  関数プロトタイプ : ```char *vce_strerror( int ecode );``` 
+
   - arg 1 : ```int ecode```
     エラーコード。 vce.h で定義されている。
 
@@ -3763,9 +4186,12 @@ sprintf と同等の機能しか持っていない．
   See also : <a href="#vce_get_last_error">vce_get_last_error</a>
 <a name="vce_strerror_close_reason"></a>
 - <B>vce_strerror_close_reason</B>
-概要 : VCEエラーコード(CLOSE_REASON)を文字列に変換する。
-カテゴリ : err
-関数プロトタイプ : ```char *vce_strerror_close_reason( CLOSE_REASON reason );``` 
+  概要 : VCEエラーコード(CLOSE_REASON)を文字列に変換する。
+
+  カテゴリ : err
+
+  関数プロトタイプ : ```char *vce_strerror_close_reason( CLOSE_REASON reason );``` 
+
   - arg 1 : ```CLOSE_REASON reason```
     CLOSE_REASON エラーコード。 vce.h で定義されている。
 
@@ -3779,9 +4205,12 @@ sprintf と同等の機能しか持っていない．
 
 <a name="vce_tcpcontext_cleanup"></a>
 - <B>vce_tcpcontext_cleanup</B>
-概要 : TCPコンテキストを解放する。
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_cleanup( tcpcontext_t tp )``` 
+  概要 : TCPコンテキストを解放する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_cleanup( tcpcontext_t tp )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     解放するTCPコンテキストへのポインタ。 vce_tcpcontext_createの返り値である。
 サーバーコンテキストもクライアントコンテキストも同様に解放できる。
@@ -3796,9 +4225,12 @@ vce_tcpcontext_cleanup 関数で解放せずに vce_tcpcontext_create を
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_conn_iterate"></a>
 - <B>vce_tcpcontext_conn_iterate</B>
-概要 : tcpcontext が保持しているすべてのconn_tに対して関数で処理する
-カテゴリ : 
-関数プロトタイプ : ```int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))``` 
+  概要 : tcpcontext が保持しているすべてのconn_tに対して関数で処理する
+
+  カテゴリ : 
+
+  関数プロトタイプ : ```int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))``` 
+
   - arg 1 : ```tcpcontext_t tt```
     処理したい tcpcontext_t
 
@@ -3814,9 +4246,12 @@ vce_tcpcontext_cleanup 関数で解放せずに vce_tcpcontext_create を
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_connect"></a>
 - <B>vce_tcpcontext_connect</B>
-概要 : リモートにあるVCEサーバに接続し、TCPコネクションを1個確立する。
-カテゴリ : tcp
-関数プロトタイプ : ```conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );``` 
+  概要 : リモートにあるVCEサーバに接続し、TCPコネクションを1個確立する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );``` 
+
   - arg 1 : ```tcpcontext_t tp```
     設定情報を格納しているTCPコンテキスト。
 
@@ -3853,9 +4288,12 @@ tcpcontext がノンブロッキングモードに設定されている場合と
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_count_connections"></a>
 - <B>vce_tcpcontext_count_connections</B>
-概要 : tcpcontext に属するコネクションの数を数える
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )``` 
+  概要 : tcpcontext に属するコネクションの数を数える
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )``` 
+
   - arg 1 : ```tcpcontext_t t```
     数を調査したい対象となる tcpcontext
 
@@ -3870,9 +4308,12 @@ NULL を指定すると，無視される．
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_create"></a>
 - <B>vce_tcpcontext_create</B>
-概要 : TCPコンテキストを初期化する。
-カテゴリ : tcp
-関数プロトタイプ : ```tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )``` 
+  概要 : TCPコンテキストを初期化する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )``` 
+
   - arg 1 : ```int flag```
     TCPcontext の基本的性質を設定するフラグ。
 1にするとIPv4のサーバーコンテキスト、0にするとクライアントコンテキストになる。
@@ -4047,9 +4488,12 @@ tcpcontext の「受信バッファ量」と「送信バッファ量」
   See also : <a href="#vce_conn_get_state">vce_conn_get_state</a><a href="#vce_initialize">vce_initialize</a><a href="#vce_initialize_limited">vce_initialize_limited</a><a href="#vce_tcpcontext_cleanup">vce_tcpcontext_cleanup</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_enable_accept"></a>
 - <B>vce_tcpcontext_enable_accept</B>
-概要 : 新規に accept しないようにする
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_enable_accept( tcpcontext_t tp, int flag )``` 
+  概要 : 新規に accept しないようにする
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_enable_accept( tcpcontext_t tp, int flag )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     操作対象となるTCPcontext
 
@@ -4068,9 +4512,12 @@ verbose モードのときはログを出力する(verbose mode only)。
   See also : <a href="#vce_tcpcontext_close_all_conn">vce_tcpcontext_close_all_conn</a>
 <a name="vce_tcpcontext_get_all_connection"></a>
 - <B>vce_tcpcontext_get_all_connection</B>
-概要 : tcpcontext に属するすべてのコネクションを得る
-カテゴリ : tcp
-関数プロトタイプ : ```int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);``` 
+  概要 : tcpcontext に属するすべてのコネクションを得る
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);``` 
+
   - arg 1 : ```tcpcontext_t t```
     処理対象のtcpcontext
 
@@ -4087,9 +4534,12 @@ verbose モードのときはログを出力する(verbose mode only)。
   See also : <a href="#vce_tcpcontext_count_connections">vce_tcpcontext_count_connections</a>
 <a name="vce_tcpcontext_get_stat"></a>
 - <B>vce_tcpcontext_get_stat</B>
-概要 : tcpcontext の統計情報を取得する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )``` 
+  概要 : tcpcontext の統計情報を取得する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     情報を取得する tcpcontext
 
@@ -4122,9 +4572,12 @@ vce_tcpcontext_connect が成功した回数。
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_tcpcontext_protocol_set_maxlength"></a>
 - <B>vce_tcpcontext_protocol_set_maxlength</B>
-概要 : パーサーが分割する最大の長さを設定する。
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))``` 
+  概要 : パーサーが分割する最大の長さを設定する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))``` 
+
   - arg 1 : ```tcpcontext_t t```
     設定情報を格納しているTCPコンテキスト。
 
@@ -4147,9 +4600,12 @@ NULLの場合は呼ばれず接続を拒否する。
 
 <a name="vce_tcpcontext_set_accept_max"></a>
 - <B>vce_tcpcontext_set_accept_max</B>
-概要 : 一分間あたりの接続数を制限する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))``` 
+  概要 : 一分間あたりの接続数を制限する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))``` 
+
   - arg 1 : ```tcpcontext_t t```
     設定情報を格納しているTCPコンテキスト。
 
@@ -4177,9 +4633,12 @@ con_maxにゼロを設定すれば許可無しとなる。
 
 <a name="vce_tcpcontext_set_conn_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_acceptwatcher</B>
-概要 : TCPコンテキストに対して、指定されたaccept監視関数を使うように設定する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )``` 
+  概要 : TCPコンテキストに対して、指定されたaccept監視関数を使うように設定する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     設定対象となるTCPコンテキスト
 
@@ -4201,9 +4660,12 @@ acceptwatcher が呼びだされる。
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a>
 <a name="vce_tcpcontext_set_conn_call_parser_per_heartbeat"></a>
 - <B>vce_tcpcontext_set_conn_call_parser_per_heartbeat</B>
-概要 : 1回の heartbeat で各コネクションのパーサが呼びだされる回数を調整する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )``` 
+  概要 : 1回の heartbeat で各コネクションのパーサが呼びだされる回数を調整する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )``` 
+
   - arg 1 : ```tcpcontext_t tt```
     設定対象の tcpcontext_t
 
@@ -4223,9 +4685,12 @@ acceptwatcher が呼びだされる。
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_set_conn_closewatcher"></a>
 - <B>vce_tcpcontext_set_conn_closewatcher</B>
-概要 : TCPコンテキストに対して、指定されたclose監視関数を使うように設定する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )``` 
+  概要 : TCPコンテキストに対して、指定されたclose監視関数を使うように設定する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     設定対象となるTCPコンテキスト
 
@@ -4324,9 +4789,12 @@ close watcher は呼びだされない．
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_finalizer"></a>
 - <B>vce_tcpcontext_set_conn_finalizer</B>
-概要 : TCPコンテキストに対して、コネクションのファイナライザを指定する。
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )``` 
+  概要 : TCPコンテキストに対して、コネクションのファイナライザを指定する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     ファイナライザを指定するTCPコンテキストのポインタ
 
@@ -4350,9 +4818,12 @@ closewatcher は呼びだされないが、 finalizer は呼びだされる点�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_set_conn_hiwater_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_hiwater_acceptwatcher</B>
-概要 : TCPコンテキストに，接続数が多いとき用のaccept監視関数をセットする
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))``` 
+  概要 : TCPコンテキストに，接続数が多いとき用のaccept監視関数をセットする
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))``` 
+
   - arg 1 : ```tcpcontext_t tp```
     設定対象となるTCPコンテキスト
 
@@ -4389,9 +4860,12 @@ VCEでは，この数のことを「高水位設定値」"high water"と呼ん�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_kickip_array"></a>
 - <B>vce_tcpcontext_set_conn_kickip_array</B>
-概要 : 接続を拒否するIPアドレスの配列を設定する。
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)``` 
+  概要 : 接続を拒否するIPアドレスの配列を設定する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)``` 
+
   - arg 1 : ```tcpcontext_t t```
     設定情報を格納しているTCPコンテキスト。
 
@@ -4408,9 +4882,12 @@ VCEでは，この数のことを「高水位設定値」"high water"と呼ん�
 
 <a name="vce_tcpcontext_set_conn_parser"></a>
 - <B>vce_tcpcontext_set_conn_parser</B>
-概要 : TCPコンテキストに対して、TCPコネクション(conn_t)用のパーサを設定する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))``` 
+  概要 : TCPコンテキストに対して、TCPコネクション(conn_t)用のパーサを設定する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))``` 
+
   - arg 1 : ```tcpcontext_t tp```
     設定対象となる TCPコンテキスト
 
@@ -4469,9 +4946,12 @@ vce_tcpcontext_set_conn_parser( t, parser, NULL );
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_tcpcontext_set_equal_io_splitrate"></a>
 - <B>vce_tcpcontext_set_equal_io_splitrate</B>
-概要 : 1回の heartbeat でネットワークへの送信をするコネクション数を調整する
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )``` 
+  概要 : 1回の heartbeat でネットワークへの送信をするコネクション数を調整する
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )``` 
+
   - arg 1 : ```tcpcontext_t tt```
     設定対象となる TCPコンテキスト
 
@@ -4500,9 +4980,12 @@ VCE が確保している書きこみバッファにデータがたまってい�
 
 <a name="vce_tcpcontext_timeout_control"></a>
 - <B>vce_tcpcontext_timeout_control</B>
-概要 : TCPコンテキストのタイムアウト動作方式を設定する。
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )``` 
+  概要 : TCPコンテキストのタイムアウト動作方式を設定する。
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )``` 
+
   - arg 1 : ```tcpcontext_t t```
     設定したいTCPコンテキスト
 
@@ -4535,9 +5018,12 @@ VCE がターゲットとしているリアルタイムアプリケーション�
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_userdata_get_pointer"></a>
 - <B>vce_tcpcontext_userdata_get_pointer</B>
-概要 : tcpcontext_tに関連付けたポインタを取り出す
-カテゴリ : tcp
-関数プロトタイプ : ```void *vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct);``` 
+  概要 : tcpcontext_tに関連付けたポインタを取り出す
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void *vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct);``` 
+
   - arg 1 : ```tcpcontext_t ct```
     対象のtcpcontext_t
 
@@ -4546,9 +5032,12 @@ VCE がターゲットとしているリアルタイムアプリケーション�
 
 <a name="vce_tcpcontext_userdata_set_pointer"></a>
 - <B>vce_tcpcontext_userdata_set_pointer</B>
-概要 : tcpcontext_tにポインタを関連付ける
-カテゴリ : tcp
-関数プロトタイプ : ```void vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct,void *p);``` 
+  概要 : tcpcontext_tにポインタを関連付ける
+
+  カテゴリ : tcp
+
+  関数プロトタイプ : ```void vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct,void *p);``` 
+
   - arg 1 : ```tcpcontext_t ct```
     対象のtcpcontext_t
 
@@ -4561,9 +5050,12 @@ VCE がターゲットとしているリアルタイムアプリケーション�
 
 <a name="vce_utime_diff"></a>
 - <B>vce_utime_diff</B>
-概要 : struct timeval 型の時刻の差分を VCEI64 型で求める
-カテゴリ : util
-関数プロトタイプ : `````` 
+  概要 : struct timeval 型の時刻の差分を VCEI64 型で求める
+
+  カテゴリ : util
+
+  関数プロトタイプ : `````` 
+
   - arg 1 : ```struct timeval *before```
     差分を求める時刻のうち、前のもの。
 

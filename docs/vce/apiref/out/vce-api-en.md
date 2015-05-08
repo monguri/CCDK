@@ -415,9 +415,12 @@ Functions:
 <!-- make_funcdef start -->
 <a name="ARRAY_SCAN"></a>
 - <B>ARRAY_SCAN</B>
-Summary : Scan all in-use elements stored in VCE's array.
-Category : array
-Prototype : ```ARRAY_SCAN( int arraydescriptor, void* pointer )``` 
+  Summary : Scan all in-use elements stored in VCE's array.
+
+  Category : array
+
+  Prototype : ```ARRAY_SCAN( int arraydescriptor, void* pointer )``` 
+
   - arg 1 : ```int arraydescriptor```
     PENDING
 
@@ -449,9 +452,12 @@ ARRAY_SCAN( memory_ind, c ){
   See also : <a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a><a href="#vce_init_array">vce_init_array</a>
 <a name="ARRAY_SCAN_TYPE"></a>
 - <B>ARRAY_SCAN_TYPE</B>
-Summary : A variety of ARRAY_SCAN macro fot use in C++ language
-Category : array
-Prototype : ```ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )``` 
+  Summary : A variety of ARRAY_SCAN macro fot use in C++ language
+
+  Category : array
+
+  Prototype : ```ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )``` 
+
   - arg 1 : ```int arraydescriptor```
     Array descriptor of VCE array.
 
@@ -471,9 +477,12 @@ Consequently, the ARRAY_SCAN_TYPE macro is given the pointer variable type.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a>
 <a name="ELEMENTOF"></a>
 - <B>ELEMENTOF</B>
-Summary : Get number of elements of a fixed-size array.
-Category : util
-Prototype : ```int ELEMENTOF(x)``` 
+  Summary : Get number of elements of a fixed-size array.
+
+  Category : util
+
+  Prototype : ```int ELEMENTOF(x)``` 
+
   - arg 1 : ```x```
     Any C array. (Not pointer)
 
@@ -494,9 +503,12 @@ Prototype : ```int ELEMENTOF(x)```
 
 <a name="FREE"></a>
 - <B>FREE</B>
-Summary : Release a memory block allocated with MALLOC function.
-Category : util
-Prototype : ```void FREE( void *p )``` 
+  Summary : Release a memory block allocated with MALLOC function.
+
+  Category : util
+
+  Prototype : ```void FREE( void *p )``` 
+
   - arg 1 : ```void *p```
     Top address of a memry block which will be freed.
 
@@ -509,9 +521,12 @@ It prints log message when vce_set_verbose_mode 1.
   See also : <a href="#MALLOC">MALLOC</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="GET_16BIT_INT"></a>
 - <B>GET_16BIT_INT</B>
-Summary : Get 16 bit integer value from buffer
-Category : util
-Prototype : ```unsigned short GET_16BIT_INT( char *p )``` 
+  Summary : Get 16 bit integer value from buffer
+
+  Category : util
+
+  Prototype : ```unsigned short GET_16BIT_INT( char *p )``` 
+
   - arg 1 : ```char *p```
     Top address of source data buffer.
 
@@ -527,9 +542,12 @@ VCE implements this macro as a function.
   See also : <a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_16BIT_NATIVEINT"></a>
 - <B>GET_16BIT_NATIVEINT</B>
-Summary : Get 16bit integer value from any buffer
-Category : util
-Prototype : ```short GET_16BIT_NATIVEINT( char *p )``` 
+  Summary : Get 16bit integer value from any buffer
+
+  Category : util
+
+  Prototype : ```short GET_16BIT_NATIVEINT( char *p )``` 
+
   Return value : Got short value.
 
   Description :  It does not use ntohs, htons nor others.
@@ -540,9 +558,12 @@ VCE  implements this macro as a function.
   See also : <a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_32BIT_INT"></a>
 - <B>GET_32BIT_INT</B>
-Summary : A macro to get 32bit value from memory buffer.
-Category : util
-Prototype : ```unsigned int GET_32BIT_INT( char *p )``` 
+  Summary : A macro to get 32bit value from memory buffer.
+
+  Category : util
+
+  Prototype : ```unsigned int GET_32BIT_INT( char *p )``` 
+
   - arg 1 : ```char *p```
     Top address of source data.
 
@@ -558,9 +579,12 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_32BIT_NATIVEINT"></a>
 - <B>GET_32BIT_NATIVEINT</B>
-Summary : Get 32bit integer value from buffer
-Category : util
-Prototype : ```int GET_32BIT_NATIVEINT( char *p )``` 
+  Summary : Get 32bit integer value from buffer
+
+  Category : util
+
+  Prototype : ```int GET_32BIT_NATIVEINT( char *p )``` 
+
   Return value : Got int value.
 
   Description : This is a data-fetch macro not using ntohl, htonl nor others.
@@ -570,9 +594,12 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_64BIT_INT"></a>
 - <B>GET_64BIT_INT</B>
-Summary : A macro to get 64bit value from memory buffer.
-Category : util
-Prototype : ```VCEI64 GET_64BIT_INT( char *p )``` 
+  Summary : A macro to get 64bit value from memory buffer.
+
+  Category : util
+
+  Prototype : ```VCEI64 GET_64BIT_INT( char *p )``` 
+
   - arg 1 : ```char *p```
     Top address of source data.
 
@@ -588,9 +615,12 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_64BIT_NATIVEINT"></a>
 - <B>GET_64BIT_NATIVEINT</B>
-Summary : Get 64bit integer value from buffer
-Category : util
-Prototype : ```int GET_64BIT_NATIVEINT( char *p )``` 
+  Summary : Get 64bit integer value from buffer
+
+  Category : util
+
+  Prototype : ```int GET_64BIT_NATIVEINT( char *p )``` 
+
   Return value : Got int value.
 
   Description : This is a data-fetch macro not using ntohl, htonl nor others.
@@ -600,9 +630,12 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_8BIT_NATIVEINT">GET_8BIT_NATIVEINT</a>
 <a name="GET_8BIT_INT"></a>
 - <B>GET_8BIT_INT</B>
-Summary : Get 8-bit integer from buffer
-Category : util
-Prototype : ```unsigned char GET_8BIT_INT( char *b )``` 
+  Summary : Get 8-bit integer from buffer
+
+  Category : util
+
+  Prototype : ```unsigned char GET_8BIT_INT( char *b )``` 
+
   - arg 1 : ```char *b```
     Top address of source data buffer.
 
@@ -614,9 +647,12 @@ Prototype : ```unsigned char GET_8BIT_INT( char *b )```
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="GET_8BIT_NATIVEINT"></a>
 - <B>GET_8BIT_NATIVEINT</B>
-Summary : Get 8bit integer value from buffer
-Category : util
-Prototype : ```char GET_8BIT_NATIVEINT( char *p )``` 
+  Summary : Get 8bit integer value from buffer
+
+  Category : util
+
+  Prototype : ```char GET_8BIT_NATIVEINT( char *p )``` 
+
   Return value : Got 8bit value
 
   Description : This is defined merely for writing codes consistent with GET_32BIT_NATIVEINT,
@@ -625,9 +661,12 @@ GET_16BIT_NATIVEINT and others.
   See also : <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a><a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a>
 <a name="MALLOC"></a>
 - <B>MALLOC</B>
-Summary : A wrapper function for C library malloc().
-Category : util
-Prototype : ```void *MALLOC( size_t size )``` 
+  Summary : A wrapper function for C library malloc().
+
+  Category : util
+
+  Prototype : ```void *MALLOC( size_t size )``` 
+
   - arg 1 : ```size_t size```
     Size of allocated memory ( in bytes)
 
@@ -648,9 +687,12 @@ It prints log message when vce_set_verbose_mode 1.
   See also : <a href="#FREE">FREE</a><a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="MAX"></a>
 - <B>MAX</B>
-Summary : Compare 2 integer values and return bigger one.
-Category : util
-Prototype : ```int MAX(int a, int b)``` 
+  Summary : Compare 2 integer values and return bigger one.
+
+  Category : util
+
+  Prototype : ```int MAX(int a, int b)``` 
+
   - arg 1 : ```int a```
     First parameter being compared.
 Although "int" type is used in this macro's prototype,
@@ -672,9 +714,12 @@ for any types which accepts integer-comparison operator.
   See also : <a href="#MIN">MIN</a>
 <a name="MIN"></a>
 - <B>MIN</B>
-Summary : Compare 2 integer values and return bigger one.
-Category : util
-Prototype : ```int MIN(int a, int b )``` 
+  Summary : Compare 2 integer values and return bigger one.
+
+  Category : util
+
+  Prototype : ```int MIN(int a, int b )``` 
+
   - arg 1 : ```int a```
     First parameter being compared.
 Although "int" type is used in this macro's prototype,
@@ -697,9 +742,12 @@ types along with their unsigned types.
   See also : <a href="#MAX">MAX</a>
 <a name="SET_16BIT_INT"></a>
 - <B>SET_16BIT_INT</B>
-Summary : Copy 16-bit integer to buffer in network byte-order.
-Category : util
-Prototype : ```void SET_16BIT_INT( char *b, unsigned short i )``` 
+  Summary : Copy 16-bit integer to buffer in network byte-order.
+
+  Category : util
+
+  Prototype : ```void SET_16BIT_INT( char *b, unsigned short i )``` 
+
   - arg 1 : ```char *b```
     Top address of destination buffer.
 
@@ -718,9 +766,12 @@ VCE implements this macro as a function.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_16BIT_NATIVEINT"></a>
 - <B>SET_16BIT_NATIVEINT</B>
-Summary : Copy 16-bit integer value to any buffer
-Category : util
-Prototype : ```void SET_16BIT_NATIVEINT( char *p, short i )``` 
+  Summary : Copy 16-bit integer value to any buffer
+
+  Category : util
+
+  Prototype : ```void SET_16BIT_NATIVEINT( char *p, short i )``` 
+
   - arg 1 : ```char *p```
     Top address of destination buffer.
 
@@ -736,9 +787,12 @@ VCE implements this macro as a function.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_32BIT_INT"></a>
 - <B>SET_32BIT_INT</B>
-Summary : Copy 32-bit integer to buffer in network byte-order.
-Category : util
-Prototype : ```void SET_32BIT_INT( char *b, unsigned int i )``` 
+  Summary : Copy 32-bit integer to buffer in network byte-order.
+
+  Category : util
+
+  Prototype : ```void SET_32BIT_INT( char *b, unsigned int i )``` 
+
   - arg 1 : ```char *b```
     Top address of input data.
 
@@ -757,9 +811,12 @@ category for protocol analysis( they make it robust ).
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_32BIT_NATIVEINT"></a>
 - <B>SET_32BIT_NATIVEINT</B>
-Summary : copy 32bit integer value to any buffer
-Category : util
-Prototype : ```void SET_32BIT_NATIVEINT( char *p, int i )``` 
+  Summary : copy 32bit integer value to any buffer
+
+  Category : util
+
+  Prototype : ```void SET_32BIT_NATIVEINT( char *p, int i )``` 
+
   - arg 1 : ```char *p```
     Top address of destination buffer.
 
@@ -775,9 +832,12 @@ VCE implements this macro as a function.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_64BIT_INT"></a>
 - <B>SET_64BIT_INT</B>
-Summary : Copy 32-bit integer to buffer in network byte-order.
-Category : util
-Prototype : ```void SET_64BIT_INT( char *b, VCEI64 i )``` 
+  Summary : Copy 32-bit integer to buffer in network byte-order.
+
+  Category : util
+
+  Prototype : ```void SET_64BIT_INT( char *b, VCEI64 i )``` 
+
   - arg 1 : ```char *b```
     Top address of input data.
 
@@ -796,9 +856,12 @@ category for protocol analysis( they make it robust ).
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a><a href="#SET_8BIT_INT">SET_8BIT_INT</a>
 <a name="SET_64BIT_NATIVEINT"></a>
 - <B>SET_64BIT_NATIVEINT</B>
-Summary : copy 64bit integer value to any buffer
-Category : util
-Prototype : ```void SET_64BIT_NATIVEINT( char *p, VCEI64 i )``` 
+  Summary : copy 64bit integer value to any buffer
+
+  Category : util
+
+  Prototype : ```void SET_64BIT_NATIVEINT( char *p, VCEI64 i )``` 
+
   - arg 1 : ```char *p```
     Top address of destination buffer.
 
@@ -814,9 +877,12 @@ VCE implements this macro as a function.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="SET_8BIT_INT"></a>
 - <B>SET_8BIT_INT</B>
-Summary : Copy 8-bit integer to buffer
-Category : util
-Prototype : ```void SET_8BIT_INT( char *b, unsigned char i )``` 
+  Summary : Copy 8-bit integer to buffer
+
+  Category : util
+
+  Prototype : ```void SET_8BIT_INT( char *b, unsigned char i )``` 
+
   - arg 1 : ```char *b```
     Top address of destination buffer.
 
@@ -832,9 +898,12 @@ maintaining consistency with 32 and 16 bit macro or others.
   See also : <a href="#GET_16BIT_INT">GET_16BIT_INT</a><a href="#GET_32BIT_INT">GET_32BIT_INT</a><a href="#GET_8BIT_INT">GET_8BIT_INT</a><a href="#SET_16BIT_INT">SET_16BIT_INT</a><a href="#SET_32BIT_INT">SET_32BIT_INT</a>
 <a name="SET_8BIT_NATIVEINT"></a>
 - <B>SET_8BIT_NATIVEINT</B>
-Summary : Copy 8bit integer value to any buffer
-Category : util
-Prototype : ```void SET_8BIT_NATIVEINT( char *p, char i )``` 
+  Summary : Copy 8bit integer value to any buffer
+
+  Category : util
+
+  Prototype : ```void SET_8BIT_NATIVEINT( char *p, char i )``` 
+
   - arg 1 : ```char *P```
     Top address of destiniation buffer.
 
@@ -849,9 +918,12 @@ maintaining consistency with SET_16BIT_NATIVEINT,SET_32BIT_NATIVEINT.
   See also : <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a><a href="#SET_8BIT_NATIVEINT">SET_8BIT_NATIVEINT</a>
 <a name="STRERR"></a>
 - <B>STRERR</B>
-Summary : Get string of latest VCE error
-Category : util
-Prototype : ```char *STRERR``` 
+  Summary : Get string of latest VCE error
+
+  Category : util
+
+  Prototype : ```char *STRERR``` 
+
   Return value : Pointer to string explaining the error code.
 
   Description : STRERR macro is defined as
@@ -862,9 +934,12 @@ Prototype : ```char *STRERR```
   See also : <a href="#vce_get_last_error">vce_get_last_error</a><a href="#vce_strerror">vce_strerror</a>
 <a name="vce_alloc_array_object"></a>
 - <B>vce_alloc_array_object</B>
-Summary : Allocate an unused element of a VCE array.
-Category : array
-Prototype : ```void * vce_alloc_array_object( int index )``` 
+  Summary : Allocate an unused element of a VCE array.
+
+  Category : array
+
+  Prototype : ```void * vce_alloc_array_object( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE array.
 
@@ -881,9 +956,12 @@ memory.
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_array_object_inuse"></a>
 - <B>vce_array_object_inuse</B>
-Summary : Know a VCE array object is currently used or not
-Category : array
-Prototype : ```int vce_array_object_inuse( int index, void *p )``` 
+  Summary : Know a VCE array object is currently used or not
+
+  Category : array
+
+  Prototype : ```int vce_array_object_inuse( int index, void *p )``` 
+
   - arg 1 : ```int index```
     Integer discriptor value to specify VCE array
 
@@ -900,9 +978,12 @@ out of range )
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object">vce_free_array_object</a>
 <a name="vce_atoi"></a>
 - <B>vce_atoi</B>
-Summary : Convert C string into a int value with simple calcuration.
-Category : util
-Prototype : ```int vce_atoi( char *p )``` 
+  Summary : Convert C string into a int value with simple calcuration.
+
+  Category : util
+
+  Prototype : ```int vce_atoi( char *p )``` 
+
   - arg 1 : ```char *p```
     Top address of string being converted.
 
@@ -941,9 +1022,12 @@ so it may be not performing stably-sometimes results make no sense.
 
 <a name="vce_binary_pack"></a>
 - <B>vce_binary_pack</B>
-Summary : Make a byte array from an array of structure. (obsolete)
-Category : bin
-Prototype : ```int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )``` 
+  Summary : Make a byte array from an array of structure. (obsolete)
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )``` 
+
   - arg 1 : ```struct bin_info *bi```
     Top address of an array of bin_info structure
 
@@ -967,9 +1051,12 @@ protocol processing.
 
 <a name="vce_binary_pop_nb_i1"></a>
 - <B>vce_binary_pop_nb_i1</B>
-Summary : Pop a 1-byte integer(char) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)``` 
+  Summary : Pop a 1-byte integer(char) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer
 
@@ -991,9 +1078,12 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i1">vce_binary_push_nb_i1</a>
 <a name="vce_binary_pop_nb_i2"></a>
 - <B>vce_binary_pop_nb_i2</B>
-Summary : Pop a 2-byte integer(short) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )``` 
+  Summary : Pop a 2-byte integer(short) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer
 
@@ -1015,9 +1105,12 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i2">vce_binary_push_nb_i2</a>
 <a name="vce_binary_pop_nb_i4"></a>
 - <B>vce_binary_pop_nb_i4</B>
-Summary : Pop a 4-byte integer(int) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )``` 
+  Summary : Pop a 4-byte integer(int) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer
 
@@ -1039,9 +1132,12 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i4">vce_binary_push_nb_i4</a>
 <a name="vce_binary_pop_nb_i8"></a>
 - <B>vce_binary_pop_nb_i8</B>
-Summary : Pop a 8-byte integer(int) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )``` 
+  Summary : Pop a 8-byte integer(int) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer
 
@@ -1063,9 +1159,12 @@ returns a negative error code in case of failure (such as data shortage).
   See also : <a href="#vce_binary_push_nb_i8">vce_binary_push_nb_i8</a>
 <a name="vce_binary_pop_nb_ia1"></a>
 - <B>vce_binary_pop_nb_ia1</B>
-Summary : Pop an array of 1-byte integer(char) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )``` 
+  Summary : Pop an array of 1-byte integer(char) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     Top address of input data buffer
 
@@ -1095,9 +1194,12 @@ policy on binary operation.
   See also : <a href="#vce_binary_push_nb_ia1">vce_binary_push_nb_ia1</a>
 <a name="vce_binary_pop_nb_ia2"></a>
 - <B>vce_binary_pop_nb_ia2</B>
-Summary : Pop an array of 2-byte integer(short) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )``` 
+  Summary : Pop an array of 2-byte integer(short) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer.
 
@@ -1128,9 +1230,12 @@ After being changed its order from network byte to native, data is stored.
   See also : <a href="#vce_binary_push_nb_ia2">vce_binary_push_nb_ia2</a>
 <a name="vce_binary_pop_nb_ia4"></a>
 - <B>vce_binary_pop_nb_ia4</B>
-Summary : Pop an array of 4-byte integer(int) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )``` 
+  Summary : Pop an array of 4-byte integer(int) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer
 
@@ -1161,9 +1266,12 @@ Having been changed its order from network byte to native, data is stored.
   See also : <a href="#vce_binary_push_nb_ia4">vce_binary_push_nb_ia4</a>
 <a name="vce_binary_pop_nb_ia8"></a>
 - <B>vce_binary_pop_nb_ia8</B>
-Summary : Pop an array of 8-byte integer(int) from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )``` 
+  Summary : Pop an array of 8-byte integer(int) from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer
 
@@ -1194,9 +1302,12 @@ Having been changed its order from network byte to native, data is stored.
   See also : <a href="#vce_binary_push_nb_ia8">vce_binary_push_nb_ia8</a>
 <a name="vce_binary_pop_nb_stra"></a>
 - <B>vce_binary_pop_nb_stra</B>
-Summary : Pop an array of strings from a buffer
-Category : bin
-Prototype : ```int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )``` 
+  Summary : Pop an array of strings from a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )``` 
+
   - arg 1 : ```char *in```
     Top address of input buffer
 
@@ -1241,9 +1352,12 @@ allocated by the application using this function.(refer to sample codes)
   See also : <a href="#vce_binary_push_nb_stra">vce_binary_push_nb_stra</a>
 <a name="vce_binary_push_nb_i1"></a>
 - <B>vce_binary_push_nb_i1</B>
-Summary : Push 1-byte integer(char) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )``` 
+  Summary : Push 1-byte integer(char) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1267,9 +1381,12 @@ You can fetch data by the corresponding vce_binary_pop_nb_i1function.
   See also : <a href="#vce_binary_pop_nb_i1">vce_binary_pop_nb_i1</a>
 <a name="vce_binary_push_nb_i2"></a>
 - <B>vce_binary_push_nb_i2</B>
-Summary : Push 2-byte integer(short) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )``` 
+  Summary : Push 2-byte integer(short) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1298,9 +1415,12 @@ Data is output on the network byte order.
   See also : <a href="#vce_binary_pop_nb_i2">vce_binary_pop_nb_i2</a>
 <a name="vce_binary_push_nb_i4"></a>
 - <B>vce_binary_push_nb_i4</B>
-Summary : Push 4-byte integer(int) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )``` 
+  Summary : Push 4-byte integer(int) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1329,9 +1449,12 @@ Data is output on the network in byte order.
   See also : <a href="#vce_binary_pop_nb_i4">vce_binary_pop_nb_i4</a>
 <a name="vce_binary_push_nb_i8"></a>
 - <B>vce_binary_push_nb_i8</B>
-Summary : Push 8-byte integer(VCEI64) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )``` 
+  Summary : Push 8-byte integer(VCEI64) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1360,9 +1483,12 @@ Data is output on the network in byte order.
   See also : <a href="#vce_binary_pop_nb_i8">vce_binary_pop_nb_i8</a>
 <a name="vce_binary_push_nb_ia1"></a>
 - <B>vce_binary_push_nb_ia1</B>
-Summary : Push an array of 1-byte integer(char) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )``` 
+  Summary : Push an array of 1-byte integer(char) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1391,9 +1517,12 @@ it returns a negative error code
   See also : <a href="#vce_binary_pop_nb_ia1">vce_binary_pop_nb_ia1</a>
 <a name="vce_binary_push_nb_ia2"></a>
 - <B>vce_binary_push_nb_ia2</B>
-Summary : Push an array of 2-byte integer(short) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )``` 
+  Summary : Push an array of 2-byte integer(short) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1423,9 +1552,12 @@ instead of destroying it.
   See also : <a href="#vce_binary_pop_nb_ia2">vce_binary_pop_nb_ia2</a>
 <a name="vce_binary_push_nb_ia4"></a>
 - <B>vce_binary_push_nb_ia4</B>
-Summary : Push an array of 4-byte integer(int) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )``` 
+  Summary : Push an array of 4-byte integer(int) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1453,9 +1585,12 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
   See also : <a href="#vce_binary_pop_nb_ia4">vce_binary_pop_nb_ia4</a>
 <a name="vce_binary_push_nb_ia8"></a>
 - <B>vce_binary_push_nb_ia8</B>
-Summary : Push an array of 8-byte integer(VCEI64) to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )``` 
+  Summary : Push an array of 8-byte integer(VCEI64) to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1483,9 +1618,12 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
   See also : <a href="#vce_binary_pop_nb_ia8">vce_binary_pop_nb_ia8</a>
 <a name="vce_binary_push_nb_stra"></a>
 - <B>vce_binary_push_nb_stra</B>
-Summary : Push null-terminated string array to a buffer
-Category : bin
-Prototype : ```int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )``` 
+  Summary : Push null-terminated string array to a buffer
+
+  Category : bin
+
+  Prototype : ```int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )``` 
+
   - arg 1 : ```char *out```
     Top address of output buffer
 
@@ -1519,9 +1657,12 @@ character string. When num is 0, NULL can be designated as stra.
   See also : <a href="#vce_binary_pop_nb_stra">vce_binary_pop_nb_stra</a>
 <a name="vce_binary_unpack"></a>
 - <B>vce_binary_unpack</B>
-Summary : Unpack binary char array into an array of struct.(obsolete)
-Category : bin
-Prototype : ```int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )``` 
+  Summary : Unpack binary char array into an array of struct.(obsolete)
+
+  Category : bin
+
+  Prototype : ```int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )``` 
+
   - arg 1 : ```struct bin_info *bi```
     Top address of an array of bin_info structure
 
@@ -1547,18 +1688,24 @@ It is mainly used for protocol processing.
   See also : <a href="#vce_binary_pack">vce_binary_pack</a>
 <a name="vce_conn_break_heartbeat"></a>
 - <B>vce_conn_break_heartbeat</B>
-Summary : PENDING
-Category : tcp
-Prototype : ```void vce_conn_break_heartbeat()``` 
+  Summary : PENDING
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_break_heartbeat()``` 
+
   Return value : 
   Description : PENDING
 
   See also : <a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_conn_clear"></a>
 - <B>vce_conn_clear</B>
-Summary : Initialize conn_t instance
-Category : tcp
-Prototype : ```void vce_conn_clear( conn_t *c )``` 
+  Summary : Initialize conn_t instance
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_clear( conn_t *c )``` 
+
   - arg 1 : ```conn_t *c```
     pointer to a conn_t
 
@@ -1570,9 +1717,12 @@ Zero-clear with memset is not formal.
 
 <a name="vce_conn_close"></a>
 - <B>vce_conn_close</B>
-Summary : Close and release one TCP connection.
-Category : tcp
-Prototype : ```void vce_conn_close( conn_t ct )``` 
+  Summary : Close and release one TCP connection.
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_close( conn_t ct )``` 
+
   - arg 1 : ```conn_t ct```
     A TCP connection (conn_t) to be closed.
 
@@ -1606,9 +1756,12 @@ vce_conn_set_timeout( co, 0 );
   See also : <a href="# vce_tcpcontext_connect"> vce_tcpcontext_connect</a><a href="# vce_tcpcontext_create"> vce_tcpcontext_create</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_close_tcpcontext_all"></a>
 - <B>vce_conn_close_tcpcontext_all</B>
-Summary : Close all connections maintained by a tcpcontext.
-Category : tcp
-Prototype : ```void vce_conn_close_tcpcontext_all( tcpcontext_t tp )``` 
+  Summary : Close all connections maintained by a tcpcontext.
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_close_tcpcontext_all( tcpcontext_t tp )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Target tcpcontext, which contains one or more conn_t
 which will be closed by calling this function.
@@ -1631,9 +1784,12 @@ In the verbose mode, a log is output upon every disconnection.
   See also : <a href="#vce_tcpcontext_enable_accept">vce_tcpcontext_enable_accept</a>
 <a name="vce_conn_get_buffer"></a>
 - <B>vce_conn_get_buffer</B>
-Summary : Get conn_t's read/write buffer.
-Category : tcp
-Prototype : ```void vce_conn_get_buffer( conn_t c, char **rb, int  *rblen, char **wb, int *wblen )``` 
+  Summary : Get conn_t's read/write buffer.
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_get_buffer( conn_t c, char **rb, int  *rblen, char **wb, int *wblen )``` 
+
   - arg 1 : ```conn_t c```
     target conn_t
 
@@ -1661,9 +1817,12 @@ by vce_tcpcontext_set_conn_parser function.
   See also : <a href="#vce_conn_shrink_readbuf">vce_conn_shrink_readbuf</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_get_index"></a>
 - <B>vce_conn_get_index</B>
-Summary : Get index number of conn_t in VCE library.
-Category : tcp
-Prototype : ```int vce_conn_get_index( conn_t c );``` 
+  Summary : Get index number of conn_t in VCE library.
+
+  Category : tcp
+
+  Prototype : ```int vce_conn_get_index( conn_t c );``` 
+
   - arg 1 : ```conn_t c```
     target conn_t. retrieve index from this conn_t.
 
@@ -1678,9 +1837,12 @@ in your application.
   See also : <a href="#vce_conn_get_struct_from_index">vce_conn_get_struct_from_index</a>
 <a name="vce_conn_get_local_addr_string"></a>
 - <B>vce_conn_get_local_addr_string</B>
-Summary : Get local address and port number from conn_t by string
-Category : tcp
-Prototype : ```char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )``` 
+  Summary : Get local address and port number from conn_t by string
+
+  Category : tcp
+
+  Prototype : ```char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1699,9 +1861,12 @@ vce_conn_get_remote_addr_string function's.
   See also : <a href="#vce_conn_get_remote_addr_string">vce_conn_get_remote_addr_string</a>
 <a name="vce_conn_get_local_ipv4_addr"></a>
 - <B>vce_conn_get_local_ipv4_addr</B>
-Summary : Get 32-bit IPv4 local address from a TCP connection
-Category : tcp
-Prototype : ```void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+  Summary : Get 32-bit IPv4 local address from a TCP connection
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1723,9 +1888,12 @@ It should be converted using ntohs, ntohl or others as you need.
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_local_ipv4_addr_string"></a>
 - <B>vce_conn_get_local_ipv4_addr_string</B>
-Summary : Get Ipv4 local peer address from a TCP connectin as a string
-Category : tcp
-Prototype : ```char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+  Summary : Get Ipv4 local peer address from a TCP connectin as a string
+
+  Category : tcp
+
+  Prototype : ```char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1749,9 +1917,12 @@ because we should persue protocol independency in our applications.
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_local_ipv6_addr"></a>
 - <B>vce_conn_get_local_ipv6_addr</B>
-Summary : Get 128-bit IPv6 local address from a TCP connection
-Category : tcp
-Prototype : ```void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+  Summary : Get 128-bit IPv6 local address from a TCP connection
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1772,9 +1943,12 @@ Ignore this parameter if NULL is set.
   See also : <a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_local_ipv6_addr_string"></a>
 - <B>vce_conn_get_local_ipv6_addr_string</B>
-Summary : Get Ipv6 local address from a TCP connectin as a string
-Category : tcp
-Prototype : ```char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+  Summary : Get Ipv6 local address from a TCP connectin as a string
+
+  Category : tcp
+
+  Prototype : ```char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1794,9 +1968,12 @@ it is recommended to use vce_conn_get_local_addr_string function instead.
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a>
 <a name="vce_conn_get_remote_addr_string"></a>
 - <B>vce_conn_get_remote_addr_string</B>
-Summary : Get remote peer address and port number from conn_t by string
-Category : tcp
-Prototype : ```char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )``` 
+  Summary : Get remote peer address and port number from conn_t by string
+
+  Category : tcp
+
+  Prototype : ```char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1823,9 +2000,12 @@ string belongs is left to an application.
   See also : <a href="#vce_conn_get_local_addr_string">vce_conn_get_local_addr_string</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a>
 <a name="vce_conn_get_remote_ipv4_addr"></a>
 - <B>vce_conn_get_remote_ipv4_addr</B>
-Summary : Get 32-bit IPv4 remote peer address from a TCP connection
-Category : tcp
-Prototype : ```void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+  Summary : Get 32-bit IPv4 remote peer address from a TCP connection
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1846,9 +2026,12 @@ so you use ntohs(), or ntohl() if you need them.
 
 <a name="vce_conn_get_remote_ipv4_addr_string"></a>
 - <B>vce_conn_get_remote_ipv4_addr_string</B>
-Summary : Get Ipv4 remote peer address from a TCP connectin as a string
-Category : tcp
-Prototype : ```char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+  Summary : Get Ipv4 remote peer address from a TCP connectin as a string
+
+  Category : tcp
+
+  Prototype : ```char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1873,9 +2056,12 @@ vce_conn_get_remote_addr function.
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr">vce_conn_get_remote_ipv4_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr"></a>
 - <B>vce_conn_get_remote_ipv6_addr</B>
-Summary : Get 128-bit IPv6 remote peer address from a TCP connection
-Category : tcp
-Prototype : ```void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+  Summary : Get 128-bit IPv6 remote peer address from a TCP connection
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1897,9 +2083,12 @@ You use ntohs(), or ntohl() functions in case you need them.
   See also : <a href="#vce_conn_get_local_ipv6_addr">vce_conn_get_local_ipv6_addr</a>
 <a name="vce_conn_get_remote_ipv6_addr_string"></a>
 - <B>vce_conn_get_remote_ipv6_addr_string</B>
-Summary : Get Ipv6 remote peer address from a TCP connectin as a string
-Category : tcp
-Prototype : ```char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+  Summary : Get Ipv6 remote peer address from a TCP connectin as a string
+
+  Category : tcp
+
+  Prototype : ```char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1917,9 +2106,12 @@ function.
   See also : <a href="#vce_conn_get_remote_addr">vce_conn_get_remote_addr</a><a href="#vce_conn_get_remote_ipv4_addr_string">vce_conn_get_remote_ipv4_addr_string</a><a href="#vce_conn_get_remote_ipv6_addr">vce_conn_get_remote_ipv6_addr</a>
 <a name="vce_conn_get_stat"></a>
 - <B>vce_conn_get_stat</B>
-Summary : Get conn_t's statistics information
-Category : tcp
-Prototype : ```void vce_conn_get_stat( conn_t ct, conn_stat_t *st )``` 
+  Summary : Get conn_t's statistics information
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_get_stat( conn_t ct, conn_stat_t *st )``` 
+
   - arg 1 : ```conn_t ct```
     source conn_t
 
@@ -1947,9 +2139,12 @@ are invoked toward this connection.
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_get_stat">vce_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_conn_get_state_buffer"></a>
 - <B>vce_conn_get_state_buffer</B>
-Summary : Get pointer to conn_t's state buffer.
-Category : tcp
-Prototype : ```void * vce_conn_get_state_buffer( conn_t c, int *len );``` 
+  Summary : Get pointer to conn_t's state buffer.
+
+  Category : tcp
+
+  Prototype : ```void * vce_conn_get_state_buffer( conn_t c, int *len );``` 
+
   - arg 1 : ```conn_t c```
     source conn_t
 
@@ -1968,9 +2163,12 @@ this returns a pointer to the buffer having the region of that size.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_get_struct_from_index"></a>
 - <B>vce_conn_get_struct_from_index</B>
-Summary : Get conn_t struct from index number.
-Category : tcp
-Prototype : ```conn_t vce_conn_get_struct_from_index( int index );``` 
+  Summary : Get conn_t struct from index number.
+
+  Category : tcp
+
+  Prototype : ```conn_t vce_conn_get_struct_from_index( int index );``` 
+
   - arg 1 : ```int index```
     Index of the conn_t. You can get conn_t by specifying index
 number which is got by using vce_conn_get_index function.
@@ -1983,9 +2181,12 @@ from "session ID" in your application.
   See also : <a href="#vce_conn_get_index">vce_conn_get_index</a>
 <a name="vce_conn_get_tcpcontext"></a>
 - <B>vce_conn_get_tcpcontext</B>
-Summary : get tcpcontext_t from a conn_t
-Category : tcp
-Prototype : ```tcpcontext_t vce_conn_get_tcpcontext( conn_t c )``` 
+  Summary : get tcpcontext_t from a conn_t
+
+  Category : tcp
+
+  Prototype : ```tcpcontext_t vce_conn_get_tcpcontext( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     target conn_t
 
@@ -2001,9 +2202,12 @@ but seldom be used from an application.
   See also : <a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_is_equal"></a>
 - <B>vce_conn_is_equal</B>
-Summary : Check if two conn_t instances are the same
-Category : tcp
-Prototype : ```int vce_conn_is_equal( conn_t c1 , conn_t c2 )``` 
+  Summary : Check if two conn_t instances are the same
+
+  Category : tcp
+
+  Prototype : ```int vce_conn_is_equal( conn_t c1 , conn_t c2 )``` 
+
   - arg 1 : ```conn_t c1```
     first target
 
@@ -2021,9 +2225,12 @@ pointer and serial number.
 
 <a name="vce_conn_is_valid"></a>
 - <B>vce_conn_is_valid</B>
-Summary : Check if a TCP connection ( conn_t ) is broken or not.
-Category : tcp
-Prototype : ```int vce_conn_is_valid( conn_t c )``` 
+  Summary : Check if a TCP connection ( conn_t ) is broken or not.
+
+  Category : tcp
+
+  Prototype : ```int vce_conn_is_valid( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     target conn_t
 
@@ -2044,9 +2251,12 @@ you must use vce_conn_writable function all the time, not this function.
   See also : <a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_set_delay"></a>
 - <B>vce_conn_set_delay</B>
-Summary : pending
-Category : core
-Prototype : ```void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)``` 
+  Summary : pending
+
+  Category : core
+
+  Prototype : ```void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)``` 
+
   - arg 1 : ```conn_t ct```
     pending
 
@@ -2065,9 +2275,12 @@ Prototype : ```void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)```
 
 <a name="vce_conn_set_parser"></a>
 - <B>vce_conn_set_parser</B>
-Summary : Set protocl parser and callback function per conn_t basis
-Category : tcp
-Prototype : ```void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))``` 
+  Summary : Set protocl parser and callback function per conn_t basis
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -2093,9 +2306,12 @@ the debug mode, or to the control function, as well.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_conn_set_timeout"></a>
 - <B>vce_conn_set_timeout</B>
-Summary : Change each conn_t's timeout length
-Category : tcp
-Prototype : ```void vce_conn_set_timeout( conn_t c, int sec )``` 
+  Summary : Change each conn_t's timeout length
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_set_timeout( conn_t c, int sec )``` 
+
   - arg 1 : ```conn_t c```
     target conn_t
 
@@ -2114,9 +2330,12 @@ if you want special high security in some situation.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_conn_show_stat"></a>
 - <B>vce_conn_show_stat</B>
-Summary : Show stats of all active connections.
-Category : tcp
-Prototype : ```void vce_conn_show_stat( void )``` 
+  Summary : Show stats of all active connections.
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_show_stat( void )``` 
+
   Return value : None
 
   Description : This outputs statistical information of the same number
@@ -2161,9 +2380,12 @@ unavailable in Win32GUI environment.
 
 <a name="vce_conn_shrink_readbuf"></a>
 - <B>vce_conn_shrink_readbuf</B>
-Summary : shrink conn_t's read buffer
-Category : tcp
-Prototype : ```int vce_conn_shrink_readbuf( conn_t ct, int len )``` 
+  Summary : shrink conn_t's read buffer
+
+  Category : tcp
+
+  Prototype : ```int vce_conn_shrink_readbuf( conn_t ct, int len )``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -2179,9 +2401,12 @@ vce_conn_shrink_readbuf, after processing the contents of the read buffer.
 
 <a name="vce_conn_userdata_get_pointer"></a>
 - <B>vce_conn_userdata_get_pointer</B>
-Summary : 
-Category : tcp
-Prototype : ```void *vce_conn_userdata_set_pointer(conn_t ct);``` 
+  Summary : 
+
+  Category : tcp
+
+  Prototype : ```void *vce_conn_userdata_set_pointer(conn_t ct);``` 
+
   - arg 1 : ```conn_t ct```
     
   Return value : 
@@ -2189,9 +2414,12 @@ Prototype : ```void *vce_conn_userdata_set_pointer(conn_t ct);```
 
 <a name="vce_conn_userdata_set_pointer"></a>
 - <B>vce_conn_userdata_set_pointer</B>
-Summary : 
-Category : tcp
-Prototype : ```void vce_conn_userdata_set_pointer(conn_t ct,void *p);``` 
+  Summary : 
+
+  Category : tcp
+
+  Prototype : ```void vce_conn_userdata_set_pointer(conn_t ct,void *p);``` 
+
   - arg 1 : ```conn_t ct```
     
   - arg 2 : ```void *p```
@@ -2201,9 +2429,12 @@ Prototype : ```void vce_conn_userdata_set_pointer(conn_t ct,void *p);```
 
 <a name="vce_conn_writable"></a>
 - <B>vce_conn_writable</B>
-Summary : Check if a TCP connection is ready to use (write).
-Category : tcp
-Prototype : ```int vce_conn_writable( conn_t ct );``` 
+  Summary : Check if a TCP connection is ready to use (write).
+
+  Category : tcp
+
+  Prototype : ```int vce_conn_writable( conn_t ct );``` 
+
   - arg 1 : ```conn_t ct```
     A conn_t variable to be checked. If you're using nonblocking connect()
 option on vce_tcpcontext_create, you can check if TCP socket is
@@ -2238,9 +2469,12 @@ when writing something into conn_t in your application.
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_write">vce_conn_write</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a>
 <a name="vce_conn_write"></a>
 - <B>vce_conn_write</B>
-Summary : Write raw data into a TCP connection.
-Category : tcp
-Prototype : ```int vce_conn_write( conn_t ct, char *b, size_t len );``` 
+  Summary : Write raw data into a TCP connection.
+
+  Category : tcp
+
+  Prototype : ```int vce_conn_write( conn_t ct, char *b, size_t len );``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t to write
 
@@ -2291,9 +2525,12 @@ and calling vce_conn_close is perferable.
   See also : <a href="#vce_conn_close">vce_conn_close</a><a href="#vce_conn_writable">vce_conn_writable</a>
 <a name="vce_conn_writed"></a>
 - <B>vce_conn_writed</B>
-Summary : 
-Category : tcp
-Prototype : ```int vce_conn_writed( conn_t c )``` 
+  Summary : 
+
+  Category : tcp
+
+  Prototype : ```int vce_conn_writed( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     target conn_t
 
@@ -2302,9 +2539,12 @@ Prototype : ```int vce_conn_writed( conn_t c )```
   See also : <a href="#vce_conn_valid">vce_conn_valid</a>
 <a name="vce_dump_buffer"></a>
 - <B>vce_dump_buffer</B>
-Summary : Dump binary data array using vce_errout.
-Category : util
-Prototype : ```void vce_dump_buffer( char *buf, int len )``` 
+  Summary : Dump binary data array using vce_errout.
+
+  Category : util
+
+  Prototype : ```void vce_dump_buffer( char *buf, int len )``` 
+
   - arg 1 : ```char *buf```
     Top address of data being dumped
 
@@ -2320,9 +2560,12 @@ This is so simple that displays dividing every 8 bytes in the buffer.
   See also : <a href="#vce_errout">vce_errout</a>
 <a name="vce_end_all_array"></a>
 - <B>vce_end_all_array</B>
-Summary : Release all VCE array.
-Category : array
-Prototype : ```void vce_end_all_array( void )``` 
+  Summary : Release all VCE array.
+
+  Category : array
+
+  Prototype : ```void vce_end_all_array( void )``` 
+
   Return value : None
 
   Description : Call vce_end_array against all VCE arrays maintained by VCE.
@@ -2330,9 +2573,12 @@ Prototype : ```void vce_end_all_array( void )```
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_end_array"></a>
 - <B>vce_end_array</B>
-Summary : Release a VCE array.
-Category : array
-Prototype : ```int vce_end_array( int index )``` 
+  Summary : Release a VCE array.
+
+  Category : array
+
+  Prototype : ```int vce_end_array( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor, which is formerly returned by vce_init_array.
 
@@ -2346,9 +2592,12 @@ vce_end_array function calls the FREE function inside it.
   See also : <a href="#FREE">FREE</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_errout"></a>
 - <B>vce_errout</B>
-Summary : Log output for VCE application
-Category : core
-Prototype : ```int vce_errout( const char *format, ... )``` 
+  Summary : Log output for VCE application
+
+  Category : core
+
+  Prototype : ```int vce_errout( const char *format, ... )``` 
+
   - arg 1 : ```char *format```
     Format string. Same as "printf" libc function.
 
@@ -2362,9 +2611,12 @@ No argument is also acceptable.
   See also : <a href="# vce_errout_set_another"> vce_errout_set_another</a><a href="# vce_verrout"> vce_verrout</a><a href="#vce_errout_config">vce_errout_config</a><a href="#vce_errout_v">vce_errout_v</a>
 <a name="vce_extract_data_from_hex_text"></a>
 - <B>vce_extract_data_from_hex_text</B>
-Summary : Convert hextext format ASCII text into a binary data array.
-Category : util
-Prototype : ```int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )``` 
+  Summary : Convert hextext format ASCII text into a binary data array.
+
+  Category : util
+
+  Prototype : ```int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )``` 
+
   - arg 1 : ```char *buf```
     Top address of input ASCII text string.
 
@@ -2387,9 +2639,12 @@ after checking validity of contents of "buf".
   See also : <a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_finalize"></a>
 - <B>vce_finalize</B>
-Summary : Release all resources used by VCE.
-Category : core
-Prototype : ```int vce_finalize( void )``` 
+  Summary : Release all resources used by VCE.
+
+  Category : core
+
+  Prototype : ```int vce_finalize( void )``` 
+
   Return value : Returns 0 if successful. Otherwise minus error indicator value.
 
   Description : This releases all the resources used by VCE.
@@ -2399,9 +2654,12 @@ undefined action except vce_errout*.
 
 <a name="vce_free_array_object"></a>
 - <B>vce_free_array_object</B>
-Summary : Free an element of a VCE array.
-Category : array
-Prototype : ```int vce_free_array_object( int index , void *p )``` 
+  Summary : Free an element of a VCE array.
+
+  Category : array
+
+  Prototype : ```int vce_free_array_object( int index , void *p )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE array.
 
@@ -2417,9 +2675,12 @@ being released.
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_free_array_object_all"></a>
 - <B>vce_free_array_object_all</B>
-Summary : Free all elements in an array
-Category : array
-Prototype : ```void vce_free_array_object_all( int index )``` 
+  Summary : Free all elements in an array
+
+  Category : array
+
+  Prototype : ```void vce_free_array_object_all( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE array.
 
@@ -2434,9 +2695,12 @@ initialization is planned (version 1 and later).
   See also : <a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_maxnum"></a>
 - <B>vce_get_array_maxnum</B>
-Summary : Get max number of array elements
-Category : array
-Prototype : ```int vce_get_array_maxnum( int index )``` 
+  Summary : Get max number of array elements
+
+  Category : array
+
+  Prototype : ```int vce_get_array_maxnum( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor of target VCE array
 
@@ -2448,9 +2712,12 @@ Same as vce_init_array's "num" parameter.
   See also : <a href="#vce_get_array_member_size">vce_get_array_member_size</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_member_size"></a>
 - <B>vce_get_array_member_size</B>
-Summary : Get size of each members of an array
-Category : array
-Prototype : ```int vce_get_array_member_size( int index )``` 
+  Summary : Get size of each members of an array
+
+  Category : array
+
+  Prototype : ```int vce_get_array_member_size( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor of target VCE array
 
@@ -2464,9 +2731,12 @@ control routine.
   See also : <a href="#vce_get_array_maxnum">vce_get_array_maxnum</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_index"></a>
 - <B>vce_get_array_object_index</B>
-Summary : Get index number of an element in an VCE array.
-Category : array
-Prototype : ```int vce_get_array_object_index( int index , void *p )``` 
+  Summary : Get index number of an element in an VCE array.
+
+  Category : array
+
+  Prototype : ```int vce_get_array_object_index( int index , void *p )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array.
 
@@ -2483,9 +2753,12 @@ subtracting the designated pointer from an array's top pointer.
 
 <a name="vce_get_array_object_last"></a>
 - <B>vce_get_array_object_last</B>
-Summary : Get last element of VCE array.
-Category : array
-Prototype : ```void * vce_get_array_object_last( int index )``` 
+  Summary : Get last element of VCE array.
+
+  Category : array
+
+  Prototype : ```void * vce_get_array_object_last( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array.
 
@@ -2501,9 +2774,12 @@ and extraction from the tail.
   See also : <a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_next"></a>
 - <B>vce_get_array_object_next</B>
-Summary : Get an VCE array element succeedinng given elemnt
-Category : array
-Prototype : ```void * vce_get_array_object_next( int index , void *p )``` 
+  Summary : Get an VCE array element succeedinng given elemnt
+
+  Category : array
+
+  Prototype : ```void * vce_get_array_object_next( int index , void *p )``` 
+
   - arg 1 : ```int index```
     Array descriptor of the VCE's array.
 
@@ -2521,9 +2797,12 @@ The ARRAY_SCAN macro is safer and sure to use.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_top">vce_get_array_object_top</a>
 <a name="vce_get_array_object_pointer_by_index"></a>
 - <B>vce_get_array_object_pointer_by_index</B>
-Summary : Get a VCE array element by index number
-Category : array
-Prototype : ```void *vce_get_array_object_pointer_by_index( int index, int objindex )``` 
+  Summary : Get a VCE array element by index number
+
+  Category : array
+
+  Prototype : ```void *vce_get_array_object_pointer_by_index( int index, int objindex )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array
 
@@ -2548,9 +2827,12 @@ the contents of an error may be known by using vce_get_last_error.
   See also : <a href="#vce_get_array_object_pointer_by_index_only_used">vce_get_array_object_pointer_by_index_only_used</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_pointer_by_index_only_used"></a>
 - <B>vce_get_array_object_pointer_by_index_only_used</B>
-Summary : Get a VCE array element by index number, which are being used
-Category : array
-Prototype : ```void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )``` 
+  Summary : Get a VCE array element by index number, which are being used
+
+  Category : array
+
+  Prototype : ```void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array
 
@@ -2566,9 +2848,12 @@ but you can select used elements using this function.
   See also : <a href="#vce_get_array_object_pointer_by_index">vce_get_array_object_pointer_by_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_array_object_top"></a>
 - <B>vce_get_array_object_top</B>
-Summary : 
-Category : array
-Prototype : ```void * vce_get_array_object_top( int index )``` 
+  Summary : 
+
+  Category : array
+
+  Prototype : ```void * vce_get_array_object_top( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array.
 
@@ -2584,9 +2869,12 @@ applications to directly use the ARRAY_SCAN macro, not this function.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_next">vce_get_array_object_next</a>
 <a name="vce_get_array_usenum"></a>
 - <B>vce_get_array_usenum</B>
-Summary : Count how many
-Category : array
-Prototype : ```int vce_get_array_usenum( int index )``` 
+  Summary : Count how many
+
+  Category : array
+
+  Prototype : ```int vce_get_array_usenum( int index )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array.
 
@@ -2599,9 +2887,12 @@ This function is really fast because it does not scan the array.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_get_current_utime"></a>
 - <B>vce_get_current_utime</B>
-Summary : Get current time by VCEI64 data type
-Category : util
-Prototype : ```VCEI64 vce_get_current_utime( void )``` 
+  Summary : Get current time by VCEI64 data type
+
+  Category : util
+
+  Prototype : ```VCEI64 vce_get_current_utime( void )``` 
+
   Return value : The current time.
 In UNIX environment, this function will convert "timeval" structure
 into VCEI64 type.
@@ -2618,9 +2909,12 @@ VCE renews the return value each time vce_heartbeat is invoked.
   See also : <a href="#vce_set_internal_timer">vce_set_internal_timer</a>
 <a name="vce_get_ipv4_addr_by_name"></a>
 - <B>vce_get_ipv4_addr_by_name</B>
-Summary : Get network byte order IPv4 address from host name string
-Category : util
-Prototype : ```int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );``` 
+  Summary : Get network byte order IPv4 address from host name string
+
+  Category : util
+
+  Prototype : ```int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );``` 
+
   - arg 1 : ```unsigned int *a```
     Pointer to output IPv4 network byte-order address.
 equivalent to in_addr.s_addr.
@@ -2637,9 +2931,12 @@ In PlanetWeb, this is not compatible with DNS resolving.
 
 <a name="vce_get_last_error"></a>
 - <B>vce_get_last_error</B>
-Summary : Get last error code occured inside VCE library.
-Category : err
-Prototype : ```int vce_get_last_error(void);``` 
+  Summary : Get last error code occured inside VCE library.
+
+  Category : err
+
+  Prototype : ```int vce_get_last_error(void);``` 
+
   Return value : Error code.
 
   Description : The error numbers obtained through by this function are
@@ -2665,9 +2962,12 @@ if( !t ){
   See also : <a href="#vce_strerror">vce_strerror</a>
 <a name="vce_get_netstat_string"></a>
 - <B>vce_get_netstat_string</B>
-Summary : Get all connection information maintained by VCE in string format
-Category : log
-Prototype : ```void vce_get_netstat_string( char *buf, int maxlen )``` 
+  Summary : Get all connection information maintained by VCE in string format
+
+  Category : log
+
+  Prototype : ```void vce_get_netstat_string( char *buf, int maxlen )``` 
+
   - arg 1 : ```char *buf```
     Top address of destination string buffer.
 
@@ -2731,9 +3031,12 @@ because this function uses 200 bytes for each line at most.
   See also : <a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_get_stat"></a>
 - <B>vce_get_stat</B>
-Summary : Get overall VCE activity statistics information.
-Category : log
-Prototype : ```void vce_get_stat( vce_stat_t *v )``` 
+  Summary : Get overall VCE activity statistics information.
+
+  Category : log
+
+  Prototype : ```void vce_get_stat( vce_stat_t *v )``` 
+
   - arg 1 : ```vce_stat_t *v```
     Pointer to vce_stat_t which contains statistics information.
 
@@ -2776,9 +3079,12 @@ Number of invocation of vce_errout or vce_errout0.
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_tcpcontext_get_stat">vce_tcpcontext_get_stat</a>
 <a name="vce_get_tcp_packet_read_size"></a>
 - <B>vce_get_tcp_packet_read_size</B>
-Summary : PENDING
-Category : tcp
-Prototype : ```void vce_get_tcp_packet_read_size(int *original, int *processing)``` 
+  Summary : PENDING
+
+  Category : tcp
+
+  Prototype : ```void vce_get_tcp_packet_read_size(int *original, int *processing)``` 
+
   - arg 1 : ```int *original```
     PENDING
 
@@ -2792,9 +3098,12 @@ Prototype : ```void vce_get_tcp_packet_read_size(int *original, int *processing)
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_get_tcp_packet_write_size"></a>
 - <B>vce_get_tcp_packet_write_size</B>
-Summary : PENDING
-Category : tcp
-Prototype : ```void vce_get_tcp_packet_write_size(int *original, int *processing)``` 
+  Summary : PENDING
+
+  Category : tcp
+
+  Prototype : ```void vce_get_tcp_packet_write_size(int *original, int *processing)``` 
+
   - arg 1 : ```int *original```
     PENDING
 
@@ -2808,9 +3117,12 @@ Prototype : ```void vce_get_tcp_packet_write_size(int *original, int *processing
   See also : <a href="#vce_get_tcp_packet_read_size">vce_get_tcp_packet_read_size</a>
 <a name="vce_heartbeat"></a>
 - <B>vce_heartbeat</B>
-Summary : 
-Category : core
-Prototype : ```void vce_heartbeat( void )``` 
+  Summary : 
+
+  Category : core
+
+  Prototype : ```void vce_heartbeat( void )``` 
+
   Return value : None
 
   Description : This runs VCE I/O routine once, to flush all incoming/outgoing data.
@@ -2843,9 +3155,12 @@ depending on your application.
   See also : <a href="#vce_mainloop">vce_mainloop</a><a href="#vce_set_heartbeat_wait_flag">vce_set_heartbeat_wait_flag</a><a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_if_included_in_array"></a>
 - <B>vce_if_included_in_array</B>
-Summary : Test if given element is correctly included in a VCE array.
-Category : array
-Prototype : ```int vce_if_included_in_array( int index, void *p )``` 
+  Summary : Test if given element is correctly included in a VCE array.
+
+  Category : array
+
+  Prototype : ```int vce_if_included_in_array( int index, void *p )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array.
 
@@ -2869,9 +3184,12 @@ elements negative 1, the elements are arranged outside the range-an error.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#vce_get_array_object_index">vce_get_array_object_index</a><a href="#vce_init_array">vce_init_array</a>
 <a name="vce_init_array"></a>
 - <B>vce_init_array</B>
-Summary : Initialize a new VCE array.
-Category : array
-Prototype : ```int vce_init_array ( size_t size , int num , char *nm )``` 
+  Summary : Initialize a new VCE array.
+
+  Category : array
+
+  Prototype : ```int vce_init_array ( size_t size , int num , char *nm )``` 
+
   - arg 1 : ```size_t size```
     Size of each elements in the array. Byte count.
 
@@ -2897,9 +3215,12 @@ vce_init_array function uses the MALLOC function internally.
   See also : <a href="#ARRAY_SCAN">ARRAY_SCAN</a><a href="#MALLOC">MALLOC</a><a href="#vce_alloc_array_object">vce_alloc_array_object</a><a href="#vce_end_array">vce_end_array</a><a href="#vce_free_array_object">vce_free_array_object</a><a href="#vce_free_array_object_all">vce_free_array_object_all</a>
 <a name="vce_init_limit_t"></a>
 - <B>vce_init_limit_t</B>
-Summary : Initialize vce_limit_t structure with default value.
-Category : core
-Prototype : ``` void vce_init_limit_t( vce_limit_t *t )``` 
+  Summary : Initialize vce_limit_t structure with default value.
+
+  Category : core
+
+  Prototype : ``` void vce_init_limit_t( vce_limit_t *t )``` 
+
   Return value : None
 
   Description : It's always correct way to use vce_init_limit_t function when
@@ -2908,9 +3229,12 @@ you use vce_initialize_limited function.
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_initialize"></a>
 - <B>vce_initialize</B>
-Summary : Initialize VCE.
-Category : core
-Prototype : ```int vce_initialize( void )``` 
+  Summary : Initialize VCE.
+
+  Category : core
+
+  Prototype : ```int vce_initialize( void )``` 
+
   Return value : Returns 0 if successful. Otherwise minus error indicator (see vce.h).
 
   Description : You have to call this function before calling VCE functions.
@@ -2944,9 +3268,12 @@ int main()
   See also : <a href="#vce_finalize">vce_finalize</a><a href="#vce_set_socket_library_ok">vce_set_socket_library_ok</a>
 <a name="vce_initialize_limited"></a>
 - <B>vce_initialize_limited</B>
-Summary : Initialize VCE with limited memory configuration
-Category : core
-Prototype : ```int vce_initialize_limited( vce_limit_t *lim )``` 
+  Summary : Initialize VCE with limited memory configuration
+
+  Category : core
+
+  Prototype : ```int vce_initialize_limited( vce_limit_t *lim )``` 
+
   - arg 1 : ```vce_limit_t *lim```
     Pointer to vce_limit_t containing limit information.
 
@@ -3023,9 +3350,12 @@ int main(){
   See also : <a href="#vce_init_limit_t">vce_init_limit_t</a><a href="#vce_initialize">vce_initialize</a>
 <a name="vce_limit_clear"></a>
 - <B>vce_limit_clear</B>
-Summary : Initialize vce_limit_t structure (Clear with default value -1 )
-Category : core
-Prototype : ```void vce_limit_clear( vce_limit_t *t )``` 
+  Summary : Initialize vce_limit_t structure (Clear with default value -1 )
+
+  Category : core
+
+  Prototype : ```void vce_limit_clear( vce_limit_t *t )``` 
+
   Return value : None
 
   Description : This function initializes all member of vce_limit_t structre  with
@@ -3036,9 +3366,12 @@ vce uses default settings in every configuration.
   See also : <a href="#vce_initialize_limited">vce_initialize_limited</a>
 <a name="vce_mainloop"></a>
 - <B>vce_mainloop</B>
-Summary : 
-Category : core
-Prototype : ```int vce_mainloop(void)``` 
+  Summary : 
+
+  Category : core
+
+  Prototype : ```int vce_mainloop(void)``` 
+
   Return value : None
 
   Description : By calling this function, CPU will be occupied by VCE.
@@ -3053,9 +3386,12 @@ and will terminate.
   See also : <a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a>
 <a name="vce_make_binary_array_from_hex"></a>
 - <B>vce_make_binary_array_from_hex</B>
-Summary : Convert hex text into binary data array.
-Category : util
-Prototype : ```void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )``` 
+  Summary : Convert hex text into binary data array.
+
+  Category : util
+
+  Prototype : ```void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )``` 
+
   - arg 1 : ```char *out```
     Top address of destination buffer. Binary data will be filled
 to this buffer.
@@ -3082,9 +3418,12 @@ An inverse function is vce_make_hex_from_binary_array
   See also : <a href="#vce_make_hex_from_binary_array">vce_make_hex_from_binary_array</a>
 <a name="vce_make_binary_array_from_line"></a>
 - <B>vce_make_binary_array_from_line</B>
-Summary : Convert 1 line of ASCII text into a binary data array.
-Category : util
-Prototype : ```void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )``` 
+  Summary : Convert 1 line of ASCII text into a binary data array.
+
+  Category : util
+
+  Prototype : ```void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )``` 
+
   - arg 1 : ```char *line```
     Top address of input line
 
@@ -3115,9 +3454,12 @@ line is stored in "uselen" argument.
 
 <a name="vce_make_hex_from_binary_array"></a>
 - <B>vce_make_hex_from_binary_array</B>
-Summary : Make a hex string from a binary array
-Category : util
-Prototype : ```int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)``` 
+  Summary : Make a hex string from a binary array
+
+  Category : util
+
+  Prototype : ```int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)``` 
+
   - arg 1 : ```char *out```
     Top address of output string buffer.
 
@@ -3151,9 +3493,12 @@ used by vce_make_hex_text_from_buffer internally.
   See also : <a href="#hextext">hextext</a><a href="#vce_make_hex_text_from_buffer">vce_make_hex_text_from_buffer</a>
 <a name="vce_make_hex_text_from_buffer"></a>
 - <B>vce_make_hex_text_from_buffer</B>
-Summary : Make hextext format ASCII text from a binary data array.
-Category : util
-Prototype : ```int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )``` 
+  Summary : Make hextext format ASCII text from a binary data array.
+
+  Category : util
+
+  Prototype : ```int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )``` 
+
   - arg 1 : ```char *buf```
     Top address of input binary data.
 
@@ -3183,9 +3528,12 @@ vce_make_binary_array_from_hex function.
   See also : <a href="#hextext">hextext</a><a href="#vce_extract_data_from_hex_text">vce_extract_data_from_hex_text</a><a href="#vce_make_binary_array_from_hex">vce_make_binary_array_from_hex</a>
 <a name="vce_protocol_acceptwatcher_deny"></a>
 - <B>vce_protocol_acceptwatcher_deny</B>
-Summary : accept watcher for TCP conn_t which denies all connection.
-Category : watcher
-Prototype : ```int vce_protocol_acceptwatcher_deny( conn_t c )``` 
+  Summary : accept watcher for TCP conn_t which denies all connection.
+
+  Category : watcher
+
+  Prototype : ```int vce_protocol_acceptwatcher_deny( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     An instance of conn_t, which is newly accepted by a server tcpcontext_t.
 
@@ -3200,9 +3548,12 @@ This function is for debugging.
   See also : <a href="#vce_protocol_acceptwatcher_noop">vce_protocol_acceptwatcher_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_acceptwatcher_noop"></a>
 - <B>vce_protocol_acceptwatcher_noop</B>
-Summary : accept() watcher for TCP conn_t which accepts all connection.
-Category : watcher
-Prototype : ```int vce_protocol_acceptwatcher_noop( conn_t c )``` 
+  Summary : accept() watcher for TCP conn_t which accepts all connection.
+
+  Category : watcher
+
+  Prototype : ```int vce_protocol_acceptwatcher_noop( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     An instance of conn_t, which is newly accepted by a server tcpcontext_t.
 
@@ -3213,9 +3564,12 @@ accepted without any limitation.
   See also : <a href="#vce_protocol_acceptwatcher_deny">vce_protocol_acceptwatcher_deny</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_closewatcher_noop"></a>
 - <B>vce_protocol_closewatcher_noop</B>
-Summary : TCP connection close watcher which does nothing
-Category : watcher
-Prototype : ```int vce_protocol_closewatcher_noop( conn_t c )``` 
+  Summary : TCP connection close watcher which does nothing
+
+  Category : watcher
+
+  Prototype : ```int vce_protocol_closewatcher_noop( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     An instance of conn_t which will be closed by this function call.
 
@@ -3230,9 +3584,12 @@ use this function because your source code will be more cleaner.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin16"></a>
 - <B>vce_protocol_parser_bin16</B>
-Summary : Get a bin16 record and call callback function.
-Category : parser
-Prototype : ```int vce_protocol_parser_bin16( conn_t c )``` 
+  Summary : Get a bin16 record and call callback function.
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_parser_bin16( conn_t c )``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -3279,9 +3636,12 @@ and <code>char *data</code> is for pointer to the buffer,
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_parser_text">vce_protocol_parser_text</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_parser_bin32"></a>
 - <B>vce_protocol_parser_bin32</B>
-Summary : Get a bin32 record and call callback function
-Category : parser
-Prototype : ```int vce_protocol_parser_bin32( conn_t c )``` 
+  Summary : Get a bin32 record and call callback function
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_parser_bin32( conn_t c )``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -3303,9 +3663,12 @@ BIN32DATA_MAX is defined within vce.h.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_bin32">vce_protocol_unparser_bin32</a>
 <a name="vce_protocol_parser_text"></a>
 - <B>vce_protocol_parser_text</B>
-Summary : Get each line from stream and call protocol callback function
-Category : parser
-Prototype : ```int vce_protocol_parser_text( conn_t c )``` 
+  Summary : Get each line from stream and call protocol callback function
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_parser_text( conn_t c )``` 
+
   - arg 1 : ```conn_t c```
     target conn_t
 
@@ -3330,9 +3693,12 @@ vce_makecstr function.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a>
 <a name="vce_protocol_parser_through"></a>
 - <B>vce_protocol_parser_through</B>
-Summary : A protocol parser for calling callback without reading records.
-Category : parser
-Prototype : ```int vce_protocol_parser_through( conn_t ct )``` 
+  Summary : A protocol parser for calling callback without reading records.
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_parser_through( conn_t ct )``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -3348,9 +3714,12 @@ passing the input data to protocol callback function.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_protocol_unparser_through">vce_protocol_unparser_through</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_dump"></a>
 - <B>vce_protocol_pcallback_dump</B>
-Summary : Protocol callback function for dumping data input from TCP connection
-Category : pcallback
-Prototype : ```int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )``` 
+  Summary : Protocol callback function for dumping data input from TCP connection
+
+  Category : pcallback
+
+  Prototype : ```int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     Processing conn_t. 
 
@@ -3370,9 +3739,12 @@ This function is called as a "protocol callback function".
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_bin16"></a>
 - <B>vce_protocol_pcallback_echo_bin16</B>
-Summary : Echo callback function for normal TCP bin16 protocol
-Category : pcallback
-Prototype : ```int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )``` 
+  Summary : Echo callback function for normal TCP bin16 protocol
+
+  Category : pcallback
+
+  Prototype : ```int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     Processing conn_t. 
 
@@ -3399,9 +3771,12 @@ for your debugging.
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_noop">vce_protocol_pcallback_noop</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_echo_text"></a>
 - <B>vce_protocol_pcallback_echo_text</B>
-Summary : Echo callback function for normal TCP text line-based protocol
-Category : pcallback
-Prototype : ```int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )``` 
+  Summary : Echo callback function for normal TCP text line-based protocol
+
+  Category : pcallback
+
+  Prototype : ```int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     Processing conn_t.
 
@@ -3420,9 +3795,12 @@ Returns larger than zero if tramsmit is successful.
   See also : <a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_protocol_unparser_text">vce_protocol_unparser_text</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_pcallback_noop"></a>
 - <B>vce_protocol_pcallback_noop</B>
-Summary : No-Operation callback function for normal TCP connection ( conn_t )
-Category : pcallback
-Prototype : ```int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )``` 
+  Summary : No-Operation callback function for normal TCP connection ( conn_t )
+
+  Category : pcallback
+
+  Prototype : ```int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )``` 
+
   - arg 1 : ```conn_t ct```
     Processing conn_t. 
 
@@ -3445,9 +3823,12 @@ temporarily.
   See also : <a href="#vce_protocol_pcallback_dump">vce_protocol_pcallback_dump</a><a href="#vce_protocol_pcallback_echo_bin16">vce_protocol_pcallback_echo_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin16"></a>
 - <B>vce_protocol_unparser_bin16</B>
-Summary : Format data into bin16 protocol and write it to a connection.
-Category : parser
-Prototype : ```int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )``` 
+  Summary : Format data into bin16 protocol and write it to a connection.
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -3485,9 +3866,12 @@ this funciton will return 22 (20 + 2 )  or minus error code.
   See also : <a href="#vce_protocol_parser_bin16">vce_protocol_parser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_bin32"></a>
 - <B>vce_protocol_unparser_bin32</B>
-Summary : Write a BIN32 record to a conn_t instance
-Category : parser
-Prototype : ```int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )``` 
+  Summary : Write a BIN32 record to a conn_t instance
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -3509,9 +3893,12 @@ You can send larger size packets, but at most BIN32DATA_MAX bytes.
   See also : <a href="#vce_protocol_parser_bin32">vce_protocol_parser_bin32</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a>
 <a name="vce_protocol_unparser_text"></a>
 - <B>vce_protocol_unparser_text</B>
-Summary : write a text protocol line into conn_t
-Category : parser
-Prototype : ```int vce_protocol_unparser_text( conn_t ct, char *data, int len )``` 
+  Summary : write a text protocol line into conn_t
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_unparser_text( conn_t ct, char *data, int len )``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -3534,9 +3921,12 @@ so length of outgoing data is always 1 byte larger than original data.
   See also : <a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_protocol_unparser_through"></a>
 - <B>vce_protocol_unparser_through</B>
-Summary : Write data directly into a TCP connection.
-Category : parser
-Prototype : ```int vce_protocol_unparser_through( conn_t ct, char *data, int len)``` 
+  Summary : Write data directly into a TCP connection.
+
+  Category : parser
+
+  Prototype : ```int vce_protocol_unparser_through( conn_t ct, char *data, int len)``` 
+
   - arg 1 : ```conn_t ct```
     target conn_t
 
@@ -3554,9 +3944,12 @@ Returns minus error indicator value if any error occured.
   See also : <a href="#vce_protocol_parser_through">vce_protocol_parser_through</a><a href="#vce_protocol_unparser_bin16">vce_protocol_unparser_bin16</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_read_plain_text_file"></a>
 - <B>vce_read_plain_text_file</B>
-Summary : Read plain text file by callback function
-Category : util
-Prototype : ```int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))``` 
+  Summary : Read plain text file by callback function
+
+  Category : util
+
+  Prototype : ```int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))``` 
+
   - arg 1 : ```char *filename```
     Filename of configuration file.
 
@@ -3573,9 +3966,12 @@ which is returned by the callback function.
   See also : <a href="#vce_read_simple_config_file">vce_read_simple_config_file</a>
 <a name="vce_read_simple_config_file"></a>
 - <B>vce_read_simple_config_file</B>
-Summary : Read simple text configuration file by callback function
-Category : util
-Prototype : ```int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )``` 
+  Summary : Read simple text configuration file by callback function
+
+  Category : util
+
+  Prototype : ```int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )``` 
+
   - arg 1 : ```char *filename```
     Filename of configuration file being read.
 
@@ -3592,9 +3988,12 @@ which is returned by the callback function.
   See also : <a href="#swp">swp</a><a href="#vce_copy_cstring_upto">vce_copy_cstring_upto</a><a href="#vp">vp</a>
 <a name="vce_replace_malloc_funcs"></a>
 - <B>vce_replace_malloc_funcs</B>
-Summary : Replace malloc function used inside VCE.
-Category : util
-Prototype : ```void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))``` 
+  Summary : Replace malloc function used inside VCE.
+
+  Category : util
+
+  Prototype : ```void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))``` 
+
   - arg 1 : ```void * (*a)(size_t)```
     Pointer to memory allocator function.
 Ignore if this parameter is set NULL.
@@ -3613,9 +4012,12 @@ Ignore if this parameter is set NULL.
 
 <a name="vce_set_heartbeat_wait_flag"></a>
 - <B>vce_set_heartbeat_wait_flag</B>
-Summary : Control vce_heartbeat's sleep timer adjustment.
-Category : core
-Prototype : ```void vce_set_heartbeat_wait_flag( int flag )``` 
+  Summary : Control vce_heartbeat's sleep timer adjustment.
+
+  Category : core
+
+  Prototype : ```void vce_set_heartbeat_wait_flag( int flag )``` 
+
   - arg 1 : ```int flag```
     wait flag will be off when 0, or on if 1.
 
@@ -3625,9 +4027,12 @@ Prototype : ```void vce_set_heartbeat_wait_flag( int flag )```
   See also : <a href="#vce_heartbeat">vce_heartbeat</a>
 <a name="vce_set_mainloop_callback"></a>
 - <B>vce_set_mainloop_callback</B>
-Summary : 
-Category : core
-Prototype : ```void vce_set_mainloop_callback( int (*f)(void) )``` 
+  Summary : 
+
+  Category : core
+
+  Prototype : ```void vce_set_mainloop_callback( int (*f)(void) )``` 
+
   - arg 1 : ```int (*f)(void)```
     Pointer to callback function.
 
@@ -3637,9 +4042,12 @@ Prototype : ```void vce_set_mainloop_callback( int (*f)(void) )```
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_mainloop">vce_mainloop</a>
 <a name="vce_set_read_write_log_mode"></a>
 - <B>vce_set_read_write_log_mode</B>
-Summary : Set log mode flag to print VCE's read/write system calls
-Category : core
-Prototype : ```void vce_set_read_write_log_mode( int mode )``` 
+  Summary : Set log mode flag to print VCE's read/write system calls
+
+  Category : core
+
+  Prototype : ```void vce_set_read_write_log_mode( int mode )``` 
+
   - arg 1 : ```int mode```
     Output log information if set 1. Nothing will output if zero.
 
@@ -3649,9 +4057,12 @@ Prototype : ```void vce_set_read_write_log_mode( int mode )```
   See also : <a href="#vce_set_verbose_mode">vce_set_verbose_mode</a>
 <a name="vce_set_socket_library_ok"></a>
 - <B>vce_set_socket_library_ok</B>
-Summary : Notify VCE that underlying socket library is initialized .
-Category : core
-Prototype : ```void vce_set_socket_library_ok( int flag )``` 
+  Summary : Notify VCE that underlying socket library is initialized .
+
+  Category : core
+
+  Prototype : ```void vce_set_socket_library_ok( int flag )``` 
+
   - arg 1 : ```int flag```
     Initialize flag. Set 1 if socket library is already OK,
 otherwise 0.
@@ -3662,9 +4073,12 @@ otherwise 0.
   See also : <a href="#vce_initialize">vce_initialize</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_set_verbose_mode"></a>
 - <B>vce_set_verbose_mode</B>
-Summary : Configure verbose mode for entire VCE library.
-Category : core
-Prototype : ```void vce_set_verbose_mode( int mode )``` 
+  Summary : Configure verbose mode for entire VCE library.
+
+  Category : core
+
+  Prototype : ```void vce_set_verbose_mode( int mode )``` 
+
   - arg 1 : ```int mode```
     Set verbose mode if larger than zero. Normal mode is set if zero.
 "Totaly quiet mode" if -1.
@@ -3675,9 +4089,12 @@ Prototype : ```void vce_set_verbose_mode( int mode )```
 
 <a name="vce_show_array_usage"></a>
 - <B>vce_show_array_usage</B>
-Summary : Print all information about a VCE array.
-Category : array
-Prototype : ```int vce_show_array_usage( int index , int show_all )``` 
+  Summary : Print all information about a VCE array.
+
+  Category : array
+
+  Prototype : ```int vce_show_array_usage( int index , int show_all )``` 
+
   - arg 1 : ```int index```
     Array descriptor to specify VCE's array.
 
@@ -3702,9 +4119,12 @@ work environment is Win32GUI where the standard error output is not usable.
   See also : <a href="#vce_init_array">vce_init_array</a>
 <a name="vce_snprintf"></a>
 - <B>vce_snprintf</B>
-Summary : wrapper function for libc's snprintf
-Category : text
-Prototype : ```void vce_snprintf( char *out, int len, const char *format, ... )``` 
+  Summary : wrapper function for libc's snprintf
+
+  Category : text
+
+  Prototype : ```void vce_snprintf( char *out, int len, const char *format, ... )``` 
+
   - arg 1 : ```char *out```
     Top address of output string buffer.
 
@@ -3720,9 +4140,12 @@ Prototype : ```void vce_snprintf( char *out, int len, const char *format, ... )`
 
 <a name="vce_strerror"></a>
 - <B>vce_strerror</B>
-Summary : Convert VCE error code into string.
-Category : err
-Prototype : ```char *vce_strerror( int ecode );``` 
+  Summary : Convert VCE error code into string.
+
+  Category : err
+
+  Prototype : ```char *vce_strerror( int ecode );``` 
+
   - arg 1 : ```int ecode```
     Error code defined in vce.h.
 
@@ -3732,9 +4155,12 @@ Prototype : ```char *vce_strerror( int ecode );```
   See also : <a href="#vce_get_last_error">vce_get_last_error</a>
 <a name="vce_strerror_close_reason"></a>
 - <B>vce_strerror_close_reason</B>
-Summary : Convert VCE CLOSE_REASON code into string.
-Category : err
-Prototype : ```char *vce_strerror_close_reason( CLOSE_REASON reason );``` 
+  Summary : Convert VCE CLOSE_REASON code into string.
+
+  Category : err
+
+  Prototype : ```char *vce_strerror_close_reason( CLOSE_REASON reason );``` 
+
   - arg 1 : ```CLOSE_REASON reason```
     CLOSE_REASON Error code defined in vce.h.
 
@@ -3744,9 +4170,12 @@ Prototype : ```char *vce_strerror_close_reason( CLOSE_REASON reason );```
 
 <a name="vce_tcpcontext_cleanup"></a>
 - <B>vce_tcpcontext_cleanup</B>
-Summary : Clean up a TCP context.
-Category : tcp
-Prototype : ```void vce_tcpcontext_cleanup( tcpcontext_t tp )``` 
+  Summary : Clean up a TCP context.
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_cleanup( tcpcontext_t tp )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Pointer to tcpcontext_t. This pointer is obtained when calling
 vce_tcpcontext_create. This function can used for freeing both server context
@@ -3758,9 +4187,12 @@ and client context .
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_conn_iterate"></a>
 - <B>vce_tcpcontext_conn_iterate</B>
-Summary : Call a function against every element of a tcpcontext_t
-Category : 
-Prototype : ```int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))``` 
+  Summary : Call a function against every element of a tcpcontext_t
+
+  Category : 
+
+  Prototype : ```int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))``` 
+
   - arg 1 : ```tcpcontext_t tt```
     Target TCPcontext.
 
@@ -3774,9 +4206,12 @@ conn.
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_connect"></a>
 - <B>vce_tcpcontext_connect</B>
-Summary : Connect to a remote VCE server and set up a TCP connection.
-Category : tcp
-Prototype : ```conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );``` 
+  Summary : Connect to a remote VCE server and set up a TCP connection.
+
+  Category : tcp
+
+  Prototype : ```conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );``` 
+
   - arg 1 : ```tcpcontext_t tp```
     TCPcontext containing configuration information for new
 TCP connection.
@@ -3795,9 +4230,12 @@ To get detailed error , you'll use vce_get_last_error.
   See also : <a href="#vce_conn_is_valid">vce_conn_is_valid</a><a href="#vce_conn_writable">vce_conn_writable</a><a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_count_connections"></a>
 - <B>vce_tcpcontext_count_connections</B>
-Summary : Count number of connections maintained by a tcpcontext
-Category : tcp
-Prototype : ```int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )``` 
+  Summary : Count number of connections maintained by a tcpcontext
+
+  Category : tcp
+
+  Prototype : ```int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )``` 
+
   - arg 1 : ```tcpcontext_t t```
     Target TCPcontext.
 
@@ -3811,9 +4249,12 @@ It will be ignored if set NULL.
   See also : <a href="#vce_tcpcontext_get_all_connection">vce_tcpcontext_get_all_connection</a>
 <a name="vce_tcpcontext_create"></a>
 - <B>vce_tcpcontext_create</B>
-Summary : Initialize and allocate a TCP context.
-Category : tcp
-Prototype : ```tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )``` 
+  Summary : Initialize and allocate a TCP context.
+
+  Category : tcp
+
+  Prototype : ```tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )``` 
+
   - arg 1 : ```int flag```
     Basic configuration flag for TCPcontext's basic operation.
 If 1, it will create IPv4 server tcpcontext.
@@ -3885,9 +4326,12 @@ Return NULL pointer if any error.
   See also : <a href="#vce_conn_get_state">vce_conn_get_state</a><a href="#vce_initialize">vce_initialize</a><a href="#vce_initialize_limited">vce_initialize_limited</a><a href="#vce_tcpcontext_cleanup">vce_tcpcontext_cleanup</a><a href="#vce_tcpcontext_connect">vce_tcpcontext_connect</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_enable_accept"></a>
 - <B>vce_tcpcontext_enable_accept</B>
-Summary : PENDING
-Category : tcp
-Prototype : ```void vce_tcpcontext_enable_accept( tcpcontext_t tp, int flag )``` 
+  Summary : PENDING
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_enable_accept( tcpcontext_t tp, int flag )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Target TCPcontext
 
@@ -3901,9 +4345,12 @@ Deny all new TCPconnections if set 0.
   See also : <a href="#vce_tcpcontext_close_all_conn">vce_tcpcontext_close_all_conn</a>
 <a name="vce_tcpcontext_get_all_connection"></a>
 - <B>vce_tcpcontext_get_all_connection</B>
-Summary : get all connections included in a tcpcontext
-Category : tcp
-Prototype : ```int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);``` 
+  Summary : get all connections included in a tcpcontext
+
+  Category : tcp
+
+  Prototype : ```int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);``` 
+
   - arg 1 : ```tcpcontext_t t```
     Target TCPcontext.
 
@@ -3920,9 +4367,12 @@ This number must be larger than or equal to zero.
   See also : <a href="#vce_tcpcontext_count_connections">vce_tcpcontext_count_connections</a>
 <a name="vce_tcpcontext_get_stat"></a>
 - <B>vce_tcpcontext_get_stat</B>
-Summary : Get tcpcontext's statistics information
-Category : tcp
-Prototype : ```void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )``` 
+  Summary : Get tcpcontext's statistics information
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Target TCPcontext.
 
@@ -3936,9 +4386,12 @@ status information in this structure.
   See also : <a href="#vce_conn_get_stat">vce_conn_get_stat</a><a href="#vce_get_stat">vce_get_stat</a>
 <a name="vce_tcpcontext_protocol_set_maxlength"></a>
 - <B>vce_tcpcontext_protocol_set_maxlength</B>
-Summary : pending
-Category : tcp
-Prototype : ```void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))``` 
+  Summary : pending
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))``` 
+
   - arg 1 : ```tcpcontext_t t```
     TCPcontext containing configuration information for new
 TCP connection.
@@ -3958,9 +4411,12 @@ TCP connection.
 
 <a name="vce_tcpcontext_set_accept_max"></a>
 - <B>vce_tcpcontext_set_accept_max</B>
-Summary : pending
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))``` 
+  Summary : pending
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))``` 
+
   - arg 1 : ```tcpcontext_t t```
     TCPcontext containing configuration information for new
 TCP connection.
@@ -3978,9 +4434,12 @@ TCP connection.
 
 <a name="vce_tcpcontext_set_conn_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_acceptwatcher</B>
-Summary : Make TCPcontext use specified accept watcher function
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )``` 
+  Summary : Make TCPcontext use specified accept watcher function
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Target TCPcontext
 
@@ -3994,9 +4453,12 @@ accepted connection conn_t.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_closewatcher">vce_tcpcontext_set_conn_closewatcher</a>
 <a name="vce_tcpcontext_set_conn_call_parser_per_heartbeat"></a>
 - <B>vce_tcpcontext_set_conn_call_parser_per_heartbeat</B>
-Summary : Adjust number of times of each conn_t parser call within a heartbeat
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )``` 
+  Summary : Adjust number of times of each conn_t parser call within a heartbeat
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )``` 
+
   - arg 1 : ```tcpcontext_t tt```
     Target TCpcontext.
 
@@ -4009,9 +4471,12 @@ to this parameter.
   See also : <a href="#vce_heartbeat">vce_heartbeat</a><a href="#vce_tcpcontext_set_conn_parser">vce_tcpcontext_set_conn_parser</a>
 <a name="vce_tcpcontext_set_conn_closewatcher"></a>
 - <B>vce_tcpcontext_set_conn_closewatcher</B>
-Summary : Make TCPcontext use specified close watcher function
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )``` 
+  Summary : Make TCPcontext use specified close watcher function
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Target TCPcontext.
 
@@ -4023,9 +4488,12 @@ Prototype : ```void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_finalizer"></a>
 - <B>vce_tcpcontext_set_conn_finalizer</B>
-Summary : Make TCPcontext use specified conn_t finalizer .
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )``` 
+  Summary : Make TCPcontext use specified conn_t finalizer .
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Pointer to target TCPcontext.
 
@@ -4040,9 +4508,12 @@ being closed.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_set_conn_hiwater_acceptwatcher"></a>
 - <B>vce_tcpcontext_set_conn_hiwater_acceptwatcher</B>
-Summary : Set a special high water accept watcher to a TCPcontext
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))``` 
+  Summary : Set a special high water accept watcher to a TCPcontext
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Target TCPcontext
 
@@ -4065,9 +4536,12 @@ You can compare it with pre-set max number of sessions.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_acceptwatcher">vce_tcpcontext_set_conn_acceptwatcher</a>
 <a name="vce_tcpcontext_set_conn_kickip_array"></a>
 - <B>vce_tcpcontext_set_conn_kickip_array</B>
-Summary : pending
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)``` 
+  Summary : pending
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)``` 
+
   - arg 1 : ```tcpcontext_t t```
     TCPcontext containing configuration information for new
 TCP connection.
@@ -4082,9 +4556,12 @@ TCP connection.
 
 <a name="vce_tcpcontext_set_conn_parser"></a>
 - <B>vce_tcpcontext_set_conn_parser</B>
-Summary : Make TCPcontext use specified parser function
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))``` 
+  Summary : Make TCPcontext use specified parser function
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))``` 
+
   - arg 1 : ```tcpcontext_t tp```
     Target TCPcontext
 
@@ -4101,9 +4578,12 @@ data record from the connection.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a><a href="#vce_tcpcontext_set_conn_call_parser_per_heartbeat">vce_tcpcontext_set_conn_call_parser_per_heartbeat</a>
 <a name="vce_tcpcontext_set_equal_io_splitrate"></a>
 - <B>vce_tcpcontext_set_equal_io_splitrate</B>
-Summary : Configure number of connections to be flushed to network
-Category : tcp
-Prototype : ```void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )``` 
+  Summary : Configure number of connections to be flushed to network
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )``` 
+
   - arg 1 : ```tcpcontext_t tt```
     Target TCPcontext.
 
@@ -4117,9 +4597,12 @@ one vce_heartbeat call.
 
 <a name="vce_tcpcontext_timeout_control"></a>
 - <B>vce_tcpcontext_timeout_control</B>
-Summary : Configure timeout operation on a tcpcontext_t.
-Category : tcp
-Prototype : ```void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )``` 
+  Summary : Configure timeout operation on a tcpcontext_t.
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )``` 
+
   - arg 1 : ```tcpcontext_t t```
     Target TCPcontext.
 
@@ -4138,9 +4621,12 @@ sets this flag 1.
   See also : <a href="#vce_tcpcontext_create">vce_tcpcontext_create</a>
 <a name="vce_tcpcontext_userdata_get_pointer"></a>
 - <B>vce_tcpcontext_userdata_get_pointer</B>
-Summary : 
-Category : tcp
-Prototype : ```void *vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct);``` 
+  Summary : 
+
+  Category : tcp
+
+  Prototype : ```void *vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct);``` 
+
   - arg 1 : ```tcpcontext_t ct```
     
   Return value : 
@@ -4148,9 +4634,12 @@ Prototype : ```void *vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct);```
 
 <a name="vce_tcpcontext_userdata_set_pointer"></a>
 - <B>vce_tcpcontext_userdata_set_pointer</B>
-Summary : 
-Category : tcp
-Prototype : ```void vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct,void *p);``` 
+  Summary : 
+
+  Category : tcp
+
+  Prototype : ```void vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct,void *p);``` 
+
   - arg 1 : ```tcpcontext_t ct```
     
   - arg 2 : ```void *p```
@@ -4160,9 +4649,12 @@ Prototype : ```void vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct,void *p)
 
 <a name="vce_utime_diff"></a>
 - <B>vce_utime_diff</B>
-Summary : get differential time of "struct timeval" in VCEI64 type
-Category : util
-Prototype : `````` 
+  Summary : get differential time of "struct timeval" in VCEI64 type
+
+  Category : util
+
+  Prototype : `````` 
+
   - arg 1 : ```struct timeval *before```
     Previous time
 
