@@ -14,7 +14,7 @@
 <name>vce_init_array
 <prototype>int vce_init_array ( size_t size , int num , char *nm )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>新規にVCEの配列を初期化する。
 <sum en>Initialize a new VCE array.
 <arg>size_t size
@@ -76,7 +76,7 @@ vce_init_array function uses the MALLOC function internally.
 <name>vce_end_array
 <prototype>int vce_end_array( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列を解放する。
 <sum en>Release a VCE array.
 <arg>int index
@@ -112,7 +112,7 @@ vce_end_array function calls the FREE function inside it.
 <name>vce_alloc_array_object
 <prototype>void * vce_alloc_array_object( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の未使用要素を1個わりあてる
 <sum en>Allocate an unused element of a VCE array.
 <arg>int index
@@ -152,7 +152,7 @@ memory.
 <name>vce_free_array_object
 <prototype>int vce_free_array_object( int index , void *p )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の要素を解放する
 <sum en>Free an element of a VCE array.
 <arg>int index
@@ -191,7 +191,7 @@ being released.
 <name>vce_get_array_object_top
 <prototype>void * vce_get_array_object_top( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>
 <sum en>
 <arg>int index
@@ -231,7 +231,7 @@ applications to directly use the ARRAY_SCAN macro, not this function.
 <name>vce_get_array_object_next
 <prototype>void * vce_get_array_object_next( int index , void *p )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の使用中要素の次の要素を取りだす
 <sum en>Get an VCE array element succeedinng given elemnt
 <arg>int index
@@ -274,7 +274,7 @@ The ARRAY_SCAN macro is safer and sure to use.
 <name>vce_get_array_object_last
 <prototype>void * vce_get_array_object_last( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の最後の要素を取りだす。
 <sum en>Get last element of VCE array.
 <arg>int index
@@ -312,7 +312,7 @@ and extraction from the tail.
 <name>vce_get_array_usenum
 <prototype>int vce_get_array_usenum( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の要素のうちいくつが使用中になっているかを数える
 <sum en>Count how many
 <arg>int index
@@ -344,7 +344,7 @@ This function is really fast because it does not scan the array.
 <name>vce_get_array_object_index
 <prototype>int vce_get_array_object_index( int index , void *p )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列要素が配列の何番目に位置しているかを得る
 <sum en>Get index number of an element in an VCE array.
 <arg>int index
@@ -385,7 +385,7 @@ subtracting the designated pointer from an array's top pointer.
 <name>vce_if_included_in_array
 <prototype>int vce_if_included_in_array( int index, void *p )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>配列のある要素が、正しく配列に含まれてるかどうかしらべる
 <sum en>Test if given element is correctly included in a VCE array.
 <arg>int index
@@ -440,7 +440,7 @@ elements negative 1, the elements are arranged outside the range-an error.
 <name>vce_array_object_inuse
 <prototype>int vce_array_object_inuse( int index, void *p )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の要素が使用中かどうかを調べる
 <sum en>Know a VCE array object is currently used or not
 <arg>int index
@@ -481,7 +481,7 @@ You know if an array object is used(not freed) in an VCE array.
 <name>vce_get_array_object_pointer_by_index
 <prototype>void *vce_get_array_object_pointer_by_index( int index, int objindex )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の要素をインデクスを指定して得る
 <sum en>Get a VCE array element by index number
 <arg>int index
@@ -540,7 +540,7 @@ the contents of an error may be known by using vce_get_last_error.
 <name>vce_get_array_object_pointer_by_index_only_used
 <prototype>void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の指定したインデクスを持つ要素を得る(使用中の要素のみ)
 <sum en>Get a VCE array element by index number, which are being used
 <arg>int index
@@ -579,7 +579,7 @@ but you can select used elements using this function.
 <name>vce_show_array_usage
 <prototype>int vce_show_array_usage( int index , int show_all )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE配列の状態をすべて出力する。
 <sum en>Print all information about a VCE array.
 <arg>int index
@@ -637,7 +637,7 @@ work environment is Win32GUI where the standard error output is not usable.
 <name>vce_end_all_array
 <prototype>void vce_end_all_array( void )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>全てのVCE配列を解放する
 <sum en>Release all VCE array.
 <return ja>
@@ -659,7 +659,7 @@ Call vce_end_array against all VCE arrays maintained by VCE.
 <name>vce_free_array_object_all
 <prototype>void vce_free_array_object_all( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>配列の全要素を解放する(配列自体は解放しない)
 <sum en>Free all elements in an array
 <arg>int index
@@ -697,7 +697,7 @@ initialization is planned (version 1 and later).
 <name>vce_get_array_member_size
 <prototype>int vce_get_array_member_size( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>配列の各メンバのサイズを返す
 <sum en>Get size of each members of an array
 <arg>int index
@@ -731,7 +731,7 @@ control routine.
 <name>vce_get_array_maxnum
 <prototype>int vce_get_array_maxnum( int index )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>配列の最大要素数を返す
 <sum en>Get max number of array elements
 <arg>int index

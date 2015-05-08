@@ -13,7 +13,7 @@
 <func>
 <name>vce_strerror
 <cat>err
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <prototype>char *vce_strerror( int ecode );
 <sum ja>VCEエラーコードを文字列に変換する。
 <sum en>Convert VCE error code into string.
@@ -45,7 +45,7 @@ vce.h に定義されているエラーコードを，同様に定義されて�
 <name>vce_get_last_error
 <prototype>int vce_get_last_error(void);
 <cat>err
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE内で最後に起こったエラー番号を取得する。
 <sum en>Get last error code occured inside VCE library.
 <return ja>
@@ -102,7 +102,7 @@ if( !t ){
 <func>
 <name>vce_strerror_close_reason
 <cat>err
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <prototype>char *vce_strerror_close_reason( CLOSE_REASON reason );
 <sum ja>VCEエラーコード(CLOSE_REASON)を文字列に変換する。
 <sum en>Convert VCE CLOSE_REASON code into string.

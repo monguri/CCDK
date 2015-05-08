@@ -13,7 +13,7 @@
 <func>
 <name>vce_conn_set_delay
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <prototype>void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)
 <sum ja>クライアント、サーバー間の通信の遅延んをシミュレートsる。
 <sum en>pending
@@ -65,7 +65,7 @@ pending
 <name>vce_conn_close
 <prototype>void vce_conn_close( conn_t ct )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションを閉じて解放する。
 <sum en>Close and release one TCP connection.
 <arg>conn_t ct
@@ -140,7 +140,7 @@ vce_conn_set_timeout( co, 0 );
 <name>vce_conn_set_timeout
 <prototype>void vce_conn_set_timeout( conn_t c, int sec )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>conn_t ごとにタイムアウト時間を設定変更する
 <sum en>Change each conn_t's timeout length
 <arg>conn_t c
@@ -185,7 +185,7 @@ if you want special high security in some situation.
 <name>vce_conn_get_index
 <prototype>int vce_conn_get_index( conn_t c );
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクション(conn_t)のVCE内でのindexを求める
 <sum en>Get index number of conn_t in VCE library.
 <arg>conn_t c
@@ -220,7 +220,7 @@ in your application.
 <name>vce_conn_get_struct_from_index
 <prototype>conn_t vce_conn_get_struct_from_index( int index );
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのindex値からconn_t構造体を得る。
 <sum en>Get conn_t struct from index number.
 <arg>int index
@@ -252,7 +252,7 @@ from "session ID" in your application.
 <name>vce_conn_get_state_buffer
 <prototype>void * vce_conn_get_state_buffer( conn_t c, int *len );
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>conn_tの状態管理バッファへのポインタを返す
 <sum en>Get pointer to conn_t's state buffer.
 <arg>conn_t c
@@ -296,7 +296,7 @@ this returns a pointer to the buffer having the region of that size.
 <name>vce_conn_break_heartbeat
 <prototype>void vce_conn_break_heartbeat()
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>コールバック関数内から、connのプロトコル処理を中止させる
 <sum en>PENDING
 <desc ja>
@@ -321,7 +321,7 @@ PENDING
 <name>vce_conn_write
 <prototype>int vce_conn_write( conn_t ct, char *b, size_t len );
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションにデータを生で書きこむ。
 <sum en>Write raw data into a TCP connection.
 <arg>conn_t ct
@@ -424,7 +424,7 @@ and calling vce_conn_close is perferable.
 <name>vce_conn_writable
 <prototype>int vce_conn_writable( conn_t ct );
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションに書きこみが可能かどうかを調べる
 <sum en>Check if a TCP connection is ready to use (write).
 <arg>conn_t ct
@@ -533,7 +533,7 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
 <name>vce_conn_show_stat
 <prototype>void vce_conn_show_stat( void )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>使用中のすべてのコネクションの状態を表示する。
 <sum en>Show stats of all active connections.
 <return ja>
@@ -626,7 +626,7 @@ unavailable in Win32GUI environment.
 <name>vce_conn_get_remote_ipv4_addr
 <prototype>void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのリモートピアのIPv4アドレス(32bit)を得る
 <sum en>Get 32-bit IPv4 remote peer address from a TCP connection
 <arg>conn_t ct
@@ -675,7 +675,7 @@ so you use ntohs(), or ntohl() if you need them.
 <name>vce_conn_get_local_ipv4_addr
 <prototype>void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのローカルIPv4アドレス(32bit)を得る
 <sum en>Get 32-bit IPv4 local address from a TCP connection
 <arg>conn_t ct
@@ -726,7 +726,7 @@ It should be converted using ntohs, ntohl or others as you need.
 <name>vce_conn_get_remote_ipv6_addr
 <prototype>void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのリモートピアのIPv6アドレス(128bit)を得る
 <sum en>Get 128-bit IPv6 remote peer address from a TCP connection
 <arg>conn_t ct
@@ -780,7 +780,7 @@ You use ntohs(), or ntohl() functions in case you need them.
 <name>vce_conn_get_local_ipv6_addr
 <prototype>void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのローカルIPv6アドレス(128bit)を得る
 <sum en>Get 128-bit IPv6 local address from a TCP connection
 <arg>conn_t ct
@@ -832,7 +832,7 @@ This function is IPv6 version of vce_conn_get_remote_ipv4_addr function.
 <name>vce_conn_get_remote_ipv4_addr_string
 <prototype>char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのリモートピアのIPv4アドレスとポートを文字列で得る
 <sum en>Get Ipv4 remote peer address from a TCP connectin as a string
 <return ja>
@@ -865,10 +865,6 @@ Length of output buffer
 <desc ja>
 IPアドレスをログ出力用などで、文字列に変換したい時が多いが、
 この関数を使うと簡単に文字列を得ることができる。
-PS2 での開発環境では、
-出力バッファである s には、50バイト以上の長さのものを指定すること。
-これは、
-現在は PS2 のライブラリが snprintf をサポートしていないことが理由である。
 この関数は IPv4 専用であるため IPv6 コネクションには対応していない。
 プロトコル独立をめざすアプリケーションでは、
 vce_conn_get_remote_addr 関数を用る。
@@ -891,7 +887,7 @@ vce_conn_get_remote_addr function.
 <name>vce_conn_get_local_ipv4_addr_string
 <prototype>char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのローカルIPv4アドレスとポートを文字列で得る
 <sum en>Get Ipv4 local peer address from a TCP connectin as a string
 <return ja>
@@ -944,7 +940,7 @@ because we should persue protocol independency in our applications.
 <name>vce_conn_get_remote_ipv6_addr_string
 <prototype>char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのリモートピアのIPv6アドレスとポートを文字列で得る
 <sum en>Get Ipv6 remote peer address from a TCP connectin as a string
 <return ja>
@@ -988,7 +984,7 @@ function.
 <name>vce_conn_get_local_ipv6_addr_string
 <prototype>char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのローカルIPv6アドレスとポートを文字列で得る
 <sum en>Get Ipv6 local address from a TCP connectin as a string
 <return ja>
@@ -1037,7 +1033,7 @@ it is recommended to use vce_conn_get_local_addr_string function instead.
 <name>vce_conn_get_remote_addr_string
 <prototype>char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのリモートピアのアドレスとポートを文字列で得る
 <sum en>Get remote peer address and port number from conn_t by string
 <return ja>
@@ -1097,7 +1093,7 @@ string belongs is left to an application.
 <name>vce_conn_get_local_addr_string
 <prototype>char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションのローカルアドレスとポートを文字列で得る
 <sum en>Get local address and port number from conn_t by string
 <return ja>
@@ -1144,7 +1140,7 @@ vce_conn_get_remote_addr_string function's.
 <name>vce_conn_close_tcpcontext_all
 <prototype>void vce_conn_close_tcpcontext_all( tcpcontext_t tp )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>あるtcpが管理しているすべてのコネクションを切断する
 <sum en>Close all connections maintained by a tcpcontext.
 <arg>tcpcontext_t tp
@@ -1197,7 +1193,7 @@ In the verbose mode, a log is output upon every disconnection.
 <sum ja>conn_t から、そのコネクションが属する tcpcontext を取りだす
 <sum en>get tcpcontext_t from a conn_t
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <arg>conn_t c
 <argdef ja>
 取りだしの対象となる conn_t
@@ -1392,7 +1388,7 @@ by vce_tcpcontext_set_conn_parser function.
 <func>
 <name>vce_conn_shrink_readbuf
 <prototype>int vce_conn_shrink_readbuf( conn_t ct, int len )
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <cat>tcp
 <sum ja>conn_t の読みこみバッファを縮ませる
 <sum en>shrink conn_t's read buffer
@@ -1433,7 +1429,7 @@ vce_conn_shrink_readbuf, after processing the contents of the read buffer.
 <name>vce_conn_clear
 <prototype>void vce_conn_clear( conn_t *c )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>conn_t型のインスタンスを初期化する
 <sum en>Initialize conn_t instance
 <arg>conn_t *c
@@ -1463,7 +1459,7 @@ Zero-clear with memset is not formal.
 <name>vce_conn_get_stat
 <prototype>void vce_conn_get_stat( conn_t ct, conn_stat_t *st )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>conn_t の統計情報を取得する
 <sum en>Get conn_t's statistics information
 <arg>conn_t ct
@@ -1528,7 +1524,7 @@ are invoked toward this connection.
 <name>vce_conn_set_parser
 <prototype>void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>conn_t ごとに動的にプロトコルパーサを設定する
 <sum en>Set protocl parser and callback function per conn_t basis
 <arg>conn_t ct

@@ -14,7 +14,7 @@
 <name>vce_make_binary_array_from_hex
 <prototype>void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>16進数文字列を変換して、バイナリデータを含む配列を作る。
 <sum en>Convert hex text into binary data array.
 <arg>char *out
@@ -71,7 +71,7 @@ An inverse function is vce_make_hex_from_binary_array
 <name>vce_make_binary_array_from_line
 <prototype>void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>ASCIIテキストの1行からバイナリデータの配列を出力する
 <sum en>Convert 1 line of ASCII text into a binary data array.
 <arg>char *line
@@ -139,7 +139,7 @@ line is stored in "uselen" argument.
 <name>vce_dump_buffer
 <prototype>void vce_dump_buffer( char *buf, int len )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バイナリ配列をvce_erroutを用いてダンプする。
 <sum en>Dump binary data array using vce_errout.
 <arg>char *buf
@@ -178,7 +178,7 @@ This is so simple that displays dividing every 8 bytes in the buffer.
 <name>vce_make_hex_from_binary_array
 <prototype>int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バイナリデータ配列から，単一のhex の文字列を作る
 <sum en>Make a hex string from a binary array
 <arg>char *out
@@ -254,7 +254,7 @@ used by vce_make_hex_text_from_buffer internally.
 <name>vce_make_hex_text_from_buffer
 <prototype>int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バイナリデータ配列から、 hextext 形式のASCIIテキストを出力する。
 <sum en>Make hextext format ASCII text from a binary data array.
 <arg>char *buf
@@ -321,7 +321,7 @@ vce_make_binary_array_from_hex function.
 <name>vce_extract_data_from_hex_text
 <prototype>int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>hextext 形式のASCIIテキストを、バイナリデータ配列に戻す
 <sum en>Convert hextext format ASCII text into a binary data array.
 <arg>char *buf
@@ -377,7 +377,7 @@ after checking validity of contents of "buf".
 <name>vce_read_simple_config_file
 <prototype>int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>単純なテキスト設定ファイルをコールバック関数を使って読みこむ
 <sum en>Read simple text configuration file by callback function
 <arg>char *filename
@@ -444,7 +444,7 @@ value に改行記号は含まれない。
 <name>vce_read_plain_text_file
 <prototype>int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>プレインテキストファイルを読みこむ
 <sum en>Read plain text file by callback function
 <arg>char *filename
@@ -492,7 +492,7 @@ vce_read_simple_config_file 関数をさらに単純にしたものである。
 <name>MALLOC
 <prototype>void *MALLOC( size_t size )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>malloc の wrapper. Cライブラリのmallocのラッパー
 <sum en>A wrapper function for C library malloc().
 <arg>size_t size
@@ -539,7 +539,7 @@ It prints log message when vce_set_verbose_mode 1.
 <name>FREE
 <prototype>void FREE( void *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>MALLOC関数で割りあてたメモリ領域を解放する。
 <sum en>Release a memory block allocated with MALLOC function.
 <arg>void *p
@@ -609,7 +609,7 @@ VCE renews the return value each time vce_heartbeat is invoked.
 <name>vce_atoi
 <prototype>int vce_atoi( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>文字列を整数(int)に変換する。簡単な計算機能つき。
 <sum en>Convert C string into a int value with simple calcuration.
 <arg>char *p
@@ -694,7 +694,7 @@ so it may be not performing stably-sometimes: results make no sense.
 <name>vce_replace_malloc_funcs
 <prototype>void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE が使うmalloc関数を置きかえる
 <sum en>Replace malloc function used inside VCE.
 <arg>void * (*a)(size_t)

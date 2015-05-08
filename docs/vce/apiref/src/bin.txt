@@ -14,7 +14,7 @@
 <name>vce_binary_unpack
 <prototype>int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファのバイナリデータをunpackして構造体の配列にする(古い)
 <sum en>Unpack binary char array into an array of struct.(obsolete)
 <arg>struct bin_info *bi
@@ -78,7 +78,7 @@ This function is already replaced with binary push/pop functions.
 <name>vce_binary_pack
 <prototype>int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>構造体に保存されているデータをpackして、バイト列にする (古い)
 <sum en>Make a byte array from an array of structure. (obsolete)
 <arg>struct bin_info *bi
@@ -136,7 +136,7 @@ Now this function is already replaced with binary push/pop functions.
 <name>vce_binary_push_nb_i1
 <prototype>int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>1バイト整数(char) をバッファにpushする
 <sum en>Push 1-byte integer(char) to a buffer
 <arg>char *out
@@ -194,7 +194,7 @@ You can fetch data by the corresponding vce_binary_pop_nb_i1function.
 <name>vce_binary_push_nb_i2
 <prototype>int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>2バイト整数(short) をバッファにpushする
 <sum en>Push 2-byte integer(short) to a buffer
 <arg>char *out
@@ -260,7 +260,7 @@ Data is output on the network byte order.
 <name>vce_binary_push_nb_i4
 <prototype>int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>4バイト整数(int) をバッファにpushする
 <sum en>Push 4-byte integer(int) to a buffer
 
@@ -327,7 +327,7 @@ Data is output on the network in byte order.
 <name>vce_binary_push_nb_i8
 <prototype>int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>8バイト整数(VCEI64) をバッファにpushする
 <sum en>Push 8-byte integer(VCEI64) to a buffer
 
@@ -394,7 +394,7 @@ Data is output on the network in byte order.
 <name>vce_binary_push_nb_ia1
 <prototype>int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>1バイト整数(char)の配列をバッファに push する
 <sum en>Push an array of 1-byte integer(char) to a buffer
 <arg>char *out
@@ -461,7 +461,7 @@ it returns a negative error code
 <name>vce_binary_push_nb_ia2
 <prototype>int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>2バイト整数(short)の配列をバッファに push する
 <sum en>Push an array of 2-byte integer(short) to a buffer
 
@@ -531,7 +531,7 @@ instead of destroying it.
 <name>vce_binary_push_nb_ia4
 <prototype>int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>4バイト整数(int)の配列をバッファに push する
 <sum en>Push an array of 4-byte integer(int) to a buffer
 <arg>char *out
@@ -599,7 +599,7 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
 <name>vce_binary_push_nb_ia8
 <prototype>int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>8バイト整数(VCEI64)の配列をバッファに push する
 <sum en>Push an array of 8-byte integer(VCEI64) to a buffer
 <arg>char *out
@@ -667,7 +667,7 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
 <name>vce_binary_push_nb_stra
 <prototype>int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>ヌル終端された文字列の配列をバッファに push する
 <sum en>Push null-terminated string array to a buffer
 <arg>char *out
@@ -745,7 +745,7 @@ character string. When num is 0, NULL can be designated as stra.
 <name>vce_binary_pop_nb_i1
 <prototype>int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから1バイト整数(char) を取りだす
 <sum en>Pop a 1-byte integer(char) from a buffer
 <arg>char *in
@@ -799,7 +799,7 @@ returns a negative error code in case of failure (such as data shortage).
 <name>vce_binary_pop_nb_i2
 <prototype>int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから2バイト整数(short) を取りだす
 <sum en>Pop a 2-byte integer(short) from a buffer
 <arg>char *in
@@ -853,7 +853,7 @@ returns a negative error code in case of failure (such as data shortage).
 <name>vce_binary_pop_nb_i4
 <prototype>int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから4バイト整数(int) を取りだす
 <sum en>Pop a 4-byte integer(int) from a buffer
 <arg>char *in
@@ -907,7 +907,7 @@ returns a negative error code in case of failure (such as data shortage).
 <name>vce_binary_pop_nb_i8
 <prototype>int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから8バイト整数(VCEI64) を取りだす
 <sum en>Pop a 8-byte integer(int) from a buffer
 <arg>char *in
@@ -961,7 +961,7 @@ returns a negative error code in case of failure (such as data shortage).
 <name>vce_binary_pop_nb_ia1
 <prototype>int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから1バイト整数(char) の配列を取りだす
 <sum en>Pop an array of 1-byte integer(char) from a buffer
 <arg>char *in
@@ -1031,7 +1031,7 @@ policy on binary operation.
 <name>vce_binary_pop_nb_ia2
 <prototype>int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから2バイト整数(short) の配列を取りだす
 <sum en>Pop an array of 2-byte integer(short) from a buffer
 <arg>char *in
@@ -1102,7 +1102,7 @@ After being changed its order from network byte to native, data is stored.
 <name>vce_binary_pop_nb_ia4
 <prototype>int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから4バイト整数(int) の配列を取りだす
 <sum en>Pop an array of 4-byte integer(int) from a buffer
 <arg>char *in
@@ -1173,7 +1173,7 @@ Having been changed its order from network byte to native, data is stored.
 <name>vce_binary_pop_nb_ia8
 <prototype>int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから8バイト整数(int) の配列を取りだす
 <sum en>Pop an array of 8-byte integer(int) from a buffer
 <arg>char *in
@@ -1244,7 +1244,7 @@ Having been changed its order from network byte to native, data is stored.
 <name>vce_binary_pop_nb_stra
 <prototype>int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )
 <cat>bin
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから文字列の配列を取りだす
 <sum en>Pop an array of strings from a buffer
 <arg>char *in

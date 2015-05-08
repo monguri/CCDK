@@ -14,7 +14,7 @@
 <name>vce_tcpcontext_create
 <prototype>tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストを初期化する。
 <sum en>Initialize and allocate a TCP context.
 <return ja>
@@ -217,8 +217,7 @@ vce_tcpcontext_create の直後に集中させるようにすることが大切�
 その部分に凝るのはそれほど意味があるとは思えない。
 <BR>
 <B>送受信バッファを小さくするときの注意</B><BR>
-PS2 などのメモリが少ない環境において，
-使用メモリを極限まで節約するために，
+メモリが少ない環境において，使用メモリを極限まで節約するために，
 tcpcontext の「受信バッファ量」と「送信バッファ量」
 を小さくしたいことは多い．
 ところが，このふたつの量を小さくしていくと，
@@ -286,7 +285,7 @@ tcpcontext の「受信バッファ量」と「送信バッファ量」
 <name>vce_tcpcontext_set_conn_finalizer
 <prototype>void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストに対して、コネクションのファイナライザを指定する。
 <sum en>Make TCPcontext use specified conn_t finalizer .
 <return ja>
@@ -335,7 +334,7 @@ closewatcher は呼びだされないが、 finalizer は呼びだされる点�
 <name>vce_tcpcontext_timeout_control
 <prototype>void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストのタイムアウト動作方式を設定する。
 <sum en>Configure timeout operation on a tcpcontext_t.
 <return ja>
@@ -397,7 +396,7 @@ VCE がターゲットとしているリアルタイムアプリケーション�
 <name>vce_tcpcontext_set_conn_parser
 <prototype>void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストに対して、TCPコネクション(conn_t)用のパーサを設定する
 <sum en>Make TCPcontext use specified parser function
 <arg>tcpcontext_t tp
@@ -483,7 +482,7 @@ vce_tcpcontext_set_conn_parser( t, parser, NULL );
 <name>vce_tcpcontext_set_conn_acceptwatcher
 <prototype>void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストに対して、指定されたaccept監視関数を使うように設定する
 <sum en>Make TCPcontext use specified accept watcher function
 <return ja>
@@ -527,7 +526,7 @@ acceptwatcher が呼びだされる。
 <name>vce_tcpcontext_set_conn_hiwater_acceptwatcher
 <prototype>void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストに，接続数が多いとき用のaccept監視関数をセットする
 <sum en>Set a special high water accept watcher to a TCPcontext
 <return ja>
@@ -596,7 +595,7 @@ VCEでは，この数のことを「高水位設定値」"high water"と呼ん�
 <name>vce_tcpcontext_set_conn_closewatcher
 <prototype>void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストに対して、指定されたclose監視関数を使うように設定する
 <sum en>Make TCPcontext use specified close watcher function
 <return ja>
@@ -716,7 +715,7 @@ close watcher は呼びだされない．
 <name>vce_tcpcontext_cleanup
 <prototype>void vce_tcpcontext_cleanup( tcpcontext_t tp )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコンテキストを解放する。
 <sum en>Clean up a TCP context.
 <arg>tcpcontext_t tp
@@ -750,7 +749,7 @@ vce_tcpcontext_cleanup 関数で解放せずに vce_tcpcontext_create を
 <name>vce_tcpcontext_protocol_set_maxlength
 <prototype>void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>パーサーが分割する最大の長さを設定する。
 <sum en>pending
 <return ja>
@@ -803,7 +802,7 @@ pending
 <name>vce_tcpcontext_set_accept_max
 <prototype>void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>一分間あたりの接続数を制限する
 <sum en>pending
 <return ja>
@@ -858,7 +857,7 @@ pending
 <name>vce_tcpcontext_set_conn_kickip_array
 <prototype>void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>接続を拒否するIPアドレスの配列を設定する。
 <sum en>pending
 <return ja>
@@ -897,7 +896,7 @@ pending
 <name>vce_tcpcontext_connect
 <prototype>conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>リモートにあるVCEサーバに接続し、TCPコネクションを1個確立する。
 <sum en>Connect to a remote VCE server and set up a TCP connection.
 <return ja>
@@ -964,7 +963,7 @@ tcpcontext がノンブロッキングモードに設定されている場合と
 <name>vce_tcpcontext_get_all_connection
 <prototype>int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>tcpcontext に属するすべてのコネクションを得る
 <sum en>get all connections included in a tcpcontext
 <arg>tcpcontext_t t
@@ -1007,7 +1006,7 @@ This number must be larger than or equal to zero.
 <name>vce_tcpcontext_count_connections
 <prototype>int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>tcpcontext に属するコネクションの数を数える
 <sum en>Count number of connections maintained by a tcpcontext
 <arg>tcpcontext_t t
@@ -1051,7 +1050,7 @@ Returns 0 if successful, otherwise minus error indicator value.
 <cat>tcp
 <sum ja>新規に accept しないようにする
 <sum en>PENDING
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <arg>tcpcontext_t tp
 <argdef ja>
 操作対象となるTCPcontext
@@ -1089,7 +1088,7 @@ verbose モードのときはログを出力する(verbose mode only)。
 <func>
 <name>vce_tcpcontext_get_stat
 <prototype>void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <cat>tcp
 <sum ja>tcpcontext の統計情報を取得する
 <sum en>Get tcpcontext's statistics information
@@ -1146,7 +1145,7 @@ vce_tcpcontext_connect が成功した回数。
 <func>
 <name>vce_tcpcontext_conn_iterate
 <prototype>int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>tcpcontext が保持しているすべてのconn_tに対して関数で処理する
 <sum en>Call a function against every element of a tcpcontext_t
 <arg>tcpcontext_t tt
@@ -1184,7 +1183,7 @@ Returns 0 if successful, otherwise minus error indicating code.
 <name>vce_tcpcontext_set_conn_call_parser_per_heartbeat
 <prototype>void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>1回の heartbeat で各コネクションのパーサが呼びだされる回数を調整する
 <sum en>Adjust number of times of each conn_t parser call within a heartbeat
 <arg>tcpcontext_t tt
@@ -1221,7 +1220,7 @@ to this parameter.
 <name>vce_tcpcontext_set_equal_io_splitrate
 <prototype>void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )
 <cat>tcp
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>1回の heartbeat でネットワークへの送信をするコネクション数を調整する
 <sum en>Configure number of connections to be flushed to network
 <arg>tcpcontext_t tt

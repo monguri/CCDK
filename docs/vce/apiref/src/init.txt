@@ -14,7 +14,7 @@
 <name>vce_initialize
 <prototype>int vce_initialize( void )
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEを初期化する。
 <sum en>Initialize VCE.
 <return ja>
@@ -28,10 +28,6 @@ VCEの関数を呼びだす前に必ず呼びださなければならない初�
 VCEの内部用メモリはこの関数で確保される．
 またWindows環境においては、Winsockの初期化も同時に行なう。
 UNIX 用では SIGPIPE をブロックする。
-PS2 用VCEの場合は、アプリケーションでネットワークの初期化をする前に
-本関数を呼びだしてから、
-ソケットライブラリが初期化された時点で vce_set_socket_library_ok(1) を
-呼びだすこと(サンプルを参照)
 </desc>
 <desc en>
 You have to call this function before calling VCE functions.
@@ -45,7 +41,7 @@ is initialized. (refer to samples)
 </desc>
 <sample ja>
 <pre>
-// PS2 など、OS がソケットライブラリを提供していない場合のコード
+// OS がソケットライブラリを提供していない場合のコード
 int main()
 {
     vce_initialize();
@@ -66,7 +62,7 @@ int main()
 </pre>
 </sample>
 <sample en>
-// In case of PS2 : No socket library is provided by operating system
+// When no socket library is provided by operating system
 int main()
 {
     vce_initialize();
@@ -92,7 +88,7 @@ int main()
 <name>vce_limit_clear
 <prototype>void vce_limit_clear( vce_limit_t *t )
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>vce_limit_t型の構造体の初期化をする(-1のデフォルト値で初期化)
 <sum en>Initialize vce_limit_t structure (Clear with default value -1 )
 <return ja>
@@ -121,7 +117,7 @@ vce uses default settings in every configuration.
 <name>vce_initialize_limited
 <prototype>int vce_initialize_limited( vce_limit_t *lim )
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>限られたメモリ使用量で VCE を初期化する
 <sum en>Initialize VCE with limited memory configuration
 <return ja>
@@ -170,7 +166,7 @@ max_array の最低値に関しては，VCE内部でも配列エンジンを使�
 max_array の上限に注目してみるとよい．
 また， max_array を1増やすごとに72バイトのメモリが確保される．
 Linux/Win32環境では， max_array にデフォルト値の -1 を設定したときは
-256が設定され， PS2環境では32が設定される．
+256が設定される．
 <BR>
 メモリを節約するという目的とは別に、デフォルトの最大値をもっと大きな値に
 したいという場合にも本関数を使用できる。
@@ -221,8 +217,7 @@ These VCE services will return VCE_EARRAY if array is not enough.
 So, you may increase max_array if you meet VCE_EARRAY error code.
 In addition, when you increase max_array for 1,
 it requires 72 bytes of memory accordingly.
-In Linux/win32 environment, max_array defaults to 256,
-but in PS2 envoronment, it defaults to 32.
+In Linux/win32 environment, max_array defaults to 256.
 <BR>
 <BR>
 This function can also be used for the purpose of enlarging the
@@ -279,7 +274,7 @@ int main(){
 <name>vce_init_limit_t
 <prototype> void vce_init_limit_t( vce_limit_t *t )
 <cat>core
-<arch>linux,win32,ps2.darwin
+<arch>linux,win32,darwin
 <sum ja>vce_limit_t 構造体をデフォルト値に初期化する
 <sum en>Initialize vce_limit_t structure with default value.
 <return ja>
@@ -304,7 +299,7 @@ you use vce_initialize_limited function.
 <name>vce_finalize
 <prototype>int vce_finalize( void )
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEの解放を行なう。
 <sum en>Release all resources used by VCE.
 <return ja>

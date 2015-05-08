@@ -10,7 +10,7 @@
 <name>ARRAY_SCAN
 <prototype>ARRAY_SCAN( int arraydescriptor, void* pointer )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEによって管理されている配列の全使用中要素をスキャンする
 <sum en>Scan all in-use elements stored in VCE's array.
 <arg>int arraydescriptor
@@ -85,7 +85,7 @@ ARRAY_SCAN( memory_ind, c ){
 <name>ARRAY_SCAN_TYPE
 <prototype>ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )
 <cat>array
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>ARRAY_SCAN を C++ で使うための変種
 <sum en>A variety of ARRAY_SCAN macro fot use in C++ language
 <arg>int arraydescriptor
@@ -134,7 +134,7 @@ Consequently, the ARRAY_SCAN_TYPE macro is given the pointer variable type.
 <name>GET_64BIT_INT
 <prototype>VCEI64 GET_64BIT_INT( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域から64ビット整数値を取りだすマクロ
 <sum en>A macro to get 64bit value from memory buffer.
 <arg>char *p
@@ -155,8 +155,6 @@ Got value(int)
 このマクロはバイナリプロトコル解析用に使われるが、アプリケーションで
 バイナリプロトコルを実装する場合には、このマクロではなく、
 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 ntohl is used internally.
@@ -173,7 +171,7 @@ VCE implements this macro as a function.
 <name>SET_64BIT_INT
 <prototype>void SET_64BIT_INT( char *b, VCEI64 i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域に64ビットの整数値をネットワークバイトオーダでコピーする
 <sum en>Copy 32-bit integer to buffer in network byte-order.
 <arg>char *b
@@ -200,8 +198,6 @@ None
 内部で htonlを使用している。プロトコル解析用に使用されるが、
 アプリケーションはプロトコル解析をする場合は、このマクロを使用
 せずに bin カテゴリの関数群を使うべきである(そのほうが堅牢である。)
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 htonl is used internally.
@@ -218,7 +214,7 @@ category for protocol analysis( they make it robust ).
 <name>GET_32BIT_INT
 <prototype>unsigned int GET_32BIT_INT( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域から32ビット整数値を取りだすマクロ
 <sum en>A macro to get 32bit value from memory buffer.
 <arg>char *p
@@ -239,8 +235,6 @@ Got value(int)
 このマクロはバイナリプロトコル解析用に使われるが、アプリケーションで
 バイナリプロトコルを実装する場合には、このマクロではなく、
 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 ntohl is used internally.
@@ -257,7 +251,7 @@ VCE implements this macro as a function.
 <name>SET_32BIT_INT
 <prototype>void SET_32BIT_INT( char *b, unsigned int i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域に32ビットの整数値をネットワークバイトオーダでコピーする
 <sum en>Copy 32-bit integer to buffer in network byte-order.
 <arg>char *b
@@ -284,8 +278,6 @@ None
 内部で htonlを使用している。プロトコル解析用に使用されるが、
 アプリケーションはプロトコル解析をする場合は、このマクロを使用
 せずに bin カテゴリの関数群を使うべきである(そのほうが堅牢である。)
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 htonl is used internally.
@@ -302,7 +294,7 @@ category for protocol analysis( they make it robust ).
 <name>GET_16BIT_INT
 <prototype>unsigned short GET_16BIT_INT( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域から16ビットの整数値を取りだす。
 <sum en>Get 16 bit integer value from buffer
 <arg>char *p
@@ -322,8 +314,6 @@ Got value (unsigned short)
 <desc ja>
 内部でntohsを使用している。主にプロトコル処理に使われるが、
 より一般的な目的のためには、 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 ntohs is used internally.
@@ -340,7 +330,7 @@ VCE implements this macro as a function.
 <name>SET_16BIT_INT
 <prototype>void SET_16BIT_INT( char *b, unsigned short i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域に16ビットの整数値をネットワークバイトオーダでコピーする
 <sum en>Copy 16-bit integer to buffer in network byte-order.
 <arg>char *b
@@ -366,8 +356,6 @@ None
 <desc ja>
 内部でhtonsを使用している。主にプロトコル処理に使われるが、
 より一般的な目的のためには、 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 htons is used internally.
@@ -384,7 +372,7 @@ VCE implements this macro as a function.
 <name>SET_8BIT_INT
 <prototype>void SET_8BIT_INT( char *b, unsigned char i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域に8ビットの整数値をコピーする
 <sum en>Copy 8-bit integer to buffer
 <arg>char *b
@@ -423,7 +411,7 @@ maintaining consistency with 32 and 16 bit macro or others.
 <name>GET_8BIT_INT
 <prototype>unsigned char GET_8BIT_INT( char *b )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>メモリ領域から8ビットの整数値を取りだす
 <sum en>Get 8-bit integer from buffer
 <arg>char *b
@@ -454,7 +442,7 @@ Got value (unsigned char)
 <name>SET_64BIT_NATIVEINT
 <prototype>void SET_64BIT_NATIVEINT( char *p, VCEI64 i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>64ビットの値を、任意のバッファにセットする
 <sum en>copy 64bit integer value to any buffer
 <arg>char *p
@@ -480,8 +468,6 @@ None
 <desc ja>
 htonl, ntohl等を使用せず、直接値をコピーする。
 ポインタのキャストをするだけのマクロ。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
  Copy values directly to output buffer without doing htonl, nor htons.
@@ -495,7 +481,7 @@ VCE implements this macro as a function.
 <name>SET_32BIT_NATIVEINT
 <prototype>void SET_32BIT_NATIVEINT( char *p, int i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>32ビットの値を、任意のバッファにセットする
 <sum en>copy 32bit integer value to any buffer
 <arg>char *p
@@ -521,8 +507,6 @@ None
 <desc ja>
 htonl, ntohl等を使用せず、直接値をコピーする。
 ポインタのキャストをするだけのマクロ。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
  Copy values directly to output buffer without doing htonl, nor htons.
@@ -536,7 +520,7 @@ VCE implements this macro as a function.
 <name>SET_16BIT_NATIVEINT
 <prototype>void SET_16BIT_NATIVEINT( char *p, short i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>16ビット整数値を任意のバッファにコピーする
 <sum en>Copy 16-bit integer value to any buffer
 <arg>char *p
@@ -562,8 +546,6 @@ None
 <desc ja>
 ntohs, htons 等を使用しない。直接値をコピーする。
 ポインタの型キャストをするためのマクロ。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 This macro is not using ntohs, htons nor others inside it.
@@ -577,7 +559,7 @@ VCE implements this macro as a function.
 <name>SET_8BIT_NATIVEINT
 <prototype>void SET_8BIT_NATIVEINT( char *p, char i )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>8ビットの整数値を任意のバッファにコピーする
 <sum en>Copy 8bit integer value to any buffer
 <arg>char *P
@@ -615,7 +597,7 @@ maintaining consistency with SET_16BIT_NATIVEINT,SET_32BIT_NATIVEINT.
 <name>GET_64BIT_NATIVEINT
 <prototype>int GET_64BIT_NATIVEINT( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから64ビット整数値を取りだす
 <sum en>Get 64bit integer value from buffer
 <arg>
@@ -633,8 +615,6 @@ Got int value.
 </return>
 <desc ja>
 ntohl, htonl 等をつかわない取りだしマクロである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 This is a data-fetch macro not using ntohl, htonl nor others.
@@ -648,7 +628,7 @@ VCE implements this macro as a function.
 <name>GET_32BIT_NATIVEINT
 <prototype>int GET_32BIT_NATIVEINT( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから32ビット整数値を取りだす
 <sum en>Get 32bit integer value from buffer
 <arg>
@@ -666,8 +646,6 @@ Got int value.
 </return>
 <desc ja>
 ntohl, htonl 等をつかわない取りだしマクロである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
 This is a data-fetch macro not using ntohl, htonl nor others.
@@ -681,7 +659,7 @@ VCE implements this macro as a function.
 <name>GET_16BIT_NATIVEINT
 <prototype>short GET_16BIT_NATIVEINT( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから16ビット整数値を取りだす。
 <sum en>Get 16bit integer value from any buffer
 <arg>
@@ -699,8 +677,6 @@ Got short value.
 </return>
 <desc ja>
 ntohs, htons などをつかわない、取りだしマクロである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </desc>
 <desc en>
  It does not use ntohs, htons nor others.
@@ -715,7 +691,7 @@ VCE  implements this macro as a function.
 <name>GET_8BIT_NATIVEINT
 <prototype>char GET_8BIT_NATIVEINT( char *p )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>バッファから8ビット整数値を取りだす
 <sum en>Get 8bit integer value from buffer
 <arg>
@@ -747,7 +723,7 @@ GET_16BIT_NATIVEINT and others.
 <name>MIN
 <prototype>int MIN(int a, int b )
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>2つの値を比較して小さい方の値を返す
 <sum en>Compare 2 integer values and return bigger one.
 <arg>int a
@@ -799,7 +775,7 @@ types along with their unsigned types.
 <name>MAX
 <prototype>int MAX(int a, int b)
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>2つの値を比較して大きい方の値を返す
 <sum en>Compare 2 integer values and return bigger one.
 <arg>int a
@@ -849,7 +825,7 @@ Got value ( bigger one )
 <name>ELEMENTOF
 <prototype>int ELEMENTOF(x)
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>固定サイズの配列の要素数を返す(コンパイル時定数)。
 <sum en>Get number of elements of a fixed-size array.
 <arg>x
@@ -901,7 +877,7 @@ This macro is actually defined as:
 <prototype>char *STRERR
 <include>vce-ecoode.h
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEの最新エラーコードを文字列で得る
 <sum en>Get string of latest VCE error
 <return ja>

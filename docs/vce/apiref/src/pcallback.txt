@@ -14,7 +14,7 @@
 <name>vce_protocol_pcallback_echo_bin16
 <prototype>int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )
 <cat>pcallback
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>conn_t上のbin16プロトコル用の、エコー・コールバック関数
 <sum en>Echo callback function for normal TCP bin16 protocol
 <arg>conn_t ct
@@ -80,7 +80,7 @@ for your debugging.
 <name>vce_protocol_pcallback_echo_text
 <prototype>int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )
 <cat>pcallback
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>conn_t 上の行指向テキストプロトコル用のエコーコールバック関数
 <sum en>Echo callback function for normal TCP text line-based protocol
 <arg>conn_t ct
@@ -125,7 +125,7 @@ Copies input data into output buffer using text protocol unparser
 <name>vce_protocol_pcallback_noop
 <prototype>int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )
 <cat>pcallback
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>普通のTCPコネクション用の、何もしないプロトコルコールバック関数
 <sum en>No-Operation callback function for normal TCP connection ( conn_t )
 <arg>conn_t ct
@@ -181,7 +181,7 @@ temporarily.
 <name>vce_protocol_pcallback_dump
 <prototype>int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )
 <cat>pcallback
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>普通のTCPコネクション用の、データをダンプするコールバック
 <sum en>Protocol callback function for dumping data input from TCP connection
 <arg>conn_t ct

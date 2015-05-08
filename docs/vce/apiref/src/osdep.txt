@@ -14,7 +14,7 @@
 <name>vce_get_ipv4_addr_by_name
 <prototype>int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );
 <cat>util
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>ホスト名から IPv4アドレス(ネットワークバイトオーダ)を得る
 <sum en>Get network byte order IPv4 address from host name string
 <arg>unsigned int *a
@@ -56,7 +56,7 @@ In PlanetWeb, this is not compatible with DNS resolving.
 <name>vce_snprintf
 <prototype>void vce_snprintf( char *out, int len, const char *format, ... )
 <cat>text
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>libc の snprintf の wrapper
 <sum en>wrapper function for libc's snprintf
 <arg>char *out

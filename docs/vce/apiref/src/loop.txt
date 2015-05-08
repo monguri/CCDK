@@ -13,7 +13,7 @@
 <func>
 <name>vce_mainloop
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEのメインループ関数。
 <type>int vce_mainloop(void)
 <return ja>
@@ -46,7 +46,7 @@ and will terminate.
 <func>
 <name>vce_set_mainloop_callback
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>vce_mainloopから呼びだすコールバック関数を設定する。
 <prototype>void vce_set_mainloop_callback( int (*f)(void) )
 <arg>int (*f)(void)
@@ -96,7 +96,7 @@ vce_mainloopを利用しつつもアプリケーションで並行に処理を�
 <func>
 <name>vce_heartbeat
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEを能動的に呼びだし、I/O処理をさせる。
 <prototype>void vce_heartbeat( void )
 <return ja>
@@ -165,53 +165,6 @@ depending on your application.
 </func>
 
 <func>
-<name>vce_set_internal_timer
-<prototype>void vce_set_internal_timer( time_t t, unsigned int microsec )
-<arch>ps2
-<sum ja>VCE の内部タイマを更新する
-<sum en>Update VCE's internal timer
-<arg>time_t t
-<argdef ja>
-設定する時刻(秒)。
-</argdef>
-<argdef en>
-time(sec) to be set.
-</argdef>
-<arg>unsigned int microsec
-<argdef ja>
-設定する時刻(マイクロ秒)．
-0から999999の間を指定する．それより大きい値を指定すると，
-(microsec mod 1000000) を値として採用する．
-</argdef>
-<argdef en>
-time(microseconds) to be set.
-This have to be between 0 and 999999.
-Adopt (microsec mod 1000000) when microsec is larger than 999999.
-</argdef>
-<return ja>
-なし
-</return>
-<return en>
-None
-</return>
-<desc ja>
-Windows, PS2 やその他組みこみ用の OS 上で動作する VCE では、
-time() や gettimeofday() などUNIXライクな方法では
-現在時刻を取得できない場合がある。
-このようなシステムにおいて、正確な「秒」によるタイムアウトを実現
-するためには、
-アプリケーションが何らかの方法で時刻と等価な値
-(1秒に1づつ増えれば数値の意味は問わない)を更新し続けるようにするのがよい。
-本関数は、TCPコネクションのタイムアウトやログ出力に使われる VCE の
-内部タイマを 1秒に1回(複数回でもよい)更新するための関数である。
-linux,win32 環境ではこの関数を使用しても何も起こらず
-VCE_ESUPPORT がセットされる。
-</desc>
-<desc en>
-</desc>
-</func>
-
-<func>
 <name>vce_set_heartbeat_wait_flag
 <prototype>void vce_set_heartbeat_wait_flag( int flag )
 <cat>core
@@ -252,7 +205,7 @@ flag に1を設定すると、vce_heartbeat は、
 <func>
 <name>vce_set_socket_library_ok
 <prototype>void vce_set_socket_library_ok( int flag )
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <cat>core
 <sum ja>VCE の下層の socket ライブラリが初期化できたことを VCE に通知する。
 <sum en>Notify VCE that underlying socket library is initialized .
@@ -287,9 +240,6 @@ send/recv/accept/bind/listen/connect/socket/shutdown/close
 本関数を呼びだす必要はない。
 Win32 環境においては、
 VCE 内部で winsock の初期化が成功したら自動的に1 に設定される。
-PS2 環境においては、デフォルト値は0なので、
-USB Ether もしくは modem などのデバイスの
-初期化が終了した時点で vce_set_socket_library_ok(1) を呼びだす必要がある。
 VCE が内部的に保存しているこのフラグの値は、
 vce_initialize の呼びだし後に意味をもつので、
 アプリケーションはまず vce_initialize を呼びださなければならない。

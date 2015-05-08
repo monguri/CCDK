@@ -88,7 +88,7 @@ PENDING
 <name>vce_protocol_parser_bin16
 <prototype>int vce_protocol_parser_bin16( conn_t c )
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>bin16 プロトコルのレコードを取りだしてコールバック関数を呼びだす
 <sum en>Get a bin16 record and call callback function.
 <return ja>
@@ -188,7 +188,7 @@ and <code>char *data</code> is for pointer to the buffer,
 <name>vce_protocol_parser_bin32
 <prototype>int vce_protocol_parser_bin32( conn_t c )
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>bin32プロトコルのレコードを取りだしてコールバック関数を呼びだす
 <sum en>Get a bin32 record and call callback function
 <return ja>
@@ -236,7 +236,7 @@ BIN32DATA_MAX is defined within vce.h.
 <name>vce_protocol_parser_text
 <prototype>int vce_protocol_parser_text( conn_t c )
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>プロトコルを1行単位で取りだしてコールバック関数を呼びだす
 <sum en>Get each line from stream and call protocol callback function
 <arg>conn_t c
@@ -287,7 +287,7 @@ vce_makecstr function.
 <name>vce_protocol_unparser_bin16
 <prototype>int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>bin16 プロトコルのレコードを、コネクションに対して書きこむ
 <sum en>Format data into bin16 protocol and write it to a connection.
 <return ja>
@@ -374,7 +374,7 @@ this funciton will return 22 (20 + 2 )  or minus error code.
 <name>vce_protocol_unparser_bin32
 <prototype>int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>BIN32プロトコルのレコードをひとつ、コネクション(conn_t)に書きこむ
 <sum en>Write a BIN32 record to a conn_t instance
 <return ja>
@@ -428,7 +428,7 @@ You can send larger size packets, but at most BIN32DATA_MAX bytes.
 <name>vce_protocol_unparser_text
 <prototype>int vce_protocol_unparser_text( conn_t ct, char *data, int len )
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>テキストプロトコルのレコード(1行)をコネクションに書きこむ
 <sum en>write a text protocol line into conn_t
 <arg>conn_t ct
@@ -480,7 +480,7 @@ so length of outgoing data is always 1 byte larger than original data.
 <name>vce_protocol_parser_through
 <prototype>int vce_protocol_parser_through( conn_t ct )
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>レコード境界を切らずにコールバックを呼びだすプロトコルパーサ
 <sum en>A protocol parser for calling callback without reading records.
 <arg>conn_t ct
@@ -520,7 +520,7 @@ passing the input data to protocol callback function.
 <name>vce_protocol_unparser_through
 <prototype>int vce_protocol_unparser_through( conn_t ct, char *data, int len)
 <cat>parser
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>TCPコネクションにデータをそのまま書き出す
 <sum en>Write data directly into a TCP connection.
 <arg>conn_t ct
@@ -564,7 +564,7 @@ This function will write input data into conn_t.
 <name>vce_protocol_acceptwatcher_noop
 <prototype>int vce_protocol_acceptwatcher_noop( conn_t c )
 <cat>watcher
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>すべてのコネクションを受けいれる TCP(conn_t)のaccept 監視関数
 <sum en>accept() watcher for TCP conn_t which accepts all connection.
 <arg>conn_t c
@@ -596,7 +596,7 @@ NULL を指定したのと同じことになる。
 <name>vce_protocol_acceptwatcher_deny
 <prototype>int vce_protocol_acceptwatcher_deny( conn_t c )
 <cat>watcher
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>すべてのコネクションを拒否するTCP(conn_t)のaccept監視関数
 <sum en>accept watcher for TCP conn_t which denies all connection.
 <arg>conn_t c
@@ -633,7 +633,7 @@ This function is for debugging.
 <name>vce_protocol_closewatcher_noop
 <prototype>int vce_protocol_closewatcher_noop( conn_t c )
 <cat>watcher
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>何もしない、コネクション close 監視関数
 <sum en>TCP connection close watcher which does nothing
 <arg>conn_t c

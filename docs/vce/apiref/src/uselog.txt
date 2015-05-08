@@ -14,7 +14,7 @@
 <func>
 <name>vce_set_verbose_mode
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>verboseモード(うるさいモード)の設定をする
 <sum en>Configure verbose mode for entire VCE library.
 <prototype>void vce_set_verbose_mode( int mode )
@@ -56,7 +56,7 @@ TODO: verbose モードの仕様は、
 <func>
 <name>vce_set_read_write_log_mode
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEによるread/writeシステムコールの使用をログするかを設定する
 <sum en>Set log mode flag to print VCE's read/write system calls
 <prototype>void vce_set_read_write_log_mode( int mode )
@@ -89,7 +89,7 @@ Output log information if set 1. Nothing will output if zero.
 <name>vce_errout
 <prototype>int vce_errout( const char *format, ... )
 <cat>core
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCEのログ出力をする
 <sum en>Log output for VCE application
 <return ja>
@@ -133,7 +133,7 @@ vce_errout_config 関数によってログ出力ディレクトリが指定さ�
 <name>vce_get_stat
 <prototype>void vce_get_stat( vce_stat_t *v )
 <cat>log
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE 全体の動作状況記録を取得する
 <sum en>Get overall VCE activity statistics information.
 <arg>vce_stat_t *v
@@ -220,7 +220,7 @@ Number of invocation of vce_errout or vce_errout0.
 <name>vce_get_netstat_string
 <prototype>void vce_get_netstat_string( char *buf, int maxlen )
 <cat>log
-<arch>linux,win32,ps2,darwin
+<arch>linux,win32,darwin
 <sum ja>VCE が管理しているすべての接続情報を文字列で取得する。
 <sum en>Get all connection information maintained by VCE in string format
 <arg>char *buf
