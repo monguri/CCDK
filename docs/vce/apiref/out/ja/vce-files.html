@@ -9,41 +9,10 @@
 <h2>各ファイルの名前順目次</h2>
 <!-- make_file_nameindex -->
 <ol>
-<li><a href="#libvce.a">libvce.a</a></li>
 <li><a href="#vce.h">vce.h</a></li>
 </ol>
 <h2>各ファイルの説明</h2>
 <!-- make_filedef -->
-<a name="libvce.a"></a>
-<table id="filedef">
-<tr><th colspan="2" id="filedef_title">
-<B>libvce.a</B></th></tr>
-<tr><th>概要</th><td>VCE for Linux static リンクライブラリ</td></tr>
-<tr><th>対応OS</th><td>linux,darwin</td></tr>
-<tr><th>詳細説明</th><td>libvce.a は Linux用のstatic リンク用ライブラリである。
-VCE のすべての関数が定義されている。
-実際にパッケージに含まれているライブラリファイル名は、
-<pre>
-libvce-0_2_1.a    (32bit Linux用)
-libvce64-0_2_1.a  (64bit Linux用)
-</pre>
-というような名前になっているが、マニュアル中ではすべて、 libvce.a
-という表記になっている。<br>
-VCEのユーザは、このファイルの名前をできるだけ変更せずにアプリケーションと
-リンクするのが望ましい。その理由は、もしも名前を変更してしまうと、
-VCEがバージョンアップしたときに問題が発生した場合、
-その問題を追いかけにくくなるからである。<BR><BR>
-<B>依存ライブラリ</B><BR>
-VCEgg においては、 GNU の GMP ライブラリ(3.0)と GNU の C ライブラリ(2.1.2)
-に依存している。GMPライブラリはセキュリティルーチンの多倍長整数演算のために、
-Cライブラリはファイルやそのほか、あらゆる機能において依存している。
-現在コミュニティーエンジンではGMPライブラリに依存しない
-オリジナル演算ルーチンを開発しているが、GMPは計算速度において常に
-世界トップクラスであるため、
-アプリケーション開発者のポリシーに基づいて選択できるようにしていく。
-
-</td></tr>
-</table><br><br>
 <a name="vce.h"></a>
 <table id="filedef">
 <tr><th colspan="2" id="filedef_title">
