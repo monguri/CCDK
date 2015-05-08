@@ -12,6 +12,7 @@ CCDKドキュメント
   * [TCPコンテキスト](vce/tcpcontext_ja.md)
   * [VCE FAQ](vce/faq_ja.md)
   * [gen.rb プロトコルジェネレータ リファレンス](vce/gen_ja.md)
+  * [gen.rb C言語出力リファレンス](vce/gen_output_ref_ja.md)
   * [VCEサーバーにおける最大接続数について](vce/connect_ja.md)
 
 
