@@ -158,7 +158,6 @@
 <li><a href="#vce_read_simple_config_file">vce_read_simple_config_file</a></li>
 <li><a href="#vce_replace_malloc_funcs">vce_replace_malloc_funcs</a></li>
 <li><a href="#vce_set_heartbeat_wait_flag">vce_set_heartbeat_wait_flag</a></li>
-<li><a href="#vce_set_internal_timer">vce_set_internal_timer</a></li>
 <li><a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a></li>
 <li><a href="#vce_set_read_write_log_mode">vce_set_read_write_log_mode</a></li>
 <li><a href="#vce_set_socket_library_ok">vce_set_socket_library_ok</a></li>
@@ -510,7 +509,7 @@ VCEアプリケーションの開発をしていく時に有用である。
 ARRAY_SCAN</th></tr>
 <tr><th>概要</th><td>VCEによって管理されている配列の全使用中要素をスキャンする</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>ARRAY_SCAN( int arraydescriptor, void* pointer )</b></td>
 <tr><th>arg 1</Th><td>int arraydescriptor</td></tr>
 <tr><th></th><td>VCEの管理する配列にアクセスするための識別値。
@@ -553,7 +552,7 @@ ARRAY_SCAN( memory_ind, c ){
 ARRAY_SCAN_TYPE</th></tr>
 <tr><th>概要</th><td>ARRAY_SCAN を C++ で使うための変種</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )</b></td>
 <tr><th>arg 1</Th><td>int arraydescriptor</td></tr>
 <tr><th></th><td>VCE の配列にアクセスするための識別値
@@ -581,7 +580,7 @@ C++ においてはキャストが必要なためその処理がコンパイル�
 ELEMENTOF</th></tr>
 <tr><th>概要</th><td>固定サイズの配列の要素数を返す(コンパイル時定数)。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int ELEMENTOF(x)</b></td>
 <tr><th>arg 1</Th><td>x</td></tr>
 <tr><th></th><td>任意のC言語配列 (ポインタではない)
@@ -607,7 +606,7 @@ ELEMENTOF</th></tr>
 FREE</th></tr>
 <tr><th>概要</th><td>MALLOC関数で割りあてたメモリ領域を解放する。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void FREE( void *p )</b></td>
 <tr><th>arg 1</Th><td>void *p</td></tr>
 <tr><th></th><td>解放するメモリ領域の先頭アドレス
@@ -629,7 +628,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
 GET_16BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域から16ビットの整数値を取りだす。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>unsigned short GET_16BIT_INT( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>取りだしたい値がネットワークバイトオーダで格納されているバッファの先頭
@@ -639,8 +638,6 @@ GET_16BIT_INT</th></tr>
 </td></tr>
 <tr><th>詳細説明</th><td>内部でntohsを使用している。主にプロトコル処理に使われるが、
 より一般的な目的のためには、 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_32BIT_INT">GET_32BIT_INT</a>
@@ -656,13 +653,11 @@ GET_16BIT_INT</th></tr>
 GET_16BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>バッファから16ビット整数値を取りだす。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>short GET_16BIT_NATIVEINT( char *p )</b></td>
 <tr><th>返り値</th><td>取りだしたshort値
 </td></tr>
 <tr><th>詳細説明</th><td>ntohs, htons などをつかわない、取りだしマクロである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_32BIT_NATIVEINT">GET_32BIT_NATIVEINT</a>
@@ -675,7 +670,7 @@ GET_16BIT_NATIVEINT</th></tr>
 GET_32BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域から32ビット整数値を取りだすマクロ</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>unsigned int GET_32BIT_INT( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>取りだす元になるバッファの先頭アドレス
@@ -686,8 +681,6 @@ GET_32BIT_INT</th></tr>
 このマクロはバイナリプロトコル解析用に使われるが、アプリケーションで
 バイナリプロトコルを実装する場合には、このマクロではなく、
 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_16BIT_INT">GET_16BIT_INT</a>
@@ -703,13 +696,11 @@ bin カテゴリの関数群を使うべきである。
 GET_32BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>バッファから32ビット整数値を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int GET_32BIT_NATIVEINT( char *p )</b></td>
 <tr><th>返り値</th><td>取りだしたint値
 </td></tr>
 <tr><th>詳細説明</th><td>ntohl, htonl 等をつかわない取りだしマクロである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a>
@@ -722,7 +713,7 @@ GET_32BIT_NATIVEINT</th></tr>
 GET_64BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域から64ビット整数値を取りだすマクロ</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>VCEI64 GET_64BIT_INT( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>取りだす元になるバッファの先頭アドレス
@@ -733,8 +724,6 @@ GET_64BIT_INT</th></tr>
 このマクロはバイナリプロトコル解析用に使われるが、アプリケーションで
 バイナリプロトコルを実装する場合には、このマクロではなく、
 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_16BIT_INT">GET_16BIT_INT</a>
@@ -750,13 +739,11 @@ bin カテゴリの関数群を使うべきである。
 GET_64BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>バッファから64ビット整数値を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int GET_64BIT_NATIVEINT( char *p )</b></td>
 <tr><th>返り値</th><td>取りだしたint値
 </td></tr>
 <tr><th>詳細説明</th><td>ntohl, htonl 等をつかわない取りだしマクロである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_16BIT_NATIVEINT">GET_16BIT_NATIVEINT</a>
@@ -769,7 +756,7 @@ GET_64BIT_NATIVEINT</th></tr>
 GET_8BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域から8ビットの整数値を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>unsigned char GET_8BIT_INT( char *b )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>取りだす値が格納されているバッファの先頭アドレス
@@ -793,7 +780,7 @@ GET_8BIT_INT</th></tr>
 GET_8BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>バッファから8ビット整数値を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char GET_8BIT_NATIVEINT( char *p )</b></td>
 <tr><th>返り値</th><td>取りだした8ビット値
 </td></tr>
@@ -811,7 +798,7 @@ GET_8BIT_NATIVEINT</th></tr>
 MALLOC</th></tr>
 <tr><th>概要</th><td>malloc の wrapper. Cライブラリのmallocのラッパー</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void *MALLOC( size_t size )</b></td>
 <tr><th>arg 1</Th><td>size_t size</td></tr>
 <tr><th></th><td>割りあてるメモリのサイズ(バイト数)
@@ -839,7 +826,7 @@ vce_set_verbose_mode を1に設定すると、ログを出力するようにな�
 MAX</th></tr>
 <tr><th>概要</th><td>2つの値を比較して大きい方の値を返す</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int MAX(int a, int b)</b></td>
 <tr><th>arg 1</Th><td>int a</td></tr>
 <tr><th></th><td>比較する片方の値。プロトタイプではintになっているが、
@@ -867,7 +854,7 @@ MAX</th></tr>
 MIN</th></tr>
 <tr><th>概要</th><td>2つの値を比較して小さい方の値を返す</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int MIN(int a, int b )</b></td>
 <tr><th>arg 1</Th><td>int a</td></tr>
 <tr><th></th><td>比較する片方の値。プロトタイプではintになっているが、
@@ -895,7 +882,7 @@ MIN</th></tr>
 SET_16BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域に16ビットの整数値をネットワークバイトオーダでコピーする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_16BIT_INT( char *b, unsigned short i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>コピーする先のバッファの先頭アドレス
@@ -907,8 +894,6 @@ SET_16BIT_INT</th></tr>
 </td></tr>
 <tr><th>詳細説明</th><td>内部でhtonsを使用している。主にプロトコル処理に使われるが、
 より一般的な目的のためには、 bin カテゴリの関数群を使うべきである。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_16BIT_INT">GET_16BIT_INT</a>
@@ -924,7 +909,7 @@ SET_16BIT_INT</th></tr>
 SET_16BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>16ビット整数値を任意のバッファにコピーする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_16BIT_NATIVEINT( char *p, short i )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>コピーする先のバッファの先頭アドレス
@@ -936,8 +921,6 @@ SET_16BIT_NATIVEINT</th></tr>
 </td></tr>
 <tr><th>詳細説明</th><td>ntohs, htons 等を使用しない。直接値をコピーする。
 ポインタの型キャストをするためのマクロ。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a>
@@ -950,7 +933,7 @@ SET_16BIT_NATIVEINT</th></tr>
 SET_32BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域に32ビットの整数値をネットワークバイトオーダでコピーする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_32BIT_INT( char *b, unsigned int i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>値をコピーする先のメモリの先頭アドレス
@@ -963,8 +946,6 @@ SET_32BIT_INT</th></tr>
 <tr><th>詳細説明</th><td>内部で htonlを使用している。プロトコル解析用に使用されるが、
 アプリケーションはプロトコル解析をする場合は、このマクロを使用
 せずに bin カテゴリの関数群を使うべきである(そのほうが堅牢である。)
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_16BIT_INT">GET_16BIT_INT</a>
@@ -980,7 +961,7 @@ SET_32BIT_INT</th></tr>
 SET_32BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>32ビットの値を、任意のバッファにセットする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_32BIT_NATIVEINT( char *p, int i )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>コピーする先のバッファの先頭アドレス
@@ -992,8 +973,6 @@ SET_32BIT_NATIVEINT</th></tr>
 </td></tr>
 <tr><th>詳細説明</th><td>htonl, ntohl等を使用せず、直接値をコピーする。
 ポインタのキャストをするだけのマクロ。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a>
@@ -1006,7 +985,7 @@ SET_32BIT_NATIVEINT</th></tr>
 SET_64BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域に64ビットの整数値をネットワークバイトオーダでコピーする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_64BIT_INT( char *b, VCEI64 i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>値をコピーする先のメモリの先頭アドレス
@@ -1019,8 +998,6 @@ SET_64BIT_INT</th></tr>
 <tr><th>詳細説明</th><td>内部で htonlを使用している。プロトコル解析用に使用されるが、
 アプリケーションはプロトコル解析をする場合は、このマクロを使用
 せずに bin カテゴリの関数群を使うべきである(そのほうが堅牢である。)
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#GET_16BIT_INT">GET_16BIT_INT</a>
@@ -1036,7 +1013,7 @@ SET_64BIT_INT</th></tr>
 SET_64BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>64ビットの値を、任意のバッファにセットする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_64BIT_NATIVEINT( char *p, VCEI64 i )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>コピーする先のバッファの先頭アドレス
@@ -1048,8 +1025,6 @@ SET_64BIT_NATIVEINT</th></tr>
 </td></tr>
 <tr><th>詳細説明</th><td>htonl, ntohl等を使用せず、直接値をコピーする。
 ポインタのキャストをするだけのマクロ。
-なお MIPS アーキテクチャ(PS2)のマシンでは、
-このマクロは関数として実装されている。
 </td></tr>
 <tr><th>See also</th><td>
 <a href="#SET_16BIT_NATIVEINT">SET_16BIT_NATIVEINT</a>
@@ -1062,7 +1037,7 @@ SET_64BIT_NATIVEINT</th></tr>
 SET_8BIT_INT</th></tr>
 <tr><th>概要</th><td>メモリ領域に8ビットの整数値をコピーする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_8BIT_INT( char *b, unsigned char i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>コピーする先のバッファの先頭アドレス
@@ -1089,7 +1064,7 @@ SET_8BIT_INT</th></tr>
 SET_8BIT_NATIVEINT</th></tr>
 <tr><th>概要</th><td>8ビットの整数値を任意のバッファにコピーする</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void SET_8BIT_NATIVEINT( char *p, char i )</b></td>
 <tr><th>arg 1</Th><td>char *P</td></tr>
 <tr><th></th><td>コピーする先のバッファの先頭アドレス
@@ -1113,7 +1088,7 @@ SET_8BIT_NATIVEINT</th></tr>
 STRERR</th></tr>
 <tr><th>概要</th><td>VCEの最新エラーコードを文字列で得る</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char *STRERR</b></td>
 <tr><th>返り値</th><td>出力の文字列へのポインタ。
 </td></tr>
@@ -1134,7 +1109,7 @@ STRERR</th></tr>
 vce_alloc_array_object</th></tr>
 <tr><th>概要</th><td>VCE配列の未使用要素を1個わりあてる</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void * vce_alloc_array_object( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>VCE配列を特定するための配列デスクリプタ
@@ -1160,7 +1135,7 @@ vce_alloc_array_object</th></tr>
 vce_array_object_inuse</th></tr>
 <tr><th>概要</th><td>VCE配列の要素が使用中かどうかを調べる</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_array_object_inuse( int index, void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列ディスクリプタ
@@ -1185,7 +1160,7 @@ vce_array_object_inuse</th></tr>
 vce_atoi</th></tr>
 <tr><th>概要</th><td>文字列を整数(int)に変換する。簡単な計算機能つき。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_atoi( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>変換する文字列。
@@ -1228,7 +1203,7 @@ vce_get_last_error 関数を使って、VCE_EFORMAT を検出することで、
 vce_binary_pack</th></tr>
 <tr><th>概要</th><td>構造体に保存されているデータをpackして、バイト列にする (古い)</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )</b></td>
 <tr><th>arg 1</Th><td>struct bin_info *bi</td></tr>
 <tr><th></th><td>bin_info構造体の配列の先頭アドレス
@@ -1256,7 +1231,7 @@ vce_binary_pack</th></tr>
 vce_binary_pop_nb_i1</th></tr>
 <tr><th>概要</th><td>バッファから1バイト整数(char) を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1286,7 +1261,7 @@ vce_binary_pop_nb_i1</th></tr>
 vce_binary_pop_nb_i2</th></tr>
 <tr><th>概要</th><td>バッファから2バイト整数(short) を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1316,7 +1291,7 @@ vce_binary_pop_nb_i2</th></tr>
 vce_binary_pop_nb_i4</th></tr>
 <tr><th>概要</th><td>バッファから4バイト整数(int) を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1346,7 +1321,7 @@ vce_binary_pop_nb_i4</th></tr>
 vce_binary_pop_nb_i8</th></tr>
 <tr><th>概要</th><td>バッファから8バイト整数(VCEI64) を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1376,7 +1351,7 @@ vce_binary_pop_nb_i8</th></tr>
 vce_binary_pop_nb_ia1</th></tr>
 <tr><th>概要</th><td>バッファから1バイト整数(char) の配列を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1413,7 +1388,7 @@ out 引数で指定する配列の要素数を受けとり、
 vce_binary_pop_nb_ia2</th></tr>
 <tr><th>概要</th><td>バッファから2バイト整数(short) の配列を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1450,7 +1425,7 @@ vce_binary_pop_nb_ia2</th></tr>
 vce_binary_pop_nb_ia4</th></tr>
 <tr><th>概要</th><td>バッファから4バイト整数(int) の配列を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1487,7 +1462,7 @@ vce_binary_pop_nb_ia4</th></tr>
 vce_binary_pop_nb_ia8</th></tr>
 <tr><th>概要</th><td>バッファから8バイト整数(int) の配列を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1524,7 +1499,7 @@ vce_binary_pop_nb_ia8</th></tr>
 vce_binary_pop_nb_stra</th></tr>
 <tr><th>概要</th><td>バッファから文字列の配列を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>データを取りだすバッファの先頭アドレス
@@ -1575,7 +1550,7 @@ vce_binary_pop_nb_stra</th></tr>
 vce_binary_push_nb_i1</th></tr>
 <tr><th>概要</th><td>1バイト整数(char) をバッファにpushする</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1607,7 +1582,7 @@ push できなかったときは、負のエラーコードを返す。
 vce_binary_push_nb_i2</th></tr>
 <tr><th>概要</th><td>2バイト整数(short) をバッファにpushする</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1642,7 +1617,7 @@ push できなかったときは、負のエラーコードを返す。
 vce_binary_push_nb_i4</th></tr>
 <tr><th>概要</th><td>4バイト整数(int) をバッファにpushする</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1677,7 +1652,7 @@ push できなかったときは、負のエラーコードを返す。
 vce_binary_push_nb_i8</th></tr>
 <tr><th>概要</th><td>8バイト整数(VCEI64) をバッファにpushする</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1712,7 +1687,7 @@ push できなかったときは、負のエラーコードを返す。
 vce_binary_push_nb_ia1</th></tr>
 <tr><th>概要</th><td>1バイト整数(char)の配列をバッファに push する</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1747,7 +1722,7 @@ vce_binary_push_nb_ia1</th></tr>
 vce_binary_push_nb_ia2</th></tr>
 <tr><th>概要</th><td>2バイト整数(short)の配列をバッファに push する</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1783,7 +1758,7 @@ vce_binary_push_nb_ia2</th></tr>
 vce_binary_push_nb_ia4</th></tr>
 <tr><th>概要</th><td>4バイト整数(int)の配列をバッファに push する</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1819,7 +1794,7 @@ vce_binary_push_nb_ia4</th></tr>
 vce_binary_push_nb_ia8</th></tr>
 <tr><th>概要</th><td>8バイト整数(VCEI64)の配列をバッファに push する</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1855,7 +1830,7 @@ vce_binary_push_nb_ia8</th></tr>
 vce_binary_push_nb_stra</th></tr>
 <tr><th>概要</th><td>ヌル終端された文字列の配列をバッファに push する</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力バッファの先頭アドレス
@@ -1895,7 +1870,7 @@ num が 0 のときは、 stra には NULL を指定することができる。
 vce_binary_unpack</th></tr>
 <tr><th>概要</th><td>バッファのバイナリデータをunpackして構造体の配列にする(古い)</td></tr>
 <tr><th>カテゴリ</th><td>bin</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )</b></td>
 <tr><th>arg 1</Th><td>struct bin_info *bi</td></tr>
 <tr><th></th><td>bin_info構造体の配列の先頭アドレス
@@ -1929,7 +1904,7 @@ unpackし、構造を持った状態に戻す。
 vce_conn_break_heartbeat</th></tr>
 <tr><th>概要</th><td>コールバック関数内から、connのプロトコル処理を中止させる</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_break_heartbeat()</b></td>
 <tr><th>返り値</th><td></td></tr>
 <tr><th>詳細説明</th><td>conn_parserコールバック関数内で、この関数を呼ぶことでそのheartbeat内でのそのconnの
@@ -1953,7 +1928,7 @@ vce_conn_break_heartbeat</th></tr>
 vce_conn_clear</th></tr>
 <tr><th>概要</th><td>conn_t型のインスタンスを初期化する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_clear( conn_t *c )</b></td>
 <tr><th>arg 1</Th><td>conn_t *c</td></tr>
 <tr><th></th><td>初期化するconn_tへのポインタ
@@ -1970,7 +1945,7 @@ vce_conn_clear</th></tr>
 vce_conn_close</th></tr>
 <tr><th>概要</th><td>TCPコネクションを閉じて解放する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_close( conn_t ct )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>閉じたいコネクションの conn_t
@@ -2012,7 +1987,7 @@ vce_conn_set_timeout( co, 0 );
 vce_conn_close_tcpcontext_all</th></tr>
 <tr><th>概要</th><td>あるtcpが管理しているすべてのコネクションを切断する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_close_tcpcontext_all( tcpcontext_t tp )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>切断対象となるコネクションを管理している tcpcontext_t
@@ -2081,7 +2056,7 @@ vce_tcpcontext_set_conn_parser 関数等をもちいて登録することがで�
 vce_conn_get_index</th></tr>
 <tr><th>概要</th><td>TCPコネクション(conn_t)のVCE内でのindexを求める</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_conn_get_index( conn_t c );</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>インデックス値を求めたいコネクション
@@ -2102,7 +2077,7 @@ vce_conn_get_index</th></tr>
 vce_conn_get_local_addr_string</th></tr>
 <tr><th>概要</th><td>TCPコネクションのローカルアドレスとポートを文字列で得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>アドレスを取得したいコネクション
@@ -2129,7 +2104,7 @@ vce_conn_get_remote_addr_string 関数と同じである。
 vce_conn_get_local_ipv4_addr</th></tr>
 <tr><th>概要</th><td>TCPコネクションのローカルIPv4アドレス(32bit)を得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となるコネクション
@@ -2157,7 +2132,7 @@ vce_conn_get_local_ipv4_addr</th></tr>
 vce_conn_get_local_ipv4_addr_string</th></tr>
 <tr><th>概要</th><td>TCPコネクションのローカルIPv4アドレスとポートを文字列で得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となるコネクション
@@ -2185,7 +2160,7 @@ vce_conn_get_local_addr_string 関数を使うことを推奨する。
 vce_conn_get_local_ipv6_addr</th></tr>
 <tr><th>概要</th><td>TCPコネクションのローカルIPv6アドレス(128bit)を得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となるコネクション
@@ -2216,7 +2191,7 @@ vce_conn_get_local_ipv6_addr</th></tr>
 vce_conn_get_local_ipv6_addr_string</th></tr>
 <tr><th>概要</th><td>TCPコネクションのローカルIPv6アドレスとポートを文字列で得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となる conn_t
@@ -2244,7 +2219,7 @@ vce_conn_get_local_addr_string 関数の使用を推奨する。
 vce_conn_get_remote_addr_string</th></tr>
 <tr><th>概要</th><td>TCPコネクションのリモートピアのアドレスとポートを文字列で得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>アドレスを取得したいコネクション
@@ -2277,7 +2252,7 @@ ipv6 では "." で区切られていることに注意。
 vce_conn_get_remote_ipv4_addr</th></tr>
 <tr><th>概要</th><td>TCPコネクションのリモートピアのIPv4アドレス(32bit)を得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となるコネクション
@@ -2302,7 +2277,7 @@ vce_conn_get_remote_ipv4_addr</th></tr>
 vce_conn_get_remote_ipv4_addr_string</th></tr>
 <tr><th>概要</th><td>TCPコネクションのリモートピアのIPv4アドレスとポートを文字列で得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となるコネクション
@@ -2317,10 +2292,6 @@ vce_conn_get_remote_ipv4_addr_string</th></tr>
 </td></tr>
 <tr><th>詳細説明</th><td>IPアドレスをログ出力用などで、文字列に変換したい時が多いが、
 この関数を使うと簡単に文字列を得ることができる。
-PS2 での開発環境では、
-出力バッファである s には、50バイト以上の長さのものを指定すること。
-これは、
-現在は PS2 のライブラリが snprintf をサポートしていないことが理由である。
 この関数は IPv4 専用であるため IPv6 コネクションには対応していない。
 プロトコル独立をめざすアプリケーションでは、
 vce_conn_get_remote_addr 関数を用る。
@@ -2336,7 +2307,7 @@ vce_conn_get_remote_addr 関数を用る。
 vce_conn_get_remote_ipv6_addr</th></tr>
 <tr><th>概要</th><td>TCPコネクションのリモートピアのIPv6アドレス(128bit)を得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となるコネクション
@@ -2367,7 +2338,7 @@ vce_conn_get_remote_ipv6_addr</th></tr>
 vce_conn_get_remote_ipv6_addr_string</th></tr>
 <tr><th>概要</th><td>TCPコネクションのリモートピアのIPv6アドレスとポートを文字列で得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>処理対象となるコネクション
@@ -2394,7 +2365,7 @@ vce_conn_get_remote_ipv6_addr_string</th></tr>
 vce_conn_get_stat</th></tr>
 <tr><th>概要</th><td>conn_t の統計情報を取得する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_get_stat( conn_t ct, conn_stat_t *st )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>情報を取得する対象となるコネクション(conn_t)
@@ -2432,7 +2403,7 @@ send_syscall を呼びだした回数。
 vce_conn_get_state_buffer</th></tr>
 <tr><th>概要</th><td>conn_tの状態管理バッファへのポインタを返す</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void * vce_conn_get_state_buffer( conn_t c, int *len );</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>状態を取りだしたいコネクション
@@ -2457,7 +2428,7 @@ vce_tcpcontext_create の呼びだし時に状態のあるプロトコルを指�
 vce_conn_get_struct_from_index</th></tr>
 <tr><th>概要</th><td>TCPコネクションのindex値からconn_t構造体を得る。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>conn_t vce_conn_get_struct_from_index( int index );</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>インデックス値。前もって vce_conn_get_index 関数で得たindexを
@@ -2477,7 +2448,7 @@ vce_conn_get_struct_from_index</th></tr>
 vce_conn_get_tcpcontext</th></tr>
 <tr><th>概要</th><td>conn_t から、そのコネクションが属する tcpcontext を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>tcpcontext_t vce_conn_get_tcpcontext( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>取りだしの対象となる conn_t
@@ -2554,7 +2525,7 @@ vce_conn_is_valid</th></tr>
 vce_conn_set_delay</th></tr>
 <tr><th>概要</th><td>クライアント、サーバー間の通信の遅延んをシミュレートsる。</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>遅延を設定する対象のコネクション
@@ -2581,7 +2552,7 @@ vce_conn_set_delay</th></tr>
 vce_conn_set_parser</th></tr>
 <tr><th>概要</th><td>conn_t ごとに動的にプロトコルパーサを設定する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>設定したい conn_t
@@ -2618,7 +2589,7 @@ vce_conn_set_parser</th></tr>
 vce_conn_set_timeout</th></tr>
 <tr><th>概要</th><td>conn_t ごとにタイムアウト時間を設定変更する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_set_timeout( conn_t c, int sec )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>設定を変更したい conn_t
@@ -2644,7 +2615,7 @@ vce_tcpcontext_create 関数のタイムアウト設定に準じるが，
 vce_conn_show_stat</th></tr>
 <tr><th>概要</th><td>使用中のすべてのコネクションの状態を表示する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_conn_show_stat( void )</b></td>
 <tr><th>返り値</th><td>なし
 </td></tr>
@@ -2690,7 +2661,7 @@ Win32GUI環境において標準エラー出力が使えない場合は本関数
 vce_conn_shrink_readbuf</th></tr>
 <tr><th>概要</th><td>conn_t の読みこみバッファを縮ませる</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_conn_shrink_readbuf( conn_t ct, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>縮ませる読みこみバッファをもつ conn_t
@@ -2744,7 +2715,7 @@ vce_conn_userdata_set_pointer</th></tr>
 vce_conn_writable</th></tr>
 <tr><th>概要</th><td>TCPコネクションに書きこみが可能かどうかを調べる</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_conn_writable( conn_t ct );</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>書きこみ可能かどうか調べる対象となるTCPコネクションをあらわす conn_t。
@@ -2791,7 +2762,7 @@ TCPコネクションに何かを書きこみたいときは、この関数を�
 vce_conn_write</th></tr>
 <tr><th>概要</th><td>TCPコネクションにデータを生で書きこむ。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_conn_write( conn_t ct, char *b, size_t len );</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>書きこむ対象となる conn_t
@@ -2861,7 +2832,7 @@ VCEでは、vce_heartbeatを呼び出すことによって可能な限りデー�
 vce_dump_buffer</th></tr>
 <tr><th>概要</th><td>バイナリ配列をvce_erroutを用いてダンプする。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_dump_buffer( char *buf, int len )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>ダンプしたいデータの先頭アドレス
@@ -2884,7 +2855,7 @@ vce_dump_buffer</th></tr>
 vce_end_all_array</th></tr>
 <tr><th>概要</th><td>全てのVCE配列を解放する</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_end_all_array( void )</b></td>
 <tr><th>返り値</th><td>なし
 </td></tr>
@@ -2900,7 +2871,7 @@ vce_end_all_array</th></tr>
 vce_end_array</th></tr>
 <tr><th>概要</th><td>VCE配列を解放する。</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_end_array( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定する配列デスクリプタ。
@@ -2926,7 +2897,7 @@ FREE 関数の呼びだし状況がログ出力される。
 vce_errout</th></tr>
 <tr><th>概要</th><td>VCEのログ出力をする</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_errout( const char *format, ... )</b></td>
 <tr><th>arg 1</Th><td>char *format</td></tr>
 <tr><th></th><td>フォーマット文字列。 printf のものと同じ
@@ -2954,7 +2925,7 @@ vce_errout_config 関数によってログ出力ディレクトリが指定さ�
 vce_extract_data_from_hex_text</th></tr>
 <tr><th>概要</th><td>hextext 形式のASCIIテキストを、バイナリデータ配列に戻す</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>入力となるASCIIテキストの先頭アドレス
@@ -2985,7 +2956,7 @@ vce_extract_data_from_hex_text</th></tr>
 vce_finalize</th></tr>
 <tr><th>概要</th><td>VCEの解放を行なう。</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_finalize( void )</b></td>
 <tr><th>返り値</th><td>正常に終了できた場合は0、異常な場合は負のエラーコードを返す。
 </td></tr>
@@ -3000,7 +2971,7 @@ vce_errout* を除いて，
 vce_free_array_object</th></tr>
 <tr><th>概要</th><td>VCE配列の要素を解放する</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_free_array_object( int index , void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3025,7 +2996,7 @@ vce_free_array_object</th></tr>
 vce_free_array_object_all</th></tr>
 <tr><th>概要</th><td>配列の全要素を解放する(配列自体は解放しない)</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_free_array_object_all( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3048,7 +3019,7 @@ vce_free_array_object_all</th></tr>
 vce_get_array_maxnum</th></tr>
 <tr><th>概要</th><td>配列の最大要素数を返す</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_get_array_maxnum( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>情報を取得したい配列のindex
@@ -3067,7 +3038,7 @@ vce_get_array_maxnum</th></tr>
 vce_get_array_member_size</th></tr>
 <tr><th>概要</th><td>配列の各メンバのサイズを返す</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_get_array_member_size( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>情報を取得したい配列の index
@@ -3089,7 +3060,7 @@ vce_init_array の size 引数の値．
 vce_get_array_object_index</th></tr>
 <tr><th>概要</th><td>VCE配列要素が配列の何番目に位置しているかを得る</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_get_array_object_index( int index , void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3111,7 +3082,7 @@ VCE_EALIGNMENT を返す。
 vce_get_array_object_last</th></tr>
 <tr><th>概要</th><td>VCE配列の最後の要素を取りだす。</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void * vce_get_array_object_last( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3136,7 +3107,7 @@ vce_alloc_array_object と本関数をつかえば、 FIFOのようなことが�
 vce_get_array_object_next</th></tr>
 <tr><th>概要</th><td>VCE配列の使用中要素の次の要素を取りだす</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void * vce_get_array_object_next( int index , void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定する配列デスクリプタ
@@ -3162,7 +3133,7 @@ ARRAY_SCAN マクロを使用したほうが安全確実である。
 vce_get_array_object_pointer_by_index</th></tr>
 <tr><th>概要</th><td>VCE配列の要素をインデクスを指定して得る</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void *vce_get_array_object_pointer_by_index( int index, int objindex )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>VCE配列を特定するための配列ディスクリプタ
@@ -3195,7 +3166,7 @@ NULLポインタを返す場合は、 vce_get_last_error を使ってエラー�
 vce_get_array_object_pointer_by_index_only_used</th></tr>
 <tr><th>概要</th><td>VCE配列の指定したインデクスを持つ要素を得る(使用中の要素のみ)</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3219,7 +3190,7 @@ vce_get_array_object_pointer_by_index_only_used</th></tr>
 vce_get_array_object_top</th></tr>
 <tr><th>概要</th><td></td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void * vce_get_array_object_top( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3245,7 +3216,7 @@ ARRAY_SCAN マクロは、配列の要素のうち使用中のものすべてを
 vce_get_array_usenum</th></tr>
 <tr><th>概要</th><td>VCE配列の要素のうちいくつが使用中になっているかを数える</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_get_array_usenum( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3288,7 +3259,7 @@ VCEはこの関数が返す値を、vce_heartbeat が呼びだされるごとに
 vce_get_ipv4_addr_by_name</th></tr>
 <tr><th>概要</th><td>ホスト名から IPv4アドレス(ネットワークバイトオーダ)を得る</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );</b></td>
 <tr><th>arg 1</Th><td>unsigned int *a</td></tr>
 <tr><th></th><td>IPv4アドレスのポインタ。出力に使われる。
@@ -3311,7 +3282,7 @@ PlanetWeb の場合は，現在は DNS解決に対応していない．
 vce_get_last_error</th></tr>
 <tr><th>概要</th><td>VCE内で最後に起こったエラー番号を取得する。</td></tr>
 <tr><th>カテゴリ</th><td>err</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_get_last_error(void);</b></td>
 <tr><th>返り値</th><td>エラーコードの値。
 </td></tr>
@@ -3343,7 +3314,7 @@ if( !t ){
 vce_get_netstat_string</th></tr>
 <tr><th>概要</th><td>VCE が管理しているすべての接続情報を文字列で取得する。</td></tr>
 <tr><th>カテゴリ</th><td>log</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_get_netstat_string( char *buf, int maxlen )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>出力先文字列
@@ -3398,7 +3369,7 @@ type=conn は、通常のコネクションをあらわす。
 vce_get_stat</th></tr>
 <tr><th>概要</th><td>VCE 全体の動作状況記録を取得する</td></tr>
 <tr><th>カテゴリ</th><td>log</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_get_stat( vce_stat_t *v )</b></td>
 <tr><th>arg 1</Th><td>vce_stat_t *v</td></tr>
 <tr><th></th><td>記録を格納する vce_stat_t 構造体へのポインタ
@@ -3490,7 +3461,7 @@ vce_get_tcp_packet_write_size</th></tr>
 vce_heartbeat</th></tr>
 <tr><th>概要</th><td>VCEを能動的に呼びだし、I/O処理をさせる。</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_heartbeat( void )</b></td>
 <tr><th>返り値</th><td>なし
 </td></tr>
@@ -3530,7 +3501,7 @@ vce_set_heartbeat_wait_flag 関数を使ってsleep時間を調整すれば、
 vce_if_included_in_array</th></tr>
 <tr><th>概要</th><td>配列のある要素が、正しく配列に含まれてるかどうかしらべる</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_if_included_in_array( int index, void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -3563,7 +3534,7 @@ vce_if_included_in_array</th></tr>
 vce_init_array</th></tr>
 <tr><th>概要</th><td>新規にVCEの配列を初期化する。</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_init_array ( size_t size , int num , char *nm )</b></td>
 <tr><th>arg 1</Th><td>size_t size</td></tr>
 <tr><th></th><td>配列の要素のサイズ(バイト数)
@@ -3605,7 +3576,7 @@ VCE配列はVCEの処理の基盤ルーチンとして使用されている。<B
 vce_init_limit_t</th></tr>
 <tr><th>概要</th><td>vce_limit_t 構造体をデフォルト値に初期化する</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2.darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b> void vce_init_limit_t( vce_limit_t *t )</b></td>
 <tr><th>返り値</th><td>なし
 </td></tr>
@@ -3623,7 +3594,7 @@ vce_init_limit_t</th></tr>
 vce_initialize</th></tr>
 <tr><th>概要</th><td>VCEを初期化する。</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_initialize( void )</b></td>
 <tr><th>返り値</th><td>正常に初期化できた場合は0、そうでない場合は負のエラーコード(vce.h)。
 </td></tr>
@@ -3631,13 +3602,9 @@ vce_initialize</th></tr>
 VCEの内部用メモリはこの関数で確保される．
 またWindows環境においては、Winsockの初期化も同時に行なう。
 UNIX 用では SIGPIPE をブロックする。
-PS2 用VCEの場合は、アプリケーションでネットワークの初期化をする前に
-本関数を呼びだしてから、
-ソケットライブラリが初期化された時点で vce_set_socket_library_ok(1) を
-呼びだすこと(サンプルを参照)
 </td></tr>
 <tr><th>使用例</th><td><pre>
-// PS2 など、OS がソケットライブラリを提供していない場合のコード
+// OS がソケットライブラリを提供していない場合のコード
 int main()
 {
     vce_initialize();
@@ -3668,7 +3635,7 @@ int main()
 vce_initialize_limited</th></tr>
 <tr><th>概要</th><td>限られたメモリ使用量で VCE を初期化する</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_initialize_limited( vce_limit_t *lim )</b></td>
 <tr><th>arg 1</Th><td>vce_limit_t *lim</td></tr>
 <tr><th></th><td>設定情報を含んだ vce_limit_t 構造体へのポインタ．
@@ -3707,7 +3674,7 @@ max_array の最低値に関しては，VCE内部でも配列エンジンを使�
 max_array の上限に注目してみるとよい．
 また， max_array を1増やすごとに72バイトのメモリが確保される．
 Linux/Win32環境では， max_array にデフォルト値の -1 を設定したときは
-256が設定され， PS2環境では32が設定される．
+256が設定される．
 <BR>
 メモリを節約するという目的とは別に、デフォルトの最大値をもっと大きな値に
 したいという場合にも本関数を使用できる。
@@ -3748,7 +3715,7 @@ int main(){
 vce_limit_clear</th></tr>
 <tr><th>概要</th><td>vce_limit_t型の構造体の初期化をする(-1のデフォルト値で初期化)</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_limit_clear( vce_limit_t *t )</b></td>
 <tr><th>返り値</th><td>なし
 </td></tr>
@@ -3768,7 +3735,7 @@ vce_limit_clear</th></tr>
 vce_mainloop</th></tr>
 <tr><th>概要</th><td>VCEのメインループ関数。</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_mainloop(void)</b></td>
 <tr><th>返り値</th><td>なし
 </td></tr>
@@ -3789,7 +3756,7 @@ vce_mainloop</th></tr>
 vce_make_binary_array_from_hex</th></tr>
 <tr><th>概要</th><td>16進数文字列を変換して、バイナリデータを含む配列を作る。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>バイナリデータ出力先の先頭アドレス
@@ -3818,7 +3785,7 @@ vce_make_hex_from_binary_array の逆関数．
 vce_make_binary_array_from_line</th></tr>
 <tr><th>概要</th><td>ASCIIテキストの1行からバイナリデータの配列を出力する</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )</b></td>
 <tr><th>arg 1</Th><td>char *line</td></tr>
 <tr><th></th><td>入力行
@@ -3850,7 +3817,7 @@ vce_make_binary_array_from_line</th></tr>
 vce_make_hex_from_binary_array</th></tr>
 <tr><th>概要</th><td>バイナリデータ配列から，単一のhex の文字列を作る</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>出力先バッファの先頭アドレス
@@ -3890,7 +3857,7 @@ vce_make_hex_from_binary_array</th></tr>
 vce_make_hex_text_from_buffer</th></tr>
 <tr><th>概要</th><td>バイナリデータ配列から、 hextext 形式のASCIIテキストを出力する。</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>入力となるバイナリデータの先頭アドレス
@@ -3927,7 +3894,7 @@ vce_make_binary_array_from_hex 関数で元に戻すことができる．
 vce_protocol_acceptwatcher_deny</th></tr>
 <tr><th>概要</th><td>すべてのコネクションを拒否するTCP(conn_t)のaccept監視関数</td></tr>
 <tr><th>カテゴリ</th><td>watcher</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_acceptwatcher_deny( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>サーバの tcpcontext が新規に accept した(受けいれた)コネクションを
@@ -3951,7 +3918,7 @@ vce_protocol_acceptwatcher_deny</th></tr>
 vce_protocol_acceptwatcher_noop</th></tr>
 <tr><th>概要</th><td>すべてのコネクションを受けいれる TCP(conn_t)のaccept 監視関数</td></tr>
 <tr><th>カテゴリ</th><td>watcher</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_acceptwatcher_noop( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>サーバの tcpcontext が新規に accept した(受けいれた)コネクションを
@@ -3974,7 +3941,7 @@ NULL を指定したのと同じことになる。
 vce_protocol_closewatcher_noop</th></tr>
 <tr><th>概要</th><td>何もしない、コネクション close 監視関数</td></tr>
 <tr><th>カテゴリ</th><td>watcher</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_closewatcher_noop( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>閉じられようとしているコネクション(閉じる直前)
@@ -3997,7 +3964,7 @@ vce_protocol_closewatcher_noop</th></tr>
 vce_protocol_parser_bin16</th></tr>
 <tr><th>概要</th><td>bin16 プロトコルのレコードを取りだしてコールバック関数を呼びだす</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_parser_bin16( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>レコードがきているかどうか検査する対象のコネクション構造体。
@@ -4054,7 +4021,7 @@ int callback( conn_t *c, char *data, int len )
 vce_protocol_parser_bin32</th></tr>
 <tr><th>概要</th><td>bin32プロトコルのレコードを取りだしてコールバック関数を呼びだす</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_parser_bin32( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>レコード検査をする対象となるコネクション構造体(conn_t)
@@ -4082,7 +4049,7 @@ BIN32DATA_MAX は vce.h で定義されている。
 vce_protocol_parser_text</th></tr>
 <tr><th>概要</th><td>プロトコルを1行単位で取りだしてコールバック関数を呼びだす</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_parser_text( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>レコード取りだし対象となるコネクション
@@ -4109,7 +4076,7 @@ C言語の文字列に変換する必要がある。
 vce_protocol_parser_through</th></tr>
 <tr><th>概要</th><td>レコード境界を切らずにコールバックを呼びだすプロトコルパーサ</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_parser_through( conn_t ct )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>データを受けとるTCPコネクション(conn_t)
@@ -4136,7 +4103,7 @@ vce_protocol_parser_through はまさにそのために使用される。
 vce_protocol_pcallback_dump</th></tr>
 <tr><th>概要</th><td>普通のTCPコネクション用の、データをダンプするコールバック</td></tr>
 <tr><th>カテゴリ</th><td>pcallback</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>入出力対象となるTCPコネクション。
@@ -4166,7 +4133,7 @@ vce_protocol_pcallback_dump</th></tr>
 vce_protocol_pcallback_echo_bin16</th></tr>
 <tr><th>概要</th><td>conn_t上のbin16プロトコル用の、エコー・コールバック関数</td></tr>
 <tr><th>カテゴリ</th><td>pcallback</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>エコーする対象となるコネクション。
@@ -4206,7 +4173,7 @@ vce_protocol_parser_bin16 関数をプロトコルパーサとして登録して
 vce_protocol_pcallback_echo_text</th></tr>
 <tr><th>概要</th><td>conn_t 上の行指向テキストプロトコル用のエコーコールバック関数</td></tr>
 <tr><th>カテゴリ</th><td>pcallback</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>入力を受けるコネクション
@@ -4233,7 +4200,7 @@ vce_protocol_pcallback_echo_text</th></tr>
 vce_protocol_pcallback_noop</th></tr>
 <tr><th>概要</th><td>普通のTCPコネクション用の、何もしないプロトコルコールバック関数</td></tr>
 <tr><th>カテゴリ</th><td>pcallback</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>入出力対象となるコネクション.
@@ -4267,7 +4234,7 @@ vce_protocol_pcallback_noop</th></tr>
 vce_protocol_unparser_bin16</th></tr>
 <tr><th>概要</th><td>bin16 プロトコルのレコードを、コネクションに対して書きこむ</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>書きこみ対象のコネクション
@@ -4314,7 +4281,7 @@ bin16プロトコルは、All or Nothing な送信をする。つまり、
 vce_protocol_unparser_bin32</th></tr>
 <tr><th>概要</th><td>BIN32プロトコルのレコードをひとつ、コネクション(conn_t)に書きこむ</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>書きこみ対象のコネクション
@@ -4346,7 +4313,7 @@ BIN32によって大きいデータを送信できるが、定数 BIN32DATA_MAX 
 vce_protocol_unparser_text</th></tr>
 <tr><th>概要</th><td>テキストプロトコルのレコード(1行)をコネクションに書きこむ</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_unparser_text( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>書きこむ対象となるコネクション
@@ -4375,7 +4342,7 @@ vce_protocol_unparser_text</th></tr>
 vce_protocol_unparser_through</th></tr>
 <tr><th>概要</th><td>TCPコネクションにデータをそのまま書き出す</td></tr>
 <tr><th>カテゴリ</th><td>parser</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_protocol_unparser_through( conn_t ct, char *data, int len)</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>データを出力するコネクション
@@ -4402,7 +4369,7 @@ vce_protocol_unparser_through</th></tr>
 vce_read_plain_text_file</th></tr>
 <tr><th>概要</th><td>プレインテキストファイルを読みこむ</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))</b></td>
 <tr><th>arg 1</Th><td>char *filename</td></tr>
 <tr><th></th><td>読みこむファイル名
@@ -4431,7 +4398,7 @@ vce_read_simple_config_file 関数をさらに単純にしたものである。
 vce_read_simple_config_file</th></tr>
 <tr><th>概要</th><td>単純なテキスト設定ファイルをコールバック関数を使って読みこむ</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )</b></td>
 <tr><th>arg 1</Th><td>char *filename</td></tr>
 <tr><th></th><td>読みこむファイル名
@@ -4483,7 +4450,7 @@ value に改行記号は含まれない。
 vce_replace_malloc_funcs</th></tr>
 <tr><th>概要</th><td>VCE が使うmalloc関数を置きかえる</td></tr>
 <tr><th>カテゴリ</th><td>util</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))</b></td>
 <tr><th>arg 1</Th><td>void * (*a)(size_t)</td></tr>
 <tr><th></th><td>メモリ割りあて関数へのポインタ。NULLを指定すると置きかえない。
@@ -4535,44 +4502,13 @@ flag に1を設定すると、vce_heartbeat は、
 <a href="#vce_heartbeat">vce_heartbeat</a>
 </td></tr>
 </table><br><br>
-<a name="vce_set_internal_timer"></a>
-<table id="funcdef">
-<tr><th colspan="2" id="funcdef_title">
-vce_set_internal_timer</th></tr>
-<tr><th>概要</th><td>VCE の内部タイマを更新する</td></tr>
-<tr><th>カテゴリ</th><td></td></tr>
-<tr><th>対応OS</th><td>ps2</td></tr>
-<tr><th>関数プロトタイプ</th><td><b>void vce_set_internal_timer( time_t t, unsigned int microsec )</b></td>
-<tr><th>arg 1</Th><td>time_t t</td></tr>
-<tr><th></th><td>設定する時刻(秒)。
-</td></tr>
-<tr><th>arg 2</Th><td>unsigned int microsec</td></tr>
-<tr><th></th><td>設定する時刻(マイクロ秒)．
-0から999999の間を指定する．それより大きい値を指定すると，
-(microsec mod 1000000) を値として採用する．
-</td></tr>
-<tr><th>返り値</th><td>なし
-</td></tr>
-<tr><th>詳細説明</th><td>Windows, PS2 やその他組みこみ用の OS 上で動作する VCE では、
-time() や gettimeofday() などUNIXライクな方法では
-現在時刻を取得できない場合がある。
-このようなシステムにおいて、正確な「秒」によるタイムアウトを実現
-するためには、
-アプリケーションが何らかの方法で時刻と等価な値
-(1秒に1づつ増えれば数値の意味は問わない)を更新し続けるようにするのがよい。
-本関数は、TCPコネクションのタイムアウトやログ出力に使われる VCE の
-内部タイマを 1秒に1回(複数回でもよい)更新するための関数である。
-linux,win32 環境ではこの関数を使用しても何も起こらず
-VCE_ESUPPORT がセットされる。
-</td></tr>
-</table><br><br>
 <a name="vce_set_mainloop_callback"></a>
 <table id="funcdef">
 <tr><th colspan="2" id="funcdef_title">
 vce_set_mainloop_callback</th></tr>
 <tr><th>概要</th><td>vce_mainloopから呼びだすコールバック関数を設定する。</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_set_mainloop_callback( int (*f)(void) )</b></td>
 <tr><th>arg 1</Th><td>int (*f)(void)</td></tr>
 <tr><th></th><td>コールバック関数へのポインタ
@@ -4612,7 +4548,7 @@ vce_mainloopを利用しつつもアプリケーションで並行に処理を�
 vce_set_read_write_log_mode</th></tr>
 <tr><th>概要</th><td>VCEによるread/writeシステムコールの使用をログするかを設定する</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_set_read_write_log_mode( int mode )</b></td>
 <tr><th>arg 1</Th><td>int mode</td></tr>
 <tr><th></th><td>1ならログする、0ならログしない。
@@ -4635,7 +4571,7 @@ vce_set_read_write_log_mode</th></tr>
 vce_set_socket_library_ok</th></tr>
 <tr><th>概要</th><td>VCE の下層の socket ライブラリが初期化できたことを VCE に通知する。</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_set_socket_library_ok( int flag )</b></td>
 <tr><th>arg 1</Th><td>int flag</td></tr>
 <tr><th></th><td>初期化フラグ。初期化できていたら1、そうでないなら0。
@@ -4658,9 +4594,6 @@ send/recv/accept/bind/listen/connect/socket/shutdown/close
 本関数を呼びだす必要はない。
 Win32 環境においては、
 VCE 内部で winsock の初期化が成功したら自動的に1 に設定される。
-PS2 環境においては、デフォルト値は0なので、
-USB Ether もしくは modem などのデバイスの
-初期化が終了した時点で vce_set_socket_library_ok(1) を呼びだす必要がある。
 VCE が内部的に保存しているこのフラグの値は、
 vce_initialize の呼びだし後に意味をもつので、
 アプリケーションはまず vce_initialize を呼びださなければならない。
@@ -4676,7 +4609,7 @@ vce_initialize の呼びだし後に意味をもつので、
 vce_set_verbose_mode</th></tr>
 <tr><th>概要</th><td>verboseモード(うるさいモード)の設定をする</td></tr>
 <tr><th>カテゴリ</th><td>core</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_set_verbose_mode( int mode )</b></td>
 <tr><th>arg 1</Th><td>int mode</td></tr>
 <tr><th></th><td>1以上なら verboseモードとなる。 0なら通常モード。
@@ -4703,7 +4636,7 @@ vce_initialize 関数の呼びだし前に呼びだすことができるよう�
 vce_show_array_usage</th></tr>
 <tr><th>概要</th><td>VCE配列の状態をすべて出力する。</td></tr>
 <tr><th>カテゴリ</th><td>array</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_show_array_usage( int index , int show_all )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>配列を特定するための配列デスクリプタ
@@ -4734,7 +4667,7 @@ vce_show_array_usage</th></tr>
 vce_snprintf</th></tr>
 <tr><th>概要</th><td>libc の snprintf の wrapper</td></tr>
 <tr><th>カテゴリ</th><td>text</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_snprintf( char *out, int len, const char *format, ... )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>文字列を出力するバッファの先頭アドレス
@@ -4765,7 +4698,7 @@ sprintf と同等の機能しか持っていない．
 vce_strerror</th></tr>
 <tr><th>概要</th><td>VCEエラーコードを文字列に変換する。</td></tr>
 <tr><th>カテゴリ</th><td>err</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char *vce_strerror( int ecode );</b></td>
 <tr><th>arg 1</Th><td>int ecode</td></tr>
 <tr><th></th><td>エラーコード。 vce.h で定義されている。
@@ -4787,7 +4720,7 @@ vce_strerror</th></tr>
 vce_strerror_close_reason</th></tr>
 <tr><th>概要</th><td>VCEエラーコード(CLOSE_REASON)を文字列に変換する。</td></tr>
 <tr><th>カテゴリ</th><td>err</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>char *vce_strerror_close_reason( CLOSE_REASON reason );</b></td>
 <tr><th>arg 1</Th><td>CLOSE_REASON reason</td></tr>
 <tr><th></th><td>CLOSE_REASON エラーコード。 vce.h で定義されている。
@@ -4806,7 +4739,7 @@ vce_strerror_close_reason</th></tr>
 vce_tcpcontext_cleanup</th></tr>
 <tr><th>概要</th><td>TCPコンテキストを解放する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_cleanup( tcpcontext_t tp )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>解放するTCPコンテキストへのポインタ。 vce_tcpcontext_createの返り値である。
@@ -4829,7 +4762,7 @@ vce_tcpcontext_cleanup 関数で解放せずに vce_tcpcontext_create を
 vce_tcpcontext_conn_iterate</th></tr>
 <tr><th>概要</th><td>tcpcontext が保持しているすべてのconn_tに対して関数で処理する</td></tr>
 <tr><th>カテゴリ</th><td></td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tt</td></tr>
 <tr><th></th><td>処理したい tcpcontext_t
@@ -4853,7 +4786,7 @@ vce_tcpcontext_conn_iterate</th></tr>
 vce_tcpcontext_connect</th></tr>
 <tr><th>概要</th><td>リモートにあるVCEサーバに接続し、TCPコネクションを1個確立する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>設定情報を格納しているTCPコンテキスト。
@@ -4900,7 +4833,7 @@ tcpcontext がノンブロッキングモードに設定されている場合と
 vce_tcpcontext_count_connections</th></tr>
 <tr><th>概要</th><td>tcpcontext に属するコネクションの数を数える</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>数を調査したい対象となる tcpcontext
@@ -4923,7 +4856,7 @@ NULL を指定すると，無視される．
 vce_tcpcontext_create</th></tr>
 <tr><th>概要</th><td>TCPコンテキストを初期化する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )</b></td>
 <tr><th>arg 1</Th><td>int flag</td></tr>
 <tr><th></th><td>TCPcontext の基本的性質を設定するフラグ。
@@ -5041,8 +4974,7 @@ vce_tcpcontext_create の直後に集中させるようにすることが大切�
 その部分に凝るのはそれほど意味があるとは思えない。
 <BR>
 <B>送受信バッファを小さくするときの注意</B><BR>
-PS2 などのメモリが少ない環境において，
-使用メモリを極限まで節約するために，
+メモリが少ない環境において，使用メモリを極限まで節約するために，
 tcpcontext の「受信バッファ量」と「送信バッファ量」
 を小さくしたいことは多い．
 ところが，このふたつの量を小さくしていくと，
@@ -5114,7 +5046,7 @@ tcpcontext の「受信バッファ量」と「送信バッファ量」
 vce_tcpcontext_enable_accept</th></tr>
 <tr><th>概要</th><td>新規に accept しないようにする</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_enable_accept( tcpcontext_t tp, int flag )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>操作対象となるTCPcontext
@@ -5141,7 +5073,7 @@ verbose モードのときはログを出力する(verbose mode only)。
 vce_tcpcontext_get_all_connection</th></tr>
 <tr><th>概要</th><td>tcpcontext に属するすべてのコネクションを得る</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>処理対象のtcpcontext
@@ -5166,7 +5098,7 @@ vce_tcpcontext_get_all_connection</th></tr>
 vce_tcpcontext_get_stat</th></tr>
 <tr><th>概要</th><td>tcpcontext の統計情報を取得する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>情報を取得する tcpcontext
@@ -5208,7 +5140,7 @@ vce_tcpcontext_connect が成功した回数。
 vce_tcpcontext_protocol_set_maxlength</th></tr>
 <tr><th>概要</th><td>パーサーが分割する最大の長さを設定する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>設定情報を格納しているTCPコンテキスト。
@@ -5236,7 +5168,7 @@ NULLの場合は呼ばれず接続を拒否する。
 vce_tcpcontext_set_accept_max</th></tr>
 <tr><th>概要</th><td>一分間あたりの接続数を制限する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>設定情報を格納しているTCPコンテキスト。
@@ -5269,7 +5201,7 @@ con_maxにゼロを設定すれば許可無しとなる。
 vce_tcpcontext_set_conn_acceptwatcher</th></tr>
 <tr><th>概要</th><td>TCPコンテキストに対して、指定されたaccept監視関数を使うように設定する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>設定対象となるTCPコンテキスト
@@ -5300,7 +5232,7 @@ acceptwatcher が呼びだされる。
 vce_tcpcontext_set_conn_call_parser_per_heartbeat</th></tr>
 <tr><th>概要</th><td>1回の heartbeat で各コネクションのパーサが呼びだされる回数を調整する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tt</td></tr>
 <tr><th></th><td>設定対象の tcpcontext_t
@@ -5329,7 +5261,7 @@ vce_tcpcontext_set_conn_call_parser_per_heartbeat</th></tr>
 vce_tcpcontext_set_conn_closewatcher</th></tr>
 <tr><th>概要</th><td>TCPコンテキストに対して、指定されたclose監視関数を使うように設定する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>設定対象となるTCPコンテキスト
@@ -5437,7 +5369,7 @@ close watcher は呼びだされない．
 vce_tcpcontext_set_conn_finalizer</th></tr>
 <tr><th>概要</th><td>TCPコンテキストに対して、コネクションのファイナライザを指定する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>ファイナライザを指定するTCPコンテキストのポインタ
@@ -5469,7 +5401,7 @@ closewatcher は呼びだされないが、 finalizer は呼びだされる点�
 vce_tcpcontext_set_conn_hiwater_acceptwatcher</th></tr>
 <tr><th>概要</th><td>TCPコンテキストに，接続数が多いとき用のaccept監視関数をセットする</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>設定対象となるTCPコンテキスト
@@ -5515,7 +5447,7 @@ VCEでは，この数のことを「高水位設定値」"high water"と呼ん�
 vce_tcpcontext_set_conn_kickip_array</th></tr>
 <tr><th>概要</th><td>接続を拒否するIPアドレスの配列を設定する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>設定情報を格納しているTCPコンテキスト。
@@ -5537,7 +5469,7 @@ vce_tcpcontext_set_conn_kickip_array</th></tr>
 vce_tcpcontext_set_conn_parser</th></tr>
 <tr><th>概要</th><td>TCPコンテキストに対して、TCPコネクション(conn_t)用のパーサを設定する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>設定対象となる TCPコンテキスト
@@ -5605,7 +5537,7 @@ vce_tcpcontext_set_conn_parser( t, parser, NULL );
 vce_tcpcontext_set_equal_io_splitrate</th></tr>
 <tr><th>概要</th><td>1回の heartbeat でネットワークへの送信をするコネクション数を調整する</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tt</td></tr>
 <tr><th></th><td>設定対象となる TCPコンテキスト
@@ -5639,7 +5571,7 @@ VCE が確保している書きこみバッファにデータがたまってい�
 vce_tcpcontext_timeout_control</th></tr>
 <tr><th>概要</th><td>TCPコンテキストのタイムアウト動作方式を設定する。</td></tr>
 <tr><th>カテゴリ</th><td>tcp</td></tr>
-<tr><th>対応OS</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>対応OS</th><td>linux,win32,darwin</td></tr>
 <tr><th>関数プロトタイプ</th><td><b>void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>設定したいTCPコンテキスト

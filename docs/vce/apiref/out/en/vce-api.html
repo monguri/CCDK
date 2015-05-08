@@ -157,7 +157,6 @@
 <li><a href="#vce_read_simple_config_file">vce_read_simple_config_file</a></li>
 <li><a href="#vce_replace_malloc_funcs">vce_replace_malloc_funcs</a></li>
 <li><a href="#vce_set_heartbeat_wait_flag">vce_set_heartbeat_wait_flag</a></li>
-<li><a href="#vce_set_internal_timer">vce_set_internal_timer</a></li>
 <li><a href="#vce_set_mainloop_callback">vce_set_mainloop_callback</a></li>
 <li><a href="#vce_set_read_write_log_mode">vce_set_read_write_log_mode</a></li>
 <li><a href="#vce_set_socket_library_ok">vce_set_socket_library_ok</a></li>
@@ -458,7 +457,7 @@ to file or stdout.
 ARRAY_SCAN</th></tr>
 <tr><th>Summary</th><td>Scan all in-use elements stored in VCE's array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>ARRAY_SCAN( int arraydescriptor, void* pointer )</b></td>
 <tr><th>arg 1</Th><td>int arraydescriptor</td></tr>
 <tr><th></th><td>PENDING
@@ -500,7 +499,7 @@ ARRAY_SCAN( memory_ind, c ){
 ARRAY_SCAN_TYPE</th></tr>
 <tr><th>Summary</th><td>A variety of ARRAY_SCAN macro fot use in C++ language</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )</b></td>
 <tr><th>arg 1</Th><td>int arraydescriptor</td></tr>
 <tr><th></th><td>Array descriptor of VCE array.
@@ -528,7 +527,7 @@ Consequently, the ARRAY_SCAN_TYPE macro is given the pointer variable type.
 ELEMENTOF</th></tr>
 <tr><th>Summary</th><td>Get number of elements of a fixed-size array.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int ELEMENTOF(x)</b></td>
 <tr><th>arg 1</Th><td>x</td></tr>
 <tr><th></th><td>Any C array. (Not pointer)
@@ -554,7 +553,7 @@ ELEMENTOF</th></tr>
 FREE</th></tr>
 <tr><th>Summary</th><td>Release a memory block allocated with MALLOC function.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void FREE( void *p )</b></td>
 <tr><th>arg 1</Th><td>void *p</td></tr>
 <tr><th></th><td>Top address of a memry block which will be freed.
@@ -576,7 +575,7 @@ It prints log message when vce_set_verbose_mode 1.
 GET_16BIT_INT</th></tr>
 <tr><th>Summary</th><td>Get 16 bit integer value from buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>unsigned short GET_16BIT_INT( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>Top address of source data buffer.
@@ -604,7 +603,7 @@ VCE implements this macro as a function.
 GET_16BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>Get 16bit integer value from any buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>short GET_16BIT_NATIVEINT( char *p )</b></td>
 <tr><th>Return value</th><td>Got short value.
 </td></tr>
@@ -624,7 +623,7 @@ VCE  implements this macro as a function.
 GET_32BIT_INT</th></tr>
 <tr><th>Summary</th><td>A macro to get 32bit value from memory buffer.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>unsigned int GET_32BIT_INT( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>Top address of source data.
@@ -652,7 +651,7 @@ VCE implements this macro as a function.
 GET_32BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>Get 32bit integer value from buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int GET_32BIT_NATIVEINT( char *p )</b></td>
 <tr><th>Return value</th><td>Got int value.
 </td></tr>
@@ -671,7 +670,7 @@ VCE implements this macro as a function.
 GET_64BIT_INT</th></tr>
 <tr><th>Summary</th><td>A macro to get 64bit value from memory buffer.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>VCEI64 GET_64BIT_INT( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>Top address of source data.
@@ -699,7 +698,7 @@ VCE implements this macro as a function.
 GET_64BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>Get 64bit integer value from buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int GET_64BIT_NATIVEINT( char *p )</b></td>
 <tr><th>Return value</th><td>Got int value.
 </td></tr>
@@ -718,7 +717,7 @@ VCE implements this macro as a function.
 GET_8BIT_INT</th></tr>
 <tr><th>Summary</th><td>Get 8-bit integer from buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>unsigned char GET_8BIT_INT( char *b )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>Top address of source data buffer.
@@ -742,7 +741,7 @@ GET_8BIT_INT</th></tr>
 GET_8BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>Get 8bit integer value from buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char GET_8BIT_NATIVEINT( char *p )</b></td>
 <tr><th>Return value</th><td>Got 8bit value
 </td></tr>
@@ -760,7 +759,7 @@ GET_16BIT_NATIVEINT and others.
 MALLOC</th></tr>
 <tr><th>Summary</th><td>A wrapper function for C library malloc().</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void *MALLOC( size_t size )</b></td>
 <tr><th>arg 1</Th><td>size_t size</td></tr>
 <tr><th></th><td>Size of allocated memory ( in bytes)
@@ -790,7 +789,7 @@ It prints log message when vce_set_verbose_mode 1.
 MAX</th></tr>
 <tr><th>Summary</th><td>Compare 2 integer values and return bigger one.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int MAX(int a, int b)</b></td>
 <tr><th>arg 1</Th><td>int a</td></tr>
 <tr><th></th><td>First parameter being compared.
@@ -820,7 +819,7 @@ for any types which accepts integer-comparison operator.
 MIN</th></tr>
 <tr><th>Summary</th><td>Compare 2 integer values and return bigger one.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int MIN(int a, int b )</b></td>
 <tr><th>arg 1</Th><td>int a</td></tr>
 <tr><th></th><td>First parameter being compared.
@@ -851,7 +850,7 @@ types along with their unsigned types.
 SET_16BIT_INT</th></tr>
 <tr><th>Summary</th><td>Copy 16-bit integer to buffer in network byte-order.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_16BIT_INT( char *b, unsigned short i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>Top address of destination buffer.
@@ -882,7 +881,7 @@ VCE implements this macro as a function.
 SET_16BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>Copy 16-bit integer value to any buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_16BIT_NATIVEINT( char *p, short i )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>Top address of destination buffer.
@@ -907,7 +906,7 @@ VCE implements this macro as a function.
 SET_32BIT_INT</th></tr>
 <tr><th>Summary</th><td>Copy 32-bit integer to buffer in network byte-order.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_32BIT_INT( char *b, unsigned int i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>Top address of input data.
@@ -938,7 +937,7 @@ category for protocol analysis( they make it robust ).
 SET_32BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>copy 32bit integer value to any buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_32BIT_NATIVEINT( char *p, int i )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>Top address of destination buffer.
@@ -963,7 +962,7 @@ VCE implements this macro as a function.
 SET_64BIT_INT</th></tr>
 <tr><th>Summary</th><td>Copy 32-bit integer to buffer in network byte-order.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_64BIT_INT( char *b, VCEI64 i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>Top address of input data.
@@ -994,7 +993,7 @@ category for protocol analysis( they make it robust ).
 SET_64BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>copy 64bit integer value to any buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_64BIT_NATIVEINT( char *p, VCEI64 i )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>Top address of destination buffer.
@@ -1019,7 +1018,7 @@ VCE implements this macro as a function.
 SET_8BIT_INT</th></tr>
 <tr><th>Summary</th><td>Copy 8-bit integer to buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_8BIT_INT( char *b, unsigned char i )</b></td>
 <tr><th>arg 1</Th><td>char *b</td></tr>
 <tr><th></th><td>Top address of destination buffer.
@@ -1047,7 +1046,7 @@ maintaining consistency with 32 and 16 bit macro or others.
 SET_8BIT_NATIVEINT</th></tr>
 <tr><th>Summary</th><td>Copy 8bit integer value to any buffer</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void SET_8BIT_NATIVEINT( char *p, char i )</b></td>
 <tr><th>arg 1</Th><td>char *P</td></tr>
 <tr><th></th><td>Top address of destiniation buffer.
@@ -1071,7 +1070,7 @@ maintaining consistency with SET_16BIT_NATIVEINT,SET_32BIT_NATIVEINT.
 STRERR</th></tr>
 <tr><th>Summary</th><td>Get string of latest VCE error</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char *STRERR</b></td>
 <tr><th>Return value</th><td>Pointer to string explaining the error code.
 </td></tr>
@@ -1091,7 +1090,7 @@ STRERR</th></tr>
 vce_alloc_array_object</th></tr>
 <tr><th>Summary</th><td>Allocate an unused element of a VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void * vce_alloc_array_object( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE array.
@@ -1118,7 +1117,7 @@ memory.
 vce_array_object_inuse</th></tr>
 <tr><th>Summary</th><td>Know a VCE array object is currently used or not</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_array_object_inuse( int index, void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Integer discriptor value to specify VCE array
@@ -1144,7 +1143,7 @@ out of range )
 vce_atoi</th></tr>
 <tr><th>Summary</th><td>Convert C string into a int value with simple calcuration.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_atoi( char *p )</b></td>
 <tr><th>arg 1</Th><td>char *p</td></tr>
 <tr><th></th><td>Top address of string being converted.
@@ -1188,7 +1187,7 @@ so it may be not performing stably-sometimes results make no sense.
 vce_binary_pack</th></tr>
 <tr><th>Summary</th><td>Make a byte array from an array of structure. (obsolete)</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pack( struct bin_info *bi, int bn, char *outp, int len )</b></td>
 <tr><th>arg 1</Th><td>struct bin_info *bi</td></tr>
 <tr><th></th><td>Top address of an array of bin_info structure
@@ -1217,7 +1216,7 @@ protocol processing.
 vce_binary_pop_nb_i1</th></tr>
 <tr><th>Summary</th><td>Pop a 1-byte integer(char) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_i1( char *in, int len, int ofs, char *out)</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer
@@ -1247,7 +1246,7 @@ returns a negative error code in case of failure (such as data shortage).
 vce_binary_pop_nb_i2</th></tr>
 <tr><th>Summary</th><td>Pop a 2-byte integer(short) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_i2( char *in, int len, int ofs, short *out )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer
@@ -1277,7 +1276,7 @@ returns a negative error code in case of failure (such as data shortage).
 vce_binary_pop_nb_i4</th></tr>
 <tr><th>Summary</th><td>Pop a 4-byte integer(int) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_i4( char *in, int len, int ofs, int *out )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer
@@ -1307,7 +1306,7 @@ returns a negative error code in case of failure (such as data shortage).
 vce_binary_pop_nb_i8</th></tr>
 <tr><th>Summary</th><td>Pop a 8-byte integer(int) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_i8( char *in, int len, int ofs, VCEI64 *out )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer
@@ -1337,7 +1336,7 @@ returns a negative error code in case of failure (such as data shortage).
 vce_binary_pop_nb_ia1</th></tr>
 <tr><th>Summary</th><td>Pop an array of 1-byte integer(char) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_ia1( char *src, int len, int ofs, char *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input data buffer
@@ -1375,7 +1374,7 @@ policy on binary operation.
 vce_binary_pop_nb_ia2</th></tr>
 <tr><th>Summary</th><td>Pop an array of 2-byte integer(short) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_ia2( char *src, int len, int ofs, short *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer.
@@ -1414,7 +1413,7 @@ After being changed its order from network byte to native, data is stored.
 vce_binary_pop_nb_ia4</th></tr>
 <tr><th>Summary</th><td>Pop an array of 4-byte integer(int) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_ia4( char *src, int len, int ofs, int *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer
@@ -1453,7 +1452,7 @@ Having been changed its order from network byte to native, data is stored.
 vce_binary_pop_nb_ia8</th></tr>
 <tr><th>Summary</th><td>Pop an array of 8-byte integer(int) from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_ia8( char *src, int len, int ofs, VCEI64 *out, int *outlen )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer
@@ -1492,7 +1491,7 @@ Having been changed its order from network byte to native, data is stored.
 vce_binary_pop_nb_stra</th></tr>
 <tr><th>Summary</th><td>Pop an array of strings from a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_pop_nb_stra( char *src, int len, int ofs, char **out, int *strnum, int eachmax )</b></td>
 <tr><th>arg 1</Th><td>char *in</td></tr>
 <tr><th></th><td>Top address of input buffer
@@ -1545,7 +1544,7 @@ allocated by the application using this function.(refer to sample codes)
 vce_binary_push_nb_i1</th></tr>
 <tr><th>Summary</th><td>Push 1-byte integer(char) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_i1( char *out, int ofs, int maxlen, char c )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1577,7 +1576,7 @@ You can fetch data by the corresponding vce_binary_pop_nb_i1function.
 vce_binary_push_nb_i2</th></tr>
 <tr><th>Summary</th><td>Push 2-byte integer(short) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_i2( char *out, int ofs, int maxlen, short s )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1614,7 +1613,7 @@ Data is output on the network byte order.
 vce_binary_push_nb_i4</th></tr>
 <tr><th>Summary</th><td>Push 4-byte integer(int) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_i4( char *out, int ofs, int maxlen, int i )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1651,7 +1650,7 @@ Data is output on the network in byte order.
 vce_binary_push_nb_i8</th></tr>
 <tr><th>Summary</th><td>Push 8-byte integer(VCEI64) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_i8( char *out, int ofs, int maxlen, VCEI64 i )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1688,7 +1687,7 @@ Data is output on the network in byte order.
 vce_binary_push_nb_ia1</th></tr>
 <tr><th>Summary</th><td>Push an array of 1-byte integer(char) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_ia1( char *out, int ofs, int maxlen, char *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1725,7 +1724,7 @@ it returns a negative error code
 vce_binary_push_nb_ia2</th></tr>
 <tr><th>Summary</th><td>Push an array of 2-byte integer(short) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_ia2( char *out, int ofs, int maxlen, short *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1763,7 +1762,7 @@ instead of destroying it.
 vce_binary_push_nb_ia4</th></tr>
 <tr><th>Summary</th><td>Push an array of 4-byte integer(int) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_ia4( char *out, int ofs, int maxlen, int *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1799,7 +1798,7 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
 vce_binary_push_nb_ia8</th></tr>
 <tr><th>Summary</th><td>Push an array of 8-byte integer(VCEI64) to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_ia8( char *out, int ofs, int maxlen, VCEI64 *ia, int num )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1835,7 +1834,7 @@ it returns a negative error code (VCE_EFULL), instead of destroying it.
 vce_binary_push_nb_stra</th></tr>
 <tr><th>Summary</th><td>Push null-terminated string array to a buffer</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_push_nb_stra( char *out, int ofs, int maxlen, char **stra, int num, int eachmax )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output buffer
@@ -1877,7 +1876,7 @@ character string. When num is 0, NULL can be designated as stra.
 vce_binary_unpack</th></tr>
 <tr><th>Summary</th><td>Unpack binary char array into an array of struct.(obsolete)</td></tr>
 <tr><th>Category</th><td>bin</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_binary_unpack( struct bin_info *bi, int bn, char *inp, int len )</b></td>
 <tr><th>arg 1</Th><td>struct bin_info *bi</td></tr>
 <tr><th></th><td>Top address of an array of bin_info structure
@@ -1911,7 +1910,7 @@ It is mainly used for protocol processing.
 vce_conn_break_heartbeat</th></tr>
 <tr><th>Summary</th><td>PENDING</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_break_heartbeat()</b></td>
 <tr><th>Return value</th><td></td></tr>
 <tr><th>Description</th><td>PENDING
@@ -1926,7 +1925,7 @@ vce_conn_break_heartbeat</th></tr>
 vce_conn_clear</th></tr>
 <tr><th>Summary</th><td>Initialize conn_t instance</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_clear( conn_t *c )</b></td>
 <tr><th>arg 1</Th><td>conn_t *c</td></tr>
 <tr><th></th><td>pointer to a conn_t
@@ -1943,7 +1942,7 @@ Zero-clear with memset is not formal.
 vce_conn_close</th></tr>
 <tr><th>Summary</th><td>Close and release one TCP connection.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_close( conn_t ct )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>A TCP connection (conn_t) to be closed.
@@ -1987,7 +1986,7 @@ vce_conn_set_timeout( co, 0 );
 vce_conn_close_tcpcontext_all</th></tr>
 <tr><th>Summary</th><td>Close all connections maintained by a tcpcontext.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_close_tcpcontext_all( tcpcontext_t tp )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Target tcpcontext, which contains one or more conn_t
@@ -2055,7 +2054,7 @@ by vce_tcpcontext_set_conn_parser function.
 vce_conn_get_index</th></tr>
 <tr><th>Summary</th><td>Get index number of conn_t in VCE library.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_conn_get_index( conn_t c );</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>target conn_t. retrieve index from this conn_t.
@@ -2078,7 +2077,7 @@ in your application.
 vce_conn_get_local_addr_string</th></tr>
 <tr><th>Summary</th><td>Get local address and port number from conn_t by string</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char * vce_conn_get_local_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2105,7 +2104,7 @@ vce_conn_get_remote_addr_string function's.
 vce_conn_get_local_ipv4_addr</th></tr>
 <tr><th>Summary</th><td>Get 32-bit IPv4 local address from a TCP connection</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_get_local_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2135,7 +2134,7 @@ It should be converted using ntohs, ntohl or others as you need.
 vce_conn_get_local_ipv4_addr_string</th></tr>
 <tr><th>Summary</th><td>Get Ipv4 local peer address from a TCP connectin as a string</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char * vce_conn_get_local_ipv4_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2167,7 +2166,7 @@ because we should persue protocol independency in our applications.
 vce_conn_get_local_ipv6_addr</th></tr>
 <tr><th>Summary</th><td>Get 128-bit IPv6 local address from a TCP connection</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_get_local_ipv6_addr( conn_t ct, char *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2197,7 +2196,7 @@ Ignore this parameter if NULL is set.
 vce_conn_get_local_ipv6_addr_string</th></tr>
 <tr><th>Summary</th><td>Get Ipv6 local address from a TCP connectin as a string</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char *vce_conn_get_local_ipv6_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2225,7 +2224,7 @@ it is recommended to use vce_conn_get_local_addr_string function instead.
 vce_conn_get_remote_addr_string</th></tr>
 <tr><th>Summary</th><td>Get remote peer address and port number from conn_t by string</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char *vce_conn_get_remote_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2261,7 +2260,7 @@ string belongs is left to an application.
 vce_conn_get_remote_ipv4_addr</th></tr>
 <tr><th>Summary</th><td>Get 32-bit IPv4 remote peer address from a TCP connection</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_get_remote_ipv4_addr( conn_t ct, unsigned int *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2287,7 +2286,7 @@ so you use ntohs(), or ntohl() if you need them.
 vce_conn_get_remote_ipv4_addr_string</th></tr>
 <tr><th>Summary</th><td>Get Ipv4 remote peer address from a TCP connectin as a string</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char *vce_conn_get_remote_ipv4_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2321,7 +2320,7 @@ vce_conn_get_remote_addr function.
 vce_conn_get_remote_ipv6_addr</th></tr>
 <tr><th>Summary</th><td>Get 128-bit IPv6 remote peer address from a TCP connection</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_get_remote_ipv6_addr( conn_t ct, char *a, unsigned short *p )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2351,7 +2350,7 @@ You use ntohs(), or ntohl() functions in case you need them.
 vce_conn_get_remote_ipv6_addr_string</th></tr>
 <tr><th>Summary</th><td>Get Ipv6 remote peer address from a TCP connectin as a string</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char *vce_conn_get_remote_ipv6_addr_string( conn_t ct, char *s, int max )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2379,7 +2378,7 @@ function.
 vce_conn_get_stat</th></tr>
 <tr><th>Summary</th><td>Get conn_t's statistics information</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_get_stat( conn_t ct, conn_stat_t *st )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>source conn_t
@@ -2417,7 +2416,7 @@ are invoked toward this connection.
 vce_conn_get_state_buffer</th></tr>
 <tr><th>Summary</th><td>Get pointer to conn_t's state buffer.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void * vce_conn_get_state_buffer( conn_t c, int *len );</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>source conn_t
@@ -2444,7 +2443,7 @@ this returns a pointer to the buffer having the region of that size.
 vce_conn_get_struct_from_index</th></tr>
 <tr><th>Summary</th><td>Get conn_t struct from index number.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>conn_t vce_conn_get_struct_from_index( int index );</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Index of the conn_t. You can get conn_t by specifying index
@@ -2465,7 +2464,7 @@ from "session ID" in your application.
 vce_conn_get_tcpcontext</th></tr>
 <tr><th>Summary</th><td>get tcpcontext_t from a conn_t</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>tcpcontext_t vce_conn_get_tcpcontext( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>target conn_t
@@ -2542,7 +2541,7 @@ you must use vce_conn_writable function all the time, not this function.
 vce_conn_set_delay</th></tr>
 <tr><th>Summary</th><td>pending</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_set_delay(conn_t ct,int delay_min,int delay_max)</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>pending
@@ -2566,7 +2565,7 @@ vce_conn_set_delay</th></tr>
 vce_conn_set_parser</th></tr>
 <tr><th>Summary</th><td>Set protocl parser and callback function per conn_t basis</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_set_parser( conn_t ct, int (*parser)(conn_t), int (*pcallback)(conn_t,char*,int))</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -2604,7 +2603,7 @@ the debug mode, or to the control function, as well.
 vce_conn_set_timeout</th></tr>
 <tr><th>Summary</th><td>Change each conn_t's timeout length</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_set_timeout( conn_t c, int sec )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>target conn_t
@@ -2631,7 +2630,7 @@ if you want special high security in some situation.
 vce_conn_show_stat</th></tr>
 <tr><th>Summary</th><td>Show stats of all active connections.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_conn_show_stat( void )</b></td>
 <tr><th>Return value</th><td>None
 </td></tr>
@@ -2681,7 +2680,7 @@ unavailable in Win32GUI environment.
 vce_conn_shrink_readbuf</th></tr>
 <tr><th>Summary</th><td>shrink conn_t's read buffer</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_conn_shrink_readbuf( conn_t ct, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -2730,7 +2729,7 @@ vce_conn_userdata_set_pointer</th></tr>
 vce_conn_writable</th></tr>
 <tr><th>Summary</th><td>Check if a TCP connection is ready to use (write).</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_conn_writable( conn_t ct );</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>A conn_t variable to be checked. If you're using nonblocking connect()
@@ -2775,7 +2774,7 @@ when writing something into conn_t in your application.
 vce_conn_write</th></tr>
 <tr><th>Summary</th><td>Write raw data into a TCP connection.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_conn_write( conn_t ct, char *b, size_t len );</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t to write
@@ -2852,7 +2851,7 @@ vce_conn_writed</th></tr>
 vce_dump_buffer</th></tr>
 <tr><th>Summary</th><td>Dump binary data array using vce_errout.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_dump_buffer( char *buf, int len )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>Top address of data being dumped
@@ -2876,7 +2875,7 @@ This is so simple that displays dividing every 8 bytes in the buffer.
 vce_end_all_array</th></tr>
 <tr><th>Summary</th><td>Release all VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_end_all_array( void )</b></td>
 <tr><th>Return value</th><td>None
 </td></tr>
@@ -2892,7 +2891,7 @@ vce_end_all_array</th></tr>
 vce_end_array</th></tr>
 <tr><th>Summary</th><td>Release a VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_end_array( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor, which is formerly returned by vce_init_array.
@@ -2915,7 +2914,7 @@ vce_end_array function calls the FREE function inside it.
 vce_errout</th></tr>
 <tr><th>Summary</th><td>Log output for VCE application</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_errout( const char *format, ... )</b></td>
 <tr><th>arg 1</Th><td>char *format</td></tr>
 <tr><th></th><td>Format string. Same as "printf" libc function.
@@ -2940,7 +2939,7 @@ No argument is also acceptable.
 vce_extract_data_from_hex_text</th></tr>
 <tr><th>Summary</th><td>Convert hextext format ASCII text into a binary data array.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_extract_data_from_hex_text( const char *buf, int len, char *out, int outlen )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>Top address of input ASCII text string.
@@ -2971,7 +2970,7 @@ after checking validity of contents of "buf".
 vce_finalize</th></tr>
 <tr><th>Summary</th><td>Release all resources used by VCE.</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_finalize( void )</b></td>
 <tr><th>Return value</th><td>Returns 0 if successful. Otherwise minus error indicator value.
 </td></tr>
@@ -2986,7 +2985,7 @@ undefined action except vce_errout*.
 vce_free_array_object</th></tr>
 <tr><th>Summary</th><td>Free an element of a VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_free_array_object( int index , void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE array.
@@ -3012,7 +3011,7 @@ being released.
 vce_free_array_object_all</th></tr>
 <tr><th>Summary</th><td>Free all elements in an array</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_free_array_object_all( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE array.
@@ -3036,7 +3035,7 @@ initialization is planned (version 1 and later).
 vce_get_array_maxnum</th></tr>
 <tr><th>Summary</th><td>Get max number of array elements</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_get_array_maxnum( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor of target VCE array
@@ -3057,7 +3056,7 @@ Same as vce_init_array's "num" parameter.
 vce_get_array_member_size</th></tr>
 <tr><th>Summary</th><td>Get size of each members of an array</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_get_array_member_size( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor of target VCE array
@@ -3080,7 +3079,7 @@ control routine.
 vce_get_array_object_index</th></tr>
 <tr><th>Summary</th><td>Get index number of an element in an VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_get_array_object_index( int index , void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array.
@@ -3102,7 +3101,7 @@ subtracting the designated pointer from an array's top pointer.
 vce_get_array_object_last</th></tr>
 <tr><th>Summary</th><td>Get last element of VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void * vce_get_array_object_last( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array.
@@ -3128,7 +3127,7 @@ and extraction from the tail.
 vce_get_array_object_next</th></tr>
 <tr><th>Summary</th><td>Get an VCE array element succeedinng given elemnt</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void * vce_get_array_object_next( int index , void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor of the VCE's array.
@@ -3155,7 +3154,7 @@ The ARRAY_SCAN macro is safer and sure to use.
 vce_get_array_object_pointer_by_index</th></tr>
 <tr><th>Summary</th><td>Get a VCE array element by index number</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void *vce_get_array_object_pointer_by_index( int index, int objindex )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array
@@ -3189,7 +3188,7 @@ the contents of an error may be known by using vce_get_last_error.
 vce_get_array_object_pointer_by_index_only_used</th></tr>
 <tr><th>Summary</th><td>Get a VCE array element by index number, which are being used</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void * vce_get_array_object_pointer_by_index_only_used( int index, int objindex )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array
@@ -3214,7 +3213,7 @@ but you can select used elements using this function.
 vce_get_array_object_top</th></tr>
 <tr><th>Summary</th><td></td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void * vce_get_array_object_top( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array.
@@ -3239,7 +3238,7 @@ applications to directly use the ARRAY_SCAN macro, not this function.
 vce_get_array_usenum</th></tr>
 <tr><th>Summary</th><td>Count how many</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_get_array_usenum( int index )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array.
@@ -3286,7 +3285,7 @@ VCE renews the return value each time vce_heartbeat is invoked.
 vce_get_ipv4_addr_by_name</th></tr>
 <tr><th>Summary</th><td>Get network byte order IPv4 address from host name string</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_get_ipv4_addr_by_name( unsigned int *a, const char *s );</b></td>
 <tr><th>arg 1</Th><td>unsigned int *a</td></tr>
 <tr><th></th><td>Pointer to output IPv4 network byte-order address.
@@ -3308,7 +3307,7 @@ In PlanetWeb, this is not compatible with DNS resolving.
 vce_get_last_error</th></tr>
 <tr><th>Summary</th><td>Get last error code occured inside VCE library.</td></tr>
 <tr><th>Category</th><td>err</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_get_last_error(void);</b></td>
 <tr><th>Return value</th><td>Error code.
 </td></tr>
@@ -3342,7 +3341,7 @@ if( !t ){
 vce_get_netstat_string</th></tr>
 <tr><th>Summary</th><td>Get all connection information maintained by VCE in string format</td></tr>
 <tr><th>Category</th><td>log</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_get_netstat_string( char *buf, int maxlen )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>Top address of destination string buffer.
@@ -3414,7 +3413,7 @@ because this function uses 200 bytes for each line at most.
 vce_get_stat</th></tr>
 <tr><th>Summary</th><td>Get overall VCE activity statistics information.</td></tr>
 <tr><th>Category</th><td>log</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_get_stat( vce_stat_t *v )</b></td>
 <tr><th>arg 1</Th><td>vce_stat_t *v</td></tr>
 <tr><th></th><td>Pointer to vce_stat_t which contains statistics information.
@@ -3510,7 +3509,7 @@ vce_get_tcp_packet_write_size</th></tr>
 vce_heartbeat</th></tr>
 <tr><th>Summary</th><td></td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_heartbeat( void )</b></td>
 <tr><th>Return value</th><td>None
 </td></tr>
@@ -3553,7 +3552,7 @@ depending on your application.
 vce_if_included_in_array</th></tr>
 <tr><th>Summary</th><td>Test if given element is correctly included in a VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_if_included_in_array( int index, void *p )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array.
@@ -3587,7 +3586,7 @@ elements negative 1, the elements are arranged outside the range-an error.
 vce_init_array</th></tr>
 <tr><th>Summary</th><td>Initialize a new VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_init_array ( size_t size , int num , char *nm )</b></td>
 <tr><th>arg 1</Th><td>size_t size</td></tr>
 <tr><th></th><td>Size of each elements in the array. Byte count.
@@ -3626,7 +3625,7 @@ vce_init_array function uses the MALLOC function internally.
 vce_init_limit_t</th></tr>
 <tr><th>Summary</th><td>Initialize vce_limit_t structure with default value.</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2.darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b> void vce_init_limit_t( vce_limit_t *t )</b></td>
 <tr><th>Return value</th><td>None
 </td></tr>
@@ -3643,7 +3642,7 @@ you use vce_initialize_limited function.
 vce_initialize</th></tr>
 <tr><th>Summary</th><td>Initialize VCE.</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_initialize( void )</b></td>
 <tr><th>Return value</th><td>Returns 0 if successful. Otherwise minus error indicator (see vce.h).
 </td></tr>
@@ -3656,7 +3655,7 @@ invoke this function before initialization of a network by an application,
 then invoke ce_set_socket_library_ok(1) at the point the socket library
 is initialized. (refer to samples)
 </td></tr>
-<tr><th>Example</th><td>// In case of PS2  No socket library is provided by operating system
+<tr><th>Example</th><td>// When no socket library is provided by operating system
 int main()
 {
     vce_initialize();
@@ -3686,7 +3685,7 @@ int main()
 vce_initialize_limited</th></tr>
 <tr><th>Summary</th><td>Initialize VCE with limited memory configuration</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_initialize_limited( vce_limit_t *lim )</b></td>
 <tr><th>arg 1</Th><td>vce_limit_t *lim</td></tr>
 <tr><th></th><td>Pointer to vce_limit_t containing limit information.
@@ -3729,8 +3728,7 @@ These VCE services will return VCE_EARRAY if array is not enough.
 So, you may increase max_array if you meet VCE_EARRAY error code.
 In addition, when you increase max_array for 1,
 it requires 72 bytes of memory accordingly.
-In Linux/win32 environment, max_array defaults to 256,
-but in PS2 envoronment, it defaults to 32.
+In Linux/win32 environment, max_array defaults to 256.
 <BR>
 <BR>
 This function can also be used for the purpose of enlarging the
@@ -3773,7 +3771,7 @@ int main(){
 vce_limit_clear</th></tr>
 <tr><th>Summary</th><td>Initialize vce_limit_t structure (Clear with default value -1 )</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_limit_clear( vce_limit_t *t )</b></td>
 <tr><th>Return value</th><td>None
 </td></tr>
@@ -3792,7 +3790,7 @@ vce uses default settings in every configuration.
 vce_mainloop</th></tr>
 <tr><th>Summary</th><td></td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_mainloop(void)</b></td>
 <tr><th>Return value</th><td>None
 </td></tr>
@@ -3815,7 +3813,7 @@ and will terminate.
 vce_make_binary_array_from_hex</th></tr>
 <tr><th>Summary</th><td>Convert hex text into binary data array.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_make_binary_array_from_hex( char *out, int outlen, const char *hex )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of destination buffer. Binary data will be filled
@@ -3850,7 +3848,7 @@ An inverse function is vce_make_hex_from_binary_array
 vce_make_binary_array_from_line</th></tr>
 <tr><th>Summary</th><td>Convert 1 line of ASCII text into a binary data array.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_make_binary_array_from_line( const char *line, int linelen, char *out, int *outlen, int *uselen )</b></td>
 <tr><th>arg 1</Th><td>char *line</td></tr>
 <tr><th></th><td>Top address of input line
@@ -3886,7 +3884,7 @@ line is stored in "uselen" argument.
 vce_make_hex_from_binary_array</th></tr>
 <tr><th>Summary</th><td>Make a hex string from a binary array</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_make_hex_from_binary_array( char *out, int outlen, const char *buf,int len, int folding)</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output string buffer.
@@ -3929,7 +3927,7 @@ used by vce_make_hex_text_from_buffer internally.
 vce_make_hex_text_from_buffer</th></tr>
 <tr><th>Summary</th><td>Make hextext format ASCII text from a binary data array.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_make_hex_text_from_buffer( const char *buf , int len , char *out , int outlen )</b></td>
 <tr><th>arg 1</Th><td>char *buf</td></tr>
 <tr><th></th><td>Top address of input binary data.
@@ -3969,7 +3967,7 @@ vce_make_binary_array_from_hex function.
 vce_protocol_acceptwatcher_deny</th></tr>
 <tr><th>Summary</th><td>accept watcher for TCP conn_t which denies all connection.</td></tr>
 <tr><th>Category</th><td>watcher</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_acceptwatcher_deny( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>An instance of conn_t, which is newly accepted by a server tcpcontext_t.
@@ -3993,7 +3991,7 @@ This function is for debugging.
 vce_protocol_acceptwatcher_noop</th></tr>
 <tr><th>Summary</th><td>accept() watcher for TCP conn_t which accepts all connection.</td></tr>
 <tr><th>Category</th><td>watcher</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_acceptwatcher_noop( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>An instance of conn_t, which is newly accepted by a server tcpcontext_t.
@@ -4013,7 +4011,7 @@ accepted without any limitation.
 vce_protocol_closewatcher_noop</th></tr>
 <tr><th>Summary</th><td>TCP connection close watcher which does nothing</td></tr>
 <tr><th>Category</th><td>watcher</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_closewatcher_noop( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>An instance of conn_t which will be closed by this function call.
@@ -4036,7 +4034,7 @@ use this function because your source code will be more cleaner.
 vce_protocol_parser_bin16</th></tr>
 <tr><th>Summary</th><td>Get a bin16 record and call callback function.</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_parser_bin16( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -4094,7 +4092,7 @@ and <code>char *data</code> is for pointer to the buffer,
 vce_protocol_parser_bin32</th></tr>
 <tr><th>Summary</th><td>Get a bin32 record and call callback function</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_parser_bin32( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -4125,7 +4123,7 @@ BIN32DATA_MAX is defined within vce.h.
 vce_protocol_parser_text</th></tr>
 <tr><th>Summary</th><td>Get each line from stream and call protocol callback function</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_parser_text( conn_t c )</b></td>
 <tr><th>arg 1</Th><td>conn_t c</td></tr>
 <tr><th></th><td>target conn_t
@@ -4158,7 +4156,7 @@ vce_makecstr function.
 vce_protocol_parser_through</th></tr>
 <tr><th>Summary</th><td>A protocol parser for calling callback without reading records.</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_parser_through( conn_t ct )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -4184,7 +4182,7 @@ passing the input data to protocol callback function.
 vce_protocol_pcallback_dump</th></tr>
 <tr><th>Summary</th><td>Protocol callback function for dumping data input from TCP connection</td></tr>
 <tr><th>Category</th><td>pcallback</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_pcallback_dump( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>Processing conn_t. 
@@ -4214,7 +4212,7 @@ This function is called as a "protocol callback function".
 vce_protocol_pcallback_echo_bin16</th></tr>
 <tr><th>Summary</th><td>Echo callback function for normal TCP bin16 protocol</td></tr>
 <tr><th>Category</th><td>pcallback</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_pcallback_echo_bin16( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>Processing conn_t. 
@@ -4251,7 +4249,7 @@ for your debugging.
 vce_protocol_pcallback_echo_text</th></tr>
 <tr><th>Summary</th><td>Echo callback function for normal TCP text line-based protocol</td></tr>
 <tr><th>Category</th><td>pcallback</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_pcallback_echo_text(conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>Processing conn_t.
@@ -4280,7 +4278,7 @@ Returns larger than zero if tramsmit is successful.
 vce_protocol_pcallback_noop</th></tr>
 <tr><th>Summary</th><td>No-Operation callback function for normal TCP connection ( conn_t )</td></tr>
 <tr><th>Category</th><td>pcallback</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_pcallback_noop( conn_t ct ,char *data , int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>Processing conn_t. 
@@ -4313,7 +4311,7 @@ temporarily.
 vce_protocol_unparser_bin16</th></tr>
 <tr><th>Summary</th><td>Format data into bin16 protocol and write it to a connection.</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_unparser_bin16( conn_t ct, char *data , int len  )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -4360,7 +4358,7 @@ this funciton will return 22 (20 + 2 )  or minus error code.
 vce_protocol_unparser_bin32</th></tr>
 <tr><th>Summary</th><td>Write a BIN32 record to a conn_t instance</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_unparser_bin32( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -4391,7 +4389,7 @@ You can send larger size packets, but at most BIN32DATA_MAX bytes.
 vce_protocol_unparser_text</th></tr>
 <tr><th>Summary</th><td>write a text protocol line into conn_t</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_unparser_text( conn_t ct, char *data, int len )</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -4423,7 +4421,7 @@ so length of outgoing data is always 1 byte larger than original data.
 vce_protocol_unparser_through</th></tr>
 <tr><th>Summary</th><td>Write data directly into a TCP connection.</td></tr>
 <tr><th>Category</th><td>parser</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_protocol_unparser_through( conn_t ct, char *data, int len)</b></td>
 <tr><th>arg 1</Th><td>conn_t ct</td></tr>
 <tr><th></th><td>target conn_t
@@ -4451,7 +4449,7 @@ Returns minus error indicator value if any error occured.
 vce_read_plain_text_file</th></tr>
 <tr><th>Summary</th><td>Read plain text file by callback function</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_read_plain_text_file( const char *filename, int (*callback)(char*,in,char*))</b></td>
 <tr><th>arg 1</Th><td>char *filename</td></tr>
 <tr><th></th><td>Filename of configuration file.
@@ -4476,7 +4474,7 @@ which is returned by the callback function.
 vce_read_simple_config_file</th></tr>
 <tr><th>Summary</th><td>Read simple text configuration file by callback function</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_read_simple_config_file( const char *filename, int ( *callback ) ( char *,int,char *,char *) )</b></td>
 <tr><th>arg 1</Th><td>char *filename</td></tr>
 <tr><th></th><td>Filename of configuration file being read.
@@ -4503,7 +4501,7 @@ which is returned by the callback function.
 vce_replace_malloc_funcs</th></tr>
 <tr><th>Summary</th><td>Replace malloc function used inside VCE.</td></tr>
 <tr><th>Category</th><td>util</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_replace_malloc_funcs( void*(*a)(size_t), void*(*r)(void*,size_t), void(*f)(void*))</b></td>
 <tr><th>arg 1</Th><td>void * (*a)(size_t)</td></tr>
 <tr><th></th><td>Pointer to memory allocator function.
@@ -4539,33 +4537,13 @@ vce_set_heartbeat_wait_flag</th></tr>
 <a href="#vce_heartbeat">vce_heartbeat</a>
 </td></tr>
 </table><br><br>
-<a name="vce_set_internal_timer"></a>
-<table id="funcdef">
-<tr><th colspan="2" id="funcdef_title">
-vce_set_internal_timer</th></tr>
-<tr><th>Summary</th><td>Update VCE's internal timer</td></tr>
-<tr><th>Category</th><td></td></tr>
-<tr><th>Compatibility</th><td>ps2</td></tr>
-<tr><th>Prototype</th><td><b>void vce_set_internal_timer( time_t t, unsigned int microsec )</b></td>
-<tr><th>arg 1</Th><td>time_t t</td></tr>
-<tr><th></th><td>time(sec) to be set.
-</td></tr>
-<tr><th>arg 2</Th><td>unsigned int microsec</td></tr>
-<tr><th></th><td>time(microseconds) to be set.
-This have to be between 0 and 999999.
-Adopt (microsec mod 1000000) when microsec is larger than 999999.
-</td></tr>
-<tr><th>Return value</th><td>None
-</td></tr>
-<tr><th>Description</th><td></td></tr>
-</table><br><br>
 <a name="vce_set_mainloop_callback"></a>
 <table id="funcdef">
 <tr><th colspan="2" id="funcdef_title">
 vce_set_mainloop_callback</th></tr>
 <tr><th>Summary</th><td></td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_set_mainloop_callback( int (*f)(void) )</b></td>
 <tr><th>arg 1</Th><td>int (*f)(void)</td></tr>
 <tr><th></th><td>Pointer to callback function.
@@ -4584,7 +4562,7 @@ vce_set_mainloop_callback</th></tr>
 vce_set_read_write_log_mode</th></tr>
 <tr><th>Summary</th><td>Set log mode flag to print VCE's read/write system calls</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_set_read_write_log_mode( int mode )</b></td>
 <tr><th>arg 1</Th><td>int mode</td></tr>
 <tr><th></th><td>Output log information if set 1. Nothing will output if zero.
@@ -4602,7 +4580,7 @@ vce_set_read_write_log_mode</th></tr>
 vce_set_socket_library_ok</th></tr>
 <tr><th>Summary</th><td>Notify VCE that underlying socket library is initialized .</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_set_socket_library_ok( int flag )</b></td>
 <tr><th>arg 1</Th><td>int flag</td></tr>
 <tr><th></th><td>Initialize flag. Set 1 if socket library is already OK,
@@ -4622,7 +4600,7 @@ otherwise 0.
 vce_set_verbose_mode</th></tr>
 <tr><th>Summary</th><td>Configure verbose mode for entire VCE library.</td></tr>
 <tr><th>Category</th><td>core</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_set_verbose_mode( int mode )</b></td>
 <tr><th>arg 1</Th><td>int mode</td></tr>
 <tr><th></th><td>Set verbose mode if larger than zero. Normal mode is set if zero.
@@ -4638,7 +4616,7 @@ vce_set_verbose_mode</th></tr>
 vce_show_array_usage</th></tr>
 <tr><th>Summary</th><td>Print all information about a VCE array.</td></tr>
 <tr><th>Category</th><td>array</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_show_array_usage( int index , int show_all )</b></td>
 <tr><th>arg 1</Th><td>int index</td></tr>
 <tr><th></th><td>Array descriptor to specify VCE's array.
@@ -4671,7 +4649,7 @@ work environment is Win32GUI where the standard error output is not usable.
 vce_snprintf</th></tr>
 <tr><th>Summary</th><td>wrapper function for libc's snprintf</td></tr>
 <tr><th>Category</th><td>text</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_snprintf( char *out, int len, const char *format, ... )</b></td>
 <tr><th>arg 1</Th><td>char *out</td></tr>
 <tr><th></th><td>Top address of output string buffer.
@@ -4692,7 +4670,7 @@ vce_snprintf</th></tr>
 vce_strerror</th></tr>
 <tr><th>Summary</th><td>Convert VCE error code into string.</td></tr>
 <tr><th>Category</th><td>err</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char *vce_strerror( int ecode );</b></td>
 <tr><th>arg 1</Th><td>int ecode</td></tr>
 <tr><th></th><td>Error code defined in vce.h.
@@ -4710,7 +4688,7 @@ vce_strerror</th></tr>
 vce_strerror_close_reason</th></tr>
 <tr><th>Summary</th><td>Convert VCE CLOSE_REASON code into string.</td></tr>
 <tr><th>Category</th><td>err</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>char *vce_strerror_close_reason( CLOSE_REASON reason );</b></td>
 <tr><th>arg 1</Th><td>CLOSE_REASON reason</td></tr>
 <tr><th></th><td>CLOSE_REASON Error code defined in vce.h.
@@ -4725,7 +4703,7 @@ vce_strerror_close_reason</th></tr>
 vce_tcpcontext_cleanup</th></tr>
 <tr><th>Summary</th><td>Clean up a TCP context.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_cleanup( tcpcontext_t tp )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Pointer to tcpcontext_t. This pointer is obtained when calling
@@ -4745,7 +4723,7 @@ and client context .
 vce_tcpcontext_conn_iterate</th></tr>
 <tr><th>Summary</th><td>Call a function against every element of a tcpcontext_t</td></tr>
 <tr><th>Category</th><td></td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tt</td></tr>
 <tr><th></th><td>Target TCPcontext.
@@ -4767,7 +4745,7 @@ conn.
 vce_tcpcontext_connect</th></tr>
 <tr><th>Summary</th><td>Connect to a remote VCE server and set up a TCP connection.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>TCPcontext containing configuration information for new
@@ -4796,7 +4774,7 @@ To get detailed error , you'll use vce_get_last_error.
 vce_tcpcontext_count_connections</th></tr>
 <tr><th>Summary</th><td>Count number of connections maintained by a tcpcontext</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>Target TCPcontext.
@@ -4818,7 +4796,7 @@ It will be ignored if set NULL.
 vce_tcpcontext_create</th></tr>
 <tr><th>Summary</th><td>Initialize and allocate a TCP context.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )</b></td>
 <tr><th>arg 1</Th><td>int flag</td></tr>
 <tr><th></th><td>Basic configuration flag for TCPcontext's basic operation.
@@ -4905,7 +4883,7 @@ Return NULL pointer if any error.
 vce_tcpcontext_enable_accept</th></tr>
 <tr><th>Summary</th><td>PENDING</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_enable_accept( tcpcontext_t tp, int flag )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Target TCPcontext
@@ -4927,7 +4905,7 @@ Deny all new TCPconnections if set 0.
 vce_tcpcontext_get_all_connection</th></tr>
 <tr><th>Summary</th><td>get all connections included in a tcpcontext</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>Target TCPcontext.
@@ -4952,7 +4930,7 @@ This number must be larger than or equal to zero.
 vce_tcpcontext_get_stat</th></tr>
 <tr><th>Summary</th><td>Get tcpcontext's statistics information</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Target TCPcontext.
@@ -4975,7 +4953,7 @@ status information in this structure.
 vce_tcpcontext_protocol_set_maxlength</th></tr>
 <tr><th>Summary</th><td>pending</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>TCPcontext containing configuration information for new
@@ -5000,7 +4978,7 @@ TCP connection.
 vce_tcpcontext_set_accept_max</th></tr>
 <tr><th>Summary</th><td>pending</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>TCPcontext containing configuration information for new
@@ -5023,7 +5001,7 @@ TCP connection.
 vce_tcpcontext_set_conn_acceptwatcher</th></tr>
 <tr><th>Summary</th><td>Make TCPcontext use specified accept watcher function</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Target TCPcontext
@@ -5046,7 +5024,7 @@ accepted connection conn_t.
 vce_tcpcontext_set_conn_call_parser_per_heartbeat</th></tr>
 <tr><th>Summary</th><td>Adjust number of times of each conn_t parser call within a heartbeat</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tt</td></tr>
 <tr><th></th><td>Target TCpcontext.
@@ -5068,7 +5046,7 @@ to this parameter.
 vce_tcpcontext_set_conn_closewatcher</th></tr>
 <tr><th>Summary</th><td>Make TCPcontext use specified close watcher function</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Target TCPcontext.
@@ -5089,7 +5067,7 @@ vce_tcpcontext_set_conn_closewatcher</th></tr>
 vce_tcpcontext_set_conn_finalizer</th></tr>
 <tr><th>Summary</th><td>Make TCPcontext use specified conn_t finalizer .</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Pointer to target TCPcontext.
@@ -5112,7 +5090,7 @@ being closed.
 vce_tcpcontext_set_conn_hiwater_acceptwatcher</th></tr>
 <tr><th>Summary</th><td>Set a special high water accept watcher to a TCPcontext</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Target TCPcontext
@@ -5144,7 +5122,7 @@ You can compare it with pre-set max number of sessions.
 vce_tcpcontext_set_conn_kickip_array</th></tr>
 <tr><th>Summary</th><td>pending</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>TCPcontext containing configuration information for new
@@ -5164,7 +5142,7 @@ TCP connection.
 vce_tcpcontext_set_conn_parser</th></tr>
 <tr><th>Summary</th><td>Make TCPcontext use specified parser function</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tp</td></tr>
 <tr><th></th><td>Target TCPcontext
@@ -5190,7 +5168,7 @@ data record from the connection.
 vce_tcpcontext_set_equal_io_splitrate</th></tr>
 <tr><th>Summary</th><td>Configure number of connections to be flushed to network</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t tt</td></tr>
 <tr><th></th><td>Target TCPcontext.
@@ -5209,7 +5187,7 @@ one vce_heartbeat call.
 vce_tcpcontext_timeout_control</th></tr>
 <tr><th>Summary</th><td>Configure timeout operation on a tcpcontext_t.</td></tr>
 <tr><th>Category</th><td>tcp</td></tr>
-<tr><th>Compatibility</th><td>linux,win32,ps2,darwin</td></tr>
+<tr><th>Compatibility</th><td>linux,win32,darwin</td></tr>
 <tr><th>Prototype</th><td><b>void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )</b></td>
 <tr><th>arg 1</Th><td>tcpcontext_t t</td></tr>
 <tr><th></th><td>Target TCPcontext.

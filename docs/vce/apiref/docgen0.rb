@@ -294,24 +294,6 @@ def main
 		
 		apiref = make_api_reference( lng )
 		
-		allfuncs = $h_func_name.keys.sort
-		allfuncs.each { |i|
-			apimanref = make_man_funcdef_one(i,lng)
-			apimanfilename = "#{$s_dirprefix}/#{lng}/man/man3/#{i}.3"
-			begin
-				STDERR.print( "Writing #{lng} API man document #{i}\n" )
-				out = File.open( apimanfilename, "w" )
-				out.write(apimanref)
-				out.close
-				system( "nkf -w #{apimanfilename} > /tmp/docgen0.tmp" )
-				system( "mv /tmp/docgen0.tmp #{apimanfilename}" )
-				system( "gzip #{apimanfilename}" )
-			rescue
-				STDERR.print( "docgen0.rb: cannot open file #{$!}" )
-				exit 1
-			end
-		}
-
 		begin
 			STDERR.print( "Writing #{lng} API document\n" )
 			out = File.open( apifilename, "w" )
