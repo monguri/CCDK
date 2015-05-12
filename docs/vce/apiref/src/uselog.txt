@@ -1,0 +1,337 @@
+#
+# document for VCE auto-generated reference [uselog.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: uselog.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+
+<func>
+<name>vce_set_verbose_mode
+<cat>core
+<arch>linux,win32,darwin
+<sum ja>verboseモード(うるさいモード)の設定をする
+<sum en>Configure verbose mode for entire VCE library.
+<prototype>void vce_set_verbose_mode( int mode )
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>int mode
+<argdef ja>
+1以上なら verboseモードとなる。 0なら通常モード。
+-1なら、「絶対に出力しない」モード。
+</argdef>
+<argdef en>
+Set verbose mode if larger than zero. Normal mode is set if zero.
+"Totaly quiet mode" if -1.
+</argdef>
+<desc ja>
+verbose モードの設定は、動的に変更できる。
+この関数は、 vce_initialize 関数の出力もverboseにできるように、
+vce_initialize 関数の呼びだし前に呼びだすことができるようにできている。<BR>
+モードを1にするとVCEライブラリの中に埋めこまれている、
+冗長なメッセージも出力されるため、
+遅い回線を通してエラーメッセージを見るときは注意が必要である。
+</desc>
+<desc en>
+</desc>
+<bugs ja>
+TODO: verbose モードの仕様は、
+アプリケーションとVCE自体の出力を自由に調整できるように、
+柔軟に設定をできるようにしていく予定である。
+現在はmodeの値は0か1のみが使える。
+</bugs>
+<bugs en>
+</bugs>
+</func>
+
+<func>
+<name>vce_set_read_write_log_mode
+<cat>core
+<arch>linux,win32,darwin
+<sum ja>VCEによるread/writeシステムコールの使用をログするかを設定する
+<sum en>Set log mode flag to print VCE's read/write system calls
+<prototype>void vce_set_read_write_log_mode( int mode )
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>int mode
+<argdef ja>
+1ならログする、0ならログしない。
+</argdef>
+<argdef en>
+Output log information if set 1. Nothing will output if zero.
+</argdef>
+<desc ja>
+ログ出力をするように設定すると、 vce_errout と同じストリームに対して、
+何番(ディスクリプタ)のストリームに対して何バイト出力したかの値と、
+実際のデータのダンプ(16進数)を出力する。
+この出力はVCEのバージョンによって変化するかもしれないため、
+あくまで人間が目視でデバッグするために使うのが望ましい。
+</desc>
+<desc en>
+</desc>
+<also>vce_set_verbose_mode
+</func>
+
+<func>
+<name>vce_errout
+<prototype>int vce_errout( const char *format, ... )
+<cat>core
+<arch>linux,win32,darwin
+<sum ja>VCEのログ出力をする
+<sum en>Log output for VCE application
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>char *format
+<argdef ja>
+フォーマット文字列。 printf のものと同じ
+</argdef>
+<argdef en>
+Format string. Same as "printf" libc function.
+</argdef>
+<arg>...
+<argdef ja>
+0個以上の引数列。 printf のものと同じ
+</argdef>
+<argdef en>
+Argument list. Same as "printf" function.
+No argument is also acceptable.
+</argdef>
+<desc ja>
+文字列を標準エラー出力に表示する。ただし、
+vce_errout_config 関数によってログ出力ディレクトリが指定されている場合は、
+そのディレクトリにも出力し、そのログは自動的に rotate される。
+標準エラー出力がない環境では，標準出力に出力される．
+</desc>
+<desc en>
+</desc>
+<also>vce_errout_config,vce_errout_v, vce_verrout, vce_errout_set_another
+</func>
+
+
+
+
+
+
+<func>
+<name>vce_get_stat
+<prototype>void vce_get_stat( vce_stat_t *v )
+<cat>log
+<arch>linux,win32,darwin
+<sum ja>VCE 全体の動作状況記録を取得する
+<sum en>Get overall VCE activity statistics information.
+<arg>vce_stat_t *v
+<argdef ja>
+記録を格納する vce_stat_t 構造体へのポインタ
+</argdef>
+<argdef en>
+Pointer to vce_stat_t which contains statistics information.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+本関数は、 vce_stat_t 構造体にVCE 全体の統計情報を格納する。
+構造体メンバの意味は以下の通り。
+<ul>
+<LI>time_t boot_time<BR>
+vce_initialize の起動時刻(time_t)
+<LI>VCEI64 recv_byte,send_byte<BR>
+読みこみ/書きこみ総バイト数
+<LI>VCEI64 send_syscall, send_syscall_e<BR>
+send() システムコールの呼びだし回数。 _e は、エラー発生回数
+<LI>VCEI64 recv_syscall, recv_syscall_e<BR>
+recv() システムコールの呼びだし回数。 _e は、エラー発生回数
+<LI>VCEI64 accept_syscall, accept_syscall_e<BR>
+accept() システムコールの呼びだし回数。 _e は、エラー発生回数
+<LI>VCEI64 connect_syscall, connect_syscall_e<BR>
+connect() システムコールの呼びだし回数。 _e は、エラー発生回数
+<LI>conn_free, conn_alloc, conn_close, conn_write<BR>
+VCE の各関数の呼びだし回数
+<LI>keyex<BR>
+DiffieHellman 鍵交換を使って鍵を交換した総回数。
+鍵交換の負荷試験等に使う。
+<LI>tcpcontext_create,tcpcontext_cleanup,tcpcontext_connect<BR>
+各関数の呼びだし回数。成功したときだけ回数としてカウントされることに注意。
+<LI>conn_timeout<BR>
+コネクション(conn_t)がタイムアウトした回数
+<LI>log_count<BR>
+vce_errout や vce_errout0 を呼びだした回数。
+</ul>
+</desc>
+<desc en>
+This function stores entire VCE statistical information in
+vce_stat_t structure.
+Meanings of structure members are as follows: 　
+<UL>
+<LI>time_t boot_time<BR>
+　Startup time of vce_initialize (time_t)
+<LI>VCEI64 recv_byte,send_byte<BR>
+Total write/read bytes
+<LI>VCEI64 send_syscall, send_syscall_e<BR>
+Number of invocation of the system call send(),
+"_e" represents error occurrence.
+<LI>VCEI64 recv_syscall, recv_syscall_e<BR>
+Number of invocation of system call recv(),
+"_e" represents error occurrence.
+<LI>VCEI64 accept_syscall, accept_syscall_e<BR>
+Number of invocation of system call accept(),
+"_e" represents error occurrence.
+<LI>VCEI64 connect_syscall, connect_syscall_e<BR>
+Number of invocation of system call connect(),
+"_e" represents error occurrence.
+<LI>conn_free, conn_alloc, conn_close, conn_write<BR>
+Number of invocation of respective VCE functions
+<LI>keyex<BR>
+Total number of key exchanges using DiffieHellman
+key exchange. This is used for load test of key exchanging or others.
+<LI>tcpcontext_create,tcpcontext_cleanup,tcpcontext_connect<BR>
+Number of invocation of respective functions.
+Note that only successful invocation is counted.
+<LI>conn_timeout<BR>
+Number of connections (conn_t) that met timeout.
+<LI>log_count<BR>
+Number of invocation of vce_errout or vce_errout0.
+</ul>
+</desc>
+<also>vce_tcpcontext_get_stat,vce_conn_get_stat
+</func>
+
+<func>
+<name>vce_get_netstat_string
+<prototype>void vce_get_netstat_string( char *buf, int maxlen )
+<cat>log
+<arch>linux,win32,darwin
+<sum ja>VCE が管理しているすべての接続情報を文字列で取得する。
+<sum en>Get all connection information maintained by VCE in string format
+<arg>char *buf
+<argdef ja>
+出力先文字列
+</argdef>
+<argdef en>
+Top address of destination string buffer.
+</argdef>
+<arg>int maxlen
+<argdef ja>
+出力する最大の長さ
+</argdef>
+<argdef en>
+Size of destination string buffer.
+</argdef>
+<return ja>
+バッファが余ったら0、埋まったら負(VCE_EFULL)を返す
+</return>
+<return en>
+Returns zero if buffer is not filled up.
+Otherwise(if filled) returns VCE_EFULL.
+</return>
+<desc ja>
+VCE が管理しているすべてのコネクションに関する情報を文字列で取りだす。
+UNIXでいうところの、 netstat コマンドの出力に相当する内容となっている。
+各コネクションの情報は "PARAM=VALUE" をコンマで区切ってならべた内容で、
+1行あたり1コネクション(ソケット)となる。
+行の基本種類は "conn", "listen_conn", の2種類がある。
+"conn" の場合に表示される情報が最も種類が多い。
+<ul>
+<LI>"type=conn" の場合の情報<BR>
+type=conn は、通常のコネクションをあらわす。
+<ul>
+<LI>r=NUM : 受信バッファの長さ(暗号デコード済み)
+<LI>w=NUM : 送信バッファの長さ(暗号エンコードまだ)
+<LI>er=NUM : 受信バッファの長さ(暗号デコードまだ)
+<LI>ew=NUM : 送信バッファの長さ(暗号エンコード済み)
+<LI>rem=STR : リモートアドレス。 vce_conn_get_remote_addr_string の出力。
+<LI>loc=STR : ローカルアドレス。 vce_conn_get_local_addr_string の出力。
+<LI>fd=NUM : OS の socket fd.
+<LI>s=NUM : VCE内のシリアル番号
+<LI>last=NUM : 最後にアクセスがあった時刻
+<LI>timeo=NUM : タイムアウトまでの時間
+<LI>nego=NUM : 暗号ネゴシエーション状態
+</ul>
+<LI>"type=listen_conn" の場合<BR>
+これらのタイプは、接続待ち状態の tcpcontext あたり1個、表示される。
+ほかのホストとつながっているコネクションをあらわしているわけではない。
+<UL>
+<LI>loc=STR : ローカルアドレス。ソケットを bind しているアドレス
+<LI>fd=NUM : ソケットの File Descriptor
+</UL>
+</ul>
+アプリケーションは出力バッファのためのメモリを確保し、
+本関数に与えなければならないが、そのためには1コネクションあたり
+1コネクションあたり最大200バイト使うので，
+最大コネクションに応じたサイズのバッファを渡す必要がある．
+</desc>
+<desc en>
+This fetches information regarding all connections administrated
+by VCE in a string buffer.
+This looks like output of the UNIX netstat command.
+Information of respective connections are "PARAM=VALUE" separated
+with commas, and one line represents one connection (socket).
+Basic 2 types of lines are "conn" and "listen_conn".
+Types of information displayed in "conn" is the most various. 　
+
+<UL>
+<LI>In cases of "type=conn"<BR>
+"type=conn" represents a normal connection.
+<UL>
+<LI>r=NUM<BR>
+Length of recv buffer (plain)
+<LI>w=NUM<BR>
+Length of send buffer (plain)
+<LI>er=NUM<BR>
+Length of recv buffer (encoded)
+<LI>ew=NUM<BR>
+Length of send buffer (encoded)
+<LI>rem=STR<BR>
+Remote address, output of vce_conn_get_remote_addr_string
+<LI>loc=STR<BR>
+Local address, output of vce_conn_get_local_addr_string
+<LI>fd=NUM<BR>
+Socket fd of operating system.
+<LI>s=NUM<BR>
+Serial number of conn_t within VCE
+<LI>last=NUM<BR>
+Date of last access
+<LI>timeo=NUM<BR>
+Remaining time till timeout
+<LI>nego=NUM<BR>
+Cipher negotiation state
+</ul>
+
+<LI>In case of "type=listen_conn"<BR>
+One each of these types are displayed for respective
+waiting tcpcontexts, though not representing
+connections connected with other hosts.
+<ul>
+<LI>loc=STR<BR>
+Local address, binding a socket.
+<LI>fd=NUM File Descriptor of a socket.
+</ul>
+</ul>
+　An application needs to allocate memory for output buffer and
+give it to this function.
+Please note that you have to allocate relatively big output buffer
+because this function uses 200 bytes for each line at most.
+</desc>
+<also>vce_get_stat
+</func>
+

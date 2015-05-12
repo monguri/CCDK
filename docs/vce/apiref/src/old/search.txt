@@ -1,0 +1,1528 @@
+#
+# document for VCE auto-generated reference [search.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: search.txt,v 1.4 2005/08/26 09:28:17 chiaki Exp $
+#
+
+<func>
+<name>vce_init_int_search
+<prototype>int vce_init_int_search( int hashtbl_size , int ent_num , char *sname )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>整数をキーとしてデータを検索するサーチエンジンを初期化
+<sum en>Initialize a search engine which uses integer values as a search key
+<arg>int hashtbl_size
+<argdef ja>
+ハッシュ表のサイズ。ポインタの数の数分の1か、もしくは同じ程度にすると
+検索速度が速い。できるだけ同じにするのが望ましいが、
+大きくするためには大量のメモリを必要とする。トレードオフが存在する。
+整数エンジンの場合は、この値を1大きくすると12バイトのメモリが必要である。
+2整数エンジンの場合は、16バイト、文字列エンジンの場合は、
+44バイト必要である。
+</argdef>
+<argdef en>
+Size of hash table.
+You can get better searching performance if you choose
+larger size at least from 10 to 30 percent of number of pointers.
+For example, if you have 10K pointers maximum, you will set this size
+to 1K or more.
+Although it is preferable to make it bigger as possible,
+but great amount of memory is required to make it larger.
+This is a simple trade-off.
+In case of 1 integer engine,
+12 bytes are required for 1 hash table size.
+And in case of 2 integer search engine,
+16 bytes are required for 1 hash,
+And string search engine will require 44 bytes in the same way.
+</argdef>
+<arg>int ent_num
+<argdef ja>
+検索される情報を指すポインタの数(検索できる要素の数)
+</argdef>
+<argdef en>
+Number of registered elements contained in this search engine.
+</argdef>
+<arg>char *sname
+<argdef ja>
+サーチエンジンの名前
+</argdef>
+<argdef en>
+Name of this search engine.
+</argdef>
+<return ja>
+サーチエンジンを特定するためのint値。UNIXのファイルデスクリプタのように
+使い、今後の検索時に第一引数として使用する。この値を、
+VCEでは、「サーチデスクリプタ」と呼ぶことにする。
+エラーが発生した場合は負のエラーコードを返す
+</return>
+<return en>
+integer index to specify search engine.
+It is used as the first argument at the time of future reference
+like UNIX's file descriptor.
+This value is called "search descriptor" in VCE.
+Return negative error occurs, in case of error.
+</return>
+<desc ja>
+検索エンジンをVCE内部で初期化し、それへアクセスするための
+サーチデスクリプタを返す。<BR>
+VCEのサーチエンジンは、メモリに固定的に確保されたハッシュ表を使った
+検索を実装している。あらかじめ検索する情報が構造体の配列に格納されていて、
+その配列の要素を検索して見つけるために使用される。<BR>
+したがって、「検索キー」と「値を指すポインタ」の組をまずupdateし、
+登録後に、検索キーを指定してそのポインタを見つけだすという風に使う。<BR>
+この検索エンジンは非常に限られた用途にしか使えないが、
+本格的な保存と検索をする場合はおそらく外部にDBMSが用意されることとなるので、
+searchカテゴリの関数を使う最適な場面は、
+「数万までの情報の中から単純な検索キーを用いて非常に高速な検索を
+したい場合」である。ちなみに、1回の検索につき、外部DBMSを使うと1ms程度かかる
+のに対し、 vce_init_int_search 等の関数を使うと、
+1us程度の時間で済む。この速度の違いをうまく生かすことが望まれる。<BR>
+vce_init_int_search は、内部で array カテゴリの関数を多く使用している。<BR>
+また、VCEが一度に管理できるサーチエンジンの数は、
+vce_initialize_limited 関数を使って調整できる(デフォルトでは256)．
+</desc>
+<desc en>
+This returns search descriptor for initializing search engine
+inside VCE and accessing it.
+VCE's search engine implements searching facility
+using hash table allocated statically within memory.
+Information to be searched is stored in an array of a structure in advance,
+and is used for finding elements of such array.<BR>
+
+Therefore, you will update a pair of "search key" and "pointer to a value"
+first of all, then finds such pointer through
+designating search key after registration.
+<BR>
+
+This search engine can only be used for very limited purposes.
+The best suited situation of using the search category
+functions is that high-speed search using a simple search key from up
+to tens of thousands of information,
+for external DBMS would probably be prepared in order to perform
+full-fledged saving and searching for vast amount of information.<BR>
+
+In addition, it takes about 1ms per each search when an external
+DBMS is used, whereas it only takes around 1us using the
+functions including vce_init_int_search.
+This difference in speed should be utilized aptly by your decision.
+vce_init_int_search uses VCE arrays inside.
+The maximum number of search engines can be tuned by vce_initialize_limited
+function, by default 256.
+</desc>
+<also>vce_init_string_search,vce_init_int2_search,vce_get_int_search,vce_delete_int_search,vce_initialize_limited
+</func>
+
+<func>
+<name>vce_update_int_search
+<prototype>int vce_update_int_search( int index , int key , void *pointer )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>整数キーのサーチエンジンに、「キーと値」の組を1個追加または更新する
+<sum en>Add/Update an entry in search engine which uses integer to search key
+<arg>int index
+<argdef ja>
+サーチエンジンを特定するサーチデスクリプタ。
+vce_init_int_search の返り値である。
+</argdef>
+<argdef en>
+Search descriptor. Got by vce_init_int_search function call in advance.
+</argdef>
+<arg>int key
+<argdef ja>
+検索キーとなる値。できるだけ「まばらに」散っているほうが、
+値が多くなったときでも検索の性能が落ちない。
+</argdef>
+<argdef en>
+Search key. You should keep this key evenly distributed, so that
+you can search entries faster.
+</argdef>
+<arg>void *pointer
+<argdef ja>
+検索される値を指すポインタ
+</argdef>
+<argdef en>
+Pointer to an entry, which will be registered in the search engine.
+</argdef>
+<return ja>
+エラーが発生した場合は負のエラーコードを返す。正常終了したら0を返す。
+</return>
+<return en>
+Returns zero if successful.
+Returns minus error indicator value when any error occured.
+</return>
+<desc ja>
+整数を検索のキーとして使用する整数サーチエンジンに、「キーと値」の組を
+1個追加する。すでに同じキーが登録されている場合は、値を更新する。
+vce_update_int_search を呼びだしてキーと値を登録した後、
+vce_get_int_search を呼びだして検索をかける。
+検索の値が必要でなくなったときは、 vce_delete_int_search を呼びだす。
+</desc>
+<desc en>
+</desc>
+<also>vce_init_int_search,vce_get_int_search
+</func>
+
+<func>
+<name>vce_get_int_search
+<prototype>void * vce_get_int_search( int index , int key )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>整数のサーチエンジンで値を検索する
+<sum en>Search a value in a integer seach engine
+<arg>int index
+<argdef ja>
+サーチエンジンを特定するサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key
+<argdef ja>
+検索キーとなる整数値
+</argdef>
+<argdef en>
+Integer search key.
+</argdef>
+<return ja>
+検索結果の値。
+検索エンジンの中では，値は、直接保存されているわけではなく、
+値へのポインタとして保存されている。値がみつかればそのポインタを、
+見つからない場合はヌルポインタを返す。
+</return>
+<return en>
+Result of search value.
+Inside search engine, each value is not saved directly as it is,
+but is saved as a pointer to the value.
+It returns its pointer, when it is found.
+If not found, returns NULL pointer.
+</return>
+<desc ja>
+vce_init_int_search で初期化した検索エンジンに、
+vce_update_int_search で値を登録し、
+vce_get_int_search で値を取りだす。 vce_get_int_search は整数検索エンジン
+を使用して値を検索する。 vce_get_int_search は非常に高速であり、
+ハッシュ表の大きさが十分大きければ、
+検索侯補の数にかかわらず1マイクロ秒以下の検索速度を実現する。
+</desc>
+<desc en>
+First you register a value with search engine initialized
+by vce_init_int_search using vce_update_int_search,
+and fetch a value using vce_get_int_search.
+vce_get_int_search searches a value using integer search engine.
+vce_get_int_search is extremely fast,
+and if hash table is large enough,
+it can reach the search speed of below 1 microseconds irrespective
+with how many elements are included in the search engine.
+</desc>
+<also>vce_init_int_search
+</func>
+
+<func>
+<name>vce_delete_int_search
+<prototype>int vce_delete_int_search( int index , int key )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>整数サーチエンジンの「キーと値」の組を削除する
+<sum en>Delete a value from integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key
+<argdef ja>
+検索キー
+</argdef>
+<argdef en>
+Integer search key
+</argdef>
+<return ja>
+正常終了なら0、異常が発生したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise minus error indicator value.
+</return>
+<desc ja>
+key で指定される検索キーをもつ値を削除する。
+削除後は検索してもヒットしなくなる。
+</desc>
+<desc en>
+This deletes a value matching two integers from the search engine.
+Once deleted, it will not be found any longer.
+</desc>
+<also>vce_init_int_search,vce_update_int_search,vce_get_int_search
+</func>
+
+<func>
+<name>vce_init_string_search
+<prototype>int vce_init_string_search( int hashtbl_size , int ent_num , char *sname )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列のサーチエンジンを初期化する。
+<sum en>Initialize string search engine
+<arg>int hashtbl_size
+<argdef ja>
+検索に使用するハッシュ表のサイズ
+</argdef>
+<argdef en>
+Size of search hash table.
+</argdef>
+<arg>int ent_num
+<argdef ja>
+検索される値を指すポインタを保存する最大数
+</argdef>
+<argdef en>
+Number of registered elements contained in this search engine.
+</argdef>
+<arg>char *sname
+<argdef ja>
+検索エンジンの名前
+</argdef>
+<argdef en>
+Name of this search engine.
+</argdef>
+<return ja>
+整数の，サーチディスクリプタ
+</return>
+<return en>
+Integer search descriptor
+</return>
+<desc ja>
+文字列を検索キーとして持つ検索エンジンを初期化する。
+小規模で高速な検索を目的としている．大規模な検索が行ないたい
+場合は外部の RDBMS などを使用する事．
+小規模に限定しているため使用できる文字列の長さは32文字までである．
+検索の仕組については vce_init_int_search の説明を参照。<BR>
+
+vce_init_string_search で文字列検索エンジンを初期化した後、
+vce_update_string_search を使用してキーから値を登録し、
+vce_get_string_search を使用して実際に検索をする。
+キーと値の組が必要なくなれば
+vce_delete_string_search を使用して削除する。
+</desc>
+<desc en>
+This initializes search engine having a string as search key.
+This search engine is designed specially for small and quick
+searching, so if you want to handle vast amount of information,
+you would better use external RDMBS and like.
+Because this string search engine has its focus on small and quick
+searching, it will accept up to 32 byte string as its argument.
+Please refer to descriptions of vce_init_int_search for
+total search engine architecture.<BR>
+vce_init_string_search will initialize string search engine,
+and vce_update_string_search will register key and value into it,
+and vce_get_string_search will find key and value pair.
+finally vce_delete_string_search will remove key and value pair
+from the search engine.
+</desc>
+<also>vce_init_int_search,vce_get_string_search,vce_update_string_search,vce_delete_string_search
+</func>
+
+<func>
+<name>vce_update_string_search
+<prototype>int vce_update_string_search( int index , char *key , void *pointer )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列検索エンジンに、「キーと値」の組を1個追加、更新する
+<sum en>Add/Update a value into string search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>char *key
+<argdef ja>
+検索キーとなる文字列。現在のバージョンでは、先頭の32バイトしか
+検索に使用されない。
+</argdef>
+<argdef en>
+Search key string. Currently beginning 32 bytes are only used
+when searching.
+</argdef>
+<arg>void *pointer
+<argdef ja>
+検索される値をさすポインタ
+</argdef>
+<argdef en>
+Pointer to an entry which will be registered in the search engine.
+</argdef>
+<return ja>
+正常終了なら0、異常終了なら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator.
+</return>
+<desc ja>
+文字列を検索キーとする検索のために、「キーと値」の組を検索エンジンに
+登録する。すでに同じキーが登録されている場合は、値を更新する。
+vce_update_string_search を呼びだしてキーと値を登録した後、
+vce_get_string_search を呼びだして検索をかける。
+ハッシュ方式には、 PJW を使用している。
+検索のしくみについては、 vce_init_int_search を参照。
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>vce_init_string_search,vce_delete_string_search,vce_get_string_search,vce_update_int_search
+</func>
+
+<func>
+<name>vce_get_string_search
+<prototype>void * vce_get_string_search( int index , char *key )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列サーチエンジンでキーから値を検索する
+<sum en>Search a value in string search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>char *key
+<argdef ja>
+検索のキーとなる文字列
+</argdef>
+<argdef en>
+Search key string.
+</argdef>
+<return ja>
+検索に成功したら検索エンジンが保管している有効なポインタ，
+失敗したらヌルポインタを返す
+</return>
+<return en>
+Returns registered pointer value in this search engine if
+the search engine can find search key. Otherwise returns NULL pointer.
+</return>
+<desc ja>
+文字列キーから値を検索する。
+検索の仕組については、整数検索エンジン vce_init_int_search を参照。
+</desc>
+<desc en>
+This searches a value by key string.
+Please refer to explanation of integer search engine
+"vce_init_int_search" for detail.
+</desc>
+<also>vce_init_string_search,vce_get_int_search,vce_update_string_search,vce_delete_string_search
+</func>
+
+<func>
+<name>vce_delete_string_search
+<prototype>int vce_delete_string_search( int index , char *key )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>文字列検索エンジンから、「キーと値」の組を取りのぞく
+<sum en>Delete a value from string search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>char *key
+<argdef ja>
+検索キーとなる文字列
+</argdef>
+<argdef en>
+Search key string.
+</argdef>
+<return ja>
+正常終了なら0、異常終了なら負のエラーコード
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator.
+</return>
+<desc ja>
+指定された検索キーにマッチする「キーと値」の組を取りのぞく。
+</desc>
+<desc en>
+This deletes a couple of key and value matching with the
+designated search key.
+If there exist more than one, the first one will be deleted.
+</desc>
+<also>vce_init_string_search,vce_get_string_search,vce_update_string_search
+</func>
+
+<func>
+<name>vce_init_int2_search
+<prototype>int vce_init_int2_search( int hashtbl_size , int ent_num , char *sname )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>2整数の値を検索キーとする検索エンジンを初期化する
+<sum en>Initialize a search engine which uses 2 integers as search key
+<arg>int hashtbl_size
+<argdef ja>
+ハッシュ表のサイズ。サイズのヒントについては、
+vce_init_int_search を参照
+</argdef>
+<argdef en>
+Size of search hash table. Please have a look at vce_init_int_search
+for size hints.
+</argdef>
+<arg>int ent_num
+<argdef ja>
+登録される「キーと値」の組の最大数。
+</argdef>
+<argdef en>
+Max number of registered entries in this search engine.
+</argdef>
+<arg>char *sname
+<argdef ja>
+検索エンジンの名前
+</argdef>
+<argdef en>
+Name of this search engine.
+</argdef>
+<return ja>
+今後の検索関数の呼びだし時に使用するサーチデスクリプタ。
+正常終了なら0以上の値を返し、異常終了なら負のエラーコードを返す
+</return>
+<return en>
+Search descriptor, which will be used when calling search engine routines.
+You specify search engine by this descriptor.
+Returns larger than or equal to zero if successful, otherwise
+returns minus error indicator value.
+</return>
+<desc ja>
+2整数を検索の組とするサーチエンジンを初期化する。
+2整数の検索は、主にインターネットのアドレス(IPv4, 32bit address + 16bit port)
+を検索キーとしてクライアント構造体へのポインタを検索するような用途に
+用いられる。 vce_init_int2_search は、特にその検索を高速に実行する
+必要のある、パケットベクトライザルーチンの内部で利用されている。
+一般的な検索の仕組については、整数検索エンジンを参照。
+</desc>
+<desc en>
+This initializes a search engine with a couple of 2 integers.
+2-integer search is mainly used for purposes such as searching
+for a pointer to client structure with a search key of
+the Internet client address
+(IPv4,32bit address + 16bit port).
+Especially, vce_init_int2_search executes such search at high speed.
+This is used inside packet vectorizer routines.
+Please refer to integer search engine for detail explanation.
+</desc>
+<also>vce_init_int_search,vce_get_int2_search,vce_update_int2_search,vce_delete_int2_search
+</func>
+
+<func>
+<name>vce_update_int2_search
+<prototype>int vce_update_int2_search( int index , int key0 , int key1 , void *pointer )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>2整数の検索エンジンに、「キーと値」の組を1個追加する
+<sum en>Add/Update a value into a 2 integer search engine.
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数値、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数値、ふたつ目
+</argdef>
+<argdef en>
+Second integer search key.
+</argdef>
+<arg>void *pointer
+<argdef ja>
+検索される値を指すポインタ
+</argdef>
+<argdef en>
+Pointer to an entry, which will be registered in this search engine.
+</argdef>
+<return ja>
+正常終了なら0、そうでないなら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise minus error indicator value.
+</return>
+<desc ja>
+2整数を検索キーとする検索エンジンにおいて、「検索キーと値」の組を1個
+保存する。すでにおなじ検索キーが登録されている場合は、
+その値を更新する。
+2整数の検索エンジンは、両方の検索キーが一致してはじめてマッチする。
+</desc>
+<desc en>
+</desc>
+<also>vce_init_int2_search,vce_get_int2_search,vce_delete_int2_search
+</func>
+
+<func>
+<name>vce_get_int2_search
+<prototype>void* vce_get_int2_search( int index , int key0 , int key1 )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>2整数の検索エンジンで検索を実行する
+<sum en>Search a value in 2-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数、ふたつ目
+</argdef>
+<argdef en>
+Second integer seach key.
+</argdef>
+<return ja>
+検索結果へのポインタ
+</return>
+<return en>
+Pointer to an element matched.
+</return>
+<desc ja>
+ふたつの検索キーに同時にマッチする値を取りだす。
+検索の仕組については、 vce_init_int_search を参照
+</desc>
+<desc en>
+This fetches only a values matching with two search keys
+at the same time.
+Refer to vce_init_int_search for searching method.
+</desc>
+<also>vce_init_int_search,vce_init_int2_search,vce_update_int2_search,vce_delete_int2_search,vce_get_int2_or_search
+</func>
+
+<func>
+<name>vce_get_int2_or_search
+<prototype>void* vce_get_int2_or_search( int index, int key0, int key1, void **next_ptr, int *next_index )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>2整数の検索エンジンでOR検索を実行する
+<sum en>Search a value in 2-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数、ふたつ目
+</argdef>
+<argdef en>
+Second integer seach key.
+</argdef>
+<arg>void **next_ptr
+<argdef ja>
+ループ検索に使う関数の戻り値
+</argdef>
+<argdef en>
+PENDING.
+</argdef>
+<arg>int next_index
+<argdef ja>
+ループ検索に使う関数の戻り値
+</argdef>
+<argdef en>
+PENDING.
+</argdef>
+<return ja>
+検索結果へのポインタ。NULLなら全てを検索して見つからなかった。
+</return>
+<return en>
+Pointer to an element matched.
+</return>
+<desc ja>
+ふたつの検索キーにいづれかにマッチする値を取りだす。
+検索の仕組については、 vce_init_int_search を参照してください。
+next_ptrにNULLをもつポインタ、next_indexに0をもつポインタを指定して検索を開始させます。
+繰り返して関数を呼び出すことにより複数の結果を取得できます。
+</desc>
+<desc en>
+PENDING.
+</desc>
+<sample ja>
+<pre>
+  int i2is = vce_init_int2_search( 10, 5, "foo" );
+       .
+       .
+       .
+  int input_IP   = 0x23445599;
+  int input_Port = 0;
+  int next_index = 0;
+  void *cinfop, *next_ptr = NULL;
+
+  while (1)
+  {
+    cinfop = vce_get_int2_or_search( i2si, input_IP, input_Port, &next_ptr, &next_index);
+    if ( !cinfop ) break;
+       .
+       .
+       .
+  }
+</pre>
+</sample>
+<sample en>
+<pre>
+  int i2is = vce_init_int2_search( 10, 5, "foo" );
+       .
+       .
+       .
+  int input_IP   = 0x23445599;
+  int input_Port = 0;
+  int next_index = 0;
+  void *cinfop, *next_ptr = NULL;
+
+  while (1)
+  {
+    cinfop = vce_get_int2_or_search( i2si, input_IP, input_Port, &next_ptr, &next_index);
+    if ( !cinfop ) break;
+       .
+       .
+       .
+  }
+</pre>
+</sample>
+<also>vce_init_int_search,vce_init_int2_search,vce_update_int2_search,vce_delete_int2_search,vce_get_int2_search
+</func>
+
+<func>
+<name>vce_delete_int2_search
+<prototype>int vce_delete_int2_search( int index , int key0 , int key1 )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>2整数の検索エンジンから、「キーと値」の組を削除する
+<sum en>Delete a value from 2-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数、ふたつ目
+</argdef>
+<argdef en>
+Second integer search key.
+</argdef>
+<return ja>
+正常終了なら0、異常終了なら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator value.
+</return>
+<desc ja>
+2整数のキーにマッチする値を、検索エンジンから削除する。
+一旦削除すると、今後の検索ではヒットしなくなる。
+</desc>
+<desc en>
+This deletes a value matching two integers from the search engine.
+Once deleted, it will not be found any longer.
+</desc>
+<also>vce_init_int2_search,vce_init_int_search,vce_update_int2_search,vce_get_int2_search
+</func>
+
+<func>
+<name>vce_iterate_int2_search
+<prototype>int vce_iterate_int2_search( int index, int (*callback)(void*))
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>2整数の検索エンジンに登録されているすべてのエントリを処理する
+<sum en>Process all entries maintained by a 2-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int (*callback(void*))
+<argdef ja>
+処理内容を定義するコールバック関数．
+コールバック関数の第一引数には，検索エンジンに登録されている
+エントリデータへのポインタが代入される．
+コールバック関数が負の値を返すと，
+本関数はコールバック関数が返した値をそのまま返して途中で終了する．
+</argdef>
+<argdef en>
+A callback function to define processing details.
+Pointer to an entry registered in search engine is assigned to
+the first argument of the callback function.
+When the callback function returns negative value,
+this function will return it as is, and terminates halfway.
+</argdef>
+<return ja>
+int値のサーチディスクリプタ
+</return>
+<return en>
+Integeger search descriptor
+</return>
+<desc ja>
+検索エンジンに登録されているすべてのエントリに対して，
+ある処理を実行したい場合に，本関数をつかって
+コールバック関数を全エントリを引数として呼びだすことによって
+この要求に応える．ruby言語のイテレータをイメージして使えばよい．
+本関数の使用上の注意としては，イテレータ内で検索エンジンの登録状況
+自体に影響を与えるような処理をしないことが必要である．
+たとえば， vce_delete_int2_search 等を実行すると，呼びだし順番によっては，
+検索エンジンが管理しているリスト構造が破壊されてしまうことになる．
+</desc>
+<desc en>
+In case you want to process every entry stored in a search engine,
+this function will call a callback function against all of them,
+and you can do any processing inside the callback function.
+You may be able to imagine script language Ruby's iterator.
+Please note that you don't use "update" and "delete" control
+in the callback processing function.
+For instance, when functions such as vce_delete_int2_search is executed,
+a list structure administrated by the search engine
+will be changed in some invocation sequences.
+</desc>
+<also>vce_init_int2_search
+</func>
+
+<func>
+<name>vce_init_int4_search
+<prototype>int vce_init_int4_search( int hashtbl_size , int ent_num , char *sname )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>4整数の値を検索キーとする検索エンジンを初期化する
+<sum en>Initialize a search engine which uses 4 integers as search key
+<arg>int hashtbl_size
+<argdef ja>
+ハッシュ表のサイズ。サイズのヒントについては、
+vce_init_int_search を参照
+</argdef>
+<argdef en>
+Size of search hash table. Please have a look at vce_init_int_search
+for size hints.
+</argdef>
+<arg>int ent_num
+<argdef ja>
+登録される「キーと値」の組の最大数。
+</argdef>
+<argdef en>
+Max number of registered entries in this search engine.
+</argdef>
+<arg>char *sname
+<argdef ja>
+検索エンジンの名前
+</argdef>
+<argdef en>
+Name of this search engine.
+</argdef>
+<return ja>
+今後の検索関数の呼びだし時に使用するサーチデスクリプタ。
+正常終了なら0以上の値を返し、異常終了なら負のエラーコードを返す
+</return>
+<return en>
+Search descriptor, which will be used when calling search engine routines.
+You specify search engine by this descriptor.
+Returns larger than or equal to zero if successful, otherwise
+returns minus error indicator value.
+</return>
+<desc ja>
+4整数を検索の組とするサーチエンジンを初期化する。
+4整数の検索は、主にインターネットのアドレス(IPv4, 32bit address + 16bit port)
+を検索キーとしてクライアント構造体へのポインタを検索するような用途に
+用いられる。 vce_init_int4_search は、特にその検索を高速に実行する
+必要のある、パケットベクトライザルーチンの内部で利用されている。
+一般的な検索の仕組については、整数検索エンジンを参照。
+</desc>
+<desc en>
+This initializes a search engine with a couple of 4 integers.
+4-integer search is mainly used for purposes such as searching
+for a pointer to client structure with a search key of
+the Internet client address
+(IPv4,32bit address + 16bit port).
+Especially, vce_init_int4_search executes such search at high speed.
+This is used inside packet vectorizer routines.
+Please refer to integer search engine for detail explanation.
+</desc>
+<also>vce_init_int_search,vce_get_int4_search,vce_update_int4_search,vce_delete_int4_search
+</func>
+
+<func>
+<name>vce_update_int4_search
+<prototype>int vce_update_int4_search( int index , int key0 , int key1 , int key2, int key3, void *pointer )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>4整数の検索エンジンに、「キーと値」の組を1個追加する
+<sum en>Add/Update a value into a 4 integer search engine.
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数値、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数値、ふたつ目
+</argdef>
+<argdef en>
+Second integer search key.
+</argdef>
+<arg>int key2
+<argdef ja>
+検索キーとなる整数値、3つ目
+</argdef>
+<argdef en>
+Third integer search key.
+</argdef>
+<arg>int key3
+<argdef ja>
+検索キーとなる整数値、4つ目
+</argdef>
+<argdef en>
+Fourth integer search key.
+</argdef>
+<arg>void *pointer
+<argdef ja>
+検索される値を指すポインタ
+</argdef>
+<argdef en>
+Pointer to an entry, which will be registered in this search engine.
+</argdef>
+<return ja>
+正常終了なら0、そうでないなら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise minus error indicator value.
+</return>
+<desc ja>
+4整数を検索キーとする検索エンジンにおいて、「検索キーと値」の組を1個
+保存する。すでにおなじ検索キーが登録されている場合は、
+その値を更新する。
+4整数の検索エンジンは、両方の検索キーが一致してはじめてマッチする。
+</desc>
+<desc en>
+</desc>
+<also>vce_init_int4_search,vce_get_int4_search,vce_delete_int4_search
+</func>
+
+<func>
+<name>vce_get_int4_search
+<prototype>void* vce_get_int4_search( int index , int key0 , int key1, int key2, int key3  )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>4整数の検索エンジンで検索を実行する
+<sum en>Search a value in 4-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数、ふたつ目
+</argdef>
+<argdef en>
+Second integer seach key.
+</argdef>
+<arg>int key2
+<argdef ja>
+検索キーとなる整数、3つ目
+</argdef>
+<argdef en>
+Third integer seach key.
+</argdef>
+<arg>int key3
+<argdef ja>
+検索キーとなる整数、4つ目
+</argdef>
+<argdef en>
+Fourth integer seach key.
+</argdef>
+<return ja>
+検索結果へのポインタ
+</return>
+<return en>
+Pointer to an element matched.
+</return>
+<desc ja>
+4つの検索キーに同時にマッチする値を取りだす。
+検索の仕組については、 vce_init_int_search を参照
+</desc>
+<desc en>
+This fetches only a values matching with two search keys
+at the same time.
+Refer to vce_init_int_search for searching method.
+</desc>
+<also>vce_init_int_search,vce_init_int4_search,vce_update_int4_search,vce_delete_int4_search,vce_get_int4_or_search
+</func>
+
+<func>
+<name>vce_get_int4_or_search
+<prototype>void* vce_get_int4_or_search( int index, int key0, int key1, int key2, int key3, void **next_ptr, int *next_index )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>4整数の検索エンジンでOR検索を実行する
+<sum en>Search a value in 4-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数、ふたつ目
+</argdef>
+<argdef en>
+Second integer seach key.
+</argdef>
+<arg>int key2
+<argdef ja>
+検索キーとなる整数、3つ目
+</argdef>
+<argdef en>
+Third integer seach key.
+</argdef>
+<arg>int key3
+<argdef ja>
+検索キーとなる整数、4つ目
+</argdef>
+<argdef en>
+Fourth integer seach key.
+</argdef>
+<arg>void **next_ptr
+<argdef ja>
+ループ検索に使う関数の戻り値
+</argdef>
+<argdef en>
+PENDING.
+</argdef>
+<arg>int next_index
+<argdef ja>
+ループ検索に使う関数の戻り値
+</argdef>
+<argdef en>
+PENDING.
+</argdef>
+<return ja>
+検索結果へのポインタ。NULLなら全てを検索して見つからなかった。
+</return>
+<return en>
+Pointer to an element matched.
+</return>
+<desc ja>
+４つの検索キーにいづれかにマッチする値を取りだす。
+検索の仕組については、 vce_init_int_search を参照してください。
+next_ptrにNULLをもつポインタ、next_indexに0をもつポインタを指定して検索を開始させます。
+繰り返して関数を呼び出すことにより複数の結果を取得できます。
+</desc>
+<desc en>
+PENDING.
+</desc>
+<sample ja>
+<pre>
+  int i4is = vce_init_int4_search( 10, 5, "foo" );
+       .
+       .
+       .
+  int input_key0 = 0x23445599;
+  int input_key1 = 0;
+  int input_key2 = 0;
+  int input_key3 = 0;
+  int next_index = 0;
+  void *cinfop, *next_ptr = NULL;
+
+  while (1)
+  {
+    cinfop = vce_get_int4_or_search( i4si, input_key0, input_key1,
+                                     input_key2, input_key3, &next_ptr,
+                                     &next_index);
+    if ( !cinfop ) break;
+       .
+       .
+       .
+  }
+</pre>
+</sample>
+<sample en>
+<pre>
+  int i4is = vce_init_int4_search( 10, 5, "foo" );
+       .
+       .
+       .
+  int input_key0 = 0x23445599;
+  int input_key1 = 0;
+  int input_key2 = 0;
+  int input_key3 = 0;
+  int next_index = 0;
+  void *cinfop, *next_ptr = NULL;
+
+  while (1)
+  {
+    cinfop = vce_get_int4_or_search( i4si, input_key0, input_key1,
+                                     input_key2, input_key3, &next_ptr,
+                                     &next_index);
+    if ( !cinfop ) break;
+       .
+       .
+       .
+  }
+</pre>
+</sample>
+<also>vce_init_int_search,vce_init_int4_search,vce_update_int4_search,vce_delete_int4_search,vce_get_int4_search
+</func>
+
+<func>
+<name>vce_delete_int4_search
+<prototype>int vce_delete_int4_search( int index , int key0 , int key1, int key2, int key3 )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>4整数の検索エンジンから、「キーと値」の組を削除する
+<sum en>Delete a value from 4-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int key0
+<argdef ja>
+検索キーとなる整数、ひとつ目
+</argdef>
+<argdef en>
+First integer search key.
+</argdef>
+<arg>int key1
+<argdef ja>
+検索キーとなる整数、ふたつ目
+</argdef>
+<argdef en>
+Second integer search key.
+</argdef>
+<arg>int key2
+<argdef ja>
+検索キーとなる整数、3つ目
+</argdef>
+<argdef en>
+Third integer search key.
+</argdef>
+<arg>int key3
+<argdef ja>
+検索キーとなる整数、4つ目
+</argdef>
+<argdef en>
+Fourth integer search key.
+</argdef>
+<return ja>
+正常終了なら0、異常終了なら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator value.
+</return>
+<desc ja>
+4整数のキーにマッチする値を、検索エンジンから削除する。
+一旦削除すると、今後の検索ではヒットしなくなる。
+</desc>
+<desc en>
+This deletes a value matching two integers from the search engine.
+Once deleted, it will not be found any longer.
+</desc>
+<also>vce_init_int4_search,vce_init_int_search,vce_update_int4_search,vce_get_int4_search
+</func>
+
+<func>
+<name>vce_iterate_int4_search
+<prototype>int vce_iterate_int4_search( int index, int (*callback)(void*))
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>4整数の検索エンジンに登録されているすべてのエントリを処理する
+<sum en>Process all entries maintained by a 4-integer search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>int (*callback(void*))
+<argdef ja>
+処理内容を定義するコールバック関数．
+コールバック関数の第一引数には，検索エンジンに登録されている
+エントリデータへのポインタが代入される．
+コールバック関数が負の値を返すと，
+本関数はコールバック関数が返した値をそのまま返して途中で終了する．
+</argdef>
+<argdef en>
+A callback function to define processing details.
+Pointer to an entry registered in search engine is assigned to
+the first argument of the callback function.
+When the callback function returns negative value,
+this function will return it as is, and terminates halfway.
+</argdef>
+<return ja>
+int値のサーチディスクリプタ
+</return>
+<return en>
+Integeger search descriptor
+</return>
+<desc ja>
+検索エンジンに登録されているすべてのエントリに対して，
+ある処理を実行したい場合に，本関数をつかって
+コールバック関数を全エントリを引数として呼びだすことによって
+この要求に応える．ruby言語のイテレータをイメージして使えばよい．
+本関数の使用上の注意としては，イテレータ内で検索エンジンの登録状況
+自体に影響を与えるような処理をしないことが必要である．
+たとえば， vce_delete_int4_search 等を実行すると，呼びだし順番によっては，
+検索エンジンが管理しているリスト構造が破壊されてしまうことになる．
+</desc>
+<desc en>
+In case you want to process every entry stored in a search engine,
+this function will call a callback function against all of them,
+and you can do any processing inside the callback function.
+You may be able to imagine script language Ruby's iterator.
+Please note that you don't use "update" and "delete" control
+in the callback processing function.
+For instance, when functions such as vce_delete_int4_search is executed,
+a list structure administrated by the search engine
+will be changed in some invocation sequences.
+</desc>
+<also>vce_init_int4_search
+</func>
+
+<func>
+<name>vce_cleanup_all_search_engine
+<prototype>void vce_cleanup_all_search_engine( void )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>すべてのサーチエンジンを解放する
+<sum en>Release all resource used by search engines
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+VCEが内部的に使用しているサーチエンジンをすべて解放する。
+中身は、vce_cleanup_search_engineをループで呼びだしているだけ。
+</desc>
+<desc en>
+This releases all the search engines that VCE internally uses.
+It simply calls vce_cleanup_search_engine in a loop, inside it.
+</desc>
+<also>vce_init_int_search,vce_init_string_search,vce_init_int2_search
+</func>
+
+<func>
+<name>vce_cleanup_search_engine
+<prototype>void vce_cleanup_search_engine( int index )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>サーチエンジンを解放する
+<sum en>Release resource used by a search engine
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator value.
+</return>
+<desc ja>
+サーチエンジンindex(サーチデスクリプタ)を指定してサーチエンジンを解放する。
+</desc>
+<desc en>
+Free a search engine specified by parameter "index".
+</desc>
+<also>vce_init_int_search,vce_init_string_search,vce_init_int2_search,vce_cleanup_search_engine
+</func>
+
+<func>
+<name>vce_init_vstring_search
+<prototype>int vce_init_vstring_search( int hashtbl_size, int ent_num, int key_len, char *sname )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>任意の長さの文字列をキーとして使う検索エンジンを初期化
+<sum en>Initialize a search engine that uses an arbitrary length string
+<arg>int hashtbl_size
+<argdef ja>
+検索に使用するハッシュ表のサイズ
+</argdef>
+<argdef en>
+Size of search hash table.
+</argdef>
+<arg>int ent_num
+<argdef ja>
+検索される値を指すポインタを保存する最大数
+</argdef>
+<argdef en>
+Max number of registered entries in this search engine.
+</argdef>
+<arg>key_len
+<argdef ja>
+検索キーとなる文字列の最大の長さ
+</argdef>
+<argdef en>
+Max length of search key string.
+</argdef>
+<arg>char *sname
+<argdef ja>
+検索エンジンの名前
+</argdef>
+<argdef en>
+Name of this search engine.
+</argdef>
+<return ja>
+初期化に成功したらゼロ以上，そうでない場合は負のエラーコードを返す．
+</return>
+<return en>
+Returns larger than or equal to zero if successful,
+otherwise returns minus error indicator value.
+</return>
+<desc ja>
+文字列を検索キーとして持つ検索エンジンを初期化する。
+vce_init_string_search と異なり，
+使用できる文字列の長さを key_len で任意の値に指定することができる．
+vce_init_string_search と，文字列の長さが同じ場合は
+速度も同じなので，完全に置きかえることが可能である．
+</desc>
+<desc en>
+This initializes a search engine having string as search key.
+Unlike vce_init_string_search, length of string can be designated
+as an arbitrary value by key_len.
+In case length of a character string is the same as
+it of vce_init_string_search,
+speed is the same. In other words, you can completely substitute it
+by this.
+</desc>
+<also>vce_init_string_search,vce_init_int_search,vce_cleanup_search_engine
+</func>
+
+<func>
+<name>vce_get_vstring_search
+<prototype>void * vce_get_vstring_search( int index, char *key )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>任意長文字列検索エンジンでキーから値を検索する
+<sum en>Search a value in arbitrary length string search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>char *key
+<argdef ja>
+検索のキーとなる文字列
+</argdef>
+<argdef en>
+Search key string.
+</argdef>
+<return ja>
+検索に成功したら検索エンジンが保管している有効なポインタ，
+失敗したらヌルポインタを返す
+</return>
+<return en>
+Returns registered valid pointer if search is successful.
+If no entry is found, returns NULL pointer.
+</return>
+<desc ja>
+任意長の文字列キーから値を検索する。
+検索の仕組については、整数検索エンジン vce_init_int_search を参照。
+</desc>
+<desc en>
+This searches a value by a key string of the arbitrary length.
+Please refer to explanation of integer search engine
+"vce_init_int_search" for detail.
+</desc>
+<also>vce_init_int_search,vce_init_vstring_search
+</func>
+
+<func>
+<name>vce_update_vstring_search
+<prototype>int vce_update_vstring_search( int index, char *key, void *pointer )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>任意長の文字列検索エンジンに，「キーと値」の組を1個追加，更新する
+<sum en>Add/Update a value into arbitrary length string search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>char *key
+<argdef ja>
+検索キーとなる文字列。 vce_init_vstring_search で指定した key_len
+までの長さが検索に使用される．
+</argdef>
+<argdef en>
+Search key string.
+</argdef>
+<arg>void *pointer
+<argdef ja>
+検索される値をさすポインタ
+</argdef>
+<argdef en>
+Pointer to an entry, which will be registered in this search engine.
+</argdef>
+<return ja>
+正常終了なら0、異常終了なら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator value.
+</return>
+<desc ja>
+文字列を検索キーとする検索のために、「キーと値」の組を検索エンジンに
+登録する。すでに同じキーが登録されている場合は、値を更新する。
+ハッシュ方式には、 PJW を使用している。
+検索のしくみについては、 vce_init_int_search を参照。
+</desc>
+<desc en>
+</desc>
+<also>vce_init_int_search,vce_init_vstring_search,vce_delete_vstring_search
+</func>
+
+<func>
+<name>vce_delete_vstring_search
+<prototype>int vce_delete_vstring_search( int index, char *key )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>任意長文字列検索エンジンから，「キーと値」の組を取りのぞく
+<sum en>Delete a value from string search engine
+<arg>int index
+<argdef ja>
+検索エンジンを特定するためのサーチデスクリプタ
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<arg>char *key
+<argdef ja>
+検索キーとなる文字列
+</argdef>
+<argdef en>
+Search key string.
+</argdef>
+<return ja>
+正常終了なら0、異常終了なら負のエラーコード
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator value.
+</return>
+<desc ja>
+指定された検索キーにマッチする「キーと値」の組を取りのぞく。
+</desc>
+<desc en>
+This deletes a couple of key and value matching
+the designated search key.
+If there exist more than one, the first one will be deleted.
+</desc>
+<also>vce_init_vstring_search,vce_get_vstring_search,vce_update_vstring_search
+</func>
+
+<func>
+<name>vce_get_search_usenum
+<prototype>int vce_get_search_usenum( int index )
+<cat>search
+<arch>linux,win32,ps2,darwin
+<sum ja>サーチエンジンのエントリの使用数を得る
+<sum en>Get number of used entry of search engine
+<arg>int index
+<argdef ja>
+情報を取得したいサーチエンジンのインデックス
+</argdef>
+<argdef en>
+Search descriptor.
+</argdef>
+<return ja>
+使用中の個数．
+</return>
+<return en>
+Returns number of entries currently used.
+Returns error code if error.
+</return>
+<desc ja>
+サーチエンジンでは update することによってエントリが増え，
+delete することによってエントリが減る．
+update/delete の対応が取れていないとエントリがあふれてしまう．
+このバグはサーバプログラミングにおいて頻発するバグである．
+本関数を使って定期的に使用数を調べることは，
+検索エンジンまわりのデバッグの助けとなる．
+本関数はすべての種類のサーチエンジンに対して使用可能である．
+</desc>
+<desc en>
+With regard to a search engine,
+entries will increase with update and decrease with delete.
+If you forget to delete after updating search engine,
+all the entries are used up to maximum number.
+This kind of program bug often happens in server program.
+
+Checking the number of usage of entries periodically
+using this function will help debugging search
+engine related programming.
+This function is usable among all kinds of search engines.
+</desc>
+<also>vce_init_int_search
+</func>
+

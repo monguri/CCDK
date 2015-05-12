@@ -1,0 +1,1563 @@
+#
+# document for VCE auto-generated reference [vec.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: vec.txt,v 1.4 2005/07/25 12:24:35 chiaki Exp $
+#
+
+<func>
+<name>vce_circ_test_sanity
+<prototype>int vce_circ_test_sanity( tcpcontext_t tt, circ_t ct, int *type )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>circ_t の内容が有効かどうか，最も精密に調べる
+<sum en>Test validity of a circ_t most precisely
+<return ja>
+正しいなら1，そうでないなら0
+type に，正しくない場合の種類の値を入れて返す．
+type は正しい場合は0．
+</return>
+<arg>tcpcontext_t tt
+<argdef ja>
+その circ が派生した tcpcontext_t
+</argdef>
+<argdef en>
+A tcpcontext_t which produced the circ.
+</argdef>
+<arg>circ_t ct
+<argdef ja>
+テストしたい circ_t
+</argdef>
+<argdef en>
+A circ_t to be tested by this function
+</argdef>
+<arg>int *type
+<argdef ja>
+調べた結果の詳細．
+</argdef>
+<argdef en>
+Precise result of investigation
+</argdef>
+<desc ja>
+circ_t はシリアル番号とアクセス用ポインタのふたつの情報を持っている．
+vce_circ_is_valid関数は，circ_tが保持しているポインタを使って
+メモリにアクセセスする前に，ヌルポインタとの比較のみを行なう．
+しかし，ポインタがアプリケーションによって壊されているなどの場合，
+そのような調べかただけではアプリケーションのメモリアクセス違反
+をひきおこす場合がある．
+本関数ではそのような問題を防ぐために，
+より精密にポインタの中身をチェックする．
+以下では返り値typeの値と意味の対応を列挙している．
+<ul>
+<LI>5 : 引数 tt (tcpcontext) が null ポインターである．
+<LI>6 : 引数 tt (tcpcontext) が， VCEが割りあてていない値になっている．
+<LI>10 : 引数 tt (tcpcontext) が，circ_t を生成できないモードになっている．
+<LI>20 : 引数 tt (tcpcontext) が，状態バッファを使うように設定されているが，
+内部の状態バッファ用変数が破壊されている(VCEのバグの可能性)．
+<LI>30 : 引数 ct のポインタが NULL である
+<LI>40 : 引数 ct のポインタが奇数アドレスである．つまり壊れている．
+<LI>50 : 引数 ct のシリアル番号がゼロであり，不正．
+<LI>60 : 引数 ct のポインタがVCEが割りあてたはずの値になっていない．
+<LI>70 : 引数 ct の親コネクションのポインタが不正(VCEのバグの可能性)
+<LI>80 : 引数 ct の親コネクションのシリアルが一致していない(VCEのバグの可能性)
+<LI>90 : 引数 ct の状態バッファのポインタがNULLであり，不正．
+<LI>100 : 引数 ct の状態バッファのポインタがVCEが割りあてたはずの値でない
+</ul>
+
+</desc>
+<desc en>
+circ_t has two members: a serial number, and a pointer.
+vce_circ_is_valid function tests validity of the pointer member
+by comparing it with NULL pointer.
+But if the pointer is destroyed by application, it may cause
+memory access violation.
+This function checks circ_t to avoid this problem.
+This function will return investigation code by *type argument:
+<ul>
+<LI>5 : argument tt (tcpcontext) is null
+<LI>6 : argument tt (tcpcontext) is invalid : seems not allocated by VCE.
+<LI>10 : argument tt (tcpcontext) is not configured to produce circ_t
+<LI>20 : argument tt (tcpcontext) is configured to use state buffer,
+but internally state buffer is corrupted ( VCE BUG? )
+<LI>30 : argument ct 's pointer is NULL
+<LI>40 : argument ct 's pointer is invalid : odd address
+<LI>50 : argument ct 's serial number is zero. That's invalid.
+<LI>60 : argument ct seems not be allocated by VCE.
+<LI>70 : argument ct seems to have invalid parent conn_t pointer (VCE BUG?)
+<LI>80 : argument ct has invalid parent conn_t serial number (VCE BUG?)
+<LI>90 : argument ct has invalid NULL state buffer
+<LI>100 : argument ct seems not be allocated by VCE.
+</ul>
+
+</desc>
+<also>vce_circ_is_valid
+</func>
+
+<func>
+<name>vce_circ_write
+<prototype>int vce_circ_write( circ_t cir, char *data, int datalen )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクション中の仮想回路(circ_t)にデータを書きこむ。
+<sum en>Write data into a virtual circuit (circ_t) within a TCP connection.
+<return ja>
+成功したらdatalenを、失敗したら負のエラーコードを返す。
+成功の場合は、かならずdatalenであり、
+datalenより小さい正の値が返ることはない。これは、全部書きこむか、
+全く書きこまないかどちらかであることを意味する。
+</return>
+<return en>
+Returns datalen if successfully written.
+Returns minus error code if fail.
+When it succeeds, it is always datalen.
+Any smaller positive values will never be returned,
+because there are only two result:
+<pre>
+1. Completely success ( returning datalen )
+2. Completely fail ( returning minus error code )
+</pre>
+</return>
+<arg>circ_t cir
+<argdef ja>
+書きこむ先の仮想回路。仮想回路の説明は、tcp カテゴリの説明を参照。
+</argdef>
+<argdef en>
+Destination circ_t. Please look at category description about "tcp"
+for precise explanation about circ_t.
+</argdef>
+<arg>char *data
+<argdef ja>
+書きこむデータ
+</argdef>
+<argdef en>
+Top address of data which will be sent.
+</argdef>
+<arg>int datalen
+<argdef ja>
+書きこむデータの長さ
+</argdef>
+<argdef en>
+Length of data being sent.
+</argdef>
+<desc ja>
+VCEでは1本のTCPコネクション(conn_t)の中に複数の仮想コネクションを入れる
+ことができるが、その仮想回路にデータを直接に書きこむのが
+vce_circ_write である。
+この関数はデータを生で書きこむため、
+さらに bin16 プロトコルパーサなどを使ってデータ処理をすることが
+通常のアプリケーションでは必要である。
+</desc>
+<desc en>
+VCE allows inclusion of more than one virtual connection within
+a single TCP connection (conn_t).
+Because vce_circ_write directly writes data onto such virtual circuit
+without any processing, so in ordinary applications should use
+bin16 or some protocol functions to write.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_circ_close
+<prototype>void vce_circ_close( circ_t cir )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路(circ_t)を閉じる
+<sum en>Close circ_t.
+<arg>circ_t cir
+<argdef ja>
+閉じる仮想回路
+</argdef>
+<argdef en>
+A circ_t being closed.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+仮想回路を強制的に閉じる。
+閉じたら、vce_tcpcontext_create関数の呼びだし時に
+指定している、仮想回路用のcircclosewatcherが呼びだされてから、
+資源が解放される。
+</desc>
+<desc en>
+This closes a virtual circuit by force.
+Once it is closed, the circclosewatcher for the virtual circuit that
+was designated upon invocation of vce_tcpcontext_create
+function is called, then resources are released.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_circ_get_index
+<prototype>int vce_circ_get_index( tcpcontext_t t, circ_t c );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路(circ_t)のインデックス番号を得る
+<sum en>Get index number of a circ_t virtual circuit.
+<arg>tcpcontext_t t
+<argdef ja>
+パケットベクトライザサーバの設定になっているTCPコンテキスト
+</argdef>
+<argdef en>
+A TCPcontext which contains this circ_t.
+</argdef>
+<arg>circ_t c
+<argdef ja>
+仮想回路の構造体(circ_t)
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<return ja>
+インデックス。エラーの場合は負のエラーコードを返す
+</return>
+<return en>
+Index number. Returns minus error indicator value if any error occured.
+</return>
+<desc ja>
+仮想回路は、TCPコンテキストごとに1次元配列として管理されていて、
+その配列へのインデックス値を得る。
+このインデックス値は一意性をもっているため、
+コネクションのセッションIDとして使用できる。
+</desc>
+<desc en>
+A virtual circuit is controlled by TCP context as a one-dimensional array,
+and this function gets an index value inside such array.
+Since this index value has uniqueness,
+may be used as a session ID of connection.
+</desc>
+<also>vce_circ_get_struct_from_index
+</func>
+
+<func>
+<name>vce_circ_get_struct_from_index
+<prototype>circ_t vce_circ_get_struct_from_index( tcpcontext_t t, int index );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路(circ_t)の構造体を、インデックス値から得る
+<sum en>Get circ_t structure from index and tcpcontext_t
+<arg>tcpcontext_t t
+<argdef ja>
+その仮想回路が含まれるTCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext
+</argdef>
+<arg>int index
+<argdef ja>
+circ_t のインデックス。 vce_circ_get_index 関数を使って得た値。
+</argdef>
+<argdef en>
+Index of required circ_t.
+This index is equal to what is got by vce_circ_get_index function.
+</argdef>
+<return ja>
+構造体そのもの。
+</return>
+<return en>
+Instance of circ_t
+</return>
+<desc ja>
+仮想回路のインデックスから、構造体そのものを得るときに使用する。
+</desc>
+<desc en>
+This function is used when obtaining a structure itself from
+an index of a virtual circuit.
+</desc>
+<also>vce_circ_get_index
+</func>
+
+<func>
+<name>vce_circ_get_state_buffer
+<prototype>void * vce_circ_get_state_buffer( circ_t ct, int *len );
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路の状態管理バッファへのポインタを得る
+<sum en>Get pointer to circ_t's state buffer.
+<arg>circ_t ct
+<argdef ja>
+管理バッファを得たい仮想回路
+</argdef>
+<argdef en>
+Target circ_t.
+</argdef>
+<arg>int *len
+<argdef ja>
+状態バッファの長さ。結果引数。 NULL を指定できる。
+</argdef>
+<argdef en>
+Length of state buffer. This is value-result parameter.
+Ignored if set NULL.
+</argdef>
+<return ja>
+バッファへのポインタ。状態のないプロトコルの場合は、NULLを返す
+</return>
+<return en>
+Pointer to state buffer. Returns NULL pointer if the
+protocol is stateless.
+</return>
+<desc ja>
+circ_t に対応付けられている状態管理バッファのポインタを得る。
+circ_t を状態ありプロトコルとして定義するには、
+vce_tcpcontext_create 関数の呼びだし時に、 statebuf_size 引数を0より
+大きな値にする。
+</desc>
+<desc en>
+This obtains a pointer of the state buffer that is associated with circ_t.
+To make circ_t as a stateful protocol,
+assign a value larger than 0 to the statebuf_size
+argument upon invocation of vce_tcpcontext_create function.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_circ_get_remote_ipv4_addr
+<prototype>void vce_circ_get_remote_ipv4_addr( circ_t ct, unsigned int *a, unsigned short *p )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路のリモートピアのIPv4アドレス(32bit)を得る
+<sum en>Get 32-bit IPv4 remote peer address from a circ_t
+<arg>circ_t ct
+<argdef ja>
+アドレスを求める仮想回路
+</argdef>
+<argdef en>
+Target circ_t.
+</argdef>
+<arg>unsigned int *a
+<argdef ja>
+IPv4アドレス(出力) ネットワークバイトオーダで出力されることに注意
+</argdef>
+<argdef en>
+IPv4 address output buffer.
+Please note that this function returns network byte-order data.
+</argdef>
+<arg>unsigned short *p
+<argdef ja>
+ポート番号。ネットワークバイトオーダであることに注意
+</argdef>
+<argdef en>
+Port number.
+Please note that this function returns network byte-order data.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+リモートピアのIPv4のアドレスとポートを求める。
+</desc>
+<desc en>
+Get remote peer's IPv4 address and port number.
+</desc>
+<also>vce_conn_get_remote_ipv4_addr
+</func>
+
+<func>
+<name>vce_circ_get_remote_ipv6_addr
+<prototype>void vce_circ_get_remote_ipv6_addr( circ_t ct, char *a, unsigned short *p )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路のリモートピアのIPv6アドレス(128bit)を得る
+<sum en>Get 128-bit IPv6 remote peer address from a circ_t
+<arg>circ_t ct
+<argdef ja>
+アドレスを求める仮想回路
+</argdef>
+<argdef en>
+Target circ_t.
+</argdef>
+<arg>char *a
+<argdef ja>
+IPv6アドレス(出力) ネットワークバイトオーダで出力されることに注意。
+このバッファは16バイト以上のサイズを確保しておく事。
+</argdef>
+<argdef en>
+IPv6 address output buffer.
+Please note that this function returns network byte-order data.
+You should allocate larger than, or equal to 16 bytes for this buffer.
+</argdef>
+<arg>unsigned short *p
+<argdef ja>
+ポート番号。ネットワークバイトオーダであることに注意
+</argdef>
+<argdef en>
+Port number output buffer.
+Please note that this function returns network byte-order data.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+リモートピアのIPv6のアドレスとポートを求める。
+</desc>
+<desc en>
+Get remote peer's IPv6 address and port.
+</desc>
+<also>vce_circ_get_remote_ipv6_addr_string
+</func>
+
+<func>
+<name>vce_circ_get_remote_ipv4_addr_string
+<prototype>char * vce_circ_get_remote_ipv4_addr_string( circ_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路のリモートピアのIPv4アドレス(32bit)を文字列で得る
+<sum en>Get 32-bit IPv4 remote peer address from a circ_t as a string
+<return ja>
+s のアドレスをそのまま返す。
+</return>
+<return en>
+Returns parameter "s" as it is.
+</return>
+<arg>circ_t ct
+<argdef ja>
+アドレスを求める仮想回路
+</argdef>
+<argdef en>
+Target circ_t.
+</argdef>
+<arg>char *s
+<argdef ja>
+出力先の文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination string buffer.
+</argdef>
+<arg>int max
+<argdef ja>
+出力先の文字列の最大長さ
+</argdef>
+<argdef en>
+Size of destination string buffer.
+</argdef>
+<desc ja>
+文字列でリモートクライアントのアドレスを得るが、
+出力文字列のバッファは最低50バイトの長さをもつものを用意すること。
+これは snprintf を持たない環境が存在することに起因している。
+本関数は IPv4 専用なので、プロトコル独立をめざすために、
+アプリケーションでは本関数を使わず、 vce_circ_get_remote_addr_string
+関数を使うべきである。
+</desc>
+<desc en>
+This obtains a remote client's address in character string.
+An output character string buffer of at least 50 bytes must
+be prepared.
+This is caused by existence of some environments not having snprintf.
+For this function is dedicated to IPv4,
+an applications should not use this function but the
+vce_circ_get_remote_addr_string function in order to
+accomplish protocol-independency.
+</desc>
+<also>vce_circ_get_remote_ipv4_addr,vce_circ_get_remote_addr_string
+</func>
+
+<func>
+<name>vce_circ_get_remote_ipv6_addr_string
+<prototype>char * vce_circ_get_remote_ipv6_addr_string( circ_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路のリモートピアのIPv6アドレス(128bit)を文字列で得る
+<sum en>Get 128-bit IPv6 remote peer address from a circ_t as a string
+<return ja>
+s のアドレスをそのまま返す。
+</return>
+<return en>
+Returns parameter "s" as it is.
+</return>
+<arg>circ_t ct
+<argdef ja>
+アドレスを求める仮想回路
+</argdef>
+<argdef en>
+Target circ_t.
+</argdef>
+<arg>char *s
+<argdef ja>
+出力先の文字列の先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination string buffer.
+</argdef>
+<arg>int max
+<argdef ja>
+出力先の文字列のサイズ
+</argdef>
+<argdef en>
+Size of destination string buffer.
+</argdef>
+<desc ja>
+文字列でリモートクライアントのアドレスを得るが、
+出力文字列のバッファは最低50バイトの長さをもつものを用意すること。
+これは snprintf を持たない環境が存在することに起因している。
+本関数は IPv6 専用なので、プロトコル独立をめざすために、
+アプリケーションでは本関数を使わず、 vce_circ_get_remote_addr_string
+関数を使うべきである。
+</desc>
+<desc en>
+This obtains a remote client's address in character string.
+An output character string buffer of at least 50 bytes must
+be prepared. This is caused by existence of some environments
+not having snprintf.
+For this function is dedicated to IPv4, an applications should
+not use this function but vce_circ_get_remote_addr_string
+function in order to accomplish protocol-independency.
+</desc>
+<also>vce_circ_get_remote_ipv6_addr,vce_circ_get_remote_addr,vce_circ_get_remote_addr_string
+</func>
+
+<func>
+<name>vce_circ_get_remote_addr_string
+<prototype>char * vce_circ_get_remote_addr_string( circ_t ct, char *s, int max )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路(circ_t)のリモートピアのアドレスとポート番号を文字列で得る
+<sum en>Get remote peer address and port number from circ_t by string
+<return ja>
+ワーク領域(引数s)をそのまま返す
+</return>
+<return en>
+Returns parameter "s" as it is.
+</return>
+<arg>circ_t ct
+<argdef ja>
+アドレスを取得したい仮想回路
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<arg>char *s
+<argdef ja>
+結果文字列を格納するためのバッファ
+</argdef>
+<argdef en>
+Pointer to output string buffer.
+</argdef>
+<arg>int max
+<argdef ja>
+バッファのサイズ
+</argdef>
+<argdef en>
+Size of output string buffer.
+</argdef>
+<desc ja>
+プロトコル独立なアプリケーションにおいて、circ_t のリモートピアのアドレスを
+文字列で取得する。出力の形式に関しては vce_conn_get_remote_addr_string と
+同等の動作をする。
+アプリケーションはできるだけプロトコル独立に記述されるべきなので、
+vce_circ_get_remote_ipv6_addr 等といった関数よりも
+本関数を使用するべきである。
+</desc>
+<desc en>
+This gets circ_t's remote peer address as a character string within
+a protocol-independent application.
+With regard to an output format,
+it behaves equally as vce_conn_get_remote_addr_string.
+Since an application should be described
+independently from IP protocol if possible,
+this function should be used rather than functions such as
+vce_circ_get_remote_ipv6_addr.
+</desc>
+<also>vce_conn_get_remote_addr_string
+</func>
+
+<func>
+<name>vce_circ_is_valid
+<prototype>int vce_circ_is_valid( circ_t ct )
+<cat>tcp
+<sum ja>仮想回路(circ_t)が有効かどうか調べる。
+<sum en>Check if an instance of circ_t is valid or not.
+<arg>circ_t ct
+<argdef ja>
+調査する対象となる仮想回路
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<return ja>
+ct が有効なら1、そうでないなら0を返す。
+</return>
+<return en>
+Returns 1 if ct is valid, otherwise returns 0.
+</return>
+<desc ja>
+接続に対する書きこみバッファが満杯になっている場合でもコネクション自体が
+有効である場合は1を返す。
+</desc>
+<desc en>
+This returns 1 in case that the writing buffer is full
+whereas a connection itself is valid.
+</desc>
+</func>
+
+<func>
+<name>vce_circ_writable
+<prototype>int vce_circ_writable( circ_t ct )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路に対してどれだけのデータが書きこみ可能かを調べる
+<sum en>Get blank size of a circ_t write buffer.
+<return ja>
+書きこみが可能な長さを返す。書きこみが可能な場合は1以上、
+仮想回路が有効だが書きこみできない場合は0、
+仮想回路が有効でない場合は負のエラーコードを返す。
+</return>
+<return en>
+Return how many bytes can be written into the circ_t.
+When it is writable, return 1 or more.
+When it is not unwritable but virtual circuit is vaild,
+return 0.
+Returns minus error code if the circ_t is not valid.
+</return>
+<arg>circ_t ct
+<argdef ja>
+調査対象の仮想回路
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<desc ja>
+仮想回路の書きこみは、すべて上位のTCPコネクションのバッファに溜められる。
+すなわち仮想回路ごとに独立な書きこみ用バッファが用意されているわけではない。
+このため複数のcirc_t に対してこの関数を呼びだして調査すると、
+同じ値を返すことがある。
+</desc>
+<desc en>
+Every write to a virtual circuit will be stored in the buffer of
+its parent TCP connection.
+In other words, no buffers are prepared for each virtual circuits
+independently.
+Therefore, sometimes this function returns the same value against
+multiple circ_t (multiple circ_t is parented by one TCPcontext ).
+</desc>
+<also>vce_conn_writable
+</func>
+
+<func>
+<name>vce_circ_is_equal
+<prototype>int vce_circ_is_equal( circ_t c1, circ_t c2 )
+<cat>tcp
+<sum ja>ふたつの仮想回路(circ_t)が等しいかどうか調べる
+<sum en>Check if two circ_t instances are the same
+<arg>circ_t c1
+<argdef ja>
+調査対象となる仮想回路、ひとつ目
+</argdef>
+<argdef en>
+Target circ_t, first one
+</argdef>
+<arg>circ_t c2
+<argdef ja>
+調査対象となる仮想回路、ふたつ目
+</argdef>
+<argdef en>
+Target circ_t, second one
+</argdef>
+<return ja>
+ふたつの仮想回路が等しいなら1、等しくないなら0を返す。
+</return>
+<return en>
+Returns 1 if two circ_t is equal, otherwise zero.
+</return>
+<desc ja>
+ふたつの仮想回路が等しいかどうか調べる。
+この二つのcirc_tを使った書きこみと読みこみは全く同じ結果になる。
+具体的には同じポインタとシリアル番号を持っているコネクションとなる。
+</desc>
+<desc en>
+This investigates whether two virtual circuits are the identical.
+Writing and reading, using those two circ_t's, will lead
+to exactly the same results.
+In concrete, this will be the connection having the same pointer
+and serial number.
+</desc>
+</func>
+
+<func>
+<name>vce_vecprotocol_parser_bin16
+<prototype>int vce_vecprotocol_parser_bin16( circ_t cir )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路(circ_t)用の bin16 プロトコルレコードパーサ
+<sum en>Get a bin16 data record from circ_t and call a callback
+<return ja>
+コールバックが負を返した値をそのままかえす
+</return>
+<return en>
+Returns what is returnd by callback function.
+</return>
+<arg>circ_t cir
+<argdef ja>
+処理対象となる仮想回路 へのポインタ
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<desc ja>
+1個のTCPコネクションに含まれる仮想回路(circ_t)の入力データレコード
+を取りだし、あらかじめ vce_tcpcontext_create 関数の呼びだし時に指定されて
+いるコールバック関数を呼びだす。
+</desc>
+<desc en>
+</desc>
+<also>vce_protocol_parser_bin16,vce_vecprotocol_unparser_bin16
+</func>
+
+<func>
+<name>vce_vecprotocol_parser_bin32
+<prototype>int vce_vecprotocol_parser_bin32( circ_t cir )
+<cat>parser
+<sum ja>仮想回路(circ_t)用のBIN32パーサ
+<sum en>Bin32 protocol parser for circ_t.
+<arch>linux,win32,ps2,darwin
+<arg>circ_t cir
+<argdef ja>
+レコード取りだし対象となる仮想回路
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<return ja>
+データが不足している場合は0、
+データが不正な場合は負のエラーコード、
+レコード取りだしに成功した場合は、コールバック関数の戻り値をそのまま返す。
+</return>
+<desc ja>
+仮想回路の入力を解析し、Bin32レコードを取りだす。
+この関数が負を返した場合は、VCEは接続を切断する。
+Bin32は長さフィールドが32ビット長であるので、
+理論的には 4GBまでのレコードを通信できる。
+</desc>
+<desc en>
+</desc>
+<also>vce_vecprotocol_parser_bin16
+</func>
+
+<func>
+<name>vce_vecprotocol_parser_through
+<prototype>int vce_vecprotocol_parser_through( circ_t cir )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路(circ_t)用の、何もしないスルーパーサ
+<sum en>No-op parser for circ_t
+<return ja>
+コールバックが返した値をそのまま返す。
+</return>
+<return en>
+Returns what is returned by callback function.
+</return>
+<arg>circ_t cir
+<argdef ja>
+処理対象となる仮想回路へのポインタ
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<desc ja>
+仮想回路の入力に対して何の処理もせずにコールバック関数に渡す。
+レコードという概念が必要ないプロトコルでは意味がある
+(単にログをたれ流して受けとるサーバなど)が、ほとんどのプロトコルでは
+レコードを定義して処理をする。利用頻度は少ない。
+</desc>
+<desc en>
+</desc>
+<also>vce_protocol_parser_through
+</func>
+
+<func>
+<name>vce_vecprotocol_parser_text
+<prototype>int vce_vecprotocol_parser_text( circ_t cir )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路用の text プロトコルレコードパーサ
+<sum en>Get a text-line record from circ_t and call a callback
+<return ja>
+コールバックの返した値をそのまま返す
+</return>
+<return en>
+Returns what is returned by callback function.
+</return>
+<arg>circ_t cir
+<argdef ja>
+処理対象となる仮想回路へのポインタ
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<desc ja>
+仮想回路に入力されたデータから1行のレコードを取りだして、
+改行記号を含まない部分をコールバック関数に渡す。
+改行記号とは、 "\r\n" もしくは "\n" である。
+</desc>
+<desc en>
+</desc>
+<also>vce_protocol_parser_text
+</func>
+
+<func>
+<name>vce_vecprotocol_unparser_bin16
+<prototype>int vce_vecprotocol_unparser_bin16( circ_t ct, char *data , int len )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>TCPコネクション内の仮想回路circ_t に対してbin16レコードを書きこむ
+<sum en>Write bin16 data record into a virtual circuit within a TCP socket.
+<return ja>
+成功なら書きこんだデータの長さ(len) +2 、
+失敗なら負のエラーコードを返す。
+</return>
+<return en>
+Returns how many bytes are sent. This is usually (data_length + 2).
+Returns minus error indicator value if any error is occured.
+</return>
+<arg>circ_t ct
+<argdef ja>
+書きこむ先の仮想回路 circ_t
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<arg>char *data
+<argdef ja>
+書きこみたいデータへのポインタ
+</argdef>
+<argdef en>
+Pointer to data, which will be sent
+</argdef>
+<arg>int len
+<argdef ja>
+書きこみたいデータの長さ
+</argdef>
+<argdef en>
+Length of data being sent
+</argdef>
+<desc ja>
+vce_vecprotocol_unparser_bin16 関数は、bin16フォーマットにしたがった
+データレコードを circ_t に対して書きこむ。 circ_t が何を意味するのか
+については、 tcpカテゴリの関数群の説明を参照。
+bin16プロトコルのデータレコードは、2バイトの長さフィールドを含むので、
+実際に書きこめた長さ(返り値)は、書きこもうとしたデータの長さよりも
+2だけ多くなる．さらに，SWPを介した通信では，
+SWP との通信に必要な情報が付加されるため，
+最適化の状況によるが数バイトから数十バイト多くなることがある．
+</desc>
+<desc en>
+</desc>
+<also>vce_vecprotocol_parser_bin16,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_vecprotocol_unparser_bin32
+<prototype>int vce_vecprotocol_unparser_bin32( circ_t ct, char *data, int len )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路circ_tに対して BIN32プロトコルのレコードをひとつ書きこむ
+<sum en>Write a Bin32 protocol data record to a circ_t
+<return ja>
+成功なら書きこんだデータの長さを返す。
+失敗の場合は負のエラーコードを返す。
+</return>
+<return en>
+Returns how many bytes are sent if successful.
+Otherwise returns minus error indicator value.
+</return>
+<arg>circ_t ct
+<argdef ja>
+書きこみ先の仮想回路
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<arg>char *data
+<argdef ja>
+書きこみたいデータの先頭アドレス
+</argdef>
+<argdef en>
+Top address of data being sent
+</argdef>
+<arg>int len
+<argdef ja>
+書きこむデータの長さ(バイト)
+</argdef>
+<argdef en>
+Length of data being sent (in bytes)
+</argdef>
+<desc ja>
+32ビットの長さ(つまり4GB)のデータレコードまでを書きこむことができる。
+返り値の特性に関しては vce_vecprotocol_unparser_bin16 関数を参照．
+</desc>
+<desc en>
+</desc>
+<also>vce_vecprotocol_unparser_bin16
+</func>
+
+<func>
+<name>vce_vecprotocol_unparser_text
+<prototype>int vce_vecprotocol_unparser_text( circ_t ct, char *data, int len )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路circ_tに対してtextプロトコルの1レコードを書きこむ
+<sum en>Write a line of text protocol to a circ_t
+<arg>circ_t ct
+<argdef ja>
+出力対象となる仮想回路
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<arg>char *data
+<argdef ja>
+書きこむデータ。
+</argdef>
+<argdef en>
+Top address of data being sent
+</argdef>
+<arg>int len
+<argdef ja>
+書きこむデータの長さ
+</argdef>
+<argdef en>
+Length of data being sent
+</argdef>
+<desc ja>
+改行記号である"\n" や "\r"もエスケープなどの処理を一切せずに
+そのまま書きこむので注意が必要である。
+また、データの末尾に "\n" を追加して送信するので、
+送信バイト数は、成功の場合 len よりも1多い値となる。
+それ以外の返り値の特性に関しては
+vce_vecprotocol_unparser_bin16 関数を参照．
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create, vce_vecprotocol_unparser_bin16
+</func>
+
+<func>
+<name>vce_vecprotocol_unparser_through
+<prototype>int vce_vecprotocol_unparser_through( circ_t ct, char *data, int len )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>仮想回路(circ_t)に対して、レコード境界なしで生データを書きこむ
+<sum en>Write raw data into circ_t without any record delimiters
+<arg>circ_t ct
+<argdef ja>
+書きこみ対象となる仮想回路
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<arg>char *data
+<argdef ja>
+書きこむデータの先頭アドレス
+</argdef>
+<argdef en>
+Top address of data being sent
+</argdef>
+<arg>int len
+<argdef ja>
+書きこむデータの長さ
+</argdef>
+<argdef en>
+Length of data being sent
+</argdef>
+<return ja>
+書きこむことができた長さを返す。
+失敗の場合は負のエラーコードが返る
+</return>
+<return en>
+Returns how many bytes are sent if successful.
+Otherwise returns minus error indicator value.
+</return>
+<desc ja>
+データに対して何の処理もせずに仮想回路に対して書きこむ。
+長さ分だけ書きこむか、何も書きこまずに失敗するか、どちらかである。
+返り値の特性に関しては
+vce_vecprotocol_unparser_bin16 関数を参照．
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_vecprotocol_unparser_bin16,vce_vecprotocol_unparser_text
+</func>
+
+<func>
+<name>vce_protocol_parser_vec0
+<prototype>int vce_protocol_parser_vec0( conn_t ct )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライザがクライアントからのデータを受けるためのパーザ
+<sum en>A parser for packet-vectorizer which accepts data from clients.
+<arg>conn_t ct
+<argdef ja>
+パーズ対象となるTCPコネクションをあらわす conn_t
+</argdef>
+<argdef en>
+Target conn_t. This parser will read received data from
+this connection.
+</argdef>
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator value.
+</return>
+<desc ja>
+指定されたconn_t コネクションに入力されているデータをベクトライズして、
+ベクトライズに対応しているサーバにつながっているソケットに対して書きこむ。
+通常アプリケーションは、VCEに附属している汎用のパケットベクトライザ swp
+を使用するため、この関数を直接使うことはない。
+</desc>
+<desc en>
+This function vectorizes the data that is entered to the specified
+conn_t connection, and writes the data to the socket connected
+to the backend main server that is applicable for vectorization.
+Your application will not use this function directly,
+because in ordinary cases you should use VCE's default "swp" server.
+</desc>
+<also>vp,vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_acceptwatcher_vec0
+<prototype>int vce_protocol_acceptwatcher_vec0( conn_t ct )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライザがaccept()したときのデフォルトコールバック関数
+<sum en>A default callback function when packet-vectorizer accept()s.
+<arg>conn_t ct
+<argdef ja>
+新規にacceptされたコネクションをあらわす conn_t
+</argdef>
+<argdef en>
+Newly accepted conn_t.
+</argdef>
+<return ja>
+うまくいったら0、失敗したら負のエラーコードをかえす。
+</return>
+<return en>
+Returns zero if successful, otherwise returns minus error indicator value.
+</return>
+<desc ja>
+本関数は通常、アプリケーションから直接使われることはない。
+VCEに付属の"swp"において、クライアントからの接続要求を
+accept()関数によって受けいれたときに、その事実をサーバに伝えるために
+使用される。
+</desc>
+<desc en>
+Generally, this function is not used directly from your application.
+When VCE's "swp" gets new request from a client,
+it uses this function to tell main server ( vecmain server )
+that new client is comming.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_closewatcher_vec0
+<prototype>int vce_protocol_closewatcher_vec0( conn_t ct )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライザがEOFを検出したときに呼ばれるコールバック関数
+<sum en>A default callback function when packet-vectorizer notices EOF.
+<arg>conn_t ct
+<argdef ja>
+EOFが検出されたコネクションをあらわすconn_t
+</argdef>
+<argdef en>
+Instance of conn_t which has got a new EOF signal.
+</argdef>
+<return ja>
+正常に終了したら0、失敗したら負のエラーコード
+</return>
+<return en>
+Returns 0 if successful, otherwise minus error code.
+</return>
+<desc ja>
+本関数は通常はアプリケーションから直接呼びだされることはない。
+VCEに付属の "swp" プログラムにおいて、クライアントとの接続にEOFを検出
+したときにその事実をサーバに送信するために使用される。
+</desc>
+<desc en>
+Generally, this function will not called directly from your application.
+When VCE's "swp" meets EOF in TCP session between it and client,
+it uses this function to tell the fact to backend server.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_vec_setup_linkage
+<prototype>int vce_vec_setup_linkage( tcpcontext_t tp, conn_t cp )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライザをサーバコネクションに結びつける
+<sum en>Link a packet vectorizer to server connection.
+<arg>tcpcontext_t tp
+<argdef ja>
+TCPコンテキストへのポインタ
+</argdef>
+<argdef en>
+Target TCPcontext
+</argdef>
+<arg>conn_t cp
+<argdef ja>
+結びつけるコネクション。サーバに対してつながっていることが必要である。
+</argdef>
+<argdef en>
+Connect this conn_t to this TCPcontext.
+To complete this action, this connection have to conected
+to server.
+</argdef>
+<return ja>
+正常終了なら0、失敗なら負のエラーコードを返す
+</return>
+<desc ja>
+クライアントからの接続を受けつけるためのサーバTCPコンテキストの初期化時に
+パケットベクトライザプロトコルのパーザを登録し、
+さらに初期化の次の段階として、どのサーバコネクションをベクトライズの
+出力用コネクションとするかを指定する。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_parser_vecmain_client
+<prototype>int vce_protocol_parser_vecmain_client( conn_t ct )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライザがサーバからのデータを処理するためのパーザ
+<sum en>A parser for processing data from server
+<arg>conn_t ct
+<argdef ja>
+処理対象のコネクション
+</argdef>
+<argdef en>
+Target conn_t.
+</argdef>
+<return ja>
+成功なら0、失敗なら負のエラーコードを返す
+</return>
+<return en>
+Returns 0 if success, otherwise minus error code.
+</return>
+<desc ja>
+本関数は通常アプリケーションから使われることはなく、
+VCE に添付の "swp" プログラムから呼びだされる。
+</desc>
+<desc en>
+This function will not used by your application directly,
+but used by "swp" server program which is attached to VCE package.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_vec_init_mainserv
+<prototype>int vce_vec_init_mainserv( tcpcontext_t tp, int maxcirc, int rbsize )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライズに対応したサーバの初期化ルーチン
+<sum en>Initialize server routine in packet-vectorize-aware server
+<arg>tcpcontext_t tp
+<argdef ja>
+操作対象となるTCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>int maxcirc
+<argdef ja>
+1個のTCPベクトライズコネクションに含める仮想回路(circ_t)の最大数。
+通常は10000以下を指定する。
+</argdef>
+<argdef en>
+Max number of circ_t, which is maintained by the TCPcontext.
+Usually, this is set less than 100000.
+</argdef>
+<arg>int rbsize
+<argdef ja>
+1個の仮想回路あたりの読みこみバッファ長(byte)
+</argdef>
+<argdef en>
+Length of read buffer per circ_t
+</argdef>
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す
+</return>
+<desc ja>
+パケットベクトライズに対応したサーバにおいて、
+VCEに内蔵されているベクトライズルーチンで必要な初期化を行なう。
+この初期化をすることによって、指定されたTCPコンテキストが管理する
+コネクションの中に複数の仮想回路を含めることができる。
+VCE仮想回路(circ_t)を利用するすべてのアプリケーションは、
+vce_tcpcontext_create 関数のよび出し後、
+本関数を使用して適切に仮想回路処理ルーチンを
+TCPコンテキストに組みこまなければならない。
+<BR>
+注意:<BR>
+本関数を使って circ を有効にする場合は，
+ベクトライズを担当する中継サーバとのコネクションにわりあてる
+書きこみバッファのサイズを大きくしておく必要がある．
+現在の VCE ではその値は 32768 で(今後変更の可能性がある)，
+書きこみバッファの残りがそれより小さい量の場合は，
+ネットワークの状況に関係なく書きこみが失敗する可能性がある．
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_protocol_parser_vecmain_server
+<prototype>int vce_protocol_parser_vecmain_server( conn_t ct )
+<cat>parser
+<arch>linux,win32,ps2,darwin
+<sum ja>パケットベクトライズ対応サーバのデータ受信用パーサ
+<sum en>A data-parser for packet-vectorize-aware server
+<arg>conn_t ct
+<argdef ja>
+パース対象となるTCPコネクション
+</argdef>
+<argdef en>
+Target conn_t.
+</argdef>
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns 0 if successful, otherwise minus error code.
+</return>
+<desc ja>
+vce_protocol_parser_vecmain_server は、
+vce_tcpcontext_create 関数の呼びだし時に、
+パーサとして登録される。
+この関数を登録することで， "swp" 中継を使ったバックエンドを実装
+することができる．
+
+本関数は、コネクションからのデータ入力をみて、
+その中身を解析し、仮想回路(circ_t)の情報を取りだす。
+取りだした結果仮想回路にデータが来ているようであれば、
+ベクトライズ用bin16パーサなどのパーサを呼びだす。
+</desc>
+<desc en>
+You will register this function as a parser function
+when calling vce_tcpcontext_create.
+You can make use of "swp" proxy server by using this function.
+This function observes the data input from the connection and
+analyzes it, then takes out the information of virtual circuit (circ_t).
+If there is any received data from virtual circuit,
+protocol parser function will be called-back.
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_circ_get_tcpcontext
+<prototype>tcpcontext_t vce_circ_get_tcpcontext( circ_t c )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>circ_t から tcpcontext_t を得る
+<sum en>get tcpcontext_t from a circ_t
+<arg>circ_t c
+<argdef ja>
+tcpcontext_t を取りだしたい circ_t
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<return ja>
+指定された circ_t が属する tcpcontext_t
+</return>
+<desc ja>
+この関数は主に VCE 内部用に使われ、アプリケーションから使われることは
+少ない。
+</desc>
+<desc en>
+This function is mainly used for the inside of
+VCE, and is seldom used from applications.
+</desc>
+<also>vce_conn_get_tcpcontext
+</func>
+
+<func>
+<name>vce_circ_get_parent_conn
+<prototype>conn_t vce_circ_get_parent_conn( circ_t c)
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja> 指定した circ_t が属するconn_t を取得する。
+<sum en> Retrieves circ_t's parent conn_t
+<arg>circ_t c
+<argdef ja>
+取得する元になるcirc_t
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<return ja> 指定した circ_t が属するconn_t
+</return ja>
+<desc ja>
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_circ_set_alarmwatcher
+<prototype>time_t vce_circ_set_alarmwatcher( circ_t c, int sec , int (*alarmwatcher)(circ_t))
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>circ_t ごとにアラーム時刻とコールバック関数を設定変更する
+<sum en>Set alarm clock and callback function per circ_t basis.
+<arg>circ_t c
+<argdef ja>
+設定を変更したい circ_t
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<arg>int sec
+<argdef ja>
+新しく設定する秒
+</argdef>
+<argdef en>
+set the alarm clock for 'sec' add current time now.
+after the 'sec' seconds from this function use, callback function call.
+</argdef>
+<arg>int (*alarmwatcher)(cric_t c)
+<argdef ja>
+アラーム機能によって呼び出されるコールバック関数
+</argdef>
+<argdef en>
+Callback function. This function will be called by the alarm clock.
+</argdef>
+<return ja>
+　本関数が呼ばれたグローバル時刻を返す。その値からパラメータのsecを足した時刻がアラームの発生する時刻である。
+</return>
+<desc ja>
+vce_conn_set_alarmwathcer 参照
+</desc>
+<desc en>
+By default, The length of a time-out duration is the same as it of
+the time-out duration that was designated by the
+vce_tcpcontext_create function.
+However, since the time-out duration designated by the
+vce_tcpcontext_create function is also used as the time-out
+duration for connections between SWP and a main server,
+it is usually given a very long time.
+Accordingly, the time-out duration of circ_t is longer
+than the time required by applications most of the time.
+This function may be used in order to set up the time-out
+duration appropriate for an application,
+avoiding the said problem.
+It would be typical that the time-out duration is reset through calling this
+function within acceptwatcher. (refer to sample codes)
+</desc>
+<sample ja>
+vce_conn_set_alarmwathcer 参照
+</sample>
+<sample en>
+
+</sample>
+<also>vce_conn_set_alarmwatcher
+</func>
+
+<func>
+<name>vce_circ_set_timeout
+<prototype>void vce_circ_set_timeout( circ_t c, int sec )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>circ_t ごとにタイムアウト時間を設定変更する
+<sum en>Change each circ_t's timeout length
+<arg>circ_t c
+<argdef ja>
+設定を変更したい circ_t
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<arg>int sec
+<argdef ja>
+新しいタイムアウト値
+</argdef>
+<argdef en>
+New timeout value in seconds.
+</argdef>
+<return ja>
+なし
+</return>
+<desc ja>
+デフォルト状態では，circ_t のタイムアウト時間の長さは，
+vce_tcpcontext_create 関数で指定したタイムアウト時間と同じになる．
+しかし，vce_tcpcontext_create 関数で指定するタイムアウト時間は，
+SWP と本体サーバの間のコネクションのタイムアウト時間としても使われるため，
+通常は非常に長い時間が設定される．
+このため，circ_t のタイムアウト時間がアプリケーションにとって必要な時間
+よりも長い場合がほとんどとなる．
+このことを回避してアプリケーションにとって適切なタイムアウト時間を設定
+するために，本関数を使うことができる．
+acceptwatcher 内で本関数を呼びだしてタイムアウト時間を再設定するのが，
+典型的だと言える(サンプルコードを参照)．
+</desc>
+<desc en>
+By default, The length of a time-out duration is the same as it of
+the time-out duration that was designated by the
+vce_tcpcontext_create function.
+However, since the time-out duration designated by the
+vce_tcpcontext_create function is also used as the time-out
+duration for connections between SWP and a main server,
+it is usually given a very long time.
+Accordingly, the time-out duration of circ_t is longer
+than the time required by applications most of the time.
+This function may be used in order to set up the time-out
+duration appropriate for an application,
+avoiding the said problem.
+It would be typical that the time-out duration is reset through calling this
+function within acceptwatcher. (refer to sample codes)
+</desc>
+<sample ja>
+<pre>
+  int application_circ_acceptwatcher( circ_t ct )
+  {
+      vce_circ_set_timeout( ct, 100 );
+  }
+</pre>  
+</sample>
+<sample en>
+<pre>
+  int application_circ_acceptwatcher( circ_t ct )
+  {
+      vce_circ_set_timeout( ct, 100 );
+  }
+</pre>
+</sample>
+<also>vce_tcpcontext_create,vce_tcpcontext_set_circ_acceptwatcher
+</func>
+
+<func>
+<name>vce_circ_clear
+<prototype>void vce_circ_clear(circ_t *c )
+<arch>linux,win32,ps2,darwin
+<sum ja>circ_t のインスタンスを正式に初期化する。
+<sum en>Initialize circ_t in official manner
+<arg>circ_t *c
+<argdef ja>
+初期化する対象となる circ_t
+</argdef>
+<argdef en>
+Target circ_t
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+memsetなどを用いてゼロクリアしただけでは、正式にcirc_t を初期化したとは
+言えない。正式に無効な circ_t を作るためには、本関数を使って初期化する
+必要がある。
+</desc>
+<desc en>
+Zero-clear with memset or others is
+less than formal initialization of circ_t.
+To create an initialized circ_t, initialization
+using this function is necessary.
+</desc>
+</func>
+
+<func>
+<name>vce_vecprotocol_acceptwatcher_noop
+<prototype>int vce_vecprotocol_acceptwatcher_noop( circ_t c )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>すべてのコネクションを受けいれる仮想回路(circ_t)のaccept監視関数
+<sum en>accept watcher for circ_t which accepts all connections.
+<arg>circ_t c
+<argdef ja>
+ベクトライズサーバが新規に accept したコネクションをあらわす circ_t
+</argdef>
+<argdef en>
+An instance of circ_t, which is newly accepted by SWP server.
+</argdef>
+<return ja>
+この関数は常に0を返す。
+</return>
+<desc ja>
+tcpcontext_create の引数のうち ベクトライズサーバ用の accept 監視関数
+として指定される。指定されると、すべてのコネクションを受けいれるようになる。
+これはデフォルト(NULLを指定したとき)と同じ動作である。
+明示的に指定することによってコードが見やすくする効果がある。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_vecprotocol_acceptwatcher_deny
+</func>
+
+<func>
+<name>vce_vecprotocol_acceptwatcher_deny
+<prototype>int vce_vecprotocol_acceptwatcher_deny( circ_t c )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>すべてのコネクションを拒否する仮想回路(circ_t)用のaccept監視関数
+<sum en>accept watcher for TCP circ_t connection which denies all connection
+<arg>circ_t c
+<argdef ja>
+ベクトライズサーバが新規に accept したコネクションをあらわす circ_t
+</argdef>
+<argdef en>
+An instance of circ_t which is newly accepted by SWP server.
+</argdef>
+<return ja>
+この関数はつねに負を返す。
+</return>
+<desc ja>
+この関数は tcpcontext_create の引数に指定し、指定すると
+すべての仮想回路のコネクション要求を拒否するようになる。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_vecprotocol_acceptwatcher_noop
+</func>
+
+<func>
+<name>vce_vecprotocol_closewatcher_noop
+<prototype>int vce_vecprotocol_closewatcher_noop( circ_t c )
+<cat>watcher
+<arch>linux,win32,ps2,darwin
+<sum ja>何もしない仮想回路の close 監視関数
+<sum en>Close watcher for circ_t which does nothing
+<arg>circ_t c
+<argdef ja>
+閉じられようとしている仮想回路(閉じる直前)
+</argdef>
+<argdef en>
+Target circ_t being closed.
+</argdef>
+<return ja>
+常に0を返す
+</return>
+<desc ja>
+vce_tcpcontext_create の引数のうち ベクトライズサーバ用の close 監視関数
+として指定される関数のひとつ。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create
+</func>
+

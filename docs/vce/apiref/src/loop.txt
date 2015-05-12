@@ -1,0 +1,251 @@
+#
+# document for VCE auto-generated reference [loop.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: loop.txt,v 1.3 2005/06/29 12:31:51 chiaki Exp $
+#
+
+<func>
+<name>vce_mainloop
+<cat>core
+<arch>linux,win32,darwin
+<sum ja>VCEのメインループ関数。
+<type>int vce_mainloop(void)
+<return ja>
+なし
+</return ja>
+<return en>
+None
+</return>
+<desc ja>
+この関数を呼びだすことにより、CPUをVCEに渡す。
+この関数から戻ることはない。vce_set_mainloop_callback関数によって
+コールバック関数が定義されている場合は、
+この関数の中から永久的にその関数が呼びだされ続ける。
+またその関数が0以外を返した場合は、vce_mainloopはその関数が返した値を
+そのまま返し、終了する。
+</desc>
+<desc en>
+By calling this function, CPU will be occupied by VCE.
+This function will never return.
+When vce_set_mainloop_callback function defines a callback function,
+the defined function will be permanently called from
+within this function.
+If the function returns the value other than 0,
+vce_mainloop returns the value sent back from that function
+and will terminate.
+</desc>
+<also>vce_set_mainloop_callback
+</func>
+
+<func>
+<name>vce_set_mainloop_callback
+<cat>core
+<arch>linux,win32,darwin
+<sum ja>vce_mainloopから呼びだすコールバック関数を設定する。
+<prototype>void vce_set_mainloop_callback( int (*f)(void) )
+<arg>int (*f)(void)
+<argdef ja>
+コールバック関数へのポインタ
+</argdef>
+<argdef en>
+Pointer to callback function.
+</argdef>
+<return ja>
+戻り値はない。常に成功する。
+</return>
+<return en>
+None. always success.
+</return>
+<desc ja>
+vce_mainloopから定期的に呼びだされるコールバック関数。
+vce_mainloopを呼びだすと通常永久ループに入るが、
+vce_mainloopを利用しつつもアプリケーションで並行に処理をしたい場合は
+この関数を使用する。VCEが通常の負荷の状態のときは、
+約10ミリ秒に1回以上のタイミングで呼びだされることになる。
+<BR>
+また、コールバック関数が0以外を返すとvce_mainloopが終了する。
+</desc>
+<desc en>
+</desc>
+<sample ja>
+<pre>
+  #include "vce.h"
+  int callbk( void )
+  {
+      printf( "callback function is called.\n" );
+  }
+  int main( int argc, char **argv )
+  {
+      // 何らかのコード
+      vce_set_mainloop_callback( callbk );
+      vce_mainloop();
+  }
+</pre>
+</sample>
+<sample en>
+</sample>
+<also>vce_mainloop,vce_heartbeat
+</func>
+
+<func>
+<name>vce_heartbeat
+<cat>core
+<arch>linux,win32,darwin
+<sum ja>VCEを能動的に呼びだし、I/O処理をさせる。
+<prototype>void vce_heartbeat( void )
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+VCEのI/O処理ルーチンを1回動かす。vce_mainloopではこの関数をずっと
+呼びだし続けている。vce_mainloopではなくこの関数を使うことで、
+より柔軟なユーザーメインルーチンを作ることができる。
+この関数によってVCEをドライブする場合は、vce_set_mainloop_callback
+関数で指定した関数は呼びだされないことに注意。
+デフォルトでは、vce_heartbeat は呼びだしたらすぐにreturnするが、
+このままサーバを起動すると、CPU時間を目一杯使用することになる。
+vce_set_heartbeat_wait_flag 関数を使ってsleep時間を調整すれば、
+この状況を回避できる。
+もちろんCPU時間を一杯まで使わないようにする調整は、
+アプリケーションの側で行なってもよく、
+そのほうがアプリケーションごとに最適なCPU時間の利用ができる。
+</desc>
+<desc en>
+This runs VCE I/O routine once, to flush all incoming/outgoing data.
+vce_mainloop function keeps calling this function.
+More flexible user main routines can be made using
+this function instead of vce_mainloop.
+Note that the functions designated by the
+vce_set_mainloop_callback function will not be called as
+driving VCE with this function.
+By default, vce_heartbeat returns straight after it invocation,
+however, starting up a server as is will cause full usage of the CPU time.
+This situation can be avoided through adjusting the sleep
+time using the vce_set_heartbeat_wait_flag function.
+Of course, the adjustment to avoid full usage of the CPU time may
+also be done on the application side,
+and in fact, that will enable best suited CPU time usage
+depending on your application.
+</desc>
+<sample ja>
+<pre>
+  #include "vce.h"
+  int main()
+  {
+      while(1){
+          user_function();
+          vce_heartbeat();
+      }
+  }
+</pre>
+</sample>
+<sample en>
+<pre>
+  #include "vce.h"
+  int main()
+  {
+      while(1){
+          user_function();
+          vce_heartbeat();
+      }
+  }
+</pre>
+</sample>
+
+<also>vce_mainloop,vce_set_mainloop_callback,vce_set_heartbeat_wait_flag
+</func>
+
+<func>
+<name>vce_set_heartbeat_wait_flag
+<prototype>void vce_set_heartbeat_wait_flag( int flag )
+<cat>core
+<sum ja>vce_heartbeat の sleep時間 調節機構をon/off する
+<sum en>Control vce_heartbeat's sleep timer adjustment.
+<arg>int flag
+<argdef ja>
+0なら調節機構を off,1 なら on になる。
+</argdef>
+<argdef en>
+wait flag will be off when 0, or on if 1.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+vce_heartbeat の sleep 時間調整機構を操作する。
+flag に1を設定すると、vce_heartbeat は、
+最高100ミリ秒、
+ネットワークからの入力がない場合 select で待つようになる。
+デフォルトでこの機能は off である
+(なぜなら、ちゃんとしたアプリケーションならその機構をアプリケーションの
+側で持っていることが多いから)。
+このループ速度調整機能は，最低速度を100ミリ秒としているが，
+現在の実装では，実際には数十分かけてその速度に落ちつくことになる．
+つまり，VCEは急激にループ速度を変更することはせず，
+パケットを受けるとループ速度を2倍にし，
+パケットを受けないと非常にゆっくりとしたペースで速度を落としていく．
+</desc>
+<desc en>
+</desc>
+<also>vce_heartbeat
+</func>
+
+<func>
+<name>vce_set_socket_library_ok
+<prototype>void vce_set_socket_library_ok( int flag )
+<arch>linux,win32,darwin
+<cat>core
+<sum ja>VCE の下層の socket ライブラリが初期化できたことを VCE に通知する。
+<sum en>Notify VCE that underlying socket library is initialized .
+<arg>int flag
+<argdef ja>
+初期化フラグ。初期化できていたら1、そうでないなら0。
+</argdef>
+<argdef en>
+Initialize flag. Set 1 if socket library is already OK,
+otherwise 0.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+VCE は socket ライブラリに依存しているが、
+UNIX 以外のアーキテクチャの場合、socket ライブラリはアプリケーションの
+初期化時、 vce_initialize や vce_tcpcontext_create
+の呼びだし時には初期化されていない可能性がある。
+ところがこれらの関数(入出力はしないがメモリ確保をする関数)はできるだけ
+プログラムの呼びだし時に行っておきたい。
+本関数を使うことによって、アプリケーションがメインループに入った後に、
+入出力をするようにできる。
+具体的には、 flag が0の時は、 vce_heartbeat は何もしない。また
+send/recv/accept/bind/listen/connect/socket/shutdown/close
+などといった処理はすべて呼びださない。
+なお POSIX(Linux,FreeBSD) 環境においては、
+このフラグは最初から1に設定されているので、
+本関数を呼びだす必要はない。
+Win32 環境においては、
+VCE 内部で winsock の初期化が成功したら自動的に1 に設定される。
+VCE が内部的に保存しているこのフラグの値は、
+vce_initialize の呼びだし後に意味をもつので、
+アプリケーションはまず vce_initialize を呼びださなければならない。
+</desc>
+<desc en>
+</desc>
+<also>vce_initialize,vce_tcpcontext_create
+</func>
+

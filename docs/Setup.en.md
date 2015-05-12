@@ -14,7 +14,7 @@ Steps related to Linux and OS X will be covered in section 4.
 
 ##1. Download the CCDK repository using a Git client
 
-CCDK is currently stored in a private GitHub repository.
+The CCDK is currently stored in a private GitHub repository.
 
 A Git client is needed in order to clone the repository and download CCDK.
 

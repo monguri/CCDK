@@ -66,7 +66,7 @@ SDSツールそのものの設定は、メニューバーのSettingsから MCS c
 
 データパックを作ると、以下の項目が設定可能になります。
 
-![](images/sds_data_pack_configs.png)
+![](images/sds_add_datapack.png)
 
 - **Id** ほかのデータパックと区別するためのID。　任意の文字列を指定します。
 - **Version**  データパックを追跡するためのバージョン番号です。デバッグに活用します。
@@ -77,56 +77,86 @@ SDSツールそのものの設定は、メニューバーのSettingsから MCS c
 
 以下の3つの方法でスタートアップ設定を作成できます。
 
-- Click "Add Startup configuration" in the Project menu.
-- Right click on the "Startup configurations" section in the project tree and select "Add Startup configuration".
-- For a given Data pack, right click on an executable file you want to start and select "Add startup configuration".
+- ```Proejct```メニューで、 ```Add Startup configuration```をクリックする。
+- プロジェクトツリーで```Startup configurations``` を右クリックし、```Add Startup configuration```を選択する
+- 各データパックのファイルリストで、実行可能ファイルで右クリックし、```Add startup configuration```を選択する
 
-Once you have your Startup configuration created, you can configure the different properties:
-- **Id** is a string used to identify this startup configuration form the others.
-- **Executable** is the path to the executable inside the data pack.
-- **Arguments** will be used when running the executable.
-- **Work directory** will be used as the current work directory for the execution. The path is relative to Data pack itself.
-- **Data pack** will be used as the reference for path definition.
-- **Save data** is a list of Path filter expressions (or file hooks) used to define what game file needs to be redirected and saved on the end of a game execution. The data will be restored on the next execution of the same game for the same user.
-- **Temp data** is a list of Path filter expressions (or file hooks) used to define what game file needs to be redirected and discarded on the end of a game execution.
+![](images/sds_add_startup.png)
 
-See "File hooks" in MCS_README for more information on the file hooks configuration and inner workings.
+スタートアップ設定を追加したら、以下の項目が設定できます。
 
-Note you can drag the files from the data pack preview window to the text fields.
-You can also have multiple startup configurations pointing at the same executable in the same data pack and using different arguments.
 
-## MCS Game execution
-Projects can be deployed locally and executed using MCS.
+- **Id** 他のスタートアップ設定と区別するためのID。自由な文字列を入力します。
+- **Executable** データパック内の実行可能ファイルのパス(ルートからの相対)。
+- **Arguments** 実行するときのコマンドライン引数
+- **Work directory** 実行するときのワークディレクトリ(ルートからの相対)。
+- **Data pack** 使用するデータパック。プロジェクト内で定義している必要があります。
+- **Save data** ゲームサーバのプログラムが終了したときに自動的にセーブするファイルを指定します。　ファイルのパスをフィルタするための記述のリストか、ファイルフックを書きます。　次に同じユーザがこのゲームを実行したときに前回セーブされたファイルが自動的に書き込まれます。ゲームのセーブデータをこれによって簡単に実装できます。
+- **Temp data** 一時データの位置。ゲームサーバのプログラムが終了したときに、ここで指定したパス(またはファイルフック)にあるファイルやディレクトリは、自動的に削除されます。
 
-### Start a game
-You can start a game using MCS in two different ways:
-- In the Project menu select "Start game", then select the startup configuration you want to run.
-- Right click on a given Startup configuration and select "Start game".
+ファイルフックについては、 [MCS_README.ja.md](MCS_README.ja.md) でくわしく解説しています。
+
+データパックのプレビューウインドウからテキストフィールドにファイルをドロップすると便利です。また、2つ以上のスタートアップ設定をひとつの実行ファイルに割り当てることもできます。
+
+
+## MCS でゲームを実行する
+MCSを使って、ローカル環境でゲームを実行することができます。
+
+### ゲームを開始する
+2つの方法でゲームを開始できます。
+
+- メニューの```Project```から、 ```Start game```を選択して、開始したいスタートアップ設定を選択します。
+- プロジェクトツリーから、開始したいスタートアップ設定を右クリックし、 ```Start game``` を選択します。
+
+ゲームを始めると、SDS自体に設定されたゲームのインストールディレクトリ ```Games installation dir``` の中にゲームがコピーされ、必要なDLLなどが自動的にインストールされ、そこでゲームが開始されます。
+インストールが完了すると、ゲームの実行管理ウインドウが表示されます。
 
 When starting a game, the game data will be deployed in the directory specified under the "MCS configuration", and then executed there. Once the installation is over you will be prompted the Game running window.
 
-### Game running window
-When running a game you are presented with a window enabling to start several instances of the game. Each instance is composed of:
-- **User id** to be used for this particular instance of the game. Note we cannot have multiple instances of the same game with the same user id. Each instance has to have a specific user id.
-- **Game port** to be used for this particular instance of the game. The port must be available and not conflict with the other ports of other game instances.
-- **Video port** to be used for this particular instance of the game. The same restrictions than for the Game port applies here.
-- **Game** start button. This will start the game instance itself with the specified user id, game port and video port.
-- **Client** start button. This will start the client application with the specified game port and video port. By default the client is started automatically when the game is started. You can disable this option in case you want to run the client from another computer.
+### ゲームの実行管理ウインドウ
 
-You can add a new game instance by right clicking in the list and select "Add game instance". You can remove a game instance by clicking on a instance and hit delete key.
+プロジェクトメニューから ```Start game```を選択すると以下のようなウインドウが表示されます。
+
+![](images/sds_two_instances.png)
+
+ひとつのスタートアップ設定から、複数のゲームを起動することができます。
+このウインドウでは1行がひとつのゲームの実行インスタンスに対応します。
+インスタンスとはWindowsにおけるゲームサーバのプロセスひとつのことです。
+たとえば3人でのマルチプレイを試したい場合は、インスタンスが3つ、この設定が3行必要です。
+
+それぞれの行に表示されている内容は以下の通りです。
 
 
-## ShinraPack packaging
-Projects can be packaged in a ShinraPack archive for deployment on the Cloud servers. 
+- **User id** インスタンスで使われるユーザーのIDを指定します。複数のインスタンスでひとつのユーザーIDを共有することはできません。それぞれ異なるユーザーIDを指定してください。
+- **Game port** ゲームポートのTCPポート番号を指定します。ゲームポートとは、シンラ・クライアントからゲームサーバに対して操作情報を送るためのTCPポートです。このポート番号はほかのプログラムによって占有されていない必要があります。
+- **Video port** ビデオポートのTCPポート番号を指定します。ビデオポートとは、シンラ・クライアントが映像データを受信するためのTCPポートです。このポート番号はほかのプログラムによって占有されていない必要があります。
+- **Game** ゲームを開始/停止するボタンです。インスタンスに設定されたユーザーIDやポート番号などの設定をともなってゲームを開始します。　ゲームを開始できる状態のときは ```Start``` 、一旦開始すると　```Stop``` ボタンに変わります。
+- **Client** シンラ・クライアント(ビデオビューワ)を開始するボタンです。インスタンスに設定されたゲームポートとビデオポートの設定を使って適切にクライアントを設定して起動します。デフォルトでは、ゲームを起動すると自動的にクライアントも起動します。ほかのコンピュータから接続してテストプレイしたい場合は、このオプションをはずしてください。
 
-### Create a ShinraPack
-You can create a ShinraPack in two different ways:
-- In the Project menu select "Build ShinraPack".
-- Right click on the project item in the project tree and select "Start game".
+インスタンスのリストの空白部分部分で右クリックし、 ```Add game instance```を選択すると、新しいインスタンスを追加することができます。また、インスタンスを選択してdeleteキーを押すことでインスタンスを削除できます。
 
-## Importing a project
-A package project can be re-imported to create a new shinra project. To import a project click File and Import project. This will open the import dialog box. You need to specify:
-- Import from package: The zip file containing the packaged project.
-- Store data in: A directory where the project data will be extracted to.
-- Project file: The name of the new project file to be created.
+
+
+## シンラ・パック
+プロジェクトは、簡単にパッケージ化することができます。
+パッケージとは、ゲームの実行に必要なすべて(実行ファイルやデータなど)を含むひとつのzipファイルです。
+パッケージ化することで、ゲームのアーカイブをしたり、チームメンバー間で共有したり、シンラテクノロジーのデータセンターにアップロードしてデプロイしたりすることができます。
+
+### シンラ・パックの作成
+```Project``` メニューから ```Build ShinraPack``` を選択するだけです。
+指定した位置に zipファイルができていることを確認してください。
+
+
+## シンラ・パックの読み込み
+
+SDSは通常はシンラのプロジェクトファイル(拡張子が .shinra )を読み込みます。プロジェクトファイルにはシンラ・パックとは異なり、exeファイルなどが含まれていません。
+
+しかしシンラ・パックには、プロジェクトの情報が含まれているので、
+SDSはシンラ・パックを読み込んで、プロジェクト内容の編集を再開することが可能です。
+
+シンラ・パックを読み込むには、```File```メニューから ```Import project```を選択し、以下の情報を設定します。
+
+- ```Import from packages``` 読み込むzipファイルの位置
+- ```Store data in``` プロジェクトのデータをどこに展開するか
+- ```Project file``` プロジェクトファイルの名前
 

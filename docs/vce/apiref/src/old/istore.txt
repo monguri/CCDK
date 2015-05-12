@@ -1,0 +1,151 @@
+#
+# document for VCE auto-generated reference [istore.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: istore.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_istore_init
+<prototype>int vce_istore_init( istore *is, char *dname , int dircheck )
+<cat>istore
+<arch>linux
+<sum ja>一意な整数キーをもつデータをファイルに保存するistoreルーチンを初期化
+<sum en>Save data which has identical integer key into a file
+<arg>istore *is
+<argdef ja>
+vce_istore_save, vce_istore_load で使用する istore デスクリプタ。
+</argdef>
+<arg>char *dname
+<argdef ja>
+データディレクトリ
+</argdef>
+<arg>int dircheck
+<argdef ja>
+このフラグを0にすると、init時にディレクトリを用意しない。
+これはアプリケーションの起動時間を短くする効果がある。
+ダウンタイムに気をつかうアプリケーションでは効果的である。
+ただしディレクトリが存在しない場合は、istore の動作に支障をきたす
+ことになる。
+通常1万個のディレクトリを初期化するにはディスクの速度によるが数分かかる。
+</argdef>
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwise minus error code.
+</return>
+<desc ja>
+データディレクトリ以下に2段階、約10000個のディレクトリを作り、
+その中に整数キーで検索されるファイルにデータを保存する。
+vce_istore_init では、保存/取りだしルーチンで使われるデータや
+データディレクトリを初期化する。
+たとえば20045というファイルは TOPDIR/45/0/20045 という場所に保管される。
+istoreの存在理由は、Linuxのext2ファイルシステムのように一つのディレクトリ
+に多数のファイルを置くとファイルを見つけるまでの時間が極端に遅くなる
+ようなシステムに大量のファイルを置くためである。
+istoreルーチンはあくまで保存、取りだし専用であり検索性能はとても悪い。
+<BR><BR>
+注意： vce_istore_init は、トップディレクトリが存在しない場合は、
+VCE_EMKDIR を返して異常終了する。ディレクトリを作成する場合は、
+まずトップディレクトリを作成してから呼びだすこと。
+トップディレクトリとは、vce_istore_initの第二引数で指定するディレクトリ
+である。
+</desc>
+<desc en>
+This function is obsolete.
+</desc>
+<bugs ja>
+istoreはUNIXのファイル検索システムをそのまま使うので遅い。
+ライトなコンテンツ向けなら十分だが、
+MM RPG のようにシビアな速度が要求されるサービスで使うのはよくない。
+また、ext3でも特に性能は変わらない(遅いことに変わりない)。
+なお、現在はWin32環境ではistore関数は使えない。
+</bugs>
+<also>vce_istore_save,vce_istore_load
+</func>
+
+<func>
+<name>vce_istore_save
+<prototype>int vce_istore_save( istore *is, unsigned int k, char *buf, int len )
+<cat>istore
+<arch>linux
+<sum ja>istoreの保存用関数
+<sum en>An istore function to save data to file.
+<arg>istore *is
+<argdef ja>
+istore デスクリプタ(vce_istore_init)
+</argdef>
+<arg>unsigned int k
+<argdef ja>
+データ保存ファイルを決めるキー値
+</argdef>
+<arg>char *buf
+<argdef ja>
+保存するデータの先頭アドレス
+</argdef>
+<arg>int len
+<argdef ja>
+保存するデータの長さ
+</argdef>
+<return ja>
+保存が成功した場合は保存できた長さ、失敗した場合は負のエラーコード。
+</return>
+<return en>
+Returns 0 if success, otherwise minus error code.
+</return>
+<desc ja>
+データをistoreのルールに基づいてディレクトリ内に保存する。
+lenが0の場合は、ファイルを消去する。
+その場合消去できなかったら VCE_EACCESSFILE を返す
+</desc>
+<desc en>
+This function is obsolete.
+</desc>
+<also>vce_istore_init,vce_istore_load
+</func>
+
+<func>
+<name>vce_istore_load
+<prototype>int vce_istore_load( istore *is, unsigned int k, char *buf, int len )
+<cat>istore
+<arch>linux
+<sum ja>istoreの読み出し用関数
+<sum en>An istore function to read data from file
+<arg>istore *is
+<argdef ja>
+istoreデスクリプタ
+</argdef>
+<arg>unsigned int k
+<argdef ja>
+データ保存ファイルを決める整数キー値
+</argdef>
+<arg>char *buf
+<argdef ja>
+保存データの先頭アドレス
+</argdef>
+<arg>int len
+<argdef ja>
+保存データの最大長さ。
+</argdef>
+<return ja>
+成功したらバッファに保存できた長さを、失敗したら負のエラーコードを返す
+</return>
+<return ja>
+Return 0 if successful, otherwize minus error code.
+</return>
+<desc ja>
+istore のルールに基づいてきまるディレクトリ内に保存されているデータ
+ファイルの内容を buf に返す。
+</desc>
+<desc ja>
+This function is obsolete.
+</desc>
+<also>vce_istore_init,vce_istore_save
+</func>
+

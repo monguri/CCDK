@@ -1,0 +1,154 @@
+#
+# document for VCE auto-generated reference [vpr.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: vpr.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_switchtable_read_from_file
+<prototype>int vce_switchtable_read_from_file( char *fn, vprent_t *sw, int *num )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>コネクションスイッチングテーブルをテキストファイルから読みこむ
+<sum en>Read connection switching table from a text file
+<arg>char *fn
+<argdef ja>
+入力ファイル名。
+</argdef>
+<argdef en>
+Path name of input file.
+</argdef>
+<arg>vprent_t *sw
+<argdef ja>
+表を読みこむ構造体の配列
+</argdef>
+<argdef en>
+Array of vprent_t which will contain switch entry configuration.
+</argdef>
+<arg>int *num
+<argdef ja>
+値結果引数。配列の最大数を渡し、実際に埋めた要素数を返す。
+</argdef>
+<argdef en>
+value-result parameter. Max number of "sw" array is set,
+and then returns number of elements actually filled in this array.
+</argdef>
+<return ja>
+成功したら0、失敗したら負のエラーコードを返す。
+配列の要素数が足りない場合は、途中まで読みこむことはせずに、
+エラーを返す。
+</return>
+<desc ja>
+vce.h で定義されている vprent_t 構造体の配列に、
+ファイルからデータを読みこむ。
+<B>設定ファイルの書式</B><BR>
+<pre>
+server=192.168.1.231,8001
+server=192.168.1.231,8002
+server=192.168.1.230,8003
+server=foo.bar.baz.com,8004
+</pre>
+行頭に"コマンド=" が来てそのあとに設定値が続く、 vce_read_simple_config_file
+関数の形式である。
+<UL>
+<LI>"server" ディレクティブ<BR>
+値の各トークンは','で区切る。空白文字等は1文字も入れてはならない。
+1個目のフィールドはサーバの IP アドレスである。
+IPアドレスは重複してもよい。
+2個目のフィールドはサーバの TCP ポート番号である。
+<font color="red">ポート番号は重複してはならない。</font>
+VCE のコネクションスイッチングでは、
+TCPサーバのポート番号を識別 ID として使用し、
+それはスイッチに参加している全サーバ間で一意性を保つという仕様と
+なっているからである。
+この理由は、bind されている port 番号は、VCE やアプリケーション層ではなく、
+UNIX の標準的なツール (netstat や lsof)などでも見わけることができるため
+メンテナンス性が飛躍的に高まるからである。
+たとえば、ポートスキャンツールを使って全プロセスの生存を確認したりできる。
+また、 すでに tcpcontext に設定されているポート番号との比較により、
+「自分がどのサーバなのか」をまちがいなく自動的に判別できるという利点
+もある。
+スイッチングを利用するような環境ではサーバの台数が
+かなり多くなるため、このような仕様となっている。
+</UL>
+</desc>
+<desc en>
+</desc>
+<also>vce_switchcontext_create
+</func>
+
+<func>
+<name>vce_switchcontext_create
+<prototype>switchcontext_t vce_switchcontext_create( vprent_t *st, int num, tcpcontext_t fectx, tcpcontext_t svctx, int rjbuf_size, SW_ACCEPTER_POLICY accepter_policy )
+<cat>tcp
+<arch>linux,win32,ps2,darwin
+<sum ja>コネクションスイッチをわりあて、初期化する
+<sum en>Allocate and initialize an instance of connection switch context.
+<arg>vprent_t *st
+<argdef ja>
+スイッチ表の先頭アドレス
+</argdef>
+<argdef en>
+Top address of switching table array.
+</argdef>
+<arg>int num
+<argdef ja>
+スイッチ表のエントリ数
+</argdef>
+<argdef en>
+Number of elements of switching table array.
+</argdef>
+<arg>tcpcontext_t fectx
+<argdef ja>
+フロントエンド(クライアント側用)の通信に使う tcpcontext_t
+</argdef>
+<argdef en>
+instance of tcpcontext_t for frontend (client side) communication.
+</argdef>
+<arg>tcpcontext_t svctx
+<argdef ja>
+本体サーバとの通信に使う tcpcontext_t
+</argdef>
+<argdef en>
+instance of tcpcontext_t for backend (server side) communication.
+</argdef>
+<arg>int rjbuf_size
+<argdef ja>
+コネクションスイッチ中に、スイッチ元に送りすぎてしまって返ってきた
+分のデータをためておく一時バッファのサイズ
+</argdef>
+<argdef en>
+Size of temporary buffer which contains rejected data from
+"switching source server".
+</argdef>
+<arg>SW_ACCEPTER_POLICY accepter_policy
+<argdef ja>
+クライアントからのコネクションを accept したときに、
+どの本体サーバに circ_t を accept させるかのポリシーを設定する。
+<ul>
+<LI>SW_ACCEPTER_POLICY_TOP : スイッチエントリ表のいちばん上が常に accept.
+<LI>SW_ACCEPTER_POLICY_RANDOM : ランダムに選ばれたものが accept.
+<LI>SW_ACCEPTER_POLICY_SEQUENTIAL : 表の上から順番に accept.
+</ul>
+</argdef>
+<argdef en>
+</argdef>
+<desc ja>
+スイッチコンテキストを初期化する。
+スイッチコンテキストは、フロントエンド用の TCPcontext と、
+バックエンドの本体サーバ用の TCPcontext とスイッチ表の情報をもとに
+結びつける。
+VCE に付属の swp プログラムはこれに
+依存している。
+</desc>
+<desc en>
+</desc>
+<also>vce_switchcontext_cleanup
+</func>
+

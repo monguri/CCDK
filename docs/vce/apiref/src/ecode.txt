@@ -1,0 +1,131 @@
+#
+# document for VCE auto-generated reference [ecode.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: ecode.txt,v 1.4 2005/08/19 03:56:01 furuya Exp $
+#
+
+<func>
+<name>vce_strerror
+<cat>err
+<arch>linux,win32,darwin
+<prototype>char *vce_strerror( int ecode );
+<sum ja>VCEエラーコードを文字列に変換する。
+<sum en>Convert VCE error code into string.
+<arg>int ecode
+<argdef ja>
+エラーコード。 vce.h で定義されている。
+</argdef>
+<argdef en>
+Error code defined in vce.h.
+</argdef>
+<return ja>
+文字列へのポインタ。
+</return>
+<return en>
+Pointer to returned string.
+</return>
+<desc ja>
+vce.h に定義されているエラーコードを，同様に定義されている
+文字列に変換する．
+サイレントモードでコンパイルされているVCEの場合は，
+本関数は空の文字列を返すし，LAST_ERROR に VCE_ESUPPORTを設定する．
+</desc>
+<desc en>
+</desc>
+<also>vce_get_last_error
+</func>
+
+<func>
+<name>vce_get_last_error
+<prototype>int vce_get_last_error(void);
+<cat>err
+<arch>linux,win32,darwin
+<sum ja>VCE内で最後に起こったエラー番号を取得する。
+<sum en>Get last error code occured inside VCE library.
+<return ja>
+エラーコードの値。
+</return>
+<return en>
+Error code.
+</return>
+<desc ja>
+この関数で取得されるエラー番号はすべて vce.h に定義されている。
+それでエラーの内容を知ることができる他に、ログとして残したい場合は、
+vce_strerror を利用することができる。
+ただし、
+vce_strerror の返す文字列の内容は将来変更されないとは限らないため、
+その出力文字列をパースして処理に利用しないほうがよい。
+vce.h で定義されているエラーコードは、
+将来にわたって変更されることはない。(削除される場合は欠番となる。)
+</desc>
+<desc en>
+The error numbers obtained through by this function are
+all defined in vce.h.
+Accordingly, details of such error can be known,
+or vce_strerror can be used to record it to a log.
+However, the contents of string returned by
+vce_strerror may possibly be modified in the future,
+such output string should not be parsed and used for
+further processing.
+The error codes defined in vce.h will not be modified.
+(becomes a missing number if deleted)
+</desc>
+<sample ja>
+<pre>
+// vce_tcpcontext_create はよくエラーが発生する関数である。
+tcpcontext_t t = vce_tcpcontext_create( .... );
+if( !t ){
+    vce_errout( "Cannot create tcpcontext! %s\n",
+    vce_strerror( vce_get_last_error() ) );
+}
+</pre>
+</sample>
+<sample en>
+<pre>
+// vce_tcpcontext_create often meets errors...
+tcpcontext_t t = vce_tcpcontext_create( .... );
+if( !t ){
+    vce_errout( "Cannot create tcpcontext! %s\n",
+    vce_strerror( vce_get_last_error() ) );
+}
+</pre>
+</sample>
+<also>vce_strerror
+</func>
+
+<func>
+<name>vce_strerror_close_reason
+<cat>err
+<arch>linux,win32,darwin
+<prototype>char *vce_strerror_close_reason( CLOSE_REASON reason );
+<sum ja>VCEエラーコード(CLOSE_REASON)を文字列に変換する。
+<sum en>Convert VCE CLOSE_REASON code into string.
+<arg>CLOSE_REASON reason
+<argdef ja>
+CLOSE_REASON エラーコード。 vce.h で定義されている。
+</argdef>
+<argdef en>
+CLOSE_REASON Error code defined in vce.h.
+</argdef>
+<return ja>
+文字列へのポインタ。
+</return>
+<return en>
+Pointer to returned string.
+</return>
+<desc ja>
+vce.h に定義されているエラーコード(CLOSE_REASON)を，同様に定義されている
+文字列に変換する．
+サイレントモードでコンパイルされているVCEの場合は，
+本関数は空の文字列を返す．
+</desc>
+<desc en>
+</desc>
+<also>
+</func>

@@ -1,0 +1,637 @@
+#
+# document for VCE auto-generated reference [monitor.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: monitor.txt,v 1.2 2005/06/29 12:10:08 chiaki Exp $
+#
+
+<func>
+<name>vce_monitor_server_add_command
+<prototype>int vce_monitor_server_add_command( char* name, int argc, int (*callback)( conn_t _c, int argc, char **argv), char *desc )
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>モニター用サーバーにコマンドを追加する
+<sum en>Add command for monitoring server
+<arg>char *name
+<argdef ja>
+コマンドの名前
+</argdef>
+<argdef en>
+name of command
+</argdef>
+<arg>int argc
+<argdef ja>
+コマンドの引数の数、インデックス0の引数にコマンド名が入るため、引数のないコマンドならば１を指定する.
+-1の場合は、引数の数によるチェックを行わない.
+</argdef>
+<argdef en>
+</argdef>
+<arg> int (*callback)( conn_t _c, int argc, char **argv )
+<argdef ja>
+コマンドが呼ばれた際に使用する、コールバック関数を指定する.
+</argdef>
+<argdef en>
+</argdef>
+<arg> char *desc
+<argdef ja>
+コマンドを説明する文字列
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<return ja>
+成功したらゼロ，失敗したら負のエラーコードを返す
+</return ja>
+<return en>
+PENDING
+</return en>
+<desc ja>
+モニタサーバーにコマンドを追加する.
+各コマンドは、main関数のようなコールバック関数に関連づけられ、モニタクライアントからコマンドが呼ばれた際に、その関数をよびだすことで実現される.
+基本的なコマンドは、vce_monitor_server_add_standard_commands()を呼ぶことでまとめて追加することができる.
+また、基本的なコマンドのためのコールバック用の関数として、以下のものが用意されている。上記の関数を使わず個別に登録する場合には、この関数を利用する。
+vce_monitor_command_ping,
+vce_monitor_command_suicide,
+vce_monitor_command_prof,
+vce_monitor_command_netstat,
+vce_monitor_command_netinfo,
+vce_monitor_command_get_conn,
+vce_monitor_command_get_pid,
+vce_monitor_command_get_port
+</desc>
+<desc en>
+PENDING
+</desc>
+<also>
+vce_monitor_server_add_standard_commands
+</func>
+
+<func>
+<name>vce_monitor_server_reply
+<prototype>int vce_monitor_server_reply( conn_t _c, int result, char *output )
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>モニタプロトコル用の返信を行う
+<sum en>
+<arg>conn_t _c
+<argdef ja>
+返信するコネクション
+</argdef>
+<argdef en>
+</argdef>
+<arg>int result
+<argdef ja>
+返り値の値(負の値の場合は、エラーコード)
+</argdef>
+<argdef en>
+</argdef>
+<arg> char *output
+<argdef ja>
+返信する文字列
+</argdef>
+<argdef en>
+</argdef>
+<desc ja>
+コマンドに対する返答を返すのに利用する。
+</desc>
+<desc en>
+</desc>
+<return ja>
+成功したらゼロ，失敗したら負のエラーコードを返す
+</return>
+<return en>
+</return>
+<also>
+vce_monitor_server_add_command
+</func>
+
+<func>
+<name>vce_monitor_server_add_stantdard_commands
+<prototype>int vce_monitor_server_add_standard_commands()
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>標準モニタコマンドを追加する
+<sum en>
+<return ja>
+成功したらゼロ，失敗したら負のエラーコードを返す
+</return ja>
+<return en>
+</return en>
+<desc ja>
+基本的なコマンド(netstat、netinfo、ping、suicide、prof、get_conn、get_port、get_pid) を追加する.
+これらのコマンドが標準で追加されないのは、
+セキュリティ上これらのコマンドを組み込みたくない場合があるかもしれないからである。
+その場合は、必要なコマンドだけ個別に追加していく。
+</desc>
+<desc en>
+</desc>
+<also>vce_monitor_server_add_command
+</func>
+
+<func>
+<name>vce_monitor_server_enable
+<prototype>int vce_monitor_server_enable( int listen_port, int maxcon, char *key )
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>モニター用サーバーを有効にする
+<sum en>Enable monitoring server task
+<arg>int listen_port
+<argdef ja>
+待ちうけポート番号を指定する．
+0を指定するとデフォルトポート番号の9099になる．
+</argdef>
+<argdef en>
+Specify port number for listening to monitor client.
+Default port number(9099) is selected when specifying zero.
+</argdef>
+<arg>int maxcon
+<argdef ja>
+最大の監視クライアント数
+</argdef>
+<argdef en>
+Max number of monitoring clients
+</argdef>
+<arg>char *key
+<argdef ja>
+アクセス制限用パスワード文字列
+</argdef>
+<argdef en>
+Password string for access restriction
+</argdef>
+<return ja>
+成功したらゼロ，失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwize returns minus error code.
+</return>
+<desc ja>
+リモートモニタリング用プロトコルの待ちうけを有効にする．
+この関数を呼びだすことによって，
+リモートからプロセスを監視することが可能になる．
+リモートからプロセスを監視するには，
+本関数で初期化するモニタリング用サーバと対になる，
+モニタリング用クライアントを用いると簡単である．
+モニタリング用プロトコルは，
+内部で RIJNDAEL ブロック暗号を16バイトの鍵長で使用して，
+デコードされたデータをtext パーサを用いてコールバック関数を呼びだす．
+そして文字列のコマンドラインを用いてコマンドを発行する．
+VCE に付属の swp もこの関数を使ってリモートメンテナンスできるように
+なっている．したがって swp をリモートメンテナンスするための
+プログラムである swpadm はモニター用クライアントを使用している．
+ゲームサーバーにリモートモニター機能をつけたい場合などは，
+一連のモニタリングルーチンを使用すると便利である．
+モニタールーチンに関する詳細は，
+<a href="monitor.html">「VCEモニタリング」</a>を参照．
+</desc>
+<desc en>
+It activates server for remote monitoring.
+By calling this function, it becomes possible to monitor a process from
+a remote.
+Monitoring protocol uses RIJNDAEL with 16 byte key inside,
+and it calls the callback function using text parser,
+and carries out the command by using string command line.
+
+By using this function, it is also possible to carry
+out remote maintenance against "swp" of VCE.
+Therefore "swpadm", remote maintenance program for the swp,
+uses monitor client.
+It is convenient to use a series of monitoring routines,
+if you would like to attach a remote monitor function
+to your server program.
+Please refer to the "VCE monitoring" for the detail of the monitor routines.
+</desc>
+<also>vce_monitor_client_enable
+</func>
+
+<func>
+<name>vce_monitor_server_disable
+<prototype>void vce_monitor_server_disable(void)
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>モニター用サーバを無効にする
+<sum en>Disable monitoring server
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+モニター用サーバーを停止し，メモリを解放する．
+</desc>
+<desc en>
+Stop monitoring server, and release all related memory.
+</desc>
+<also>vce_monitor_server_enable
+</func>
+
+<func>
+<name>vce_monitor_client_enable
+<prototype>int vce_monitor_client_enable( int maxmonitor )
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>モニター用クライアントを初期化し，有効にする
+<sum en>Initialize and enable monitoring client
+<arg>int maxmonitor
+<argdef ja>
+最大モニター数．
+</argdef>
+<argdef en>
+Max number of monitored servers
+</argdef>
+<return ja>
+成功したらゼロ，失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwize returns minus error code.
+</return>
+<desc ja>
+モニター用クライアントを初期化する．
+初期化しただけでは何の通信も行なわない．
+この関数を使って初期化をした後に，
+vce_monitor_client_add 関数を使って接続先を指定して始めて
+モニターされるリモートサーバに接続する．
+モニターされるリモートサーバは，
+vce_monitor_server_enable 関数によってあらかじめモニターできる
+状態になっている必要がある．
+モニター機能の詳細に関しては，
+<a href="monitor.html">「VCEモニタリング」</a>
+を参照．
+</desc>
+<desc en>
+Initialize a monitoring client.
+No communication is performed only by initializing.
+It can connect to a remote server which is monitored,
+if the remote host is specified by
+vce_monitor_client_add function after initializing using this
+function.
+Monitoring server in remote process(host)
+have to be activated by vce_monitor_server_enable function
+before enabling monitoring to be connected.
+Please look at <a href="monitor.html">VCE monitoring</a>.
+</desc>
+<also>vce_monitor_server_enable,vce_monitor_client_add
+</func>
+
+<func>
+<name>vce_monitor_client_set_replywatcher
+<prototype>void vce_monitor_client_set_replywatcher( void (*w)(int id, int serial, int result, char*data,int len))
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>モニター用クライアントに，サーバからの返答を処理する関数を設定する
+<sum en>Set client monitor a callback function that processes reply from server.
+<arg>void (*w)(int id, char*data, int len )
+<argdef ja>
+コールバック関数へのポインタ．
+</argdef>
+<argdef en>
+Pointer to callback function.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+モニターしているプロセスからの返答に反応するための
+コールバック関数を設定する．
+このコールバック関数は，
+モニターしているプロセスから何か文字列が返ってきたら，
+それをそのまま引数に渡して呼びだされる．
+返り値の文字列のフォーマットは，
+<a href="monitor.html">「VCEモニタリング」</a>を参照．
+</desc>
+<desc en>
+Specify a callback function to catch a reply from a remote host
+which is being monitored.
+This callback function will be called, with an argument containing
+C string sent from a remote host being monitored.
+Please look at <a href="monitor.html">VCE monitoring</a>
+for precise format of the string.
+</desc>
+<also>vce_monitor_client_enable
+</func>
+
+<func>
+<name>vce_monitor_client_disable
+<prototype>void vce_monitor_client_disable(void)
+<cat>monitor
+<arch>linux,win32,ps2,darwin
+<sum ja>モニター用クライアントを停止し，資源を解放する
+<sum en>Stop monitoring client and release all resources
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+vce_monitor_client_enable 関数によって初期化された
+モニタークライアントを停止し解放する．
+</desc>
+<desc en>
+Stop monitoring client initialized by vce_monitor_client_enable
+and release all related resources.
+</desc>
+<also>vce_monitor_client_enable
+</func>
+
+<func>
+<name>vce_monitor_ent_init
+<prototype>void vce_monitor_ent_init( monitor_ent_t *m, int id, char *host, unsigned short port, char *pass )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>モニタークライアントの設定情報構造体を初期化する
+<sum en>Initialize configuration structure for monitoring client
+<arg>monitor_ent_t *m
+<argdef ja>
+設定対象となる構造体へのポインタ
+</argdef>
+<argdef en>
+Pointer to the target structure
+</argdef>
+<arg>int id
+<argdef ja>
+設定のID番号
+</argdef>
+<argdef en>
+ID number of the configuration
+</argdef>
+<arg>char *host
+<argdef ja>
+モニターするホスト名
+</argdef>
+<argdef en>
+Hostname of the target host
+</argdef>
+<arg>unsigned short port
+<argdef ja>
+モニターするプロセスのモニターポート番号
+</argdef>
+<argdef en>
+Port number of the process which will be monitored
+</argdef>
+<arg>char *pass
+<argdef ja>
+モニターするプロセスのモニターキー
+</argdef>
+<argdef en>
+a key string of the process which will be monitored
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+モニタークライアントに新しく接続先を追加するときに使う，
+設定用構造体を初期化する．
+単純に値を代入していくだけである．
+</desc>
+<desc en>
+Initialize a configuration structure which is used for adding
+a new host to a monitor client.
+The value is only substituted simply.
+</desc>
+<also>vce_monitor_client_enable,vce_monitor_client_add
+</func>
+
+<func>
+<name>vce_monitor_client_add
+<prototype>int vce_monitor_client_add( monitor_ent_t *m )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>モニタークライアントに，接続先を1個追加する.
+<sum en>Add a target to monitoring client
+<arg>monitor_ent_t *m
+<argdef ja>
+設定情報を格納している構造体へのポインタ
+</argdef>
+<argdef en>
+Pointer to the structure which contains configuration information.
+</argdef>
+<return ja>
+追加に成功したらゼロ，失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwize minus error code.
+</return>
+<desc ja>
+モニタークライアントに，新しく接続先を追加する．
+実際の接続は vce_monitor_client_connect が行う.
+設定情報を格納する構造体を初期化するには，
+vce_monitor_ent_init 関数を使うと便利である．
+</desc>
+<desc en>
+Add a new host to monitor client.
+It is convenient if you use an vce_monitor_ent_init function in
+order to initialize the structure which stores setting information.
+</desc>
+<also>vce_monitor_client_enable,vce_monitor_client_add
+</func>
+
+<func>
+<name>vce_monitor_client_delete
+<prototype>void vce_monitor_client_delete( monitor_ent_t *m )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>モニタークライアントを解放する
+<sum en>Delete a monitor client
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>int id
+<argdef ja>
+対象のモニター設定のID
+</argdef>
+<argdef en>
+ID number of monitor configuration.
+</argdef>
+<desc ja>
+モニターエントリ構造体を削除し，これまでモニタリングしていた対象
+を今後モニタリングしないようにする．
+</desc>
+<desc en>
+Delete a monitor entry instance from memory, and stop monitoring
+from now on.
+</desc>
+<also>vce_monitor_client_add,vce_monitor_client_enable
+</func>
+
+<func>
+<name>vce_monitor_client_connect
+<prototype>int vce_monitor_client_connect( int id )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>モニターエントリと接続する.
+<sum en>Connect to monitoring entry
+<arg>int id
+<argdef ja>
+対象のモニター設定のID
+</argdef>
+<argdef en>
+ID number of monitor configuration.
+</argdef>
+<return ja>
+追加に成功したらゼロ，失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwize minus error code.
+</return>
+<desc ja>
+モニタークライアント追加されているモニターエントリと接続する.
+</desc>
+<desc en>
+</desc>
+<also>vce_monitor_client_enable,vce_monitor_client_add,vce_monitor_client_delete,vce_monitor_client_disconnect
+</func>
+
+<func>
+<name>vce_monitor_client_disconnect
+<prototype>int vce_monitor_client_disconnect( int id )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>モニターエントリとの接続を閉じる.
+<sum en>Disonnect to monitoring entry
+<arg>int id
+<argdef ja>
+対象のモニター設定のID
+</argdef>
+<argdef en>
+ID number of monitor configuration.
+</argdef>
+<return ja>
+追加に成功したらゼロ，失敗したら負のエラーコードを返す
+</return>
+<return en>
+Returns zero if successful, otherwize minus error code.
+</return>
+<desc ja>
+モニタークライアント追加されているモニターエントリとの接続を閉じる.
+</desc>
+<desc en>
+</desc>
+<also>vce_monitor_client_enable,vce_monitor_client_add,vce_monitor_client_delete,vce_monitor_client_disconnect
+</func>
+
+<func>
+<name>vce_monitor_client_connected
+<prototype>int vce_monitor_client_connected( int id )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>クライアントと接続されているかを調べる.
+<sum en>Check whether connected or not
+<arg>int id
+<argdef ja>
+対象のモニター設定のID
+</argdef>
+<argdef en>
+ID number of monitor configuration.
+</argdef>
+<return ja>
+接続されていたら1，接続さてていなければ0を返す
+</return>
+<return en>
+Returns 1 if connected, otherwize zero.
+</return>
+<desc ja>
+クライアントと接続されているかを調べる.
+</desc>
+<desc en>
+</desc>
+<also>vce_monitor_client_enable,vce_monitor_client_add,vce_monitor_client_delete,vce_monitor_client_disconnect
+</func>
+
+<func>
+<name>vce_monitor_client_call
+<prototype>int vce_monitor_client_call( int id, int serial, char *s )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>モニターしているプロセスに，コマンドを送信する
+<sum en>Send a command to the monitored process
+<arg>int id
+<argdef ja>
+モニター設定のID
+</argdef>
+<argdef en>
+ID number of monitor configuration
+</argdef>
+<arg>int serial
+<argdef ja>
+対応づけをするためのシリアル
+</argdef>
+<argdef en>
+a serial number.
+</argdef>
+<arg>char *s
+<argdef ja>
+送信する文字列
+</argdef>
+<argdef en>
+A string to send.
+</argdef>
+<return ja>
+送信に成功したらプラスの値，失敗したらゼロ以下を返す
+</return>
+<return en>
+Returns plus value if successful, otherwize minus or zero.
+</return>
+<desc ja>
+引数に指定された文字列を，
+そのまま，モニターしているプロセスに送信する．
+成功したら，送信したバイト数を返す．
+</desc>
+<desc en>
+Send designated string to a process which is being monitored.
+If it succeeds, transmitted number of bytes will be returned.
+</desc>
+<also>vce_monitor_client_enable,vce_monitor_client_add,vce_monitor_client_callable
+</func>
+
+<func>
+<name>vce_monitor_client_callable
+<prototype>int vce_monitor_client_callable( int id )
+<arch>linux,win32,ps2,darwin
+<cat>monitor
+<sum ja>モニターしているプロセスに，コマンドを送信できるか調べる
+<sum en>Check if it can send a command to the monitored process
+<arg>int id
+<argdef ja>
+調べる対象のモニター設定のID
+</argdef>
+<argdef en>
+ID number of monitor configuration which will be checkd by
+this function.
+</argdef>
+<return ja>
+送信できるならプラスの値，そうでないならゼロ以下の値を返す．
+かならず，この返り値が 0 <B>よりも大きいかどうか</B>
+を調べること．
+</return>
+<return en>
+Returns plus value if sendable, otherwize minus or zero.
+Please note that you have to check this return
+value is <B>larger than zero.</b>
+</return>
+<desc ja>
+指定したIDをもつモニター先プロセスに対して，
+コマンドが送信可能かどうかしらべる．
+</desc>
+<desc en>
+Check whether a command can be transmitted or not, to
+a process which is under monitoring.
+You specify the process by ID number.
+</desc>
+<also>vce_monitor_client_enable,vce_monitor_client_add,vce_monitor_client_call
+</func>
+

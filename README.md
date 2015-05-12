@@ -3,7 +3,7 @@ Distribution of Shinra Community Cloud Development Kit.
 
 For English users:
 ====
-Please refer to docs/Overview.md.
+Please refer to docs/Overview.en.md.
 
 
 For Japanese users:
@@ -11,7 +11,9 @@ For Japanese users:
 docs/Overview.ja.md を参照してください。
 
 
-Licenses
+License notes
 ====
+The CCDK uses the following software.
+CCDKは、以下のソフトウェアを利用しています。
 
-TODO: copyright notice
+- DirectX ToolKit : Copyright (c) 2015 Microsoft Corp

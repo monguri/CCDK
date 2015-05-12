@@ -1,0 +1,906 @@
+************
+この文章では、vce.h で定義されているマクロの
+ドキュメントを生成するための定義をする。
+マクロは関数として扱う。
+************
+
+
+
+<func>
+<name>ARRAY_SCAN
+<prototype>ARRAY_SCAN( int arraydescriptor, void* pointer )
+<cat>array
+<arch>linux,win32,darwin
+<sum ja>VCEによって管理されている配列の全使用中要素をスキャンする
+<sum en>Scan all in-use elements stored in VCE's array.
+<arg>int arraydescriptor
+<argdef ja>
+VCEの管理する配列にアクセスするための識別値。
+この値は、 vce_init_array の返り値を保存しておいたものが使われる。
+ちょうどUNIXにおけるファイルデスクリプタと同じように扱えばよい。
+</argdef>
+<argdef en>
+PENDING
+</argdef>
+<arg>void *pointer
+<argdef ja>
+このポインター変数に配列の各要素のアドレスを代入する。
+</argdef>
+<argdef en>
+Set address of each array entry to this pointer.
+</argdef>
+<return ja>
+本マクロは、関数のように使うのではなく、
+ループの始まりとして使う(forのように)ために、返り値というものはない。
+</return>
+<return en>
+This macro returns no value, since this is not used as a function
+but as a loop (like C's for statement). 
+</return>
+<desc ja>
+VCEの配列管理ルーチンを使う場合に、
+全要素をスキャンする処理をしたい場合がある。そのためには、
+vce_get_array_object_top 関数を用いて使用中リストから先頭の要素を取りだし、
+次に vce_get_array_object_next 関数を用いてNULLを返すまで処理をくりかえす。
+しかしその処理は繁雑なため、本マクロが用意されている。<BR>
+注意点としては、本マクロによって取りだされる配列の要素は、
+「使用中」つまり、使用中リストに入っているものだけである。
+配列の最大サイズが1000個であったとしても使用中のものがなければ、
+ループは1回もまわらない。
+</desc>
+<desc en>
+When you want to scan all elements in an VCE array,
+you can use vce_get_array_object_top function.
+First of all, fetch the top element from the in-use list.
+And afterwards, use the vce_get_array_object_next function repeatedly,
+until it returns NULL.
+This macro is made available to avoid complication of such process.
+Note that this macro fetches allocated array elements
+only-those elements in the in-use list.
+Even if 1000 is given as the maximum array size,
+it will never repeat the loop if no elements is found.
+</desc>
+<sample ja>
+<pre>
+// memory_ind によって指定されている配列のすべての使用中要素に処理をする
+struct client *c;
+ARRAY_SCAN( memory_ind, c ){
+  do_something_to_the_structure( c );
+}
+</pre>
+</sample>
+<sample en>
+<pre>
+// Process all allocated elements in an array specified by "memory_ind" 
+struct client *c;
+ARRAY_SCAN( memory_ind, c ){
+  do_something_to_the_structure( c );
+}
+</pre>
+</sample>
+<also>vce_init_array,vce_get_array_object_top,vce_get_array_object_next
+</func>
+
+<func>
+<name>ARRAY_SCAN_TYPE
+<prototype>ARRAY_SCAN_TYPE( int arraydescriptor void *pointer, typedecl )
+<cat>array
+<arch>linux,win32,darwin
+<sum ja>ARRAY_SCAN を C++ で使うための変種
+<sum en>A variety of ARRAY_SCAN macro fot use in C++ language
+<arg>int arraydescriptor
+<argdef ja>
+VCE の配列にアクセスするための識別値
+</argdef>
+<argdef en>
+Array descriptor of VCE array.
+</argdef>
+<arg>void *pointer
+<argdef ja>
+このポインター変数に配列の各要素のアドレスを代入する。
+</argdef>
+<argdef en>
+Set address of each array entry to this pointer.
+</argdef>
+<arg> typedecl
+<argdef ja>
+ポインター変数の型を指定する。
+</argdef>
+<argdef en>
+Type of the pointer.
+</argdef>
+<return ja>
+なし。 使用方法は、 ARRAY_SCANと同じ。
+</return>
+<return en>
+None.
+</return>
+<desc ja>
+ARRAY_SCAN は void のポインタをポインター変数 pointer に代入するが、
+C++ においてはキャストが必要なためその処理がコンパイルエラーを発生する。
+そのため、ARRAY_SCAN_TYPE マクロでは、
+ポインタ変数の型をマクロに与えるようにしている。
+</desc>
+<desc en>
+ARRAY_SCAN assigns a void pointer to the pointer variable "pointer".
+This leads a compilation error however in C++,
+because C++ requires casting when assignning void pointer.
+Consequently, the ARRAY_SCAN_TYPE macro is given the pointer variable type. 
+</desc>
+<also>ARRAY_SCAN
+</func>
+
+<func>
+<name>GET_64BIT_INT
+<prototype>VCEI64 GET_64BIT_INT( char *p )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域から64ビット整数値を取りだすマクロ
+<sum en>A macro to get 64bit value from memory buffer.
+<arg>char *p
+<argdef ja>
+取りだす元になるバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of source data.
+</argdef>
+<return ja>
+取りだした値
+</return>
+<return en>
+Got value(int)
+</return>
+<desc ja>
+内部で ntohlを使用している。
+このマクロはバイナリプロトコル解析用に使われるが、アプリケーションで
+バイナリプロトコルを実装する場合には、このマクロではなく、
+bin カテゴリの関数群を使うべきである。
+</desc>
+<desc en>
+ntohl is used internally.
+This macro is used for binary protocol analysis, however,
+if the binary protocol is implemented within an application,
+the bin category function group should be used instead.
+For the MIPS machine architecture (“PlayStation(R)2”)
+VCE implements this macro as a function. 
+</desc>
+<also>SET_32BIT_INT,GET_16BIT_INT,SET_16BIT_INT,SET_8BIT_INT,GET_8BIT_INT
+</func>
+
+<func>
+<name>SET_64BIT_INT
+<prototype>void SET_64BIT_INT( char *b, VCEI64 i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域に64ビットの整数値をネットワークバイトオーダでコピーする
+<sum en>Copy 32-bit integer to buffer in network byte-order.
+<arg>char *b
+<argdef ja>
+値をコピーする先のメモリの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input data.
+</argdef>
+<arg>VCEI64 i
+<argdef ja>
+コピーしたい値(ネイティブ値)
+</argdef>
+<argdef en>
+Native int value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+内部で htonlを使用している。プロトコル解析用に使用されるが、
+アプリケーションはプロトコル解析をする場合は、このマクロを使用
+せずに bin カテゴリの関数群を使うべきである(そのほうが堅牢である。)
+</desc>
+<desc en>
+htonl is used internally.
+For MIPS architecture (“PlayStation(R)2” ),
+VCE  implements this macro as a function.
+It can be used for protocol analysis,
+but you should rather use the function group in the bin
+category for protocol analysis( they make it robust ).
+</desc>
+<also>GET_32BIT_INT,SET_16BIT_INT,GET_16BIT_INT,SET_8BIT_INT,SET_8BIT_INT
+</func>
+
+<func>
+<name>GET_32BIT_INT
+<prototype>unsigned int GET_32BIT_INT( char *p )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域から32ビット整数値を取りだすマクロ
+<sum en>A macro to get 32bit value from memory buffer.
+<arg>char *p
+<argdef ja>
+取りだす元になるバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of source data.
+</argdef>
+<return ja>
+取りだした値
+</return>
+<return en>
+Got value(int)
+</return>
+<desc ja>
+内部で ntohlを使用している。
+このマクロはバイナリプロトコル解析用に使われるが、アプリケーションで
+バイナリプロトコルを実装する場合には、このマクロではなく、
+bin カテゴリの関数群を使うべきである。
+</desc>
+<desc en>
+ntohl is used internally.
+This macro is used for binary protocol analysis, however,
+if the binary protocol is implemented within an application,
+the bin category function group should be used instead.
+For the MIPS machine architecture (“PlayStation(R)2”)
+VCE implements this macro as a function. 
+</desc>
+<also>SET_32BIT_INT,GET_16BIT_INT,SET_16BIT_INT,SET_8BIT_INT,GET_8BIT_INT
+</func>
+
+<func>
+<name>SET_32BIT_INT
+<prototype>void SET_32BIT_INT( char *b, unsigned int i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域に32ビットの整数値をネットワークバイトオーダでコピーする
+<sum en>Copy 32-bit integer to buffer in network byte-order.
+<arg>char *b
+<argdef ja>
+値をコピーする先のメモリの先頭アドレス
+</argdef>
+<argdef en>
+Top address of input data.
+</argdef>
+<arg>unsigned int i
+<argdef ja>
+コピーしたい値(ネイティブ値)
+</argdef>
+<argdef en>
+Native int value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+内部で htonlを使用している。プロトコル解析用に使用されるが、
+アプリケーションはプロトコル解析をする場合は、このマクロを使用
+せずに bin カテゴリの関数群を使うべきである(そのほうが堅牢である。)
+</desc>
+<desc en>
+htonl is used internally.
+For MIPS architecture (“PlayStation(R)2” ),
+VCE  implements this macro as a function.
+It can be used for protocol analysis,
+but you should rather use the function group in the bin
+category for protocol analysis( they make it robust ).
+</desc>
+<also>GET_32BIT_INT,SET_16BIT_INT,GET_16BIT_INT,SET_8BIT_INT,SET_8BIT_INT
+</func>
+
+<func>
+<name>GET_16BIT_INT
+<prototype>unsigned short GET_16BIT_INT( char *p )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域から16ビットの整数値を取りだす。
+<sum en>Get 16 bit integer value from buffer
+<arg>char *p
+<argdef ja>
+取りだしたい値がネットワークバイトオーダで格納されているバッファの先頭
+アドレス
+</argdef>
+<argdef en>
+Top address of source data buffer.
+</argdef>
+<return ja>
+結果のunsigned short値
+</return>
+<return en>
+Got value (unsigned short)
+</return>
+<desc ja>
+内部でntohsを使用している。主にプロトコル処理に使われるが、
+より一般的な目的のためには、 bin カテゴリの関数群を使うべきである。
+</desc>
+<desc en>
+ntohs is used internally.
+It is mainly used for protocol processing,
+though the function group in the bin category should
+rather be used for more general purposes.
+For the MIPS machine architecture (“PlayStation(R)2”),
+VCE implements this macro as a function. 
+</desc>
+<also>GET_32BIT_INT,SET_32BIT_INT,SET_16BIT_INT,GET_8BIT_INT,SET_8BIT_INT
+</func>
+
+<func>
+<name>SET_16BIT_INT
+<prototype>void SET_16BIT_INT( char *b, unsigned short i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域に16ビットの整数値をネットワークバイトオーダでコピーする
+<sum en>Copy 16-bit integer to buffer in network byte-order.
+<arg>char *b
+<argdef ja>
+コピーする先のバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer.
+</argdef>
+<arg>unsigned short i
+<argdef ja>
+コピーする16ビットネイティブ値。
+</argdef>
+<argdef en>
+Native unsignes short value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+内部でhtonsを使用している。主にプロトコル処理に使われるが、
+より一般的な目的のためには、 bin カテゴリの関数群を使うべきである。
+</desc>
+<desc en>
+htons is used internally.
+It is mainly used for protocol processing,
+though the function group in the bin category should rather be used for
+more general purposes.
+For the MIPS architecture (“PlayStation(R)2” ),
+VCE implements this macro as a function. 
+</desc>
+<also>GET_16BIT_INT,SET_32BIT_INT,GET_32BIT_INT,GET_8BIT_INT,SET_8BIT_INT
+</func>
+
+<func>
+<name>SET_8BIT_INT
+<prototype>void SET_8BIT_INT( char *b, unsigned char i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域に8ビットの整数値をコピーする
+<sum en>Copy 8-bit integer to buffer
+<arg>char *b
+<argdef ja>
+コピーする先のバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer.
+</argdef>
+<arg>unsigned char i
+<argdef ja>
+コピーする8ビット値
+</argdef>
+<argdef en>
+unsigned char value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+単にバッファにコピーするだけ。32ビット、16ビットなどのマクロとの整合性
+をとって美しいコードを書くためだけに存在する。
+</desc>
+<desc en>
+ This only copies onto a buffer, being available for the purpose
+of writing well-formed codes,
+maintaining consistency with 32 and 16 bit macro or others. 
+</desc>
+<also>SET_32BIT_INT,GET_32BIT_INT,SET_16BIT_INT,GET_16BIT_INT,GET_8BIT_INT
+</func>
+
+<func>
+<name>GET_8BIT_INT
+<prototype>unsigned char GET_8BIT_INT( char *b )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>メモリ領域から8ビットの整数値を取りだす
+<sum en>Get 8-bit integer from buffer
+<arg>char *b
+<argdef ja>
+取りだす値が格納されているバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of source data buffer.
+</argdef>
+<return ja>
+取りだした値
+</return>
+<return en>
+Got value (unsigned char)
+</return>
+<desc ja>
+単に値を取りだすだけ。32ビット、16ビット等のマクロとの整合性をとるために
+定義されている。
+</desc>
+<desc en>
+ This simply fetches a value.
+ It is defined to maintain consistency with 32 and 16 bit macro.
+</desc>
+<also>SET_32BIT_INT,GET_32BIT_INT,SET_16BIT_INT,GET_16BIT_INT,SET_8BIT_INT
+</func>
+
+<func>
+<name>SET_64BIT_NATIVEINT
+<prototype>void SET_64BIT_NATIVEINT( char *p, VCEI64 i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>64ビットの値を、任意のバッファにセットする
+<sum en>copy 64bit integer value to any buffer
+<arg>char *p
+<argdef ja>
+コピーする先のバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer.
+</argdef>
+<arg>int i
+<argdef ja>
+コピーする値
+</argdef>
+<argdef en>
+Native value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+htonl, ntohl等を使用せず、直接値をコピーする。
+ポインタのキャストをするだけのマクロ。
+</desc>
+<desc en>
+ Copy values directly to output buffer without doing htonl, nor htons.
+For MIPS machine architecture (“PlayStation(R)2” ),
+VCE implements this macro as a function. 
+</desc>
+<also>SET_16BIT_NATIVEINT,SET_8BIT_NATIVEINT
+</func>
+
+<func>
+<name>SET_32BIT_NATIVEINT
+<prototype>void SET_32BIT_NATIVEINT( char *p, int i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>32ビットの値を、任意のバッファにセットする
+<sum en>copy 32bit integer value to any buffer
+<arg>char *p
+<argdef ja>
+コピーする先のバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer.
+</argdef>
+<arg>int i
+<argdef ja>
+コピーする値
+</argdef>
+<argdef en>
+Native value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+htonl, ntohl等を使用せず、直接値をコピーする。
+ポインタのキャストをするだけのマクロ。
+</desc>
+<desc en>
+ Copy values directly to output buffer without doing htonl, nor htons.
+For MIPS machine architecture (“PlayStation(R)2” ),
+VCE implements this macro as a function. 
+</desc>
+<also>SET_16BIT_NATIVEINT,SET_8BIT_NATIVEINT
+</func>
+
+<func>
+<name>SET_16BIT_NATIVEINT
+<prototype>void SET_16BIT_NATIVEINT( char *p, short i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>16ビット整数値を任意のバッファにコピーする
+<sum en>Copy 16-bit integer value to any buffer
+<arg>char *p
+<argdef ja>
+コピーする先のバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destination buffer.
+</argdef>
+<arg>short i
+<argdef ja>
+コピーする値
+</argdef>
+<argdef en>
+Native value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+ntohs, htons 等を使用しない。直接値をコピーする。
+ポインタの型キャストをするためのマクロ。
+</desc>
+<desc en>
+This macro is not using ntohs, htons nor others inside it.
+For MIPS machine architecture(“PlayStation(R)2”),
+VCE implements this macro as a function. 
+</desc>
+<also>SET_16BIT_NATIVEINT,SET_8BIT_NATIVEINT
+</func>
+
+<func>
+<name>SET_8BIT_NATIVEINT
+<prototype>void SET_8BIT_NATIVEINT( char *p, char i )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>8ビットの整数値を任意のバッファにコピーする
+<sum en>Copy 8bit integer value to any buffer
+<arg>char *P
+<argdef ja>
+コピーする先のバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of destiniation buffer.
+</argdef>
+<arg>char i
+<argdef ja>
+コピーする値
+</argdef>
+<argdef en>
+Native value being copied.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+SET_16BIT_NATIVEINT,SET_32BIT_NATIVEINT との整合性をとってソースコードを
+美しく書くためだけのマクロ。
+</desc>
+<desc en>
+This macro is only for writing well-formed codes,
+maintaining consistency with SET_16BIT_NATIVEINT,SET_32BIT_NATIVEINT. 
+</desc>
+<also>SET_16BIT_NATIVEINT,SET_8BIT_NATIVEINT
+</func>
+
+<func>
+<name>GET_64BIT_NATIVEINT
+<prototype>int GET_64BIT_NATIVEINT( char *p )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>バッファから64ビット整数値を取りだす
+<sum en>Get 64bit integer value from buffer
+<arg>
+<argdef ja>
+取りだしたいShort値が格納されているバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of source data buffer, containing short value.
+</argdef>
+<return ja>
+取りだしたint値
+</return>
+<return en>
+Got int value.
+</return>
+<desc ja>
+ntohl, htonl 等をつかわない取りだしマクロである。
+</desc>
+<desc en>
+This is a data-fetch macro not using ntohl, htonl nor others.
+For MIPS machine architecture (“PlayStation(R)2” ),
+VCE implements this macro as a function. 
+</desc>
+<also>GET_16BIT_NATIVEINT,GET_8BIT_NATIVEINT
+</func>
+
+<func>
+<name>GET_32BIT_NATIVEINT
+<prototype>int GET_32BIT_NATIVEINT( char *p )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>バッファから32ビット整数値を取りだす
+<sum en>Get 32bit integer value from buffer
+<arg>
+<argdef ja>
+取りだしたいShort値が格納されているバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of source data buffer, containing short value.
+</argdef>
+<return ja>
+取りだしたint値
+</return>
+<return en>
+Got int value.
+</return>
+<desc ja>
+ntohl, htonl 等をつかわない取りだしマクロである。
+</desc>
+<desc en>
+This is a data-fetch macro not using ntohl, htonl nor others.
+For MIPS machine architecture (“PlayStation(R)2” ),
+VCE implements this macro as a function. 
+</desc>
+<also>GET_16BIT_NATIVEINT,GET_8BIT_NATIVEINT
+</func>
+
+<func>
+<name>GET_16BIT_NATIVEINT
+<prototype>short GET_16BIT_NATIVEINT( char *p )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>バッファから16ビット整数値を取りだす。
+<sum en>Get 16bit integer value from any buffer
+<arg>
+<argdef ja>
+取りだすデータが格納されているバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of source data buffer.
+</argdef>
+<return ja>
+取りだしたshort値
+</return>
+<return en>
+Got short value.
+</return>
+<desc ja>
+ntohs, htons などをつかわない、取りだしマクロである。
+</desc>
+<desc en>
+ It does not use ntohs, htons nor others.
+A value is copied directly.
+For MIPS architecture (“PlayStation(R)2” ),
+VCE  implements this macro as a function. 
+</desc>
+<also>GET_32BIT_NATIVEINT,GET_8BIT_NATIVEINT
+</func>
+
+<func>
+<name>GET_8BIT_NATIVEINT
+<prototype>char GET_8BIT_NATIVEINT( char *p )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>バッファから8ビット整数値を取りだす
+<sum en>Get 8bit integer value from buffer
+<arg>
+<argdef ja>
+取りだしたい8ビット値が格納されているバッファの先頭アドレス
+</argdef>
+<argdef en>
+Top address of source data buffer containing 8bit value being taken.
+</argdef>
+<return ja>
+取りだした8ビット値
+</return>
+<return en>
+Got 8bit value
+</return>
+<desc ja>
+GET_32BIT_NATIVEINT,GET_16BIT_NATIVEINTなどと整合性のあるコードを書くため
+だけに定義されている。
+</desc>
+<desc en>
+This is defined merely for writing codes consistent with GET_32BIT_NATIVEINT,
+GET_16BIT_NATIVEINT and others. 
+</desc>
+<also>GET_32BIT_NATIVEINT,GET_16BIT_NATIVEINT
+</func>
+
+
+<func>
+<name>MIN
+<prototype>int MIN(int a, int b )
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>2つの値を比較して小さい方の値を返す
+<sum en>Compare 2 integer values and return bigger one.
+<arg>int a
+<argdef ja>
+比較する片方の値。プロトタイプではintになっているが、
+実際はマクロで定義されているので、比較演算子が使える型であればどんな型でも
+使用することができる(移植性は高い)。
+</argdef>
+<argdef en>
+First parameter being compared.
+Although "int" type is used in this macro's prototype,
+but because this is macro, so you can make use of this macro
+for any types which accepts integer-comparison operator.
+</argdef>
+<arg>int b
+<argdef ja>
+比較するもう片方の値
+</argdef>
+<argdef en>
+Another parameter being compared.
+</argdef>
+<return ja>
+結果の値
+</return>
+<return en>
+Result value.
+</return>
+<desc ja>
+以下のような定義になっている。char,short,int,long,long long,float,double,VCEI64
+ とそれらの符号なし型に対応している。
+<pre>
+( (x) &lt; (y) ? (x) : (y) )
+</pre>
+</desc>
+<desc en>
+This is defined as follows.
+It corresponds to the char, short, int, long, long long, float, double, and VCEI64
+types along with their unsigned types. 
+<Pre>
+( (x) < (y) ? (x)  (y) )
+</pre>
+
+</desc>
+<also>MAX
+</func>
+
+
+<func>
+<name>MAX
+<prototype>int MAX(int a, int b)
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>2つの値を比較して大きい方の値を返す
+<sum en>Compare 2 integer values and return bigger one.
+<arg>int a
+<argdef ja>
+比較する片方の値。プロトタイプではintになっているが、
+実際はマクロで定義されているので、比較演算子が使える型であればどんな型でも
+使用することができる(移植性は高い)。
+</argdef>
+<argdef en>
+First parameter being compared.
+Although "int" type is used in this macro's prototype,
+but because this is macro, so you can make use of this macro
+for any types which accepts integer-comparison operator.
+</argdef>
+<arg>int b
+<argdef ja>
+比較するもう片方の値
+</argdef>
+<argdef en>
+Another parameter being compared.
+</argdef>
+<return ja>
+得られた値 ( 大きいほう )．
+</return>
+<return en>
+Got value ( bigger one )
+</return>
+<desc ja>
+以下のような定義になっている。char,short,int,long,long long ,float,double,VCEI64
+とそれらの符号なし型に対応している。
+<pre>
+( (x) &gt; (y) ? (x) : (y) )
+</pre>
+</desc>
+<desc en>
+ This is defined as follows.
+ It corresponds to the char, short, int, long, long long, float, double, and VCEI64
+ types along with their unsigned types. 
+<pre>
+   ( (x) > (y) ? (x)  (y) )
+</pre>   
+</desc>
+<also>MIN
+</func>
+
+<func>
+<name>ELEMENTOF
+<prototype>int ELEMENTOF(x)
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>固定サイズの配列の要素数を返す(コンパイル時定数)。
+<sum en>Get number of elements of a fixed-size array.
+<arg>x
+<argdef ja>
+任意のC言語配列 (ポインタではない)
+</argdef>
+<argdef en>
+Any C array. (Not pointer)
+</argdef>
+<return ja>
+配列の要素数
+</return>
+<return en>
+Number of elements of the array.
+</return>
+<desc ja>
+このマクロは実際には
+<pre>
+( sizeof(x) / sizeof((x)[0]) ) 
+</pre>
+と定義されている。mallocによって割りあてた配列のサイズは
+コンパイル時にサイズが確定しないため、このマクロは使用できない。
+</desc>
+<desc en>
+This macro is actually defined as:
+<pre>
+( sizeof(x) / sizeof((x)[0]) )
+</pre>     
+ This macro cannot be used for an array allocated by malloc,
+ because the size of elements is not determined upon compilation. 
+</desc>
+<sample ja>
+<pre>
+  int hoge[]= {1,2,3,4,5};
+  a = ELEMENTOF(hoge);           // a には5が入る
+</pre>
+</sample>
+<sample en>
+<pre>
+  int hoge[]= {1,2,3,4,5};
+  a = ELEMENTOF(hoge);           // numer 5 is in a
+</pre>
+</sample>
+</func>
+
+
+<func>
+<name>STRERR
+<prototype>char *STRERR
+<include>vce-ecoode.h
+<cat>util
+<arch>linux,win32,darwin
+<sum ja>VCEの最新エラーコードを文字列で得る
+<sum en>Get string of latest VCE error
+<return ja>
+出力の文字列へのポインタ。
+</return>
+<return en>
+Pointer to string explaining the error code.
+</return>
+<desc ja>
+STRERRの定義は
+<pre>
+(vce_strerror( vce_get_last_error() ))
+</pre>
+である。
+</desc>
+<desc en>
+STRERR macro is defined as
+<pre>
+(vce_strerror( vce_get_last_error() ))
+</pre>
+</desc>
+<also>vce_get_last_error,vce_strerror
+</func>
+
+
+

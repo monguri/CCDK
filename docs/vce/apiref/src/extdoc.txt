@@ -1,0 +1,181 @@
+このファイルは、 ドキュメントのうち、
+どのソースコードにも入らない(シェルでもRubyでもCでもない)ものを含む。
+
+$Revision: 1.4 $
+$Date: 2005/09/05 09:10:11 $
+$Id: extdoc.txt,v 1.4 2005/09/05 09:10:11 chiaki Exp $
+  
+
+
+<categorydesc>
+<name>core
+<desc ja>
+coreカテゴリに含まれる関数群は、
+VCEのライブラリを駆動するために必要な、
+基本的な関数の集まりである。
+ループを制御したり、VCE自体の初期化や解放を行なう。
+Win32 環境においては、
+vce_initialize 関数では、 Winsockの初期化もおこなう。
+vce_errout_?? 関数では、VCEアプリケーションのログ出力の操作を行なう。
+</desc>
+<desc en>
+ Core functions are basic functions for VCE applications.
+Major functionality is controlling application's main loop,
+VCE initialization, and cleaning up.
+  In Win32 environment, winsock initialization is done in
+vce_initialize function.
+vce_errout_?? functions are designed to output application error log
+to file or stdout.
+</desc>
+</categorydesc>
+
+<categorydesc>
+<name>tcp
+<desc ja>
+tcpカテゴリでは、tcpcontext_t 型の操作を通して、
+VCEの主ターゲットプロトコルであるTCPに関する基本機能を実装している。
+Blowfish/Twofish/Rijndael を用いた暗号化や、
+Diffie-Hellmanによる鍵交換、
+パケットベクトライザ、圧縮など、通信に必要な基本的機能の集合である。
+tcpカテゴリの関数の働きを理解するには、
+VCEにおける
+<a href="tcpcontext.html">TCPコネクション管理システムの仕組</a>
+を理解することが必要である。
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+
+
+<categorydesc>
+<name>text
+<desc ja>
+text カテゴリの関数群は、
+HTTPプロトコルのヘッダや，サーバの設定ファイルなど，
+複雑な構造を持たないテキストを高速に処理するためにデザインされている。
+したがって，日本語文字変換などの高度な機能は含まれていない．
+特に HTTP 関係の関数は，VCE を用いてHTTPサーバを作成する場合には有効である．
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+
+<categorydesc>
+<name>util
+<desc ja>
+utilカテゴリの関数群は、
+VCEアプリケーションの開発をしていく時に有用である。
+特に暗号化ルーチンやハッシュのルーチンを使うための関数群などが有用である．
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+<categorydesc>
+<name>err
+<desc ja>
+VCE内部のエラーコードに関する処理をする関数群。
+基本的に vce_get_last_error してから その返り値を vce_strerror する。
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+
+<categorydesc>
+<name>array
+<desc ja>
+VCE内に配列を定義する。
+配列は、構造体など任意のサイズのバッファの列として管理される。
+arrayカテゴリの関数は、
+「配列からの割りあて」「解放」「スキャン」を、
+空き要素リストを利用することで高速に行なうために整備されている。
+有限個の資源を割りあてたり解放したりを高速に行なうことは、
+サーバプログラムに限らず多いが、
+その部分を根本的に高速化する事を主眼に置いている。
+パケットベクトライザやsearchカテゴリの関数では、
+内部的にarrayカテゴリの関数を使っているが、
+ユーザアプリケーションにおいても使うことができるように解放する。
+</desc>
+<desc en>
+</desc>
+
+</categorydesc>
+
+
+
+<categorydesc>
+<name>parser
+<desc ja>
+parserカテゴリに属する関数群は、
+conn_t コネクションからの入力を
+レコード単位に分割し、分割されたレコードごとにコールバック関数を呼びだす。
+VCE ではこのようにレコード単位のプロトコル処理を基本としている。
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+
+<categorydesc>
+<name>pcallback
+<desc ja>
+pcallback カテゴリに属する関数群は、
+parser によってレコード単位に分割されたデータを処理するためのコールバック
+関数である。通常のアプリケーションでは、
+このコールバック関数の内容はアプリケーション開発者によって定義されるが、
+エコーやダンプなど基本的な内容のコールバック関数はあらかじめ VCE
+に内蔵されているため、デバッグの目的に使用することができる。
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+
+<categorydesc>
+<name>watcher
+<desc ja>
+watcher カテゴリの関数群は、conn_t を新規に受けいれ(accept)したり、閉じられたりしたときにそれを検知するための
+コールバック関数群である。現在は acceptwatcher と closewatcher が存在する。
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+
+
+
+<categorydesc>
+<name>bin
+<desc ja>
+bin カテゴリの関数群は，データの pack/unpack を実装している．
+データストリームに対してバイナリデータやテキストデータを
+出力していく．
+この関数群は通常，アプリケーションによって使われることは少ないが，
+gen.rb スタブジェネレータの出力コードではこの関数群を基本的に使用している．
+</desc>
+<desc en>
+</desc>
+</categorydesc>
+
+
+
+<categorydesc>
+<name>log
+<desc ja>
+logカテゴリに含まれる関数群は、
+VCEログフォーマットに基づいたログの出力のための関数の集まりである。
+このAPIを使用して出力されたログは、VCE Admin Tool を使用することで
+統合的に検索、保存ができる。
+VCEログフォーマットについては、<a href="monitor.html">「VCEモニタリング」</a>を参照。
+</desc>
+<desc en>
+PENDING
+</desc>
+</categorydesc>
+
+
+
+

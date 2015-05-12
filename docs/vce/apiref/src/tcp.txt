@@ -1,0 +1,1340 @@
+#
+# document for VCE auto-generated reference [tcp.c]
+#
+# Copyright (C) 2000-2005 Community Engine Inc. All rights reserved.
+# "PlayStation" is registered trademark
+# and is trademark of Sony Computer Entertainment Inc.
+#
+# For more information, please visit our website at www.ce-lab.net.
+#
+# $Id: tcp.txt,v 1.4 2005/07/02 06:29:17 chiaki Exp $
+#
+
+<func>
+<name>vce_tcpcontext_create
+<prototype>tcpcontext_t vce_tcpcontext_create( int flag, const char *bindaddr, unsigned short port, int maxcon, size_t rblen, size_t wblen, int timeout, VCE_BLOCK_CIPHER cipher, int shkeylen , int nonblock_connect, int nodelay, size_t statebuf_size )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストを初期化する。
+<sum en>Initialize and allocate a TCP context.
+<return ja>
+成功したら TCPコンテキストへのポインタを返す。
+失敗したらヌルポインタを返す。
+</return>
+<return en>
+Return pointer to a TCPcontext.
+Return NULL pointer if any error.
+</return>
+<arg>int flag
+<argdef ja>
+TCPcontext の基本的性質を設定するフラグ。
+1にするとIPv4のサーバーコンテキスト、0にするとクライアントコンテキストになる。
+</argdef>
+<argdef en>
+Basic configuration flag for TCPcontext's basic operation.
+If 1, it will create IPv4 server tcpcontext.
+If 0, it will create IPv4 client tcpcontext.
+</argdef>
+<arg>char *bindaddr
+<argdef ja>
+ソケットを bindするIPアドレス。クライアントの場合もサーバーの場合も、
+通常は "0.0.0.0"を指定すれば十分である。
+特定のアドレスからのみ接続を受けいれたい場合は、IPアドレスを指定する。
+例： "192.168.1.11"
+</argdef>
+<argdef en>
+IP address for binding a socket.
+For ordinary usage, you use "0.0.0.0" for this.
+If you want to bind a socket to a specific address, you can specify it
+like: "192.168.1.11"
+</argdef>
+<arg> unsigned short port
+<argdef ja>
+ソケットをbindするポート番号。
+1024より小さくするためにはroot権限が必要である(UNIX)。
+VCEを用いたアプリケーションの場合は、
+7000よりも大きい適当な番号にしておけば問題ない。
+</argdef>
+<argdef en>
+Port number to bind a socket.
+In UNIX(Linux), you have to be a super user when you want to use
+port number less than 1024.
+It's completely OK if it's larger than 7000.
+</argdef>
+<arg>int maxcon
+<argdef ja>
+最大接続数。VCEはOSの限界までの接続数をサポートするが、
+この引数によってVCEが接続を許す本数をそれより小さい本数に制限する
+ことができる。この制限は、アクセス不能攻撃を防ぐためには有効である。
+ちなみに、OSの限界値は、Linuxでは1000本程度、
+win32ではメモリ次第もしくは64本である。
+どちらもある程度チューニングが可能である。<BR>
+ただし、チューニングして非常に多くのコネクション(2000本以上とか)を
+1マシンで同時に使うのは性能やセキュリティの面で薦められない。<BR>
+この引数の限界は存在しないが、 VCE は vce_initialize 時に、
+前もって最大のコネクション数を決めてから各 tcpcontext_t に割りふるように
+なっているので、たとえば maxcon に 1200 を指定しても 1000 本のコネクション
+しか割りあてられない(Linuxでのデフォルト限界値は1000)。
+この場合は、 vce_initialize_limited 関数を使用して、
+最大接続限界をそれより大きな値にしてやることが必要である。
+</argdef>
+<argdef en>
+Max number of concurrrent TCP sessions.
+VCE can support as many TCP sessions as the OS can handle,
+but you can restrict number of TCP sessions less than OS limit.
+In Linux you can use 1000 or more sessions, in MS-Windows
+you can use 64(98/Me) or it depends on memory you have.
+We don't recomend you to use too many TCP sessions (>2000)
+in one machine for performance and security reasons.
+You cannot specify this argument larger than the number that
+you previously set by vce_initialize_limited function,
+or Linux default value 1000.
+</argdef>
+<arg>size_t rblen
+<argdef ja>
+ネットワークからの読みこみバッファの最大長。
+この最大長は、1個のTCPコネクションの読みこみバッファの長さである。
+</argdef>
+<argdef en>
+Max length of receiving data from network.
+This length is used by each TCP sessions ( conn_t ).
+</argdef>
+<arg>size_t wblen
+<argdef ja>
+書きこみバッファの数。
+</argdef>
+<argdef en>
+Max length of outgoing data to network.
+</argdef>
+<arg>int timeout
+<argdef ja>
+接続のタイムアウト時間(秒)。
+一定時間、あるTCPコネクションに対して書きこみも読みこみもしなかった
+場合、自動的にコネクションを切断する(shutdown/close).
+これをタイムアウトという。タイムアウトした後にそのコネクションに
+書きこみしようとした場合は、エラーが返る。
+</argdef>
+<argdef en>
+TCP session timeout in seconds.
+If a TCP session doesn't have outgoing data nor incoming data for a
+length of time, VCE will close the session according to this configuration.
+It rises an error if you try to write any data into closed(timed out)
+TCP session.
+</argdef>
+<arg>VCE_BLOCK_CIPHER cipher
+<argdef ja>
+暗号化コネクションを利用したい場合は、
+VCE_BLOCK_CIPHER_BLOWFISH,VCE_BLOCK_CIPHER_RIJNDAEL,VCE_BLOCK_CIPHER_TWOFISH
+のいずれかの値を指定する。利用しない場合は、
+VCE_BLOCK_CIPHER_NONE を指定する。
+暗号強度と性能に関しては<a href="bench.html">こちら</a>を参照.
+</argdef>
+<argdef en>
+</argdef>
+<arg>int shkeylen
+<argdef ja>
+共有鍵の長さ。鍵交換の結果、サーバとクライアントがコーディングキーとして
+使う鍵の長さを指定する。この鍵が長いほど、
+暗号解読攻撃に対する耐性が強い。<BR>
+VCE_BLOCK_CIPHER_BLOWFISH を使う場合は、4以上56以下の値を指定する。<BR>
+チャットやゲームアプリケーションなどでは8を指定すれば十分である。<BR>
+VCE_BLOCK_CIPHER_RIJNDAEL を使う場合は、16,24,32 のいずれかを指定する。<BR>
+チャットやゲームアプリケーションなどでは16を指定すれば十分である。<BR>
+VCE_BLOCK_CIPHER_TWOFISH を使う場合は、16,24,32 のいずれかを指定する。<BR>
+チャットやゲームアプリケーションなどでは16を指定すれば十分である。  <BR>
+デコードとエンコードのための時間は、キーの長さの1乗に比例して長くなる。<BR>
+
+</argdef>
+<argdef en>
+If you want to use encrypted connection,
+you should use one of them: VCE_BLOCK_CIPHER_BLOWFISH,
+VCE_BLOCK_CIPHER_RIJNDAEL, VCE_BLOCK_CIPHER_TWOFISH.
+If you don't want to use encryption, you use VCE_BLOCK_CIPHER_NONE.
+Each algorithm has different characteristics each other.
+BLOWFISH is the fastest and oldest, but they say it's relatively
+weaker. RIJNDAEL is relatively new and strong, but 20% slower.
+Yes, let's use RIJNDAEL without thinking about it so long.
+In our benchmark, RIJNDAEL at 800MHz PentiumIII can encode 20Mbit/s.
+When you use encryption, you may not be able to ignore
+server-side CPU high load.
+</argdef>
+<arg>int nonblock_connect
+<argdef ja>
+nonblock_connect は、クライアントコンテキスト専用で、
+新しくconnect()システムコールを用いて接続を構築するときに、
+TCPコネクションが完成するまでブロックするかどうかを指定する。
+1だとブロックしない(nonblock)、0だとブロックする。
+ブロックするようにすれば、
+アプリケーションのプログラムを多少単純にすることができる。
+ただし，VCEのアプリケーション開発においては，
+「ノンブロッキング接続」が推奨される．
+ゲームクライアントなどのアプリケーションにおいては，
+確実にノンブロッキングモードを使用するべきである．
+この理由については，<a href="connect.html">クライアントの接続について</a>
+が参考になるだろう．
+</argdef>
+<argdef en>
+</argdef>
+<arg>nodelay
+<argdef ja>
+ソケットに対してTCP_NODELAY オプションを使うかどうかを指定する。
+nodelayを1にすると TCP_NODELAY オプションをつけ、0にすると付けない。
+TCP_NODELAYオプションによって、OSがTCPパケットをネットワークに送りこむ
+までの溜め時間が短かくなる。(Negelアルゴリズムのキャンセル)
+ただし、小さなパケットを連続で送る場合は、
+ネットワーク利用効率が下がるので注意が必要である。
+特に小さなパケットを高速にやりとりしたい場合以外は、0にするべきである。
+</argdef>
+<argdef en>
+</argdef>
+<arg>size_t statebuf_size
+<argdef ja>
+状態をもつプロトコルの場合、この引数に0より大きい値を指定し、
+状態管理のための領域をVCEに管理させることができる。
+vce_conn_get_state 関数を使用することにより、
+状態管理領域へのポインタを取得することができる。
+</argdef>
+<argdef en>
+</argdef>
+
+
+<desc ja>
+TCPコンテキストの実体をVCE内部に(128個まで)初期化し、
+通信に必要なすべての初期化を行なう。
+この関数が返す tcpcontext_t 型は、今後の処理
+(現在は vce_tcpcontext_cleanupのみ)で使用する。
+VCE は vce_tcpcontext_connect など新規コネクションを初期化するような
+処理をするときに tcpcontext_t の設定をコピーして使用するため、
+vce_tcpcontext_connect の後に vce_tcpcontext_set_??? のような関数を
+使って設定を変更しても、
+connect で得られたコネクションには設定が反映されない。
+したがってコーディング時には、できるだけ tcpcontext の設定は
+vce_tcpcontext_create の直後に集中させるようにすることが大切である。
+またブロック暗号を使用する場合は、
+8バイトや16バイトといったブロックの長さに丸めて通信されるので、
+短かいデータを送信する場合は、限界性能に微妙に影響が出る場合がある。
+ただし TCP のヘッダが40バイトあることを考えると、
+その部分に凝るのはそれほど意味があるとは思えない。
+<BR>
+<B>送受信バッファを小さくするときの注意</B><BR>
+メモリが少ない環境において，使用メモリを極限まで節約するために，
+tcpcontext の「受信バッファ量」と「送信バッファ量」
+を小さくしたいことは多い．
+ところが，このふたつの量を小さくしていくと，
+様々な問題が起こり得る．
+「送信バッファ」に関しては，
+1回のプロトコル送信で送信したい量よりも小さくすると，
+その送信が失敗するので，アプリケーションが1回のプロトコルで送りたい
+量を下回らないようにする必要がある．
+「受信バッファ」に関しても同様だが，
+暗号を使う場合に独特の注意点がある．
+それは，VCEは，heartbeatが呼びだされてから次の heartbeat
+が呼びだされるまでの間に conn_write された
+データに関しては，ひとつにまとめて暗号化することがある点だ．
+たとえば，次のheartbeat呼びだしまでの期間に，
+サーバーが1KBのデータを20回送ると， 20KBが1個の塊として暗号化され，
+クライアントの読みこみバッファが10KBしかなかったとすると，
+そのバッファを使って暗号を解読することができなくなる．
+暗号解読は読みこみバッファの空きを使って処理されるからである．
+ちなみに，暗号化の最大パックサイズは32KBバイトなので，
+受信側の読み込みバッファが32KB+8以上あれば，
+どんな場合でも間違いなく暗号を解読できる．
+送信する速度と，
+受信側の読みこみバッファの量は，関係があるのである．
+したがって，「バルク転送をしたい場合は，
+受信側に十分な(32KB以上の)読みこみバッファを用意せよ．」
+ということになる．
+</desc>
+
+<desc en>
+</desc>
+<sample ja>
+<pre>
+  #include "vce.h"
+
+  int my_callback( conn_t ct, char *data , int len )
+  {
+      データ処理。
+      if( 正常修了 ) return 0;  else return -1;
+  }
+
+  int main( int argc, char **argv )
+  {
+      tcpcontext_t *t = vcetcpcontext_create(
+      1,      // サーバ
+      6667,   // ポート 6667
+      10,     // 最大接続数
+      1024, 1024,  // 読み書きバッファー長
+      60 * 60,   // 1時間で接続タイムアウト
+      VCE_BLOCK_CIPHER_BLOWFISH,   // 暗号を使用
+      8,         // 8バイト(64ビット)の鍵を使用
+      0,         // ブロッキング
+      0,         // NODELAY は指定しない
+      0          // 状態のないプロトコル
+      );
+      ...
+  }
+</pre>
+</sample>
+<also>vce_tcpcontext_cleanup,vce_tcpcontext_connect,vce_conn_get_state,vce_tcpcontext_set_conn_parser,vce_tcpcontext_set_conn_acceptwatcher,vce_tcpcontext_set_conn_closewatcher,vce_initialize,vce_initialize_limited
+</func>
+
+
+
+<func>
+<name>vce_tcpcontext_set_conn_finalizer
+<prototype>void vce_tcpcontext_set_conn_finalizer( tcpcontext_t tp , void *finalizer(conn_t) )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストに対して、コネクションのファイナライザを指定する。
+<sum en>Make TCPcontext use specified conn_t finalizer .
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>tcpcontext_t tp
+<argdef ja>
+ファイナライザを指定するTCPコンテキストのポインタ
+</argdef>
+<argdef en>
+Pointer to target TCPcontext.
+</argdef>
+<arg>void *finalizer(conn_t to_be_finalized )
+<argdef ja>
+ファイナライザ関数へのポインタ。 to_be_finalized は、
+解放されようとしているコネクションをあらわす。
+</argdef>
+<argdef en>
+Pointer to finalizer function.
+"to_be_finalized" parameter stands for a connection which is
+being closed.
+</argdef>
+<desc ja>
+TCPコンテキストが管理しているTCPコネクションが解放されようとしているときに
+1回だけ呼びだされるファイナライザを指定する。
+これは、Rubyなど高級言語でTCPのコネクションをガベージコレクタに追跡
+させたいときなどに有用である。vce_tcpcontext_create 関数を呼びだして
+tcpコンテキストを初期化した後に呼びだすこと。
+この関数は主にRubyやJavaなど、他の言語用のwrapperライブラリのために
+用意されている。アプリケーションからは、closewatcher を使うので十分である。
+注意点としては、暗号化コネクションを使用しているときに、
+暗号ネゴシエーションが終了する前にコネクションが切断された場合に、
+closewatcher は呼びだされないが、 finalizer は呼びだされる点である。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+
+
+<func>
+<name>vce_tcpcontext_timeout_control
+<prototype>void vce_tcpcontext_timeout_control( tcpcontext_t tp, int recv_reset, int send_reset )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストのタイムアウト動作方式を設定する。
+<sum en>Configure timeout operation on a tcpcontext_t.
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>tcpcontext_t t
+<argdef ja>
+設定したいTCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>int recv_reset
+<argdef ja>
+クライアントから受信したときにタイムアウトカウンタを初期化するかどうか
+のフラグ。通常は1にしておく。
+</argdef>
+<argdef en>
+By setting 1, it initializes timeout counter when any data is
+received from client. By default, 1 is used.
+</argdef>
+<arg>int send_reset
+<argdef ja>
+クライアントへ送信が成功したときにタイムアウトカウンタを初期化するかどうか
+のフラグ。デフォルトはゼロで、アプリケーションによっては1にする場合もある。
+</argdef>
+<argdef en>
+By setting 1, it initializes timeout counter when any data
+is sent to client. Default is zero, but some application
+sets this flag 1.
+</argdef>
+<desc ja>
+VCE は、TCP セッションにおいて一定時間アクセスがないとタイムアウトさせて
+closewatcher を呼びだす機能を持っている。
+何らかのデータを送信したり受信したときにタイムアウトのためのカウンタを
+初期化するが、
+この関数では、送信/受信 成功のときに実際にタイムアウトカウンタをゼロに
+戻すかどうかの設定ができる。
+VCE はデフォルト状態では、recv_reset=1, send_reset=0 となっている。
+つまり、送信に成功しても、タイムアウトカウンタをリセットしない。
+この事により、クライアントからは、タイムアウト時間内に最低1個は、
+パケットが送られて来ないとタイムアウトしてしまう。
+VCE がターゲットとしているリアルタイムアプリケーションにおいては、
+このような動作がデフォルトであるほうが自然である。
+本関数は、滅多に使われることはない。
+</desc>
+<desc en>
+</desc>
+<sample ja>
+  vce_tcpcontext_timeout_control( t, 1, 1 );
+</sample>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_tcpcontext_set_conn_parser
+<prototype>void vce_tcpcontext_set_conn_parser( tcpcontext_t tp, int (*parser)(conn_t),int (*pcallback)(conn_t,char*,int))
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストに対して、TCPコネクション(conn_t)用のパーサを設定する
+<sum en>Make TCPcontext use specified parser function
+<arg>tcpcontext_t tp
+<argdef ja>
+設定対象となる TCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext
+</argdef>
+<arg>int (*parser)(conn_t c )
+<argdef ja>
+パーサ関数へのポインタ
+</argdef>
+<argdef en>
+Pointer to parser function.
+</argdef>
+<arg>int (*pcallback)(conn_t c,char *data, int len )
+<argdef ja>
+パーサ関数がレコードを取りだしたときに、そのレコードを与えてよびだす
+コールバック関数
+</argdef>
+<argdef en>
+Callback function which is called every time when receiving
+data record from the connection.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+通常のTCPコネクション(conn_t)からの入力をパースしてレコードを取りだす
+パーサ関数を指定する。VCEでは、
+レコード境界を判定してレコードを取りだす方法を挿しかえることができるように、
+関数へのポインタを設定できるようになっている。
+VCEでは、標準的な方法でレコード境界を判定するためのデフォルトパーサとして、
+<pre>
+vce_protocol_parser_bin16            標準的なbin16パーサ
+vce_protocol_parser_text             改行記号をレコード境界とするパーサ
+vce_protocol_parser_through          何も処理せず、そのまま渡すパーサ
+</pre>
+以上の2つのパーサを実装しているので、通常のアプリケーションでは、
+これらのパーサを利用すればよい。
+また、 pcallback はパーサによって呼びだされるコールバック関数で、
+引数として data, len を用いてレコードの中身(レコード境界を除く)
+を与える。これも単純なものはVCEに標準添付されていて、
+<pre>
+vce_protocol_pcallback_echo_bin16    bin16でエコーするコールバック
+vce_protocol_pcallback_echo_text     改行レコードでエコーするコールバック
+vce_protocol_pcallback_noop          データを捨てるコールバック
+vce_protocol_pcallback_dump          データを表示するコールバック
+</pre>
+が利用できる。
+通常はユーザーがアプリケーションごとにコールバック関数を定義し、
+その関数でデータを適切に処理する。
+コールバック関数が負を返したら、VCEはプロトコルエラーと判断し、
+TCPコネクションを自動的に切断する。
+コールバック関数がゼロ以上を返すと，正常終了と見なすが，
+vce_tcpcontext_set_conn_call_parser_per_heartbeat 関数を使って
+1回の heartbeat あたりの最大コールバック呼びだし回数を変更している場合，
+ゼロとそれ以上の値では意味が異なる．
+詳細は  vce_tcpcontext_set_conn_call_parser_per_heartbeat
+関数のリファレンスを参照．
+<BR><BR>
+また、パーサを自前で定義するようなアプリケーションの場合
+(bin16でもbin32でもtextでもなく、まったく新しいプロトコルを定義したい場合)
+はパーサ関数を自前で定義してこの関数でパーサとして設定することになる。
+その場合はコールバックを使用することができないため、
+<pre>
+vce_tcpcontext_set_conn_parser( t, parser, NULL );
+</pre>
+のようなコーディングをすることになる。
+
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_call_parser_per_heartbeat
+</func>
+
+
+<func>
+<name>vce_tcpcontext_set_conn_acceptwatcher
+<prototype>void vce_tcpcontext_set_conn_acceptwatcher( tcpcontext_t tp, int (*aw)(conn_t) )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストに対して、指定されたaccept監視関数を使うように設定する
+<sum en>Make TCPcontext use specified accept watcher function
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>tcpcontext_t tp
+<argdef ja>
+設定対象となるTCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext
+</argdef>
+<arg>int (*aw)(conn_t c)
+<argdef ja>
+accept監視関数。conn_t cには、新規に受けいれられようとしている
+コネクションが入る。
+</argdef>
+<argdef en>
+Accept watcher function. parameter "c" stands for a newly
+accepted connection conn_t.
+</argdef>
+<desc ja>
+サーバーコンテキストが新しい接続を受けいれたときに、
+この関数が1回呼びだされる。
+アプリケーション開発者はこの関数を置きかえることによって、
+接続を受けいれた場合にログを出力したり、アドレス制限をかけたりできる。
+このコールバック関数が負を返すと、
+VCEは接続受けいれ拒否と判断し、closeする。
+暗号化コネクションを使用しているときは、暗号ネゴシエーションが終了してから、
+acceptwatcher が呼びだされる。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_closewatcher
+</func>
+
+<func>
+<name>vce_tcpcontext_set_conn_hiwater_acceptwatcher
+<prototype>void vce_tcpcontext_set_conn_hiwater_acceptwatcher( tcpcontext_t tp, int water, int (*aw)(conn_t,int))
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストに，接続数が多いとき用のaccept監視関数をセットする
+<sum en>Set a special high water accept watcher to a TCPcontext
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>tcpcontext_t tp
+<argdef ja>
+設定対象となるTCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext
+</argdef>
+<arg>int water
+<argdef ja>
+高水位を指定する値．この値以上の数の同時接続が，
+ひとつのTCPcontextに対して存在している場合は，
+通常の acceptwatcher ではなく，
+本関数で設定する専用のacceptwatcherを呼びだすようにする．
+</argdef>
+<argdef en>
+Number to specify high water, that means max number of
+concurrent TCP sessions handled by the TCPcontext.
+TCPcontext will call specified accept watcher function
+when number of concurrent sessions are larger than this,
+otherwise call default accept watcher.
+</argdef>
+<arg>int (*aw)(conn_t c,int num)
+<argdef ja>
+設定する監視関数(高水位接続監視関数)．通常のものとは異なり，
+現在何個の接続が存在しているのかを num で受けとることができる．
+あらかじめ設定されている最大接続数と比較することで，
+システムにあとどれぐらいの余裕があるのかを知ることができる．
+</argdef>
+<argdef en>
+accept watcher function that will be set to the TCPcontext.
+This function is different from normal one because it will get
+current number of concurrent sessions by "num" argument.
+You can compare it with pre-set max number of sessions.
+</argdef>
+<desc ja>
+サーバーコンテキストが新しい接続を受けいれたときに，
+同時接続数がある数以上の場合に，
+指定した接続監視関数を呼びだすように設定する．
+VCEでは，この数のことを「高水位設定値」"high water"と呼んでいる．
+この機能を使うことによって，サーバーが混雑しているときに，
+ユーザーが単に接続できないようになるのではなく，
+「現在混雑しています．」などといったメッセージを送信することが可能となる．
+たとえば，絶対的最大数が1000に設定されているゲームサーバーの場合は，
+900あたりにこの値(water)を設定しておき，
+900本目以降の接続に関してはここで設定した専用の監視関数を使うことで，
+独自のプロトコルシーケンスを発行することができる．
+高水位接続監視関数が呼びだされた場合は，
+通常の接続監視関数は呼びだされない.
+また高水位接続監視関数の返り値は，通常の接続監視関数の返り値と同様に
+扱われる．つまり，負を返すと接続を拒否する．
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_acceptwatcher
+</func>
+
+<func>
+<name>vce_tcpcontext_set_conn_closewatcher
+<prototype>void vce_tcpcontext_set_conn_closewatcher( tcpcontext_t tp, int (*cw)(conn_t,CLOSE_REASON) )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストに対して、指定されたclose監視関数を使うように設定する
+<sum en>Make TCPcontext use specified close watcher function
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<arg>tcpcontext_t tp
+<argdef ja>
+設定対象となるTCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>int (*cw)(conn_t c, CLOSE_REASON reason)
+<argdef ja>
+close 監視関数。conn_t c には、閉じられようとしているコネクションが入る。
+reason には， CLOSE_REASON 列挙体で定義されている定数が代入される．
+</argdef>
+<argdef en>
+</argdef>
+<desc ja>
+何らかの理由で接続がcloseされてしまったときに1回だけ呼びだされる関数。
+VCEではこのように呼びだされる関数は close watcher と呼ばれる。
+アプリケーション開発者がこの関数本体を定義する
+ことによって、ソケットが閉じられたことをログしたりできる。
+close watcher は呼びだされるときの原因に応じて reason 引数に，
+何が原因だったのかをあらわす定数が代入される．
+アプリケーションではこの値をみて，closeの原因を推定できる．
+reason の内容は，以下の通りである．
+以下ではそれぞれを
+「リモート型」と「ローカル型」に分けて，
+問題を迅速に切りわけられるようにした．
+
+<ul>
+<LI>CLOSE_REASON_NONE (-1)<BR>
+VCEが内部的に使用する．これが返されるのは， VCE のバグが考えられる．
+
+<LI>CLOSE_REASON_UNKNOWN (0)<BR>
+原因不明．基本的に返されることはない．
+返された場合は，VCEのバグが考えられる．
+
+<LI>CLOSE_REASON_REMOTE (1)<BR>
+リモートピアによってコネクションが切断されたため，
+書きこみも読みこみもできなくなった．
+CLOSE_REASON_REMOTE は，リモート型の中で，特に分類できなかった場合の
+generic な理由のときに返される．
+
+<LI>CLOSE_REASON_APPLICATION (2)<BR>
+アプリケーションによって， vce_conn_close などが呼びだされた．
+「ローカル型」の典型的なクローズ理由である．
+
+<LI>CLOSE_REASON_TIMEOUT (3)<BR>
+タイムアウト時間になるまで，送受信が行われなかったため，
+切断された．タイムアウトの場合は，リモートが原因なのか，
+ローカルが原因なのか，判別はつかない．
+
+<LI>CLOSE_REASON_DECODER (4)<BR>
+暗号デコーディング関数の内部でエラーが起きた．
+相手から送られてきたデータのフォーマットが異常であるか，
+データレコードが必要としている分のデータが届かない間にコネクションが
+利用不可能になってしまった場合に起こる．
+つまり，このエラーは，「リモート型」である．
+このエラーは，コネクション初期化時の暗号ネゴシエーションが終わり，
+データの交換が始まってから起こる．
+
+<LI>CLOSE_REASON_ENCODER (5)<BR>
+暗号エンコーディング関数の内部でエラーが起きた．
+このエラーは，コネクション初期化時の暗号ネゴシエーションが終わり，
+データの交換が始まってから起こる．
+VCE は暗号化用に特別なメモリを使わないこともあり，この理由は
+「リモート型」である．
+
+
+<LI>CLOSE_REASON_PARSER (6)<BR>
+プロトコルパーサー関数が負の値を返したので，
+コネクションを切断した．
+これは，ローカル型である．ローカルのパーサー関数の返り値が負であった．
+
+<LI>CLOSE_REASON_INTERNAL (7)<BR>
+VCE の内部的な問題により，コネクションを閉じた．
+VCEの内部メモリが足りない場合や，エラーチェックに
+失敗した場合や，VCEのバグが考えられる．
+ローカル型である．
+
+<LI>CLOSE_REASON_FULL (8)<BR>
+SWPを使っている場合に，SWPへ送る送信バッファが一杯になっている場合に
+この値になる．SWPへ送る送信バッファが一杯ということは，
+SWPのサーバーからの受信バッファも一杯になっている可能性が高い．
+SWPのバッファー容量を大きくするか，
+相手むけ回線の容量が一杯になっていることを疑うべきである．
+リモートホストのバッファが一杯になっていることから，
+「リモート型」と言える．
+
+</ul>
+
+<BR><BR>
+現在、コールバック関数の返り値は無視される。
+close watcher は，すでに完成しているコネクションに対してだけ呼びだされる．
+言いかえれば，暗号化コネクションを使用しているときに、
+暗号ネゴシエーションが終了する前にコネクションが切断された場合、
+close watcher は呼びだされない．
+その場合でも、 fainalizer は呼びだされる。
+<BR>
+なお，close watcher の引数はVCE バージョン 0.4.73 から追加されたが，
+過去のバージョンの close watcher を渡してもコンパイラ警告が出るだけで
+問題は起きない．
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create,vce_tcpcontext_set_conn_acceptwatcher
+</func>
+
+
+<func>
+<name>vce_tcpcontext_cleanup
+<prototype>void vce_tcpcontext_cleanup( tcpcontext_t tp )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>TCPコンテキストを解放する。
+<sum en>Clean up a TCP context.
+<arg>tcpcontext_t tp
+<argdef ja>
+解放するTCPコンテキストへのポインタ。 vce_tcpcontext_createの返り値である。
+サーバーコンテキストもクライアントコンテキストも同様に解放できる。
+</argdef>
+<argdef en>
+Pointer to tcpcontext_t. This pointer is obtained when calling
+vce_tcpcontext_create. This function can used for freeing both server context
+and client context .
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+VCEライブラリ中に保存されているTCPコンテキストの構造体を1個解放する。
+VCEライブラリが管理できる tcpcontext 構造体の数は制限があるので、
+vce_tcpcontext_cleanup 関数で解放せずに vce_tcpcontext_create を
+くりかえすと、資源が足りなくなり VCE_EFULL を返すようになる。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_create
+</func>
+
+<func>
+<name>vce_tcpcontext_protocol_set_maxlength
+<prototype>void vce_tcpcontext_protocol_set_maxlength(tcpcontext_t ct,int maxlength,int(*errcall)(conn_t ct))
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>パーサーが分割する最大の長さを設定する。
+<sum en>pending
+<return ja>
+無し
+</return>
+<return en>
+none
+</return>
+<arg>tcpcontext_t t
+<argdef ja>
+設定情報を格納しているTCPコンテキスト。
+</argdef>
+<argdef en>
+TCPcontext containing configuration information for new
+TCP connection.
+</argdef>
+<arg>int max_length
+<argdef ja>
+分割する最大のレコード長。
+</argdef>
+<argdef en>
+pending
+</argdef>
+<arg>int(*errcall)(conn_t ct))
+<argdef ja>
+制限に達した時に呼ばれるコールバック関数。負の値を返せば接続を拒否できる。
+NULLの場合は呼ばれず接続を拒否する。
+</argdef>
+<argdef en>
+pending
+</argdef>
+<desc ja>
+　ストリームからレコード単位に分割するときに
+先頭に格納されてる長さの情報を受信したときにチェックする。
+プログラムがクラックされ、異常に長いレコードを連続で受信し、バッファや帯域を
+圧迫させる行為を防ぐ事が出来る。
+</desc>
+<desc en>
+pending
+</desc>
+<bugs ja>
+TODO: 現在は16bitパーサーでしかチェックしていない。
+</bugs>
+<bugs en>
+pending
+</bugs>
+</func>
+
+<func>
+<name>vce_tcpcontext_set_accept_max
+<prototype>void vce_tcpcontext_set_accept_max(tcpcontext_t t,int con_max,int (*accept_warning)(tcpcontext_t t))
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>一分間あたりの接続数を制限する
+<sum en>pending
+<return ja>
+無し
+</return>
+<return en>
+none
+</return>
+<arg>tcpcontext_t t
+<argdef ja>
+設定情報を格納しているTCPコンテキスト。
+</argdef>
+<argdef en>
+TCPcontext containing configuration information for new
+TCP connection.
+</argdef>
+<arg>int con_max
+<argdef ja>
+一分間で許容する最大の接続数
+</argdef>
+<argdef en>
+pending
+</argdef>
+<arg>int (*accept_warning)(tcpcontext_t t)
+<argdef ja>
+制限に達した時に呼ばれるコールバック関数。負の値を返せば接続を拒否できる。
+NULLの場合は呼ばれず接続を拒否する。
+</argdef>
+<argdef en>
+pending
+</argdef>
+<desc ja>
+DDoS対策として接続数を制限するときに使う関数。
+接続が来てVCE内のあらゆる処理をする前に判断されるので
+低負荷でブロックする事ができる。（conn構造体も作られない）
+設定した制限値が10だとすれば10本までは接続を通し、
+その後は6秒毎に一本ずつ許可数が増えていくようになっている。
+con_maxにゼロを設定すれば許可無しとなる。
+</desc>
+<desc en>
+pending
+</desc>
+<sample ja>
+<pre>
+  //一分間で10本の接続を許可する
+  vce_tcpcontext_set_accept_max(t,10,0);
+</pre>
+</sample>
+</func>
+
+<func>
+<name>vce_tcpcontext_set_conn_kickip_array
+<prototype>void vce_tcpcontext_set_conn_kickip_array(tcpcontext_t tp,unsigned int *null_terminated_ipaddr_array)
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>接続を拒否するIPアドレスの配列を設定する。
+<sum en>pending
+<return ja>
+無し
+</return>
+<return en>
+none
+</return>
+<arg>tcpcontext_t t
+<argdef ja>
+設定情報を格納しているTCPコンテキスト。
+</argdef>
+<argdef en>
+TCPcontext containing configuration information for new
+TCP connection.
+</argdef>
+<arg>unsigned int *null_terminated_ipaddr_array
+<argdef ja>
+０終端されたIPアドレスへのリスト。
+</argdef>
+<argdef en>
+pending
+</argdef>
+<desc ja>
+拒否するIPアドレスをひとつずつ大量に設定したいときに使う。
+配列はunsigned intのそのままIPv4アドレスで、配列の先頭のアドレスを渡すだけで
+0.0.0.0がくるまで全部とチェックする。Accept後他の処理が入る前にすぐチェックされるので
+低負荷で蹴る事が出来る。
+</desc>
+<desc en>
+pending
+</desc>
+</func>
+
+<func>
+<name>vce_tcpcontext_connect
+<prototype>conn_t vce_tcpcontext_connect( tcpcontext_t tp, const char *hostname, unsigned short port );
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>リモートにあるVCEサーバに接続し、TCPコネクションを1個確立する。
+<sum en>Connect to a remote VCE server and set up a TCP connection.
+<return ja>
+成功なら新しくTCPコンテキストの中に割りあてられたコネクション管理
+構造体(conn_t)を返す。
+失敗なら無効なconn_tを返す。
+無効かどうかを知るには vce_conn_is_valid 関数を使用する。
+エラーの内容を得るには、
+vce_get_last_error を使う。
+</return>
+<return en>
+Returns pointer to newly allocated conn_t struct, which is for
+controlling one TCP connection. Returns NULL pointer when any error.
+To get detailed error , you'll use vce_get_last_error.
+</return>
+<arg>tcpcontext_t tp
+<argdef ja>
+設定情報を格納しているTCPコンテキスト。
+</argdef>
+<argdef en>
+TCPcontext containing configuration information for new
+TCP connection.
+</argdef>
+<arg>char *hname
+<argdef ja>
+どのホストに接続するのか、IPアドレスを名前か番号で指定する。
+</argdef>
+<argdef en>
+Hostname to connect, or IPaddress string.
+</argdef>
+<arg>unsigned short port
+<argdef ja>
+上記で指定したホストのどのポートに接続するのかを指定する。
+</argdef>
+<argdef en>
+Port number to connect.
+</argdef>
+<desc ja>
+言うまでもなくconnectはクライアントソケットにだけ許された機能なので、
+クライアントコンテキストの場合のみ利用可能である。
+また vce_tcpcontext_connect 関数は、内部で conn_t を1個割りあてて初期化
+するときに tcpcontext_t から、parser と callback の情報をコピーするので、
+vce_tcpcontext_connect の呼びだし以前に vce_tcpcontext_set_parser を
+呼びだしておく必要がある。
+なお，クライアントから connect をするときには，
+tcpcontext がノンブロッキングモードに設定されている場合と，
+そうでない場合で成功確認方法が異なる．
+これについては<a href="connect.html">クライアントからの接続</a>
+を参照．
+</desc>
+<desc en>
+</desc>
+<sample ja>
+<pre>
+  t = vce_tcpcontext_create( 0, ... );
+  conn_t connection = vce_tcpcontext_connect( t,  "www.ce-lab.net", 80 );
+</pre>
+</sample>
+<also>vce_tcpcontext_create,vce_conn_is_valid,vce_conn_writable
+</func>
+
+
+<func>
+<name>vce_tcpcontext_get_all_connection
+<prototype>int vce_tcpcontext_get_all_connection( tcpcontext_t t , conn_t *a, int max);
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>tcpcontext に属するすべてのコネクションを得る
+<sum en>get all connections included in a tcpcontext
+<arg>tcpcontext_t t
+<argdef ja>
+処理対象のtcpcontext
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>conn_t *a
+<argdef ja>
+配列を出力する先頭アドレス
+</argdef>
+<argdef en>
+Top address of an array of conn_t.
+</argdef>
+<arg>int max
+<argdef ja>
+配列の最大要素数
+</argdef>
+<argdef en>
+Max number of elements of array parameter "a".
+</argdef>
+<return ja>
+配列を埋めた数を返す(0以上の値)。
+</return>
+<return en>
+Number of elements filled in given array.
+This number must be larger than or equal to zero.
+</return>
+<desc ja>
+ひとつのtcpcontext に属するコネクションを配列にコピーして出力する。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_count_connections
+</func>
+
+<func>
+<name>vce_tcpcontext_count_connections
+<prototype>int vce_tcpcontext_count_connections( tcpcontext_t t, int *conn )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>tcpcontext に属するコネクションの数を数える
+<sum en>Count number of connections maintained by a tcpcontext
+<arg>tcpcontext_t t
+<argdef ja>
+数を調査したい対象となる tcpcontext
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>int *conn
+<argdef ja>
+conn_t コネクションの数を返すためのバッファの先頭アドレス．
+NULL を指定すると，無視される．
+</argdef>
+<argdef en>
+Top address of return buffer.
+It will be ignored if set NULL.
+</argdef>
+<return ja>
+正常終了ならばゼロ，そうでないならば負のエラーコードを返す．
+</return>
+<return en>
+Returns 0 if successful, otherwise minus error indicator value.
+</return>
+<desc ja>
+1個の tcpcontext が管理しているコネクションの数を数える．
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_get_all_connection
+</func>
+
+
+
+
+
+
+<func>
+<name>vce_tcpcontext_enable_accept
+<prototype>void vce_tcpcontext_enable_accept( tcpcontext_t tp, int flag )
+<cat>tcp
+<sum ja>新規に accept しないようにする
+<sum en>PENDING
+<arch>linux,win32,darwin
+<arg>tcpcontext_t tp
+<argdef ja>
+操作対象となるTCPcontext
+</argdef>
+<argdef en>
+Target TCPcontext
+</argdef>
+<arg>int flag
+<argdef ja>
+1にすると今後も新規に accept する。
+0にすると今後は accept しない。
+</argdef>
+<argdef en>
+Accept next TCPconnection if set 1.
+Deny all new TCPconnections if set 0.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+サーバを人為的に終了させるときなどに、
+新たなユーザがログインしてこないように、
+新規に accept しないようにしたいことがある。
+本関数はそのために使用する。
+verbose モードのときはログを出力する(verbose mode only)。
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_close_all_conn
+</func>
+
+<func>
+<name>vce_tcpcontext_get_stat
+<prototype>void vce_tcpcontext_get_stat( tcpcontext_t tp, tcpcontext_stat_t *s )
+<arch>linux,win32,darwin
+<cat>tcp
+<sum ja>tcpcontext の統計情報を取得する
+<sum en>Get tcpcontext's statistics information
+<arg>tcpcontext_t tp
+<argdef ja>
+情報を取得する tcpcontext
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>tcpcontext_stat_t *s
+<argdef ja>
+情報を格納するための構造体(tcpcontext_stat_t)の先頭アドレス
+</argdef>
+<argdef en>
+Top address of tcpcontext_stat_t instance. It will save all
+status information in this structure.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+TCPコンテキストが内部的に管理している統計情報を取得する。
+この情報はデバッグやログなど幅広く活用される。
+以下はtcpcontext_stat_t構造体メンバの説明である。
+<ul>
+<LI>current_conn<BR>
+現在活動中のコネクションの数。 
+<LI>recv_byte, send_byte<BR>
+合計の送受信バイト数
+<LI>recv_syscall, recv_syscall_e<BR>
+recv()システムコールの呼びだし回数。 _e はエラー呼びだしの回数
+<LI>accept_syscall, accept_syscall_e, send_syscall, send_syscall_e,
+connect_syscall, connect_syscall_e<BR>
+各システムコールの呼びだし回数。
+<LI>conn_write<BR>
+vce_conn_write の呼びだし回数
+<LI>conn_timeout<BR>
+conn_t がタイムアウトした回数。
+<LI>tcpcontext_connect<BR>
+vce_tcpcontext_connect が成功した回数。
+</ul>
+</desc>
+<desc en>
+</desc>
+<also>vce_get_stat,vce_conn_get_stat
+</func>
+
+
+
+<func>
+<name>vce_tcpcontext_conn_iterate
+<prototype>int vce_tcpcontext_conn_iterate( tcpcontext_t tt, int (*f)(conn_t c))
+<arch>linux,win32,darwin
+<sum ja>tcpcontext が保持しているすべてのconn_tに対して関数で処理する
+<sum en>Call a function against every element of a tcpcontext_t
+<arg>tcpcontext_t tt
+<argdef ja>
+処理したい tcpcontext_t
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>int (*f)(conn_t c)
+<argdef ja>
+各要素に対して呼びだされるコールバック関数
+</argdef>
+<argdef en>
+Callback function which is called against every elements of
+conn.
+</argdef>
+<return ja>
+引数が不正などの場合は負のエラーコード、正常終了の場合はゼロを返す
+</return>
+<return en>
+Returns 0 if successful, otherwise minus error indicating code.
+</return>
+<desc ja>
+コールバック関数の引数には、コネクション(conn_t)の各要素が与えられる。
+コールバック関数が負を返すとループを途中で終了する。
+0以上の値を返すとループを継続する．
+</desc>
+<desc en>
+</desc>
+<also>vce_tcpcontext_get_all_connection
+</func>
+
+<func>
+<name>vce_tcpcontext_set_conn_call_parser_per_heartbeat
+<prototype>void vce_tcpcontext_set_conn_call_parser_per_heartbeat( tcpcontext_t tt, int v )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>1回の heartbeat で各コネクションのパーサが呼びだされる回数を調整する
+<sum en>Adjust number of times of each conn_t parser call within a heartbeat
+<arg>tcpcontext_t tt
+<argdef ja>
+設定対象の tcpcontext_t
+</argdef>
+<argdef en>
+Target TCpcontext.
+</argdef>
+<arg>int v
+<argdef ja>
+回数(0以上)．負を指定したときの動作は不定．
+</argdef>
+<argdef en>
+Number of repetation. No operation is defined when setting minus
+to this parameter.
+</argdef>
+<desc ja>
+デフォルトの状態では、プロトコル・パーサは、 vce_heartbeat 関数の中で、
+ネットワークからの入力を確認して1レコード分の情報がそろっている事が
+確認されると、1回だけコールバック関数を呼びだす。
+本関数を使ってその最大回数を制御することができる．
+引数 v で指定した回数まで， 1回の heartbeat で複数回のコールバックが
+呼びだされるようになる．
+本関数は，クライアントおよびサーバーの性能チューンにおいてまず
+注目される点である．
+</desc>
+<desc en>
+</desc>
+<also>vce_heartbeat,vce_tcpcontext_set_conn_parser
+</func>
+
+<func>
+<name>vce_tcpcontext_set_equal_io_splitrate
+<prototype>void vce_tcpcontext_set_equal_io_splitrate( tcpcontext_t tt, int v )
+<cat>tcp
+<arch>linux,win32,darwin
+<sum ja>1回の heartbeat でネットワークへの送信をするコネクション数を調整する
+<sum en>Configure number of connections to be flushed to network
+<arg>tcpcontext_t tt
+<argdef ja>
+設定対象となる TCPコンテキスト
+</argdef>
+<argdef en>
+Target TCPcontext.
+</argdef>
+<arg>int v
+<argdef ja>
+何回に分けて書きこむかの値(デフォルトは1)
+</argdef>
+<argdef en>
+Process ( total / v ) connections among all connections in
+one vce_heartbeat call.
+</argdef>
+<return ja>
+なし
+</return>
+<return en>
+None
+</return>
+<desc ja>
+vce_heartbeat では，
+VCE が確保している書きこみバッファにデータがたまっている場合は
+ネットワークへのデータ送信を試みる．
+デフォルトでは，1回の vce_heartbeat
+内で全てのデータをフラッシュしようとするが，
+送信したい量が1回に数百KB?数MBに達する場合などは，
+送信データが OS の送信用メモリ
+(Linuxの場合は，TCP用に確保されているメモリページ)を溢れさせて，
+一部のコネクションの送信パフォーマンスが著しく低下してしまう場合がある．
+本関数を使って，
+複数回の heartbeat でコネクションをフラッシュするように調整し，
+この問題を回避することができる．
+ただし，1回の vce_heartbeat にかかる時間が長い場合は，
+あるクライアントからみた round-trip query time は長くなる可能性がある．
+本関数を使わずに，Linux自体をチューンする解決策もある．
+それに関しては <a href="linuxtune.html">linuxtune.html</a> を参照.
+</desc>
+<desc en>
+</desc>
+</func>
+
+<func>
+<name>vce_conn_userdata_set_pointer
+<prototype>void vce_conn_userdata_set_pointer(conn_t ct,void *p);
+<cat>tcp
+<arch> all
+<sum ja>conn_tにポインタを関連付ける
+<arg>conn_t ct
+<argdef ja>
+対象のconn_t
+</argdef>
+<arg>void *p
+<argdef ja>
+ポインタ
+</argdef>
+<desc ja>
+conn_tにある値を付加したいときに使う
+</desc>
+<return ja>none
+</return>
+</func>
+
+<func>
+<name>vce_conn_userdata_get_pointer
+<prototype>void *vce_conn_userdata_set_pointer(conn_t ct);
+<cat>tcp
+<arch> all
+<sum ja>conn_tに関連付けたポインタを取り出す
+<arg>conn_t ct
+<argdef ja>
+対象のconn_t
+</argdef>
+<return ja>関連付けたポインタ。NULLなら何も無いか失敗
+</return>
+</func>
+
+
+
+<func>
+<name>vce_tcpcontext_userdata_set_pointer
+<prototype>void vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct,void *p);
+<cat>tcp
+<arch> all
+<sum ja>tcpcontext_tにポインタを関連付ける
+<arg>tcpcontext_t ct
+<argdef ja>
+対象のtcpcontext_t
+</argdef>
+<arg>void *p
+<argdef ja>
+ポインタ
+</argdef>
+<desc ja>
+tcpcontext_tにある値を付加したいときに使う
+</desc>
+<return ja>none
+</return>
+</func>
+
+<func>
+<name>vce_tcpcontext_userdata_get_pointer
+<prototype>void *vce_tcpcontext_userdata_set_pointer(tcpcontext_t ct);
+<cat>tcp
+<arch> all
+<sum ja>tcpcontext_tに関連付けたポインタを取り出す
+<arg>tcpcontext_t ct
+<argdef ja>
+対象のtcpcontext_t
+</argdef>
+<return ja>関連付けたポインタ。NULLなら何も無いか失敗
+</return>
+</func>
+
