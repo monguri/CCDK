@@ -12,5 +12,31 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ssproto_sv.cpp" />
+    <ClCompile Include="..\externals\moyai\common.cpp">
+      <Filter>moyai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\moyai\cumino.cpp">
+      <Filter>moyai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\moyai\lodepng.cpp">
+      <Filter>moyai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\moyai\snappy\snappy.cc">
+      <Filter>moyai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\moyai\snappy\snappy-sinksource.cc">
+      <Filter>moyai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\moyai\snappy\snappy-stubs-internal.cc">
+      <Filter>moyai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\moyai\snappy\snappy-c.cc">
+      <Filter>moyai</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="moyai">
+      <UniqueIdentifier>{7f2ac536-789a-4f9a-a08f-05d3c796ff69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

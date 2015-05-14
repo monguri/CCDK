@@ -61,7 +61,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;moyai.lib;Win32_Interop.lib;hiredis.lib;vce.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;Win32_Interop.lib;hiredis.lib;vce.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/verbose:lib /STACK:8000000 %(AdditionalOptions)</AdditionalOptions>
       <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
     </Link>
@@ -98,6 +98,13 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\externals\moyai\common.cpp" />
+    <ClCompile Include="..\externals\moyai\cumino.cpp" />
+    <ClCompile Include="..\externals\moyai\lodepng.cpp" />
+    <ClCompile Include="..\externals\moyai\snappy\snappy-c.cc" />
+    <ClCompile Include="..\externals\moyai\snappy\snappy-sinksource.cc" />
+    <ClCompile Include="..\externals\moyai\snappy\snappy-stubs-internal.cc" />
+    <ClCompile Include="..\externals\moyai\snappy\snappy.cc" />
     <ClCompile Include="backend.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ssproto_sv.cpp" />
