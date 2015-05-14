@@ -8,7 +8,7 @@ COMMONSRCS=$(EXTERNALS)/moyai/cumino.cpp $(MOYAISRCS)
 SVSRCS=ssproto_sv.cpp main.cpp $(COMMONSRCS)
 BENCHSRCS=bench.cpp ssproto_cli.cpp $(COMMONSRCS) 
 VCELIB=../vce/libvce.a 
-LIBS=-lhiredis $(EXTERNALS)/moyai/libsnappy.a $(EXTERNALS)/moyai/zlib-1.2.7/libz.a $(VCELIB)
+LIBS=-lhiredis $(EXTERNALS)/moyai/libsnappy.a $(VCELIB)
 GEN=../vce/gen/gen.rb
 CFLAGS= -O3 -g -Wall -I$(EXTERNALS) -I../vce -DGEN_DEBUG_LEN_PRINT
 
