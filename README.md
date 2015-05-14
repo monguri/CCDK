@@ -1,19 +1,14 @@
 # CCDK
-Distribution of Shinra Community Cloud Development Kit.
 
-For English users:
+The CCDK, or Community Cloud Development Kit, is designed to be a one-stop solution for developing a cloud game using Shinra technology.
+
+- For English developers:
+ Please refer to [CCDK Overview](docs/Overview.en.md) .
+
+- For Japanese developers:
+ [CCDKの概要](docs/Overview.ja.md) を参照してください。
+
+
+License
 ====
-Please refer to docs/Overview.en.md.
-
-
-For Japanese users:
-====
-docs/Overview.ja.md を参照してください。
-
-
-License notes
-====
-The CCDK uses the following software.
-CCDKは、以下のソフトウェアを利用しています。
-
-- DirectX ToolKit : Copyright (c) 2015 Microsoft Corp
+Please refer to [End User License Agreement](LICNSE) file.
