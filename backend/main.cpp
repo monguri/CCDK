@@ -1,5 +1,9 @@
 #include <time.h>
 
+#ifndef WIN32
+#include <unistd.h>
+#endif
+
 #include "hiredis/hiredis.h"
 
 
