@@ -3,87 +3,404 @@ CCDK End User License Agreement
 (Last Updated:  May 15, 2015)
 
 
-This End-User License Agreement (this "Agreement") is a legal agreement between you and Shinra Technologies, Inc. ("Shinra") with respect to your right to download and use the "CCDK Client-Side Software," "CCDK Server-Side Software" and "CCDK Documentation" provided by Shinra (collectively, the "CCDK Software").
+This End-User License Agreement (this "Agreement") is a legal agreement
+between you and Shinra Technologies, Inc. ("Shinra") with respect
+to your right to download and use the "CCDK Client-Side Software,"
+"CCDK Server-Side Software" and "CCDK Documentation" provided
+by Shinra (collectively, the "CCDK Software").
 
-Please carefully read this Agreement before downloading and using the CCDK Software.  By downloading and/or using the CCDK Software, you are indicating that you carefully read the terms and conditions of this Agreement, understand them, and agree to be legally bound by this Agreement.  If you do not accept the terms and conditions of this Agreement or do not have the power and authority to bind the legal entity on behalf of which you are acting, you are not permitted to download and/or use the CCDK Software.
+Please carefully read this Agreement before downloading and using
+the CCDK Software.  By downloading and/or using the CCDK Software,
+you are indicating that you carefully read the terms and conditions
+of this Agreement, understand them, and agree to be legally bound
+by this Agreement.  If you do not accept the terms and conditions
+of this Agreement or do not have the power and authority to bind
+the legal entity on behalf of which you are acting, you are not permitted
+to download and/or use the CCDK Software.
 
-By downloading and/or using the CCDK Software, you affirm that you are of legal age to enter into this Agreement.  If you are not of legal age to enter into this Agreement, then you may not download and/or use the CCDK Software.
+By downloading and/or using the CCDK Software, you affirm that you are
+of legal age to enter into this Agreement.  If you are not of legal age
+to enter into this Agreement, then you may not download and/or use
+the CCDK Software.
 
-Shinra reserves the right to change this Agreement, in whole or in part, from time to time at its sole discretion, and to provide you with notice of such change by any reasonable means, including, without limitation, by making available the revised version of this Agreement through the CCDK Software and/or via the GitHub website and/or any other public forum.  You can determine when this Agreement was last revised by referring to the "Last Updated" legend at the top of this Agreement.  Your continued use of the CCDK Software following our making available any revised version of this Agreement will mean that you accept that revised version of this Agreement, provided that any material change to this Agreement will not apply retroactively to any claim or dispute between you and Shinra in connection with this Agreement that arose prior to the "Last Updated" date applicable to that version of this Agreement in which Shinra included such material change.  If you do not agree to any changes made to this Agreement, you may not access, download and/or use the CCDK Software.  Shinra may, at any time, modify or discontinue all or part of the CCDK Software; charge, modify or waive fees required to use the CCDK Software; or offer opportunities to some or all CCDK Software end users.
+Shinra reserves the right to change this Agreement, in whole or in part,
+from time to time at its sole discretion, and to provide you with notice
+of such change by any reasonable means, including, without limitation,
+by making available the revised version of this Agreement through
+the CCDK Software and/or via the GitHub website and/or any other public forum.
+You can determine when this Agreement was last revised by referring
+to the "Last Updated" legend at the top of this Agreement.  Your continued
+use of the CCDK Software following our making available any revised version
+of this Agreement will mean that you accept that revised version
+of this Agreement, provided that any material change to this Agreement
+will not apply retroactively to any claim or dispute between you
+and Shinra in connection with this Agreement that arose prior to
+the "Last Updated" date applicable to that version of this Agreement
+in which Shinra included such material change.  If you do not agree
+to any changes made to this Agreement, you may not access, download
+and/or use the CCDK Software.  Shinra may, at any time, modify or
+discontinue all or part of the CCDK Software; charge, modify or waive
+fees required to use the CCDK Software; or offer opportunities
+to some or all CCDK Software end users.
 
 1.	GRANT OF LICENSE
-The CCDK Software is licensed, not sold, to end users.  Subject to your compliance with all the terms and conditions of this Agreement, unless and until this Agreement is terminated, Shinra grants you a non-exclusive, non-transferable, non-sublicensable (except as expressly permitted under this Agreement), revocable and limited right and license to:
+The CCDK Software is licensed, not sold, to end users.  Subject
+to your compliance with all the terms and conditions of this Agreement,
+unless and until this Agreement is terminated, Shinra grants you
+a non-exclusive, non-transferable, non-sublicensable (except
+as expressly permitted under this Agreement), revocable and limited right
+and license to:
 
-(a)	modify the Modifiable CCDK Server-Side Software (as defined below) in source code format and integrate and compile the Modifiable CCDK Server-Side Software in source code format as modified (if applicable) into the server-side component of your own interactive entertainment game for the personal computer platform (the "Licensed Game"), in each case solely for your internal purposes and only to develop and publish the Licensed Game;
+(a)	modify the Modifiable CCDK Server-Side Software (as defined below)
+in source code format and integrate and compile
+the Modifiable CCDK Server-Side Software in source code format
+as modified (if applicable) into the server-side component of your
+own interactive entertainment game for the personal computer platform
+(the "Licensed Game"), in each case solely for your internal purposes
+and only to develop and publish the Licensed Game;
 
-(b)	integrate the Non-Modifiable CCDK Server-Side Software (as defined below) in object code format into the server-side component of the Licensed Game solely for your internal purposes;
+(b)	integrate the Non-Modifiable CCDK Server-Side Software (as defined below)
+in object code format into the server-side component of
+the Licensed Game solely for your internal purposes;
 
-(c)	integrate the CCDK Client-Side Software in object code format into the client-side component of the Licensed Game and distribute the CCDK Client-Side Software in object code format only as integrated into and as part of the client-side component of the Licensed Game, in each case solely for your internal purposes; and
+(c)	integrate the CCDK Client-Side Software in object code format into
+the client-side component of the Licensed Game and distribute
+the CCDK Client-Side Software in object code format only as integrated into
+and as part of the client-side component of the Licensed Game,
+in each case solely for your internal purposes; and
 
-(d)	make a reasonable number of copies of and use the CCDK Documentation in connection with exercising the rights granted to you under this Agreement and solely for your internal purposes.
+(d)	make a reasonable number of copies of and use the CCDK Documentation
+in connection with exercising the rights granted to you under this Agreement
+and solely for your internal purposes.
 
-As used in this Agreement: "Modifiable CCDK Server-Side Software" means the component of the CCDK Server-Side Software provided to you in source code format that you may modify and then integrate into and compile with the server-side component of the Licensed Game in accordance with the right and license granted to you above in Section 1(a); and "Non-Modifiable CCDK Server-Side Software" means the component of the CCDK Server-Side Software provided to you in object code format that you may integrate into the server-side component of the Licensed Game in accordance with the right and license granted to you above in Section 1(b).
+As used in this Agreement: "Modifiable CCDK Server-Side Software" means
+the component of the CCDK Server-Side Software provided to you
+in source code format that you may modify and then integrate into and compile
+with the server-side component of the Licensed Game in accordance
+with the right and license granted to you above in Section 1(a);
+and "Non-Modifiable CCDK Server-Side Software" means the component of
+the CCDK Server-Side Software provided to you in object code format
+that you may integrate into the server-side component of the Licensed Game
+in accordance with the right and license granted to you above in Section 1(b).
 
 2.	ADDITIONAL SOFTWARE
-This Agreement applies to updates, upgrades, patches, revisions, new versions, supplements, add-on components, and Internet-based services components of the CCDK Software that Shinra may (but has no obligation to) provide or make available to you after the date you obtain your initial copy of the CCDK Software, unless Shinra provides other terms along therewith.
+This Agreement applies to updates, upgrades, patches, revisions, new versions,
+supplements, add-on components, and Internet-based services components
+of the CCDK Software that Shinra may (but has no obligation to) provide
+or make available to you after the date you obtain your initial copy
+of the CCDK Software, unless Shinra provides other terms along therewith.
 
 3.	RESTRICTIONS
-Except as expressly permitted under this Agreement, you may not (and you agree not to permit or otherwise allow another person to):
+Except as expressly permitted under this Agreement, you may not (and you agree
+not to permit or otherwise allow another person to):
 
-3.1	reverse engineer, decompile, disassemble or otherwise reduce the CCDK Software (or any portion thereof) to a human-readable form or attempt to reconstruct or discover any source code (other than the source code provided by Shinra to you under this Agreement), underlying ideas, algorithms, file formats or programming interfaces of the CCDK Software (or any portion thereof) by any means whatsoever, except to the extent that this restriction is expressly prohibited by applicable law and then only with prior written notice to Shinra;
-3.2	rent, lease, timeshare, license, distribute, sublicense or otherwise transfer the CCDK Software or any portion thereof;
-3.3	modify, translate, make copies or derivative works of the CCDK Software or any portion thereof, including its content (except as necessary to install and use the CCDK Software in accordance with this Agreement);
+3.1	reverse engineer, decompile, disassemble or otherwise reduce
+the CCDK Software (or any portion thereof) to a human-readable form or attempt
+to reconstruct or discover any source code (other than the source code provided
+by Shinra to you under this Agreement), underlying ideas, algorithms, file formats
+or programming interfaces of the CCDK Software (or any portion thereof)
+by any means whatsoever, except to the extent that this restriction
+is expressly prohibited by applicable law and then only with prior written notice to Shinra;
+
+3.2	rent, lease, timeshare, license, distribute, sublicense
+or otherwise transfer the CCDK Software or any portion thereof;
+
+3.3	modify, translate, make copies or derivative works of the CCDK Software
+or any portion thereof, including its content (except as necessary to install
+and use the CCDK Software in accordance with this Agreement);
+
 3.4	incorporate the CCDK Software or any portion thereof, including its content, into any product or service;
+
 3.5	use the CCDK Software or any portion thereof, including its content, for commercial purposes;
-3.6	remove, alter or obscure any copyright, trademark, trade name or other proprietary notices, legends, symbols or labels that appear in the CCDK Software;
+
+3.6	remove, alter or obscure any copyright, trademark, trade name
+or other proprietary notices, legends, symbols or labels that appear in the CCDK Software;
+
 3.7	use hacks, mods or any other unauthorized third-party software designed to modify the CCDK Software; and
+
 3.8	exploit the CCDK Software or any of its parts for any commercial purpose.
+
 4.	PROPRIETARY RIGHTS
-4.1	The CCDK Software incorporates and is protected by various intellectual property rights, including, without limitation, copyrights, trademarks, patents, trade secrets, moral rights and database rights and other intellectual property and proprietary rights (collectively, "Intellectual Property Rights").  Shinra does not transfer title to the CCDK Software to you; this license shall not be considered a "sale" of the CCDK Software.  You agree that the CCDK Software belongs to Shinra and its affiliates and licensors, including, all Intellectual Property Rights therein, unless otherwise specified.  Shinra and its affiliates and licensors own and retain all right, title and interest in and to the CCDK Software, including, without limitation, all software and other materials comprising the CCDK Software, and all Intellectual Property Rights relating to any of the foregoing.  For the avoidance of doubt, any plugins, installers, or software of any kind that you may be provided with or asked to install or download in order to use or access the CCDK Software are deemed part of the "CCDK Software."
-4.2	You hereby agree that all right, title, and interest in and to any and all derivative works and other modifications that are made by or on behalf of you to the Modifiable CCDK Server-Side Software, and all Intellectual Property Rights therein (collectively, any and all such derivative works and other modifications along with all Intellectual Property Rights therein shall be referred to as the "Modifications"), shall vest in Shinra and shall be deemed to be a work made for hire.  To the extent that any right, title and interest in and/or to any Modifications may not, by operation of law, vest in Shinra or may not be considered works made for hire, you hereby irrevocably convey, transfer, assign and deliver all right, title and interest therein to Shinra.  All Modifications belong exclusively to Shinra, with Shinra having the right to obtain and to hold in its own name all trademarks, copyrights, patents, registrations or such other protection as may be appropriate to the subject matter, and any extensions and renewals thereof.  To the extent that any Modifications are not assignable as provided in this Section 4.2 or that you retain any right, title or interest in and to any Modifications, you hereby unconditionally and irrevocably waive the enforcement thereof and all claims and causes of action of any kind against Shinra with respect thereto, and hereby grant to Shinra a perpetual, irrevocable, fully paid-up, royalty-free, fully-transferable, sublicensable (through multiple levels of sublicensees), exclusive (even as to you), worldwide right and license, free from any liens or encumbrances, to reproduce, distribute, display and perform (whether publicly or otherwise), prepare derivative works of and otherwise modify, make, have made, sell, offer to sell, import and otherwise use and exploit (and have others exercise such rights on behalf of Shinra) all or any portion of such Modifications, in any form or media (now known or later developed).  You agree to give Shinra and any person designated by Shinra any reasonable assistance to perfect the rights defined in this Section 4.2.  You further waive any "moral" rights, or other rights with respect to attribution of authorship or integrity relating to the Modifications as you may have under any applicable law.  You agree to submit to GitHub all of the Modifications that you create by uploading them via a "pull request."
-4.3	Shinra reserves all rights not expressly granted to you in this Agreement.  PLEASE NOTE THAT UNAUTHORIZED USE OF THE CCDK SOFTWARE MAY SUBJECT YOU TO MONETARY DAMAGES AND OTHER CIVIL AND CRIMINAL PENALTIES, INCLUDING, WITHOUT LIMITATION, FOR COPYRIGHT INFRINGEMENT.
+
+4.1	The CCDK Software incorporates and is protected by various intellectual
+property rights, including, without limitation, copyrights, trademarks, patents,
+trade secrets, moral rights and database rights and other intellectual property
+and proprietary rights (collectively, "Intellectual Property Rights").
+Shinra does not transfer title to the CCDK Software to you; this license shall
+not be considered a "sale" of the CCDK Software.
+You agree that the CCDK Software belongs to Shinra and its affiliates and licensors,
+including, all Intellectual Property Rights therein, unless otherwise specified.
+Shinra and its affiliates and licensors own and retain all right, title and interest
+in and to the CCDK Software, including, without limitation, all software
+and other materials comprising the CCDK Software, and all Intellectual Property Rights
+relating to any of the foregoing.  For the avoidance of doubt, any plugins,
+installers, or software of any kind that you may be provided with or asked
+to install or download in order to use or access the CCDK Software are deemed part
+of the "CCDK Software."
+
+4.2	You hereby agree that all right, title, and interest in and to any
+and all derivative works and other modifications that are made by or on behalf
+of you to the Modifiable CCDK Server-Side Software,
+and all Intellectual Property Rights therein (collectively, any
+and all such derivative works and other modifications along
+with all Intellectual Property Rights therein shall be referred
+to as the "Modifications"), shall vest in Shinra and shall be deemed
+to be a work made for hire.  To the extent that any right, title and interest
+in and/or to any Modifications may not, by operation of law, vest in Shinra
+or may not be considered works made for hire, you hereby irrevocably convey,
+transfer, assign and deliver all right, title and interest therein to Shinra.
+All Modifications belong exclusively to Shinra, with Shinra having the right
+to obtain and to hold in its own name all trademarks, copyrights, patents,
+registrations or such other protection as may be appropriate to the subject matter,
+and any extensions and renewals thereof.  To the extent that any Modifications are
+not assignable as provided in this Section 4.2 or that you retain any right,
+title or interest in and to any Modifications, you hereby unconditionally
+and irrevocably waive the enforcement thereof and all claims and causes
+of action of any kind against Shinra with respect thereto, and hereby grant
+to Shinra a perpetual, irrevocable, fully paid-up, royalty-free,
+fully-transferable, sublicensable (through multiple levels of sublicensees),
+exclusive (even as to you), worldwide right and license, free from any liens
+or encumbrances, to reproduce, distribute, display and perform (whether publicly
+or otherwise), prepare derivative works of and otherwise modify, make, have made,
+sell, offer to sell, import and otherwise use and exploit (and have others exercise
+such rights on behalf of Shinra) all or any portion of such Modifications,
+in any form or media (now known or later developed).
+You agree to give Shinra and any person designated by Shinra any reasonable
+assistance to perfect the rights defined in this Section 4.2.
+You further waive any "moral" rights, or other rights with respect
+to attribution of authorship or integrity relating to the Modifications
+as you may have under any applicable law.  You agree to submit to GitHub all
+of the Modifications that you create by uploading them via a "pull request."
+4.3	Shinra reserves all rights not expressly granted to you in this Agreement.
+PLEASE NOTE THAT UNAUTHORIZED USE OF THE CCDK SOFTWARE MAY SUBJECT YOU
+TO MONETARY DAMAGES AND OTHER CIVIL AND CRIMINAL PENALTIES, INCLUDING,
+WITHOUT LIMITATION, FOR COPYRIGHT INFRINGEMENT.
+
 5.	TERMINATION
-Without prejudice to any other rights or remedies of Shinra, Shinra may immediately terminate this Agreement if you breach any of the terms or conditions set forth herein.  Shinra also may terminate this Agreement for convenience by providing you with ten (10) days prior written notice of such termination via the GitHub website and/or via any other public forum.  Upon the termination of this Agreement, you will immediately (a) cease using the CCDK Software; and (b) completely remove (i.e., uninstall and delete) the CCDK Software from your computer systems.  Sections 3 (RESTRICTIONS), 4 (PROPRIETARY RIGHTS), 5 (TERMINATION), 6 (COMPLIANCE WITH LAWS), 7 DISCLAIMERS OF WARRANTY), 9 (INDEMNIFICATION), 10 (LIMITATIONS OF LIABILITY), 11 (APPLICABLE LAW; DISPUTE RESOLUTION), 12 (CLASS ACTION WAIVER), 14 (ATTRIBUTION), 14 (CONFIDENTIALITY), 16 (AUDIT RIGHTS), 17 (MISCELLANEOUS) and 18 (THIRD PARTY CODE) shall survive any termination or expiration of this Agreement.  Additionally, unless this Agreement has been terminated by Shinra due to your breach of this Agreement, your right and license to use the CCDK Software in object code format set forth above in Section 1 shall survive the termination of this Agreement, subject to the terms of this Agreement.
+Without prejudice to any other rights or remedies of Shinra, Shinra
+may immediately terminate this Agreement if you breach any of the terms
+or conditions set forth herein.  Shinra also may terminate this Agreement
+for convenience by providing you with ten (10) days prior written notice
+of such termination via the GitHub website and/or via any other public forum.
+Upon the termination of this Agreement, you will immediately (a) cease using
+the CCDK Software; and (b) completely remove (i.e., uninstall and delete)
+the CCDK Software from your computer systems.  Sections 3 (RESTRICTIONS),
+4 (PROPRIETARY RIGHTS), 5 (TERMINATION), 6 (COMPLIANCE WITH LAWS),
+7 DISCLAIMERS OF WARRANTY), 9 (INDEMNIFICATION), 10 (LIMITATIONS OF LIABILITY),
+11 (APPLICABLE LAW; DISPUTE RESOLUTION), 12 (CLASS ACTION WAIVER),
+14 (ATTRIBUTION), 14 (CONFIDENTIALITY), 16 (AUDIT RIGHTS), 17 (MISCELLANEOUS)
+and 18 (THIRD PARTY CODE) shall survive any termination or expiration
+of this Agreement.  Additionally, unless this Agreement has been terminated
+by Shinra due to your breach of this Agreement, your right and license
+to use the CCDK Software in object code format set forth above
+in Section 1 shall survive the termination of this Agreement,
+subject to the terms of this Agreement.
 
 6.	COMPLIANCE WITH LAWS
-You agree to comply strictly with all applicable laws, rules, and regulations in respect of use of the CCDK Software, including all export control or import laws and regulations of any relevant jurisdiction.  You agree to obtain licenses to export, re-export or import the CCDK Software as may be required after delivery of CCDK Software to you, and agree not to disclose or otherwise provide access to CCDK Software directly or indirectly to any party with knowledge, or reason to know, that such party will engage in activities disturbing international peace and security, including activities relating to the design, development, production, stockpiling or use of weapons of mass destruction such as nuclear, biological or chemical weapons.
+You agree to comply strictly with all applicable laws, rules,
+and regulations in respect of use of the CCDK Software, including
+all export control or import laws and regulations of any relevant jurisdiction.
+You agree to obtain licenses to export, re-export or import the CCDK Software
+as may be required after delivery of CCDK Software to you, and agree not
+to disclose or otherwise provide access to CCDK Software directly
+or indirectly to any party with knowledge, or reason to know,
+that such party will engage in activities disturbing international peace
+and security, including activities relating to the design, development,
+production, stockpiling or use of weapons of mass destruction such
+as nuclear, biological or chemical weapons.
 
 7.	DISCLAIMERS OF WARRANTY
-7.1	TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, SHINRA AND ITS AFFILIATES AND LICENSORS PROVIDE THE CCDK SOFTWARE "AS IS" AND WITH ALL FAULTS, AND HEREBY DISCLAIM ALL WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR PURPOSE, OF LACK OF VIRUSES, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, AND OF LACK OF NEGLIGENCE OR LACK OF WORKMANLIKE EFFORT, ALL WITH REGARD TO THE CCDK SOFTWARE.  THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION, OR NON-INFRINGEMENT, WITH REGARD TO THE CCDK SOFTWARE.  THE ENTIRE RISK AS TO THE QUALITY, OR ARISING OUT OF USE OR PERFORMANCE, OF THE CCDK SOFTWARE, REMAINS WITH YOU.
-7.2	WITHOUT LIMITING THE FOREGOING, SHINRA AND ITS AFFILIATES AND LICENSORS MAKE NO REPRESENTATION OR WARRANTY (A) REGARDING ANY STATEMENTS, ACTS OR OMISSIONS OF ANY THIRD PARTY, (B) THAT DEFECTS OR ERRORS WILL BE CORRECTED, OR (C) THAT THE SERVERS OR NETWORKS THROUGH WHICH THE CCDK SOFTWARE IS MADE AVAILABLE ARE SECURE OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
-7.3	APPLICABLE LAW MAY NOT ALLOW FOR LIMITATIONS OF CERTAIN IMPLIED WARRANTIES; SOLELY TO THE EXTENT THAT SUCH LAW APPLIES TO YOU, SOME OR ALL OF THE ABOVE LIMITATIONS OR DISCLAIMERS MAY NOT APPLY TO YOU, AND YOU MAY HAVE ADDITIONAL RIGHTS.
+
+7.1	TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, SHINRA
+AND ITS AFFILIATES AND LICENSORS PROVIDE THE CCDK SOFTWARE "AS IS"
+AND WITH ALL FAULTS, AND HEREBY DISCLAIM ALL WARRANTIES AND CONDITIONS,
+EITHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO,
+ANY IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS
+FOR A PARTICULAR PURPOSE, OF LACK OF VIRUSES, OF ACCURACY
+OR COMPLETENESS OF RESPONSES, OF RESULTS, AND OF LACK OF NEGLIGENCE
+OR LACK OF WORKMANLIKE EFFORT, ALL WITH REGARD TO THE CCDK SOFTWARE.
+THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT,
+QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION, OR NON-INFRINGEMENT,
+WITH REGARD TO THE CCDK SOFTWARE.  THE ENTIRE RISK AS TO THE QUALITY,
+OR ARISING OUT OF USE OR PERFORMANCE, OF THE CCDK SOFTWARE, REMAINS WITH YOU.
+
+7.2	WITHOUT LIMITING THE FOREGOING, SHINRA AND ITS AFFILIATES
+AND LICENSORS MAKE NO REPRESENTATION OR WARRANTY (A) REGARDING ANY STATEMENTS,
+ACTS OR OMISSIONS OF ANY THIRD PARTY, (B) THAT DEFECTS OR ERRORS WILL BE CORRECTED,
+OR (C) THAT THE SERVERS OR NETWORKS THROUGH WHICH THE CCDK SOFTWARE
+IS MADE AVAILABLE ARE SECURE OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+
+7.3	APPLICABLE LAW MAY NOT ALLOW FOR LIMITATIONS OF CERTAIN IMPLIED WARRANTIES;
+SOLELY TO THE EXTENT THAT SUCH LAW APPLIES TO YOU, SOME OR ALL
+OF THE ABOVE LIMITATIONS OR DISCLAIMERS MAY NOT APPLY TO YOU,
+AND YOU MAY HAVE ADDITIONAL RIGHTS.
+
 8.	NO PROVISION OF SERVICES
-Shinra has no obligation to furnish any maintenance, support and/or other services with respect to the CCDK Software.
+Shinra has no obligation to furnish any maintenance, support
+and/or other services with respect to the CCDK Software.
 
 9.	INDEMNIFICATION
-You shall indemnify and hold harmless, and at Shinra's request defend, Shinra and its affiliates, and its and their officers, directors, employees, agents, licensors and service providers, from and against any and all claims, losses, liabilities, damages, settlements, expenses and costs (including, without limitation, attorneys' fees and court costs) which relate to any third party claim arising out of your breach of any term or condition of this Agreement and/or your use of the CCDK Software.
+You shall indemnify and hold harmless, and at Shinra's request defend,
+Shinra and its affiliates, and its and their officers, directors, employees,
+agents, licensors and service providers, from and against any and all claims,
+losses, liabilities, damages, settlements, expenses and costs (including,
+without limitation, attorneys' fees and court costs) which relate
+to any third party claim arising out of your breach of any term
+or condition of this Agreement and/or your use of the CCDK Software.
 
 10.	LIMITATIONS OF LIABILITY
-TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS BE LIABLE FOR ANY SPECIAL, INCIDENTAL, PUNITIVE, INDIRECT, EXEMPLARY OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF PROFITS OR CONFIDENTIAL OR OTHER INFORMATION, BUSINESS INTERRUPTION, PERSONAL INJURY, LOSS OF PRIVACY, FAILURE TO MEET ANY DUTY INCLUDING OF GOOD FAITH OR OF REASONABLE CARE, NEGLIGENCE, AND ANY OTHER PECUNIARY OR OTHER LOSS WHATSOEVER) ARISING OUT OF OR IN ANY WAY RELATED TO THE USE OF OR INABILITY TO USE THE CCDK SOFTWARE, THE PROVISION OF OR FAILURE TO PROVIDE SUPPORT OR OTHER SERVICES, INFORMATION, SOFTWARE, AND RELATED CONTENT THROUGH THE CCDK SOFTWARE, OR OTHERWISE IN CONNECTION WITH ANY PROVISION OF THIS AGREEMENT, EVEN IN THE EVENT OF THE FAULT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY, BREACH OF CONTRACT OR BREACH OF WARRANTY OF SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS, AND EVEN IF SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.  NOTWITHSTANDING ANY DAMAGES THAT YOU MIGHT INCUR FOR ANY REASON WHATSOEVER (INCLUDING, WITHOUT LIMITATION, ALL DAMAGES REFERENCED ABOVE AND ALL DIRECT OR GENERAL DAMAGES), THE ENTIRE LIABILITY OF SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS ARISING OUT OF OR IN ANY WAY RELATED TO ANY PROVISION OF THIS AGREEMENT, AND YOUR EXCLUSIVE REMEDY FOR ALL OF THE FOREGOING, WILL BE LIMITED TO [ONE HUNDRED UNITED STATES DOLLARS (US$100)].
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT
+WILL SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS
+BE LIABLE FOR ANY SPECIAL, INCIDENTAL, PUNITIVE, INDIRECT, EXEMPLARY
+OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION,
+DAMAGES FOR LOSS OF PROFITS OR CONFIDENTIAL OR OTHER INFORMATION,
+BUSINESS INTERRUPTION, PERSONAL INJURY, LOSS OF PRIVACY, FAILURE
+TO MEET ANY DUTY INCLUDING OF GOOD FAITH OR OF REASONABLE CARE, NEGLIGENCE,
+AND ANY OTHER PECUNIARY OR OTHER LOSS WHATSOEVER) ARISING OUT OF OR
+IN ANY WAY RELATED TO THE USE OF OR INABILITY TO USE THE CCDK SOFTWARE,
+THE PROVISION OF OR FAILURE TO PROVIDE SUPPORT OR OTHER SERVICES, INFORMATION,
+SOFTWARE, AND RELATED CONTENT THROUGH THE CCDK SOFTWARE, OR OTHERWISE
+IN CONNECTION WITH ANY PROVISION OF THIS AGREEMENT, EVEN IN THE EVENT
+OF THE FAULT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY, BREACH
+OF CONTRACT OR BREACH OF WARRANTY OF SHINRA AND/OR ITS AFFILIATES, LICENSORS
+AND/OR SERVICE PROVIDERS, AND EVEN IF SHINRA AND/OR ITS AFFILIATES, LICENSORS
+AND/OR SERVICE PROVIDERS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+NOTWITHSTANDING ANY DAMAGES THAT YOU MIGHT INCUR FOR ANY REASON WHATSOEVER
+(INCLUDING, WITHOUT LIMITATION, ALL DAMAGES REFERENCED ABOVE AND ALL DIRECT
+OR GENERAL DAMAGES), THE ENTIRE LIABILITY OF SHINRA AND/OR ITS AFFILIATES,
+LICENSORS AND/OR SERVICE PROVIDERS ARISING OUT OF OR IN ANY WAY RELATED
+TO ANY PROVISION OF THIS AGREEMENT, AND YOUR EXCLUSIVE REMEDY FOR ALL
+OF THE FOREGOING, WILL BE LIMITED TO [ONE HUNDRED UNITED STATES DOLLARS (US$100)].
 
 11.	APPLICABLE LAW; DISPUTE RESOLUTION
-This Agreement shall be governed by the internal laws of the State of New York without giving effect to any choice of law rule that would cause the application of the laws of any jurisdiction other than the internal laws of the State of New York.  The choice of law rules of any jurisdiction, and the United Nations Convention on Contracts for the International Sale of Goods, will not apply.
+This Agreement shall be governed by the internal laws of
+the State of New York without giving effect to any choice of law rule
+that would cause the application of the laws of any jurisdiction other
+than the internal laws of the State of New York.  The choice of law rules
+of any jurisdiction, and the United Nations Convention on Contracts
+for the International Sale of Goods, will not apply.
 
 12.	CLASS ACTION WAIVER
-ANY PROCEEDINGS TO RESOLVE OR LITIGATE ANY DISPUTE ARISING OUT OF AND/OR RELATING TO THE CCDK SOFTWARE IN ANY FORUM WILL BE CONDUCTED SOLELY ON AN INDIVIDUAL BASIS.  NEITHER YOU NOR SHINRA WILL SEEK TO HAVE ANY DISPUTE HEARD AS A CLASS ACTION, PRIVATE ATTORNEY GENERAL ACTION, OR IN ANY OTHER PROCEEDING IN WHICH EITHER PARTY ACTS OR PROPOSES TO ACT IN A REPRESENTATIVE CAPACITY.  NO ARBITRATION OR PROCEEDING WILL BE COMBINED WITH ANOTHER WITHOUT THE PRIOR WRITTEN CONSENT OF ALL PARTIES TO ALL AFFECTED ARBITRATIONS OR PROCEEDINGS.
+ANY PROCEEDINGS TO RESOLVE OR LITIGATE ANY DISPUTE ARISING OUT OF
+AND/OR RELATING TO THE CCDK SOFTWARE IN ANY FORUM WILL BE CONDUCTED SOLELY
+ON AN INDIVIDUAL BASIS.  NEITHER YOU NOR SHINRA WILL SEEK TO HAVE ANY DISPUTE
+HEARD AS A CLASS ACTION, PRIVATE ATTORNEY GENERAL ACTION, OR IN ANY OTHER
+PROCEEDING IN WHICH EITHER PARTY ACTS OR PROPOSES TO ACT IN A REPRESENTATIVE CAPACITY.
+NO ARBITRATION OR PROCEEDING WILL BE COMBINED WITH ANOTHER WITHOUT
+THE PRIOR WRITTEN CONSENT OF ALL PARTIES TO ALL AFFECTED ARBITRATIONS
+OR PROCEEDINGS.
 
 13.	INTENDED AUDIENCE
-The CCDK Software is made available from the United States, and the CCDK Software is not intended to subject Shinra to the laws or jurisdiction of any state, country or territory other than those of the United States.  Shinra makes no, and hereby disclaims any, representations or warranties that the CCDK Software, in whole or in part, or any products, services, or materials made available through the CCDK Software, are appropriate or available for use in other locations.  Those who choose to access the CCDK Software from other locations do so on their own initiative and at their own risk and are responsible for compliance with local laws, rules and regulations, if and to the extent local laws, rules or regulations are applicable.  Shinra may limit the CCDK Software's availability, in whole or in part, to any person(s), geographic area(s) or jurisdiction(s) it chooses, at any time and in its sole discretion.  You represent and warrant that (a) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a "terrorist supporting" country; and (b) you are not listed on any U.S. Government list of prohibited or restricted parties.
+The CCDK Software is made available from the United States,
+and the CCDK Software is not intended to subject Shinra to the laws
+or jurisdiction of any state, country or territory other than those
+of the United States.  Shinra makes no, and hereby disclaims any,
+representations or warranties that the CCDK Software, in whole or in part,
+or any products, services, or materials made available through
+the CCDK Software, are appropriate or available for use in other locations.
+Those who choose to access the CCDK Software from other locations do so
+on their own initiative and at their own risk and are responsible
+for compliance with local laws, rules and regulations, if and
+to the extent local laws, rules or regulations are applicable.
+Shinra may limit the CCDK Software's availability, in whole or in part,
+to any person(s), geographic area(s) or jurisdiction(s) it chooses,
+at any time and in its sole discretion.  You represent and warrant
+that (a) you are not located in a country that is subject to a U.S.
+Government embargo, or that has been designated by the U.S. Government
+as a "terrorist supporting" country; and (b) you are not listed
+on any U.S. Government list of prohibited or restricted parties.
 
 14.	ATTRIBUTION
-Notwithstanding the foregoing, with respect to the Licensed Game, Licensee shall include the following copyright and credit notice on the credit screen or "about" box of the Licensed Game and in the credit section of the Licensed Game manual: "[Name of Licensee Game] uses the CCDK Software.  cCopyright 2015 Shinra Technologies, Inc. (and its licensors).  All Rights Reserved.  See www.shinra.com for details.".
+Notwithstanding the foregoing, with respect to the Licensed Game,
+Licensee shall include the following copyright and credit notice
+on the credit screen or "about" box of the Licensed Game and
+in the credit section of the Licensed Game manual:
+"[Name of Licensee Game] uses the CCDK Software.
+(c)Copyright 2015 Shinra Technologies, Inc. (and its licensors).
+All Rights Reserved.  See www.shinra.com for details.".
 
 15.	CONFIDENTIALITY
-You agree that the CCDK Software, the terms and conditions of this Agreement and non-public information of Shinra constitute the confidential information of Shinra.  You only may use the confidential information of Shinra to perform your obligations or to exercise your rights expressly set forth in this Agreement.  Except as expressly authorized herein, you will hold in confidence and not use or disclose any confidential information of Shinra.  Your nondisclosure obligation shall not apply to information which you can document:  (a) was rightfully in your possession or known to you prior to receipt of the confidential information of Shinra; (b) is or has become public knowledge through no fault of you; (c) is rightfully obtained by you from a third party without breach of any confidentiality obligation; (d) is independently developed by your employees who had no access to such information; or (e) is required to be disclosed pursuant to a regulation, law or court order (but only to the minimum extent required to comply with such regulation or order and with advance written notice to Shinra).  You acknowledge that disclosure of confidential information of Shinra would cause substantial harm for which damages alone would not be a sufficient remedy.  Therefore, upon any such disclosure by you, Shinra shall be entitled to seek appropriate equitable relief without having to post a bond in addition to whatever other remedies it might have at law.
+You agree that the CCDK Software, the terms and conditions
+of this Agreement and non-public information of Shinra constitute
+the confidential information of Shinra.  You only may use
+the confidential information of Shinra to perform your obligations
+or to exercise your rights expressly set forth in this Agreement.
+Except as expressly authorized herein, you will hold in confidence
+and not use or disclose any confidential information of Shinra.
+Your nondisclosure obligation shall not apply to information
+which you can document:  (a) was rightfully in your possession
+or known to you prior to receipt of the confidential information
+of Shinra; (b) is or has become public knowledge through no fault
+of you; (c) is rightfully obtained by you from a third party
+without breach of any confidentiality obligation; (d) is independently
+developed by your employees who had no access to such information;
+or (e) is required to be disclosed pursuant to a regulation,
+law or court order (but only to the minimum extent required to comply
+with such regulation or order and with advance written notice to Shinra).
+You acknowledge that disclosure of confidential information
+of Shinra would cause substantial harm for which damages alone would not
+be a sufficient remedy.  Therefore, upon any such disclosure
+by you, Shinra shall be entitled to seek appropriate equitable relief
+without having to post a bond in addition to whatever other remedies
+it might have at law.
 
 16.	AUDIT RIGHTS
-Upon Shinra's written request, you shall certify in a signed writing that your use of the CCDK Software is in full compliance with the terms of this Agreement.  With prior reasonable notice of five (5) business days, Shinra may audit the copies of the CCDK Software in use by you provided such audit is during regular business hours.
+Upon Shinra's written request, you shall certify in a signed writing
+that your use of the CCDK Software is in full compliance with
+the terms of this Agreement.  With prior reasonable notice
+of five (5) business days, Shinra may audit the copies
+of the CCDK Software in use by you provided such audit
+is during regular business hours.
 
 17.	MISCELLANEOUS
-This Agreement is the entire agreement between you and Shinra relating to the CCDK Software and it supersedes all prior or contemporaneous oral or written communications, proposals and representations with respect to the subject matter covered by this Agreement.  To the extent the terms of any Shinra policies or programs conflict with the terms of this Agreement, the terms of this Agreement will control.  If any term or provision in this Agreement is held to be illegal, voidable or unenforceable, in whole or in part, under any enactment or rule of law, such term or provision or part will be deemed not to form part of this Agreement, but the validity and enforceability of the remainder of this Agreement will not be affected.  You may not assign, transfer or sublicense any or all of your rights or obligations under this Agreement without Shinra's express prior written consent.  No waiver by either party of any breach or default hereunder will be deemed to be a waiver of any preceding or subsequent breach or default.  Any heading, caption or section title contained herein is inserted only as a matter of convenience.  Notices to you may be made by email, or by regular mail, at our discretion.  Additionally, we may provide notice that generally applies to all end users of the CCDK Software via the GitHub website and/or via any other public forum.  Without limitation, you agree that a printed version of this Agreement and of any notice given in electronic form will be admissible in judicial or administrative proceedings based upon or relating to this Agreement to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form.  Nothing in this Agreement, express or implied, is intended to or will confer on any person (other than the parties and their respective successors or permitted assigns) any rights, remedies, obligations or liabilities.
+This Agreement is the entire agreement between you and Shinra relating
+to the CCDK Software and it supersedes all prior or contemporaneous oral
+or written communications, proposals and representations with respect
+to the subject matter covered by this Agreement.  To the extent the terms
+of any Shinra policies or programs conflict with the terms of this Agreement,
+the terms of this Agreement will control.  If any term or provision
+in this Agreement is held to be illegal, voidable or unenforceable,
+in whole or in part, under any enactment or rule of law, such term
+or provision or part will be deemed not to form part of this Agreement,
+but the validity and enforceability of the remainder of this Agreement
+will not be affected.  You may not assign, transfer or sublicense any
+or all of your rights or obligations under this Agreement without Shinra's
+express prior written consent.  No waiver by either party of any breach
+or default hereunder will be deemed to be a waiver of any preceding
+or subsequent breach or default.  Any heading, caption or section title
+contained herein is inserted only as a matter of convenience.
+Notices to you may be made by email, or by regular mail, at our discretion.
+Additionally, we may provide notice that generally applies
+to all end users of the CCDK Software via the GitHub website
+and/or via any other public forum.  Without limitation, you agree
+that a printed version of this Agreement and of any notice given
+in electronic form will be admissible in judicial or administrative
+proceedings based upon or relating to this Agreement to the same extent
+and subject to the same conditions as other business documents
+and records originally generated and maintained in printed form.
+Nothing in this Agreement, express or implied, is intended to
+or will confer on any person (other than the parties and their respective
+successors or permitted assigns) any rights, remedies, obligations or liabilities.
 
 18.	THIRD PARTY CODE
-The CCDK Software contains the following third-party technology and software code:  VCE, OpenSSL and zlib.  VCE is owned by Square Enix Co., Ltd.  All copyrights, trademarks and other intellectual and/or proprietary rights in VCE, OpenSSL and zlib shall remain with the respective owners thereof.  All use of VCE as incorporated in the CCDK Software shall be subject to and in accordance with the foregoing license; while, all use of OpenSSL and zlib as incorporated in the CCDK Software shall be subject to and in accordance with the following licenses.  Shinra provides no additional licenses for your use of OpenSSL and zlib as incorporated in the CCDK Software and you hereby agree that your use OpenSSL and zlib shall comply with the following licenses.  Additionally, your use of VCE, OpenSSL and zlib shall not infringe or otherwise violate the copyrights, trademarks and/or other intellectual and/or proprietary rights therein of the respective owners.
+The CCDK Software contains the following third-party technology
+and software code:  VCE, OpenSSL, Log4cplus, DirectX ToolKit, LibOgg,
+LibVorbis, MHook, AES, LZ4, Curl, and zlib.  VCE is owned by Square Enix Co., Ltd.
+All copyrights, trademarks and other intellectual and/or proprietary rights in VCE,
+OpenSSL, Log4cplus, DirectX ToolKit, LibOgg, LibVorbis, MHook, AES, LZ4,
+Curl and zlib shall remain with the respective owners thereof.
+All use of VCE as incorporated in the CCDK Software shall be subject
+to and in accordance with the foregoing license; while, all use of OpenSSL,
+Log4cplus, DirectX ToolKit, LibOgg, LibVorbis, MHook, AES, LZ4, Curl and zlib
+as incorporated in the CCDK Software shall be subject to and in accordance
+with the following licenses.  Shinra provides no additional licenses
+for your use of OpenSSL, Log4cplus, DirectX ToolKit, LibOgg, LibVorbis,
+MHook, AES, LZ4, Curl and zlib as incorporated in the CCDK Software
+and you hereby agree that your use OpenSSL and zlib shall comply
+with the following licenses.  Additionally, your use of VCE, OpenSSL,
+Log4cplus, DirectX ToolKit, LibOgg, LibVorbis, MHook, AES, LZ4, Curl and zlib
+shall not infringe or otherwise violate the copyrights, trademarks
+and/or other intellectual and/or proprietary rights therein of the respective owners.
 
 The following provisions apply to the use of OpenSSL as incorporated in the CCDK Software.
 
