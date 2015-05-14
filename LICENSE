@@ -1,0 +1,958 @@
+CCDK End User License Agreement
+
+(Last Updated:  May 15, 2015)
+
+
+This End-User License Agreement (this "Agreement") is a legal agreement between you and Shinra Technologies, Inc. ("Shinra") with respect to your right to download and use the "CCDK Client-Side Software," "CCDK Server-Side Software" and "CCDK Documentation" provided by Shinra (collectively, the "CCDK Software").
+
+Please carefully read this Agreement before downloading and using the CCDK Software.  By downloading and/or using the CCDK Software, you are indicating that you carefully read the terms and conditions of this Agreement, understand them, and agree to be legally bound by this Agreement.  If you do not accept the terms and conditions of this Agreement or do not have the power and authority to bind the legal entity on behalf of which you are acting, you are not permitted to download and/or use the CCDK Software.
+
+By downloading and/or using the CCDK Software, you affirm that you are of legal age to enter into this Agreement.  If you are not of legal age to enter into this Agreement, then you may not download and/or use the CCDK Software.
+
+Shinra reserves the right to change this Agreement, in whole or in part, from time to time at its sole discretion, and to provide you with notice of such change by any reasonable means, including, without limitation, by making available the revised version of this Agreement through the CCDK Software and/or via the GitHub website and/or any other public forum.  You can determine when this Agreement was last revised by referring to the "Last Updated" legend at the top of this Agreement.  Your continued use of the CCDK Software following our making available any revised version of this Agreement will mean that you accept that revised version of this Agreement, provided that any material change to this Agreement will not apply retroactively to any claim or dispute between you and Shinra in connection with this Agreement that arose prior to the "Last Updated" date applicable to that version of this Agreement in which Shinra included such material change.  If you do not agree to any changes made to this Agreement, you may not access, download and/or use the CCDK Software.  Shinra may, at any time, modify or discontinue all or part of the CCDK Software; charge, modify or waive fees required to use the CCDK Software; or offer opportunities to some or all CCDK Software end users.
+
+1.	GRANT OF LICENSE
+The CCDK Software is licensed, not sold, to end users.  Subject to your compliance with all the terms and conditions of this Agreement, unless and until this Agreement is terminated, Shinra grants you a non-exclusive, non-transferable, non-sublicensable (except as expressly permitted under this Agreement), revocable and limited right and license to:
+
+(a)	modify the Modifiable CCDK Server-Side Software (as defined below) in source code format and integrate and compile the Modifiable CCDK Server-Side Software in source code format as modified (if applicable) into the server-side component of your own interactive entertainment game for the personal computer platform (the "Licensed Game"), in each case solely for your internal purposes and only to develop and publish the Licensed Game;
+
+(b)	integrate the Non-Modifiable CCDK Server-Side Software (as defined below) in object code format into the server-side component of the Licensed Game solely for your internal purposes;
+
+(c)	integrate the CCDK Client-Side Software in object code format into the client-side component of the Licensed Game and distribute the CCDK Client-Side Software in object code format only as integrated into and as part of the client-side component of the Licensed Game, in each case solely for your internal purposes; and
+
+(d)	make a reasonable number of copies of and use the CCDK Documentation in connection with exercising the rights granted to you under this Agreement and solely for your internal purposes.
+
+As used in this Agreement: "Modifiable CCDK Server-Side Software" means the component of the CCDK Server-Side Software provided to you in source code format that you may modify and then integrate into and compile with the server-side component of the Licensed Game in accordance with the right and license granted to you above in Section 1(a); and "Non-Modifiable CCDK Server-Side Software" means the component of the CCDK Server-Side Software provided to you in object code format that you may integrate into the server-side component of the Licensed Game in accordance with the right and license granted to you above in Section 1(b).
+
+2.	ADDITIONAL SOFTWARE
+This Agreement applies to updates, upgrades, patches, revisions, new versions, supplements, add-on components, and Internet-based services components of the CCDK Software that Shinra may (but has no obligation to) provide or make available to you after the date you obtain your initial copy of the CCDK Software, unless Shinra provides other terms along therewith.
+
+3.	RESTRICTIONS
+Except as expressly permitted under this Agreement, you may not (and you agree not to permit or otherwise allow another person to):
+
+3.1	reverse engineer, decompile, disassemble or otherwise reduce the CCDK Software (or any portion thereof) to a human-readable form or attempt to reconstruct or discover any source code (other than the source code provided by Shinra to you under this Agreement), underlying ideas, algorithms, file formats or programming interfaces of the CCDK Software (or any portion thereof) by any means whatsoever, except to the extent that this restriction is expressly prohibited by applicable law and then only with prior written notice to Shinra;
+3.2	rent, lease, timeshare, license, distribute, sublicense or otherwise transfer the CCDK Software or any portion thereof;
+3.3	modify, translate, make copies or derivative works of the CCDK Software or any portion thereof, including its content (except as necessary to install and use the CCDK Software in accordance with this Agreement);
+3.4	incorporate the CCDK Software or any portion thereof, including its content, into any product or service;
+3.5	use the CCDK Software or any portion thereof, including its content, for commercial purposes;
+3.6	remove, alter or obscure any copyright, trademark, trade name or other proprietary notices, legends, symbols or labels that appear in the CCDK Software;
+3.7	use hacks, mods or any other unauthorized third-party software designed to modify the CCDK Software; and
+3.8	exploit the CCDK Software or any of its parts for any commercial purpose.
+4.	PROPRIETARY RIGHTS
+4.1	The CCDK Software incorporates and is protected by various intellectual property rights, including, without limitation, copyrights, trademarks, patents, trade secrets, moral rights and database rights and other intellectual property and proprietary rights (collectively, "Intellectual Property Rights").  Shinra does not transfer title to the CCDK Software to you; this license shall not be considered a "sale" of the CCDK Software.  You agree that the CCDK Software belongs to Shinra and its affiliates and licensors, including, all Intellectual Property Rights therein, unless otherwise specified.  Shinra and its affiliates and licensors own and retain all right, title and interest in and to the CCDK Software, including, without limitation, all software and other materials comprising the CCDK Software, and all Intellectual Property Rights relating to any of the foregoing.  For the avoidance of doubt, any plugins, installers, or software of any kind that you may be provided with or asked to install or download in order to use or access the CCDK Software are deemed part of the "CCDK Software."
+4.2	You hereby agree that all right, title, and interest in and to any and all derivative works and other modifications that are made by or on behalf of you to the Modifiable CCDK Server-Side Software, and all Intellectual Property Rights therein (collectively, any and all such derivative works and other modifications along with all Intellectual Property Rights therein shall be referred to as the "Modifications"), shall vest in Shinra and shall be deemed to be a work made for hire.  To the extent that any right, title and interest in and/or to any Modifications may not, by operation of law, vest in Shinra or may not be considered works made for hire, you hereby irrevocably convey, transfer, assign and deliver all right, title and interest therein to Shinra.  All Modifications belong exclusively to Shinra, with Shinra having the right to obtain and to hold in its own name all trademarks, copyrights, patents, registrations or such other protection as may be appropriate to the subject matter, and any extensions and renewals thereof.  To the extent that any Modifications are not assignable as provided in this Section 4.2 or that you retain any right, title or interest in and to any Modifications, you hereby unconditionally and irrevocably waive the enforcement thereof and all claims and causes of action of any kind against Shinra with respect thereto, and hereby grant to Shinra a perpetual, irrevocable, fully paid-up, royalty-free, fully-transferable, sublicensable (through multiple levels of sublicensees), exclusive (even as to you), worldwide right and license, free from any liens or encumbrances, to reproduce, distribute, display and perform (whether publicly or otherwise), prepare derivative works of and otherwise modify, make, have made, sell, offer to sell, import and otherwise use and exploit (and have others exercise such rights on behalf of Shinra) all or any portion of such Modifications, in any form or media (now known or later developed).  You agree to give Shinra and any person designated by Shinra any reasonable assistance to perfect the rights defined in this Section 4.2.  You further waive any "moral" rights, or other rights with respect to attribution of authorship or integrity relating to the Modifications as you may have under any applicable law.  You agree to submit to GitHub all of the Modifications that you create by uploading them via a "pull request."
+4.3	Shinra reserves all rights not expressly granted to you in this Agreement.  PLEASE NOTE THAT UNAUTHORIZED USE OF THE CCDK SOFTWARE MAY SUBJECT YOU TO MONETARY DAMAGES AND OTHER CIVIL AND CRIMINAL PENALTIES, INCLUDING, WITHOUT LIMITATION, FOR COPYRIGHT INFRINGEMENT.
+5.	TERMINATION
+Without prejudice to any other rights or remedies of Shinra, Shinra may immediately terminate this Agreement if you breach any of the terms or conditions set forth herein.  Shinra also may terminate this Agreement for convenience by providing you with ten (10) days prior written notice of such termination via the GitHub website and/or via any other public forum.  Upon the termination of this Agreement, you will immediately (a) cease using the CCDK Software; and (b) completely remove (i.e., uninstall and delete) the CCDK Software from your computer systems.  Sections 3 (RESTRICTIONS), 4 (PROPRIETARY RIGHTS), 5 (TERMINATION), 6 (COMPLIANCE WITH LAWS), 7 DISCLAIMERS OF WARRANTY), 9 (INDEMNIFICATION), 10 (LIMITATIONS OF LIABILITY), 11 (APPLICABLE LAW; DISPUTE RESOLUTION), 12 (CLASS ACTION WAIVER), 14 (ATTRIBUTION), 14 (CONFIDENTIALITY), 16 (AUDIT RIGHTS), 17 (MISCELLANEOUS) and 18 (THIRD PARTY CODE) shall survive any termination or expiration of this Agreement.  Additionally, unless this Agreement has been terminated by Shinra due to your breach of this Agreement, your right and license to use the CCDK Software in object code format set forth above in Section 1 shall survive the termination of this Agreement, subject to the terms of this Agreement.
+
+6.	COMPLIANCE WITH LAWS
+You agree to comply strictly with all applicable laws, rules, and regulations in respect of use of the CCDK Software, including all export control or import laws and regulations of any relevant jurisdiction.  You agree to obtain licenses to export, re-export or import the CCDK Software as may be required after delivery of CCDK Software to you, and agree not to disclose or otherwise provide access to CCDK Software directly or indirectly to any party with knowledge, or reason to know, that such party will engage in activities disturbing international peace and security, including activities relating to the design, development, production, stockpiling or use of weapons of mass destruction such as nuclear, biological or chemical weapons.
+
+7.	DISCLAIMERS OF WARRANTY
+7.1	TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, SHINRA AND ITS AFFILIATES AND LICENSORS PROVIDE THE CCDK SOFTWARE "AS IS" AND WITH ALL FAULTS, AND HEREBY DISCLAIM ALL WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR PURPOSE, OF LACK OF VIRUSES, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, AND OF LACK OF NEGLIGENCE OR LACK OF WORKMANLIKE EFFORT, ALL WITH REGARD TO THE CCDK SOFTWARE.  THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION, OR NON-INFRINGEMENT, WITH REGARD TO THE CCDK SOFTWARE.  THE ENTIRE RISK AS TO THE QUALITY, OR ARISING OUT OF USE OR PERFORMANCE, OF THE CCDK SOFTWARE, REMAINS WITH YOU.
+7.2	WITHOUT LIMITING THE FOREGOING, SHINRA AND ITS AFFILIATES AND LICENSORS MAKE NO REPRESENTATION OR WARRANTY (A) REGARDING ANY STATEMENTS, ACTS OR OMISSIONS OF ANY THIRD PARTY, (B) THAT DEFECTS OR ERRORS WILL BE CORRECTED, OR (C) THAT THE SERVERS OR NETWORKS THROUGH WHICH THE CCDK SOFTWARE IS MADE AVAILABLE ARE SECURE OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+7.3	APPLICABLE LAW MAY NOT ALLOW FOR LIMITATIONS OF CERTAIN IMPLIED WARRANTIES; SOLELY TO THE EXTENT THAT SUCH LAW APPLIES TO YOU, SOME OR ALL OF THE ABOVE LIMITATIONS OR DISCLAIMERS MAY NOT APPLY TO YOU, AND YOU MAY HAVE ADDITIONAL RIGHTS.
+8.	NO PROVISION OF SERVICES
+Shinra has no obligation to furnish any maintenance, support and/or other services with respect to the CCDK Software.
+
+9.	INDEMNIFICATION
+You shall indemnify and hold harmless, and at Shinra's request defend, Shinra and its affiliates, and its and their officers, directors, employees, agents, licensors and service providers, from and against any and all claims, losses, liabilities, damages, settlements, expenses and costs (including, without limitation, attorneys' fees and court costs) which relate to any third party claim arising out of your breach of any term or condition of this Agreement and/or your use of the CCDK Software.
+
+10.	LIMITATIONS OF LIABILITY
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS BE LIABLE FOR ANY SPECIAL, INCIDENTAL, PUNITIVE, INDIRECT, EXEMPLARY OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF PROFITS OR CONFIDENTIAL OR OTHER INFORMATION, BUSINESS INTERRUPTION, PERSONAL INJURY, LOSS OF PRIVACY, FAILURE TO MEET ANY DUTY INCLUDING OF GOOD FAITH OR OF REASONABLE CARE, NEGLIGENCE, AND ANY OTHER PECUNIARY OR OTHER LOSS WHATSOEVER) ARISING OUT OF OR IN ANY WAY RELATED TO THE USE OF OR INABILITY TO USE THE CCDK SOFTWARE, THE PROVISION OF OR FAILURE TO PROVIDE SUPPORT OR OTHER SERVICES, INFORMATION, SOFTWARE, AND RELATED CONTENT THROUGH THE CCDK SOFTWARE, OR OTHERWISE IN CONNECTION WITH ANY PROVISION OF THIS AGREEMENT, EVEN IN THE EVENT OF THE FAULT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY, BREACH OF CONTRACT OR BREACH OF WARRANTY OF SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS, AND EVEN IF SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.  NOTWITHSTANDING ANY DAMAGES THAT YOU MIGHT INCUR FOR ANY REASON WHATSOEVER (INCLUDING, WITHOUT LIMITATION, ALL DAMAGES REFERENCED ABOVE AND ALL DIRECT OR GENERAL DAMAGES), THE ENTIRE LIABILITY OF SHINRA AND/OR ITS AFFILIATES, LICENSORS AND/OR SERVICE PROVIDERS ARISING OUT OF OR IN ANY WAY RELATED TO ANY PROVISION OF THIS AGREEMENT, AND YOUR EXCLUSIVE REMEDY FOR ALL OF THE FOREGOING, WILL BE LIMITED TO [ONE HUNDRED UNITED STATES DOLLARS (US$100)].
+
+11.	APPLICABLE LAW; DISPUTE RESOLUTION
+This Agreement shall be governed by the internal laws of the State of New York without giving effect to any choice of law rule that would cause the application of the laws of any jurisdiction other than the internal laws of the State of New York.  The choice of law rules of any jurisdiction, and the United Nations Convention on Contracts for the International Sale of Goods, will not apply.
+
+12.	CLASS ACTION WAIVER
+ANY PROCEEDINGS TO RESOLVE OR LITIGATE ANY DISPUTE ARISING OUT OF AND/OR RELATING TO THE CCDK SOFTWARE IN ANY FORUM WILL BE CONDUCTED SOLELY ON AN INDIVIDUAL BASIS.  NEITHER YOU NOR SHINRA WILL SEEK TO HAVE ANY DISPUTE HEARD AS A CLASS ACTION, PRIVATE ATTORNEY GENERAL ACTION, OR IN ANY OTHER PROCEEDING IN WHICH EITHER PARTY ACTS OR PROPOSES TO ACT IN A REPRESENTATIVE CAPACITY.  NO ARBITRATION OR PROCEEDING WILL BE COMBINED WITH ANOTHER WITHOUT THE PRIOR WRITTEN CONSENT OF ALL PARTIES TO ALL AFFECTED ARBITRATIONS OR PROCEEDINGS.
+
+13.	INTENDED AUDIENCE
+The CCDK Software is made available from the United States, and the CCDK Software is not intended to subject Shinra to the laws or jurisdiction of any state, country or territory other than those of the United States.  Shinra makes no, and hereby disclaims any, representations or warranties that the CCDK Software, in whole or in part, or any products, services, or materials made available through the CCDK Software, are appropriate or available for use in other locations.  Those who choose to access the CCDK Software from other locations do so on their own initiative and at their own risk and are responsible for compliance with local laws, rules and regulations, if and to the extent local laws, rules or regulations are applicable.  Shinra may limit the CCDK Software's availability, in whole or in part, to any person(s), geographic area(s) or jurisdiction(s) it chooses, at any time and in its sole discretion.  You represent and warrant that (a) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a "terrorist supporting" country; and (b) you are not listed on any U.S. Government list of prohibited or restricted parties.
+
+14.	ATTRIBUTION
+Notwithstanding the foregoing, with respect to the Licensed Game, Licensee shall include the following copyright and credit notice on the credit screen or "about" box of the Licensed Game and in the credit section of the Licensed Game manual: "[Name of Licensee Game] uses the CCDK Software.  cCopyright 2015 Shinra Technologies, Inc. (and its licensors).  All Rights Reserved.  See www.shinra.com for details.".
+
+15.	CONFIDENTIALITY
+You agree that the CCDK Software, the terms and conditions of this Agreement and non-public information of Shinra constitute the confidential information of Shinra.  You only may use the confidential information of Shinra to perform your obligations or to exercise your rights expressly set forth in this Agreement.  Except as expressly authorized herein, you will hold in confidence and not use or disclose any confidential information of Shinra.  Your nondisclosure obligation shall not apply to information which you can document:  (a) was rightfully in your possession or known to you prior to receipt of the confidential information of Shinra; (b) is or has become public knowledge through no fault of you; (c) is rightfully obtained by you from a third party without breach of any confidentiality obligation; (d) is independently developed by your employees who had no access to such information; or (e) is required to be disclosed pursuant to a regulation, law or court order (but only to the minimum extent required to comply with such regulation or order and with advance written notice to Shinra).  You acknowledge that disclosure of confidential information of Shinra would cause substantial harm for which damages alone would not be a sufficient remedy.  Therefore, upon any such disclosure by you, Shinra shall be entitled to seek appropriate equitable relief without having to post a bond in addition to whatever other remedies it might have at law.
+
+16.	AUDIT RIGHTS
+Upon Shinra's written request, you shall certify in a signed writing that your use of the CCDK Software is in full compliance with the terms of this Agreement.  With prior reasonable notice of five (5) business days, Shinra may audit the copies of the CCDK Software in use by you provided such audit is during regular business hours.
+
+17.	MISCELLANEOUS
+This Agreement is the entire agreement between you and Shinra relating to the CCDK Software and it supersedes all prior or contemporaneous oral or written communications, proposals and representations with respect to the subject matter covered by this Agreement.  To the extent the terms of any Shinra policies or programs conflict with the terms of this Agreement, the terms of this Agreement will control.  If any term or provision in this Agreement is held to be illegal, voidable or unenforceable, in whole or in part, under any enactment or rule of law, such term or provision or part will be deemed not to form part of this Agreement, but the validity and enforceability of the remainder of this Agreement will not be affected.  You may not assign, transfer or sublicense any or all of your rights or obligations under this Agreement without Shinra's express prior written consent.  No waiver by either party of any breach or default hereunder will be deemed to be a waiver of any preceding or subsequent breach or default.  Any heading, caption or section title contained herein is inserted only as a matter of convenience.  Notices to you may be made by email, or by regular mail, at our discretion.  Additionally, we may provide notice that generally applies to all end users of the CCDK Software via the GitHub website and/or via any other public forum.  Without limitation, you agree that a printed version of this Agreement and of any notice given in electronic form will be admissible in judicial or administrative proceedings based upon or relating to this Agreement to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form.  Nothing in this Agreement, express or implied, is intended to or will confer on any person (other than the parties and their respective successors or permitted assigns) any rights, remedies, obligations or liabilities.
+
+18.	THIRD PARTY CODE
+The CCDK Software contains the following third-party technology and software code:  VCE, OpenSSL and zlib.  VCE is owned by Square Enix Co., Ltd.  All copyrights, trademarks and other intellectual and/or proprietary rights in VCE, OpenSSL and zlib shall remain with the respective owners thereof.  All use of VCE as incorporated in the CCDK Software shall be subject to and in accordance with the foregoing license; while, all use of OpenSSL and zlib as incorporated in the CCDK Software shall be subject to and in accordance with the following licenses.  Shinra provides no additional licenses for your use of OpenSSL and zlib as incorporated in the CCDK Software and you hereby agree that your use OpenSSL and zlib shall comply with the following licenses.  Additionally, your use of VCE, OpenSSL and zlib shall not infringe or otherwise violate the copyrights, trademarks and/or other intellectual and/or proprietary rights therein of the respective owners.
+
+The following provisions apply to the use of OpenSSL as incorporated in the CCDK Software.
+
+LICENSE ISSUES
+==============
+
+The OpenSSL toolkit stays under a dual license, i.e. both the conditions of the OpenSSL License and the original SSLeay license apply to the toolkit.  See below for the actual license texts. Actually both licenses are BSD-style Open Source licenses.  In case of any license issues related to OpenSSL, please contact openssl-core@openssl.org.
+
+OpenSSL License
+---------------
+
+* ==============================================================
+* Copyright (c) 1998-2011 The OpenSSL Project.  All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+*
+* 1. Redistributions of source code must retain the above copyright
+*     notice, this list of conditions and the following disclaimer.
+*
+* 2. Redistributions in binary form must reproduce the above copyright
+*     notice, this list of conditions and the following disclaimer in
+*     the documentation and/or other materials provided with the
+*     distribution.
+*
+* 3. All advertising materials mentioning features or use of this
+*     software must display the following acknowledgment:
+*     "This product includes software developed by the OpenSSL Project
+*     for use in the OpenSSL Toolkit. (http://www.openssl.org/)"
+*
+* 4. The names "OpenSSL Toolkit" and "OpenSSL Project" must not be used to
+*     endorse or promote products derived from this software without
+*     prior written permission. For written permission, please contact
+*     openssl-core@openssl.org.
+*
+* 5. Products derived from this software may not be called "OpenSSL"
+*     nor may "OpenSSL" appear in their names without prior written
+*     permission of the OpenSSL Project.
+*
+* 6. Redistributions of any form whatsoever must retain the following
+*     acknowledgment:
+*     "This product includes software developed by the OpenSSL Project
+*     for use in the OpenSSL Toolkit (http://www.openssl.org/)"
+*
+* THIS SOFTWARE IS PROVIDED BY THE OpenSSL PROJECT ``AS IS'' AND ANY
+* EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+* PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE OpenSSL PROJECT OR
+* ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+* NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+* OF THE POSSIBILITY OF SUCH DAMAGE.
+* ===============================================================
+*
+* This product includes cryptographic software written by Eric Young
+* (eay@cryptsoft.com).  This product includes software written by Tim
+* Hudson (tjh@cryptsoft.com).
+*
+*/
+
+Original SSLeay License
+-----------------------
+
+/* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+* All rights reserved.
+*
+* This package is an SSL implementation written
+* by Eric Young (eay@cryptsoft.com).
+* The implementation was written so as to conform with Netscape's SSL.
+*
+* This library is free for commercial and non-commercial use as long as
+* the following conditions are adhered to.  The following conditions
+* apply to all code found in this distribution, be it the RC4, RSA,
+* lhash, DES, etc., code; not just the SSL code.  The SSL documentation
+* included with this distribution is covered by the same copyright terms
+* except that the holder is Tim Hudson (tjh@cryptsoft.com).
+*
+* Copyright remains Eric Young's, and as such any Copyright notices in
+* the code are not to be removed.
+* If this package is used in a product, Eric Young should be given attribution
+* as the author of the parts of the library used.
+* This can be in the form of a textual message at program startup or
+* in documentation (online or textual) provided with the package.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+* 1. Redistributions of source code must retain the copyright
+*    notice, this list of conditions and the following disclaimer.
+* 2. Redistributions in binary form must reproduce the above copyright
+*    notice, this list of conditions and the following disclaimer in the
+*    documentation and/or other materials provided with the distribution.
+* 3. All advertising materials mentioning features or use of this software
+*    must display the following acknowledgement:
+*    "This product includes cryptographic software written by
+*     Eric Young (eay@cryptsoft.com)"
+*    The word 'cryptographic' can be left out if the routines from the library
+*    being used are not cryptographic related :-).
+* 4. If you include any Windows specific code (or a derivative thereof) from
+*    the apps directory (application code) you must include an acknowledgement:
+*    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
+*
+* THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
+* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+* SUCH DAMAGE.
+*
+* The license and distribution terms for any publically available version or
+* derivative of this code cannot be changed.  i.e. this code cannot simply be
+* copied and put under another distribution license
+* [including the GNU Public License.]
+*/
+
+
+The following provisions apply to the use of zlib as incorporated in the CCDK Software.
+
+	zlib License
+
+zlib.h -- interface of the 'zlib' general purpose compression library
+version 1.2.8, April 28th, 2013
+
+Copyright (C) 1995-2013 Jean-loup Gailly and Mark Adler
+
+This software is provided 'as-is', without any express or implied warranty.  In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+
+1.	The origin of this software must not be misrepresented; you must not claim that you wrote the original software.  If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2.	Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3.	This notice may not be removed or altered from any source distribution.
+
+Jean-loup Gailly		Mark Adler
+jloup@gzip.org		madler@alumni.caltech.edu
+
+
+The following provisions apply to the use of LibOgg as incorporated in the CCDK Software.
+
+Copyright (c) 2002, Xiph.org Foundation
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+- Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+- Neither the name of the Xiph.org Foundation nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION
+OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+The following provisions apply to the use of LibVorbis as incorporated in the CCDK Software.
+
+
+Copyright (c) 2002-2008 Xiph.org Foundation
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+- Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+- Neither the name of the Xiph.org Foundation nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION
+OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The following provisions apply to the use of MHook as incorporated in the CCDK Software.
+
+Copyright (c) 2007-2014, Marton Anka
+Portions Copyright (c) 2007, Matt Conover
+
+Permission is hereby granted, free of charge, to any person obtaining a copy 
+of this software and associated documentation files (the "Software"), to deal 
+in the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+copies of the Software, and to permit persons to whom the Software is 
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in 
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR 
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+OTHER DEALINGS IN THE SOFTWARE.
+
+The following provisions apply to the use of AES as incorporated in the CCDK Software.
+
+Copyright (c) 1998-2013, Brian Gladman, Worcester, UK. All rights reserved.
+
+The redistribution and use of this software (with or without changes)
+is allowed without the payment of fees or royalties provided that:
+
+  source code distributions include the above copyright notice, this
+  list of conditions and the following disclaimer;
+
+  binary distributions include the above copyright notice, this list
+  of conditions and the following disclaimer in their documentation.
+
+This software is provided 'as is' with no explicit or implied warranties
+in respect of its operation, including, but not limited to, correctness
+and fitness for purpose.
+
+The following provisions apply to the use of LZ4 as incorporated in the CCDK Software.
+
+LZ4 Library
+Copyright (c) 2011-2014, Yann Collet
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The following provisions apply to the use of Curl as incorporated in the CCDK Software.
+
+COPYRIGHT AND PERMISSION NOTICE
+
+Copyright (c) 1996 - 2014, Daniel Stenberg, daniel@haxx.se.
+
+All rights reserved.
+
+Permission to use, copy, modify, and distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Except as contained in this notice, the name of a copyright holder shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization of the copyright holder.
+
+The following provisions apply to the use of OpenSSL as incorporated in the CCDK Software.
+
+  LICENSE ISSUES
+  ==============
+
+  The OpenSSL toolkit stays under a dual license, i.e. both the conditions of
+  the OpenSSL License and the original SSLeay license apply to the toolkit.
+  See below for the actual license texts. Actually both licenses are BSD-style
+  Open Source licenses. In case of any license issues related to OpenSSL
+  please contact openssl-core@openssl.org.
+
+  OpenSSL License
+  ---------------
+
+/* ====================================================================
+ * Copyright (c) 1998-2011 The OpenSSL Project.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * 3. All advertising materials mentioning features or use of this
+ *    software must display the following acknowledgment:
+ *    "This product includes software developed by the OpenSSL Project
+ *    for use in the OpenSSL Toolkit. (http://www.openssl.org/)"
+ *
+ * 4. The names "OpenSSL Toolkit" and "OpenSSL Project" must not be used to
+ *    endorse or promote products derived from this software without
+ *    prior written permission. For written permission, please contact
+ *    openssl-core@openssl.org.
+ *
+ * 5. Products derived from this software may not be called "OpenSSL"
+ *    nor may "OpenSSL" appear in their names without prior written
+ *    permission of the OpenSSL Project.
+ *
+ * 6. Redistributions of any form whatsoever must retain the following
+ *    acknowledgment:
+ *    "This product includes software developed by the OpenSSL Project
+ *    for use in the OpenSSL Toolkit (http://www.openssl.org/)"
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE OpenSSL PROJECT ``AS IS'' AND ANY
+ * EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE OpenSSL PROJECT OR
+ * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * ====================================================================
+ *
+ * This product includes cryptographic software written by Eric Young
+ * (eay@cryptsoft.com).  This product includes software written by Tim
+ * Hudson (tjh@cryptsoft.com).
+ *
+ */
+
+ Original SSLeay License
+ -----------------------
+
+/* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+ * All rights reserved.
+ *
+ * This package is an SSL implementation written
+ * by Eric Young (eay@cryptsoft.com).
+ * The implementation was written so as to conform with Netscapes SSL.
+ *
+ * This library is free for commercial and non-commercial use as long as
+ * the following conditions are aheared to.  The following conditions
+ * apply to all code found in this distribution, be it the RC4, RSA,
+ * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
+ * included with this distribution is covered by the same copyright terms
+ * except that the holder is Tim Hudson (tjh@cryptsoft.com).
+ *
+ * Copyright remains Eric Young's, and as such any Copyright notices in
+ * the code are not to be removed.
+ * If this package is used in a product, Eric Young should be given attribution
+ * as the author of the parts of the library used.
+ * This can be in the form of a textual message at program startup or
+ * in documentation (online or textual) provided with the package.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *    "This product includes cryptographic software written by
+ *     Eric Young (eay@cryptsoft.com)"
+ *    The word 'cryptographic' can be left out if the rouines from the library
+ *    being used are not cryptographic related :-).
+ * 4. If you include any Windows specific code (or a derivative thereof) from
+ *    the apps directory (application code) you must include an acknowledgement:
+ *    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
+ *
+ * THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * The licence and distribution terms for any publically available version or
+ * derivative of this code cannot be changed.  i.e. this code cannot simply be
+ * copied and put under another distribution licence
+ * [including the GNU Public Licence.]
+ */
+
+The following provisions apply to the use of ZLib as incorporated in the CCDK Software.
+
+/* zlib.h -- interface of the 'zlib' general purpose compression library
+  version 1.2.8, April 28th, 2013
+
+  Copyright (C) 1995-2013 Jean-loup Gailly and Mark Adler
+
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+
+  Jean-loup Gailly        Mark Adler
+  jloup@gzip.org          madler@alumni.caltech.edu
+
+*/
+
+The following provisions apply to the use of Log4cplus as incorporated in the CCDK Software.
+
+Log4cplus license
+=================
+
+Each file of log4cplus source is licensed using either two clause BSD
+license or Apache license 2.0. Log4cplus is derived work from log4j.
+
+
+Two clause BSD license
+----------------------
+
+   Copyright © 1999--2009 Contributors to log4cplus project.
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modifica tion, are permitted provided that the following conditions
+   are met:
+
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+   2. Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+
+   THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+   OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
+   ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+   USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+   OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+   SUCH DAMAGE.
+
+
+Apache 2.0 license
+------------------
+
+   Apache License; Version 2.0, January 2004; http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+
+Log4j license
+=============
+
+   Apache License; Version 2.0, January 2004; http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+
+APPENDIX: How to apply the Apache License to your work
+======================================================
+
+To apply the Apache License to your work, attach the following
+boilerplate notice, with the fields enclosed by brackets "[]" replaced
+with your own identifying information. (Don't include the brackets!)
+The text should be enclosed in the appropriate comment syntax for the
+file format. We also recommend that a file or class name and
+description of purpose be included on the same "printed page" as the
+copyright notice for easier identification within third-party
+archives.
+
+    Copyright 1999-2009 [Contributors to log4cplus project]
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
